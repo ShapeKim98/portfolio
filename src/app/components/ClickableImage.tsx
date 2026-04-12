@@ -18,7 +18,7 @@ export function ClickableImage({ className, src, alt, ...props }: ClickableImage
         onClick={() => setOpen(true)}
         {...props}
       />
-      <ImageLightbox open={open} onOpenChange={setOpen} src={src} alt={alt} />
+      <ImageLightbox open={open} onClose={() => setOpen(false)} src={src} alt={alt} />
     </>
   );
 }
