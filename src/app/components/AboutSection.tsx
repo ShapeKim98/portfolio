@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useIsMobile } from "./ui/use-mobile";
+import { SectionInner, SectionHeading, ParallaxBlobLayer, ParallaxAccentLayer } from "./design-system";
 
 const VALUES = [
   {
@@ -77,10 +78,7 @@ export function AboutSection() {
       className="relative py-32 md:py-40 px-6 overflow-hidden"
     >
       {/* Layer 0: Background decorative */}
-      <motion.div
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 pointer-events-none"
-      >
+      <ParallaxBlobLayer bgY={bgY} bgScale={bgScale}>
         {/* Gradient blob - top right */}
         <div className="absolute top-[10%] -right-[100px] w-[400px] h-[400px] rounded-full bg-primary/5 blur-3xl" />
         {/* Gradient blob - bottom left */}
@@ -96,13 +94,10 @@ export function AboutSection() {
             }}
           />
         )}
-      </motion.div>
+      </ParallaxBlobLayer>
 
       {/* Layer 3: Accent decorative (foreground) */}
-      <motion.div
-        style={{ y: accentY }}
-        className="absolute inset-0 pointer-events-none z-20"
-      >
+      <ParallaxAccentLayer accentY={accentY}>
         {/* Small circle - top left */}
         <motion.div
           style={{ rotate: accentRotate }}
@@ -114,32 +109,31 @@ export function AboutSection() {
         <div className="absolute bottom-[25%] right-[12%] w-1.5 h-1.5 rounded-full bg-primary/25" />
         {/* Plus sign - left */}
         {!isMobile && (
-          <span className="absolute bottom-[40%] left-[15%] text-[20px] text-primary/15 leading-none select-none">
+          <span className="absolute bottom-[40%] left-[15%] text-3xl text-primary/15 leading-none select-none">
             +
           </span>
         )}
-      </motion.div>
+      </ParallaxAccentLayer>
 
       {/* Main content - z-10 */}
-      <div className="relative z-10 max-w-5xl mx-auto">
+      <SectionInner>
         {/* Layer 1: Title */}
         <motion.div
           style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
           className="mb-16"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-1 rounded-full bg-primary" />
-            <span className="text-[16px] font-[700] text-primary tracking-[-0.025em]">
+          <SectionHeading accent="primary">
+            <span className="text-lg font-bold text-primary tracking-tighter">
               iOS Developer
             </span>
-          </div>
-          <h2 className="text-[48px] md:text-[72px] font-[700] tracking-[-0.025em] leading-[1.25] text-foreground mb-6">
+          </SectionHeading>
+          <h2 className="text-8xl md:text-9xl font-bold tracking-tighter leading-tight text-foreground mb-6">
             <span>김도형 </span>
-            <span className="text-[40px] md:text-[60px] font-[400] text-muted-foreground">
+            <span className="text-[40px] md:text-[60px] font-normal text-muted-foreground">
               Kim Dohyeong
             </span>
           </h2>
-          <p className="text-[20px] font-[400] text-muted-foreground leading-[1.625] max-w-2xl tracking-[-0.02em]">
+          <p className="text-3xl font-normal text-muted-foreground leading-relaxed max-w-2xl tracking-tight">
             개발에 대한 꾸준한 고민과 되돌아보는 태도를 바탕으로, 더 나은 방향을
             향해 한 걸음씩 나아가고 있습니다.
           </p>
@@ -155,14 +149,14 @@ export function AboutSection() {
               <div className="p-6 rounded-2xl bg-card border border-border h-full">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-2 h-2 rounded-full bg-primary" />
-                  <span className="text-[14px] font-[700] text-primary">
+                  <span className="text-base font-bold text-primary">
                     {value.tag}
                   </span>
                 </div>
-                <h3 className="text-[16px] font-[700] tracking-[-0.025em] text-foreground mb-3 leading-[1.375]">
+                <h3 className="text-lg font-bold tracking-tighter text-foreground mb-3 leading-snug">
                   {value.title}
                 </h3>
-                <p className="text-[14px] font-[400] text-muted-foreground leading-[1.625] tracking-[-0.01em]">
+                <p className="text-base font-normal text-muted-foreground leading-relaxed tracking-snug">
                   {value.description}
                 </p>
               </div>
@@ -189,7 +183,7 @@ export function AboutSection() {
                 { label: "Phone", value: "010-9027-8292" },
               ].map((item) => (
                 <div key={item.label}>
-                  <p className="text-[12px] font-[500] text-muted-foreground tracking-[0.05em] uppercase mb-1.5">
+                  <p className="text-sm font-medium text-muted-foreground tracking-wider uppercase mb-1.5">
                     {item.label}
                   </p>
                   {item.href ? (
@@ -197,12 +191,12 @@ export function AboutSection() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[14px] font-[500] text-foreground hover:text-primary transition-colors"
+                      className="text-base font-medium text-foreground hover:text-primary transition-colors"
                     >
                       {item.value}
                     </a>
                   ) : (
-                    <p className="text-[14px] font-[500] text-foreground">
+                    <p className="text-base font-medium text-foreground">
                       {item.value}
                     </p>
                   )}
@@ -211,7 +205,7 @@ export function AboutSection() {
             </div>
           </div>
         </motion.div>
-      </div>
+      </SectionInner>
     </section>
   );
 }

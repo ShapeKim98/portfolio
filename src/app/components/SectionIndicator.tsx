@@ -95,8 +95,8 @@ export function SectionIndicator() {
           >
             {/* Label: active면 상시, 아니면 hover에서만 */}
             <span
-              className={`text-right tracking-[-0.01em] whitespace-nowrap transition-all duration-300 ${
-                isSub ? "text-[11px] font-[500]" : "text-[12px] font-[600]"
+              className={`text-right tracking-snug whitespace-nowrap transition-all duration-300 ${
+                isSub ? "text-xs font-medium" : "text-sm font-semibold"
               } ${
                 isActive
                   ? "opacity-100 translate-x-0 text-foreground"

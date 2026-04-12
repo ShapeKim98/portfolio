@@ -1,6 +1,8 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { FeatureGrid, RxComposeArchitectureDiagram } from "./Diagrams";
+import { FeatureCard } from "./design-system";
+import { ContentCard, SubSectionTitle, Badge, Divider } from "./design-system";
 import { ClickableImage } from "./ClickableImage";
 import showpotPromo from "../../image/쇼팟표지.png";
 
@@ -57,15 +59,12 @@ export function ProjectRxCompose() {
 
       <FadeInView>
         <div className="mb-8">
-          <h4 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground mb-6">
+          <SubSectionTitle size="lg" className="mb-6">
             기능 및 기술 설명
-          </h4>
+          </SubSectionTitle>
           <div className="space-y-4">
             {FEATURES.map((f) => (
-              <div key={f.title} className="p-5 rounded-xl bg-muted/40 border border-border">
-                <h5 className="text-[14px] font-[600] text-foreground mb-2">{f.title}</h5>
-                <p className="text-[13px] font-[400] text-muted-foreground leading-[1.9]">{f.desc}</p>
-              </div>
+              <FeatureCard key={f.title} title={f.title}>{f.desc}</FeatureCard>
             ))}
           </div>
         </div>
@@ -73,26 +72,26 @@ export function ProjectRxCompose() {
 
       {/* ───── 적용 사례 ───── */}
       <FadeInView>
-        <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
+        <ContentCard>
           {/* 헤더 */}
           <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-[11px] font-[600] px-2 py-0.5 rounded-full bg-primary/10 text-primary">적용 사례</span>
+                <Badge variant="primary" size="xs">적용 사례</Badge>
               </div>
-              <h5 className="text-[18px] font-[700] text-foreground tracking-[-0.01em]">ShowPot</h5>
-              <p className="text-[13px] font-[400] text-muted-foreground mt-1">
+              <h5 className="text-2xl font-bold text-foreground tracking-snug">ShowPot</h5>
+              <p className="text-sm-md font-normal text-muted-foreground mt-1">
                 내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit + RxSwift + Clean Architecture
               </p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-[11px] text-muted-foreground">2025.03</p>
-              <p className="text-[11px] text-muted-foreground">PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2</p>
+              <p className="text-xs text-muted-foreground">2025.03</p>
+              <p className="text-xs text-muted-foreground">PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2</p>
               <a
                 href="https://github.com/AlreadyTakenSeat/ShowPot-iOS"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 mt-1.5 text-[11px] font-[500] text-primary hover:underline"
+                className="inline-flex items-center gap-1 mt-1.5 text-xs font-medium text-primary hover:underline"
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
@@ -102,7 +101,7 @@ export function ProjectRxCompose() {
             </div>
           </div>
 
-          <div className="h-px bg-border mb-5" />
+          <Divider className="mb-5" />
 
           <ClickableImage
             src={showpotPromo}
@@ -112,14 +111,14 @@ export function ProjectRxCompose() {
 
           {/* 적용 범위 */}
           <div className="flex items-center gap-2 mb-5">
-            <span className="text-[12px] font-[600] text-foreground">적용 범위</span>
-            <span className="text-[12px] text-muted-foreground">—</span>
-            <span className="text-[12px] font-[500] text-foreground">13개 화면 전체에 Composer 패턴 적용</span>
+            <span className="text-sm font-semibold text-foreground">적용 범위</span>
+            <span className="text-sm text-muted-foreground">—</span>
+            <span className="text-sm font-medium text-foreground">13개 화면 전체에 Composer 패턴 적용</span>
           </div>
 
           {/* Effect 활용 */}
           <div className="mb-5">
-            <p className="text-[12px] font-[600] text-foreground mb-3">Effect 활용</p>
+            <p className="text-sm font-semibold text-foreground mb-3">Effect 활용</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {[
                 { type: ".run", desc: "비동기 API 호출 (목록 조회, 구독/해제)", color: "#2563eb" },
@@ -133,12 +132,12 @@ export function ProjectRxCompose() {
                   style={{ borderColor: item.color + "30" }}
                 >
                   <span
-                    className="shrink-0 text-[11px] font-[700] font-mono px-2 py-0.5 rounded"
+                    className="shrink-0 text-xs font-bold font-mono px-2 py-0.5 rounded"
                     style={{ color: item.color, backgroundColor: item.color + "12" }}
                   >
                     {item.type}
                   </span>
-                  <span className="text-[11px] font-[400] text-muted-foreground leading-[1.6]">{item.desc}</span>
+                  <span className="text-xs font-normal text-muted-foreground leading-relaxed">{item.desc}</span>
                 </div>
               ))}
             </div>
@@ -146,13 +145,13 @@ export function ProjectRxCompose() {
 
           {/* @PresentState */}
           <div className="p-3 rounded-xl bg-card border border-border">
-            <p className="text-[12px] font-[600] text-foreground mb-1.5">@PresentState 활용 — 화면 전환 관리</p>
-            <p className="text-[12px] font-[400] text-muted-foreground leading-[1.7]">
+            <p className="text-sm font-semibold text-foreground mb-1.5">@PresentState 활용 — 화면 전환 관리</p>
+            <p className="text-sm font-normal text-muted-foreground leading-loose">
               ShowDetail → AlarmSelection, Account → Login 등 화면 전환을 상태 기반으로 관리.
               Optional ViewModel을 @PresentState로 선언하여 nil 여부로 present/dismiss를 제어했습니다.
             </p>
           </div>
-        </div>
+        </ContentCard>
       </FadeInView>
 
     </div>

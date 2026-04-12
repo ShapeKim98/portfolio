@@ -54,7 +54,7 @@ export function Navigation() {
             <a
               key={item.href}
               href={item.href}
-              className="text-[14px] font-[400] text-muted-foreground hover:text-foreground transition-colors tracking-[-0.01em]"
+              className="text-base font-normal text-muted-foreground hover:text-foreground transition-colors tracking-snug"
             >
               {item.label}
             </a>
@@ -93,7 +93,7 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-[15px] font-[400] text-muted-foreground hover:text-foreground py-2 transition-colors"
+                className="text-md font-normal text-muted-foreground hover:text-foreground py-2 transition-colors"
               >
                 {item.label}
               </a>

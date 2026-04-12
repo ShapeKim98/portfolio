@@ -1,4 +1,5 @@
 import { FadeInView } from "./ParallaxSection";
+import { ContentCard, SubSectionTitle, FeatureCard } from "./design-system";
 import { ClickableImage } from "./ClickableImage";
 
 /* ─── Architecture Layer Diagram ─── */
@@ -11,8 +12,8 @@ export function LayerDiagram({
 }) {
   return (
     <FadeInView>
-      <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-        <h4 className="text-[15px] font-[700] text-foreground mb-6 tracking-[-0.01em]">{title}</h4>
+      <ContentCard>
+        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
         <div className="space-y-3">
           {layers.map((layer, i) => (
             <div key={layer.name} className="relative">
@@ -24,18 +25,18 @@ export function LayerDiagram({
                 style={{ borderLeftColor: layer.color, borderLeftWidth: 3 }}
               >
                 <div className="min-w-[100px]">
-                  <span className="text-[13px] font-[700]" style={{ color: layer.color }}>
+                  <span className="text-sm-md font-bold" style={{ color: layer.color }}>
                     {layer.name}
                   </span>
                 </div>
-                <p className="text-[13px] font-[400] text-muted-foreground leading-[1.7]">
+                <p className="text-sm-md font-normal text-muted-foreground leading-loose">
                   {layer.desc}
                 </p>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </ContentCard>
     </FadeInView>
   );
 }
@@ -50,15 +51,15 @@ export function FlowChart({
 }) {
   return (
     <FadeInView>
-      <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-        <h4 className="text-[15px] font-[700] text-foreground mb-6 tracking-[-0.01em]">{title}</h4>
+      <ContentCard>
+        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
         <div className="flex flex-col items-center gap-2">
           {steps.map((step, i) => (
             <div key={i} className="w-full max-w-md">
               <div className="p-4 rounded-xl bg-card border border-border text-center">
-                <span className="text-[13px] font-[600] text-foreground">{step.label}</span>
+                <span className="text-sm-md font-semibold text-foreground">{step.label}</span>
                 {step.desc && (
-                  <p className="text-[12px] font-[400] text-muted-foreground mt-1">{step.desc}</p>
+                  <p className="text-sm font-normal text-muted-foreground mt-1">{step.desc}</p>
                 )}
               </div>
               {i < steps.length - 1 && (
@@ -71,7 +72,7 @@ export function FlowChart({
             </div>
           ))}
         </div>
-      </div>
+      </ContentCard>
     </FadeInView>
   );
 }
@@ -88,24 +89,24 @@ export function DBSchema({
 }) {
   return (
     <FadeInView>
-      <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-        <h4 className="text-[15px] font-[700] text-foreground mb-6 tracking-[-0.01em]">{title}</h4>
+      <ContentCard>
+        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           {tables.map((table) => (
             <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
               <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
-                <span className="text-[13px] font-[700] text-primary">{table.name}</span>
+                <span className="text-sm-md font-bold text-primary">{table.name}</span>
               </div>
               <div className="p-3 space-y-1.5">
                 {table.fields.map((f) => (
                   <div key={f.name} className="flex items-center gap-2">
                     {f.key && (
-                      <span className="text-[10px] font-[600] text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                      <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                         PK
                       </span>
                     )}
-                    <span className="text-[12px] font-[500] text-foreground">{f.name}</span>
-                    <span className="text-[11px] font-[400] text-muted-foreground ml-auto">{f.type}</span>
+                    <span className="text-sm font-medium text-foreground">{f.name}</span>
+                    <span className="text-xs font-normal text-muted-foreground ml-auto">{f.type}</span>
                   </div>
                 ))}
               </div>
@@ -114,13 +115,13 @@ export function DBSchema({
         </div>
         <div className="space-y-1.5">
           {relations.map((rel) => (
-            <p key={rel} className="text-[12px] font-[400] text-muted-foreground flex items-center gap-2">
+            <p key={rel} className="text-sm font-normal text-muted-foreground flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
               {rel}
             </p>
           ))}
         </div>
-      </div>
+      </ContentCard>
     </FadeInView>
   );
 }
@@ -129,8 +130,8 @@ export function DBSchema({
 export function DBRelationDiagram() {
   return (
     <FadeInView>
-      <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-        <h4 className="text-[15px] font-[700] text-foreground mb-6 tracking-[-0.01em]">
+      <ContentCard>
+        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">
           테이블 관계도 (ERD)
         </h4>
         <div className="overflow-x-auto">
@@ -140,7 +141,7 @@ export function DBRelationDiagram() {
               {/* Participant */}
               <div className="flex-1 rounded-xl border border-border overflow-hidden bg-card min-w-[130px]">
                 <div className="px-3 py-2 bg-orange-500/10 border-b border-border">
-                  <span className="text-[12px] font-[700] text-orange-600 dark:text-orange-400">Participant</span>
+                  <span className="text-sm font-bold text-orange-600 dark:text-orange-400">Participant</span>
                 </div>
                 <div className="p-2.5 space-y-1">
                   {[
@@ -150,10 +151,10 @@ export function DBRelationDiagram() {
                     { name: "chatRoom", type: "→ ChatRoom", fk: true },
                   ].map((f) => (
                     <div key={f.name} className="flex items-center gap-1.5">
-                      {f.pk && <span className="text-[9px] font-[700] text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
-                      {f.fk && <span className="text-[9px] font-[700] text-orange-500 bg-orange-500/10 px-1 py-0.5 rounded shrink-0">FK</span>}
-                      <span className="text-[11px] font-[500] text-foreground">{f.name}</span>
-                      <span className="text-[10px] font-[400] text-muted-foreground ml-auto">{f.type}</span>
+                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
+                      {f.fk && <span className="text-2xs font-bold text-orange-500 bg-orange-500/10 px-1 py-0.5 rounded shrink-0">FK</span>}
+                      <span className="text-xs font-medium text-foreground">{f.name}</span>
+                      <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
                   ))}
                 </div>
@@ -162,7 +163,7 @@ export function DBRelationDiagram() {
               {/* ChatRoom (center) */}
               <div className="flex-1 rounded-xl border-2 border-primary/40 overflow-hidden bg-card min-w-[150px]">
                 <div className="px-3 py-2 bg-primary/10 border-b border-border">
-                  <span className="text-[12px] font-[700] text-primary">ChatRoom</span>
+                  <span className="text-sm font-bold text-primary">ChatRoom</span>
                 </div>
                 <div className="p-2.5 space-y-1">
                   {[
@@ -172,10 +173,10 @@ export function DBRelationDiagram() {
                     { name: "messages", type: "[ChatMessage]" },
                   ].map((f) => (
                     <div key={f.name} className="flex items-center gap-1.5">
-                      {f.pk && <span className="text-[9px] font-[700] text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
-                      {f.fk && <span className="text-[9px] font-[700] text-primary/70 bg-primary/10 px-1 py-0.5 rounded shrink-0">FK</span>}
-                      <span className="text-[11px] font-[500] text-foreground">{f.name}</span>
-                      <span className="text-[10px] font-[400] text-muted-foreground ml-auto">{f.type}</span>
+                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
+                      {f.fk && <span className="text-2xs font-bold text-primary/70 bg-primary/10 px-1 py-0.5 rounded shrink-0">FK</span>}
+                      <span className="text-xs font-medium text-foreground">{f.name}</span>
+                      <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
                   ))}
                 </div>
@@ -184,7 +185,7 @@ export function DBRelationDiagram() {
               {/* ChatMessage */}
               <div className="flex-1 rounded-xl border border-border overflow-hidden bg-card min-w-[140px]">
                 <div className="px-3 py-2 bg-green-500/10 border-b border-border">
-                  <span className="text-[12px] font-[700] text-green-600 dark:text-green-400">ChatMessage</span>
+                  <span className="text-sm font-bold text-green-600 dark:text-green-400">ChatMessage</span>
                 </div>
                 <div className="p-2.5 space-y-1">
                   {[
@@ -196,10 +197,10 @@ export function DBRelationDiagram() {
                     { name: "chatRoom", type: "→ ChatRoom", fk: true },
                   ].map((f) => (
                     <div key={f.name} className="flex items-center gap-1.5">
-                      {f.pk && <span className="text-[9px] font-[700] text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
-                      {f.fk && <span className="text-[9px] font-[700] text-green-500 bg-green-500/10 px-1 py-0.5 rounded shrink-0">FK</span>}
-                      <span className="text-[11px] font-[500] text-foreground">{f.name}</span>
-                      <span className="text-[10px] font-[400] text-muted-foreground ml-auto">{f.type}</span>
+                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
+                      {f.fk && <span className="text-2xs font-bold text-green-500 bg-green-500/10 px-1 py-0.5 rounded shrink-0">FK</span>}
+                      <span className="text-xs font-medium text-foreground">{f.name}</span>
+                      <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
                   ))}
                 </div>
@@ -235,20 +236,20 @@ export function DBRelationDiagram() {
             <div className="flex flex-wrap gap-4 mt-1 pt-3 border-t border-border">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-0.5 bg-orange-400" style={{ backgroundImage: "repeating-linear-gradient(90deg, currentColor 0, currentColor 4px, transparent 4px, transparent 7px)" }} />
-                <span className="text-[11px] text-muted-foreground">ChatRoom ↔ Participant (1:N)</span>
+                <span className="text-xs text-muted-foreground">ChatRoom ↔ Participant (1:N)</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-6 h-0.5 bg-green-500" />
-                <span className="text-[11px] text-muted-foreground">ChatRoom ↔ ChatMessage (1:N)</span>
+                <span className="text-xs text-muted-foreground">ChatRoom ↔ ChatMessage (1:N)</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-6 h-0.5 bg-primary/40" />
-                <span className="text-[11px] text-muted-foreground">lastMessage 참조 (1:1)</span>
+                <span className="text-xs text-muted-foreground">lastMessage 참조 (1:1)</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </ContentCard>
     </FadeInView>
   );
 }
@@ -266,19 +267,19 @@ export function ProblemSolvingBlock({
   return (
     <div className="p-5 rounded-xl border border-border bg-card">
       <div className="flex items-start gap-3 mb-3">
-        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-destructive/10 text-destructive text-[11px] font-[600]">
+        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-destructive/10 text-destructive text-xs font-semibold">
           Problem
         </span>
-        <p className="text-[13px] font-[500] text-foreground leading-[1.7]">{problem}</p>
+        <p className="text-sm-md font-medium text-foreground leading-loose">{problem}</p>
       </div>
       <div className="flex items-start gap-3">
-        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-green-500/10 text-green-600 dark:text-green-400 text-[11px] font-[600]">
+        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold">
           Solution
         </span>
         <div>
-          <p className="text-[13px] font-[500] text-foreground leading-[1.7]">{solution}</p>
+          <p className="text-sm-md font-medium text-foreground leading-loose">{solution}</p>
           {detail && (
-            <p className="text-[12px] font-[400] text-muted-foreground leading-[1.7] mt-1.5">{detail}</p>
+            <p className="text-sm font-normal text-muted-foreground leading-loose mt-1.5">{detail}</p>
           )}
         </div>
       </div>
@@ -291,10 +292,7 @@ export function FeatureGrid({ features }: { features: { title: string; desc: str
   return (
     <div className="grid md:grid-cols-2 gap-4">
       {features.map((f) => (
-        <div key={f.title} className="p-5 rounded-xl bg-muted/40 border border-border">
-          <h5 className="text-[14px] font-[600] text-foreground mb-1.5">{f.title}</h5>
-          <p className="text-[13px] font-[400] text-muted-foreground leading-[1.8]">{f.desc}</p>
-        </div>
+        <FeatureCard key={f.title} title={f.title}>{f.desc}</FeatureCard>
       ))}
     </div>
   );
@@ -307,7 +305,7 @@ export function TechTags({ tags }: { tags: string[] }) {
       {tags.map((t) => (
         <span
           key={t}
-          className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[12px] font-[500]"
+          className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
         >
           {t}
         </span>
@@ -328,7 +326,7 @@ export function ScreenshotPlaceholder({ label }: { label: string }) {
             <path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </div>
-        <p className="text-[12px] font-[400] text-muted-foreground">{label}</p>
+        <p className="text-sm font-normal text-muted-foreground">{label}</p>
       </div>
     </div>
   );
@@ -346,34 +344,40 @@ export function AppScreenshotPlaceholder({ label }: { label: string }) {
             <path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </div>
-        <p className="text-[10px] font-[400] text-muted-foreground leading-[1.5]">{label}</p>
+        <p className="text-xxs font-normal text-muted-foreground leading-normal">{label}</p>
       </div>
     </div>
   );
 }
 
 /* ─── Sync Flow Diagram (PSB + 설명 상단 / 흐름 좌 + 스크린샷 우) ─── */
-export function SyncFlowDiagram({ description, screenshotSrc }: { description?: string; screenshotSrc?: string }) {
-  const steps = [
-    { label: "채팅방 진입", color: "#2563eb", desc: "사용자가 채팅방에 접근" },
-    { label: "소켓 연결 (동기화 이전)", color: "#2563eb", desc: "동기화보다 소켓을 먼저 연결해 메시지 수신 준비" },
-    { label: "서버와 DB 동기화 시작", color: "#f59e0b", desc: "마지막 메시지 시점 기준으로 누락 메시지 조회" },
-    { label: "수신 메시지 → 대기열(Queue) 저장", color: "#f59e0b", desc: "동기화 중 수신된 실시간 메시지를 큐에 임시 보관" },
-    { label: "동기화 완료", color: "#22c55e", desc: "서버 데이터를 로컬 DB에 병합 완료" },
-    { label: "대기열 메시지 선처리", color: "#22c55e", desc: "큐에 보관된 메시지를 우선 적용해 정합성 확보" },
-    { label: "일반 수신 흐름 전환", color: "#22c55e", desc: "이후 수신 메시지는 일반 흐름으로 처리" },
-  ];
-
+export function SyncFlowDiagram({
+  title,
+  description,
+  steps,
+  problem,
+  solution,
+  detail,
+  screenshotSrc,
+}: {
+  title: string;
+  description?: string;
+  steps: { label: string; color: string; desc: string }[];
+  problem: string;
+  solution: string;
+  detail?: string;
+  screenshotSrc?: string;
+}) {
   return (
     <FadeInView>
-      <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-        <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
-          실시간 수신과 동기화 충돌 고려
-        </h5>
+      <ContentCard>
+        <SubSectionTitle size="md" className="mb-4">
+          {title}
+        </SubSectionTitle>
 
         {/* 설명 텍스트 */}
         {description && (
-          <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-4">
+          <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
             {description}
           </p>
         )}
@@ -381,9 +385,9 @@ export function SyncFlowDiagram({ description, screenshotSrc }: { description?: 
         {/* Problem / Solution */}
         <div className="mb-6">
           <ProblemSolvingBlock
-            problem="채팅방 진입 시 서버 동기화 도중 소켓으로 수신된 메시지가 누락되거나 순서가 뒤틀릴 수 있음"
-            solution="소켓 연결을 동기화보다 먼저 시작하고, 동기화 완료 전 수신된 메시지는 Queue에 임시 저장"
-            detail="Queue의 FIFO 특성을 활용해 수신 순서를 그대로 보존합니다. 동기화 완료 후 Queue의 메시지를 선처리한 뒤 일반 수신 흐름으로 전환하여 실시간성과 데이터 정합성을 모두 확보했습니다."
+            problem={problem}
+            solution={solution}
+            detail={detail}
           />
         </div>
 
@@ -399,14 +403,14 @@ export function SyncFlowDiagram({ description, screenshotSrc }: { description?: 
                 >
                   <div className="flex items-start gap-2">
                     <div
-                      className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-[700] text-white mt-0.5"
+                      className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-2xs font-bold text-white mt-0.5"
                       style={{ backgroundColor: step.color }}
                     >
                       {i + 1}
                     </div>
                     <div>
-                      <p className="text-[11px] font-[600] leading-[1.4]" style={{ color: step.color }}>{step.label}</p>
-                      <p className="text-[10px] font-[400] text-muted-foreground leading-[1.5] mt-0.5">{step.desc}</p>
+                      <p className="text-xs font-semibold leading-snug" style={{ color: step.color }}>{step.label}</p>
+                      <p className="text-xxs font-normal text-muted-foreground leading-normal mt-0.5">{step.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -426,7 +430,7 @@ export function SyncFlowDiagram({ description, screenshotSrc }: { description?: 
               : <AppScreenshotPlaceholder label="실시간 채팅 스크린샷" />}
           </div>
         </div>
-      </div>
+      </ContentCard>
     </FadeInView>
   );
 }
@@ -443,26 +447,26 @@ export function DBSchemaWithERD({
 }) {
   return (
     <FadeInView>
-      <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-        <h4 className="text-[15px] font-[700] text-foreground mb-6 tracking-[-0.01em]">{title}</h4>
+      <ContentCard>
+        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
 
         {/* 테이블 스키마 */}
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           {tables.map((table) => (
             <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
               <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
-                <span className="text-[13px] font-[700] text-primary">{table.name}</span>
+                <span className="text-sm-md font-bold text-primary">{table.name}</span>
               </div>
               <div className="p-3 space-y-1.5">
                 {table.fields.map((f) => (
                   <div key={f.name} className="flex items-center gap-2">
                     {f.key && (
-                      <span className="text-[10px] font-[600] text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                      <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                         PK
                       </span>
                     )}
-                    <span className="text-[12px] font-[500] text-foreground">{f.name}</span>
-                    <span className="text-[11px] font-[400] text-muted-foreground ml-auto">{f.type}</span>
+                    <span className="text-sm font-medium text-foreground">{f.name}</span>
+                    <span className="text-xs font-normal text-muted-foreground ml-auto">{f.type}</span>
                   </div>
                 ))}
               </div>
@@ -472,7 +476,7 @@ export function DBSchemaWithERD({
 
         {/* ERD 관계도 — 수평 화살표 */}
         <div className="mt-2 pt-5 border-t border-border">
-          <h4 className="text-[13px] font-[700] text-foreground mb-5 tracking-[-0.01em]">
+          <h4 className="text-sm-md font-bold text-foreground mb-5 tracking-snug">
             테이블 관계도 (ERD)
           </h4>
           <div className="overflow-x-auto">
@@ -482,9 +486,9 @@ export function DBSchemaWithERD({
                 {/* Participant */}
                 <div className="flex flex-col items-center">
                   <div className="px-3 py-2 rounded-xl border bg-orange-500/10 border-orange-500/30">
-                    <span className="text-[11px] font-[700] text-orange-600 dark:text-orange-400">Participant</span>
+                    <span className="text-xs font-bold text-orange-600 dark:text-orange-400">Participant</span>
                   </div>
-                  <span className="text-[9px] font-[700] text-orange-400 mt-1">N</span>
+                  <span className="text-2xs font-bold text-orange-400 mt-1">N</span>
                 </div>
 
                 {/* 화살표: Participant ← ChatRoom (ChatRoom이 1, Participant가 N) */}
@@ -492,15 +496,15 @@ export function DBSchemaWithERD({
                   <svg width="64" height="16" viewBox="0 0 64 16">
                     <path d="M60 8H12M16 4L4 8l12 4" fill="none" stroke="#f97316" strokeWidth="1.5" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-[8px] text-orange-400 font-[500] whitespace-nowrap">participants</span>
+                  <span className="text-3xs text-orange-400 font-medium whitespace-nowrap">participants</span>
                 </div>
 
                 {/* ChatRoom (중앙, 1:1:) */}
                 <div className="flex flex-col items-center">
                   <div className="px-3 py-2 rounded-xl border-2 border-primary/50 bg-primary/10">
-                    <span className="text-[11px] font-[700] text-primary">ChatRoom</span>
+                    <span className="text-xs font-bold text-primary">ChatRoom</span>
                   </div>
-                  <span className="text-[9px] font-[700] text-primary mt-1">1</span>
+                  <span className="text-2xs font-bold text-primary mt-1">1</span>
                 </div>
 
                 {/* 화살표: ChatRoom → ChatMessage (ChatRoom이 1, ChatMessage가 N) */}
@@ -508,27 +512,27 @@ export function DBSchemaWithERD({
                   <svg width="64" height="16" viewBox="0 0 64 16">
                     <path d="M4 8h48M48 4l12 4-12 4" fill="none" stroke="#22c55e" strokeWidth="1.5" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-[8px] text-green-500 font-[500] whitespace-nowrap">messages</span>
+                  <span className="text-3xs text-green-500 font-medium whitespace-nowrap">messages</span>
                 </div>
 
                 {/* ChatMessage */}
                 <div className="flex flex-col items-center">
                   <div className="px-3 py-2 rounded-xl border bg-green-500/10 border-green-500/30">
-                    <span className="text-[11px] font-[700] text-green-600 dark:text-green-400">ChatMessage</span>
+                    <span className="text-xs font-bold text-green-600 dark:text-green-400">ChatMessage</span>
                   </div>
-                  <span className="text-[9px] font-[700] text-green-500 mt-1">N</span>
+                  <span className="text-2xs font-bold text-green-500 mt-1">N</span>
                 </div>
               </div>
 
               {/* lastMessage 1:1 참조 */}
               <div className="flex justify-center mb-3">
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card border border-primary/20">
-                  <span className="text-[10px] font-[600] text-primary">ChatRoom</span>
+                  <span className="text-xxs font-semibold text-primary">ChatRoom</span>
                   <svg width="44" height="10" viewBox="0 0 44 10">
                     <path d="M0 5h34M30 1l10 4-10 4" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="4 2" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-[10px] font-[500] text-primary/70">lastMessage</span>
-                  <span className="text-[9px] text-muted-foreground">(1:1)</span>
+                  <span className="text-xxs font-medium text-primary/70">lastMessage</span>
+                  <span className="text-2xs text-muted-foreground">(1:1)</span>
                 </div>
               </div>
 
@@ -536,21 +540,21 @@ export function DBSchemaWithERD({
               <div className="flex flex-wrap gap-x-4 gap-y-1.5 pt-3 border-t border-border">
                 <div className="flex items-center gap-1.5">
                   <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#f97316" strokeWidth="1.5"/></svg>
-                  <span className="text-[10px] text-muted-foreground">ChatRoom ↔ Participant (1:N)</span>
+                  <span className="text-xxs text-muted-foreground">ChatRoom ↔ Participant (1:N)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#22c55e" strokeWidth="1.5"/></svg>
-                  <span className="text-[10px] text-muted-foreground">ChatRoom ↔ ChatMessage (1:N)</span>
+                  <span className="text-xxs text-muted-foreground">ChatRoom ↔ ChatMessage (1:N)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="3 2"/></svg>
-                  <span className="text-[10px] text-muted-foreground">lastMessage 참조 (1:1)</span>
+                  <span className="text-xxs text-muted-foreground">lastMessage 참조 (1:1)</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </ContentCard>
     </FadeInView>
   );
 }
@@ -559,8 +563,8 @@ export function DBSchemaWithERD({
 export function RxComposeArchitectureDiagram() {
   return (
     <FadeInView>
-      <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border mb-10">
-        <h4 className="text-[15px] font-[700] text-foreground mb-5 tracking-[-0.01em]">
+      <ContentCard className="mb-10">
+        <h4 className="text-md font-bold text-foreground mb-5 tracking-snug">
           RxCompose 단방향 데이터 흐름 구조도
         </h4>
 
@@ -735,7 +739,7 @@ export function RxComposeArchitectureDiagram() {
 
           </svg>
         </div>
-      </div>
+      </ContentCard>
     </FadeInView>
   );
 }
