@@ -1,7 +1,7 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { ProblemSolvingBlock } from "./Diagrams";
-import { ContentCard, SubSectionTitle } from "./design-system";
+import { ContentCard, SectionGroup, SubSectionTitle } from "./design-system";
 import interestPromo from "../../image/인터레스트표지.png";
 
 const FEATURES = [
@@ -43,12 +43,7 @@ export function ProjectInterest() {
       </FadeInView>
 
       {/* ───── 프로젝트 설계 ───── */}
-      <div className="space-y-12">
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            프로젝트 설계
-          </SubSectionTitle>
-        </FadeInView>
+      <SectionGroup title="프로젝트 설계">
 
         {/* WatchConnectivity 설계 */}
         <FadeInView>
@@ -171,7 +166,7 @@ export function ProjectInterest() {
             />
           </ContentCard>
         </FadeInView>
-      </div>
+      </SectionGroup>
     </div>
   );
 }

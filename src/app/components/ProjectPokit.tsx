@@ -1,7 +1,7 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { AppScreenshotPlaceholder, FeatureGrid, LayerDiagram, ProblemSolvingBlock, ScreenshotPlaceholder } from "./Diagrams";
-import { ContentCard, SubSectionTitle, VerticalFlow } from "./design-system";
+import { ContentCard, SectionGroup, SubSectionTitle, TwoColumnLayout, VerticalFlow } from "./design-system";
 import pokitPromo from "../../image/포킷표지.png";
 import tuistGraph from "../../image/Tuist Graph — 모듈 의존 관계 시각화.png";
 import linkThumb1 from "../../image/link-thumbnail-1.jpg";
@@ -51,12 +51,8 @@ export function ProjectPokit() {
       </FadeInView>
 
       {/* ───── 프로젝트 설계 ───── */}
-      <div className="mt-16 space-y-12">
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            프로젝트 설계
-          </SubSectionTitle>
-        </FadeInView>
+      <div className="mt-16">
+        <SectionGroup title="프로젝트 설계">
 
         {/* Tuist Graph */}
         <FadeInView>
@@ -153,20 +149,23 @@ export function ProjectPokit() {
         </FadeInView>
 
         <FadeInView>
-          <div className="grid md:grid-cols-2 gap-8 items-start">
-            <div className="space-y-4">
-              <ProblemSolvingBlock
-                problem="일부 사이트에서 사용자 에이전트를 명시하지 않으면 OG 태그 데이터를 반환하지 않음"
-                solution="사용자 에이전트를 명시적으로 지정하는 방식으로 해결"
-                detail="대부분의 웹사이트는 OG(Open Graph) 태그를 통해 제목과 썸네일 정보를 원활히 제공했지만, 일부 사이트에서는 요청 시 사용자 에이전트를 명시해야 정상적으로 데이터를 반환하는 사례가 있었습니다."
-              />
-              <ProblemSolvingBlock
-                problem="OG 태그를 지원하지 않는 사이트에서 제목과 썸네일 정보를 파싱할 수 없음"
-                solution="사용자가 직접 제목을 입력하고 기본 썸네일 이미지를 자동 삽입하는 UX 개선안을 PM에게 제안"
-                detail="이를 단순히 오류로 처리하기보다, 사용자 경험 저하를 최소화하는 방향으로 해결했습니다."
-              />
-            </div>
-            <div className="flex flex-col items-center justify-center gap-4">
+          <TwoColumnLayout
+            left={
+              <div className="space-y-4">
+                <ProblemSolvingBlock
+                  problem="일부 사이트에서 사용자 에이전트를 명시하지 않으면 OG 태그 데이터를 반환하지 않음"
+                  solution="사용자 에이전트를 명시적으로 지정하는 방식으로 해결"
+                  detail="대부분의 웹사이트는 OG(Open Graph) 태그를 통해 제목과 썸네일 정보를 원활히 제공했지만, 일부 사이트에서는 요청 시 사용자 에이전트를 명시해야 정상적으로 데이터를 반환하는 사례가 있었습니다."
+                />
+                <ProblemSolvingBlock
+                  problem="OG 태그를 지원하지 않는 사이트에서 제목과 썸네일 정보를 파싱할 수 없음"
+                  solution="사용자가 직접 제목을 입력하고 기본 썸네일 이미지를 자동 삽입하는 UX 개선안을 PM에게 제안"
+                  detail="이를 단순히 오류로 처리하기보다, 사용자 경험 저하를 최소화하는 방향으로 해결했습니다."
+                />
+              </div>
+            }
+            right={
+              <div className="flex flex-col items-center justify-center gap-4">
               {/* OG 태그 파싱 성공 */}
               <div className="w-full max-w-[335px]">
                 <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 파싱 성공</p>
@@ -201,8 +200,9 @@ export function ProjectPokit() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+              </div>
+            }
+          />
         </FadeInView>
 
         {/* 썸네일 만료 이슈 */}
@@ -296,6 +296,7 @@ export function ProjectPokit() {
             </div>
           </ContentCard>
         </FadeInView>
+        </SectionGroup>
       </div>
     </div>
   );

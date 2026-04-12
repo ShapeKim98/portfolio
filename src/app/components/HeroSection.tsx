@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Github, Mail, ChevronDown } from "lucide-react";
+import { Badge, IconButton, ParallaxBlobLayer, ParallaxAccentLayer } from "./design-system";
 
 export function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,20 +36,14 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Layer 0: Background decoration - slowest */}
-      <motion.div
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 pointer-events-none"
-      >
+      <ParallaxBlobLayer bgY={bgY} bgScale={bgScale}>
         <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] rounded-full bg-accent/30 blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/3 blur-3xl" />
-      </motion.div>
+      </ParallaxBlobLayer>
 
       {/* Layer 3: Foreground accent - fastest */}
-      <motion.div
-        style={{ y: accentY }}
-        className="absolute inset-0 pointer-events-none z-20"
-      >
+      <ParallaxAccentLayer accentY={accentY}>
         <motion.div
           style={{ rotate: accentRotate }}
           className="absolute top-[15%] left-[10%] w-4 h-4 rounded-full border-2 border-primary/15"
@@ -59,7 +54,7 @@ export function HeroSection() {
           className="absolute bottom-[30%] left-[15%] w-2 h-2 rounded-full bg-primary/20"
         />
         <div className="absolute bottom-[20%] right-[12%] text-2xl text-primary/10 select-none">+</div>
-      </motion.div>
+      </ParallaxAccentLayer>
 
       {/* Main content */}
       <motion.div
@@ -77,9 +72,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm-md font-medium tracking-wide">
-              iOS Developer
-            </span>
+            <Badge size="sm" className="tracking-wide">iOS Developer</Badge>
           </motion.div>
 
           <motion.h1
@@ -110,22 +103,8 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex items-center justify-center gap-4"
           >
-            <a
-              href="https://github.com/ShapeKim98"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-base font-medium hover:opacity-90 transition-opacity"
-            >
-              <Github size={16} />
-              GitHub
-            </a>
-            <a
-              href="mailto:shapekim98@gmail.com"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-foreground text-base font-medium hover:bg-muted transition-colors"
-            >
-              <Mail size={16} />
-              Contact
-            </a>
+            <IconButton href="https://github.com/ShapeKim98" variant="primary" size="md" icon={<Github size={16} />} target="_blank" rel="noopener noreferrer">GitHub</IconButton>
+            <IconButton href="mailto:shapekim98@gmail.com" variant="secondary" size="md" icon={<Mail size={16} />}>Contact</IconButton>
           </motion.div>
         </motion.div>
       </motion.div>

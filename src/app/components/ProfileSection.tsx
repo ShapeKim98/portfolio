@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { FadeInView } from "./ParallaxSection";
 import { GraduationCap, Users, Trophy, Mail, Phone, Github } from "lucide-react";
-import { SectionInner, SectionPageHeading } from "./design-system";
+import { SectionInner, SectionPageHeading, ParallaxBlobLayer, ParallaxAccentLayer } from "./design-system";
 
 const SKILLS = {
   "Framework / Library": [
@@ -63,26 +63,20 @@ export function ProfileSection() {
   return (
     <section ref={sectionRef} id="profile" className="relative py-32 md:py-40 px-6 bg-muted/30 overflow-hidden">
       {/* Background decorative layer */}
-      <motion.div
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 pointer-events-none"
-      >
+      <ParallaxBlobLayer bgY={bgY} bgScale={bgScale}>
         <div className="absolute top-[5%] -right-[120px] w-[450px] h-[450px] rounded-full bg-primary/4 blur-3xl" />
         <div className="absolute bottom-[10%] -left-[100px] w-[350px] h-[350px] rounded-full bg-primary/3 blur-3xl" />
-      </motion.div>
+      </ParallaxBlobLayer>
 
       {/* Accent foreground layer */}
-      <motion.div
-        style={{ y: accentY }}
-        className="absolute inset-0 pointer-events-none z-20"
-      >
+      <ParallaxAccentLayer accentY={accentY}>
         <motion.div
           style={{ rotate: accentRotate }}
           className="absolute top-[12%] right-[10%] w-3 h-3 rounded-full border-2 border-primary/15"
         />
         <div className="absolute top-[35%] left-[5%] w-16 h-px bg-primary/12" />
         <div className="absolute bottom-[20%] right-[8%] w-2 h-2 rounded-full bg-primary/20" />
-      </motion.div>
+      </ParallaxAccentLayer>
 
       <SectionInner>
         <SectionPageHeading>Profile & Skills</SectionPageHeading>

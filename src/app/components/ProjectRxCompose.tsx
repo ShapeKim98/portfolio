@@ -2,7 +2,7 @@ import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { FeatureGrid, RxComposeArchitectureDiagram } from "./Diagrams";
 import { FeatureCard } from "./design-system";
-import { ContentCard, SubSectionTitle } from "./design-system";
+import { ContentCard, SubSectionTitle, Badge, Divider } from "./design-system";
 import showpotPromo from "../../image/쇼팟표지.png";
 
 const FEATURES = [
@@ -76,7 +76,7 @@ export function ProjectRxCompose() {
           <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary">적용 사례</span>
+                <Badge variant="primary" size="xs">적용 사례</Badge>
               </div>
               <h5 className="text-2xl font-bold text-foreground tracking-snug">ShowPot</h5>
               <p className="text-sm-md font-normal text-muted-foreground mt-1">
@@ -100,7 +100,7 @@ export function ProjectRxCompose() {
             </div>
           </div>
 
-          <div className="h-px bg-border mb-5" />
+          <Divider className="mb-5" />
 
           <img
             src={showpotPromo}

@@ -1,3 +1,5 @@
+import type { MotionValue } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "./ui/utils";
 import { FadeInView } from "./ParallaxSection";
 
@@ -182,6 +184,231 @@ export function VerticalFlow({
         </div>
       ))}
     </div>
+  );
+}
+
+/* ─── Badge ─── */
+
+export function Badge({
+  children,
+  variant = "primary",
+  size = "sm",
+  className,
+}: {
+  children: React.ReactNode;
+  variant?: "primary" | "destructive" | "success";
+  size?: "xs" | "sm";
+  className?: string;
+}) {
+  const colorClass = {
+    primary: "bg-primary/10 text-primary",
+    destructive: "bg-destructive/10 text-destructive",
+    success: "bg-green-500/10 text-green-600 dark:text-green-400",
+  }[variant];
+
+  const sizeClass = {
+    xs: "text-xs px-2 py-0.5",
+    sm: "text-sm-md px-4 py-2",
+  }[size];
+
+  return (
+    <span className={cn("inline-block rounded-full font-semibold", colorClass, sizeClass, className)}>
+      {children}
+    </span>
+  );
+}
+
+/* ─── Divider ─── */
+
+export function Divider({ className }: { className?: string }) {
+  return <div className={cn("h-px bg-border", className)} />;
+}
+
+/* ─── Icon Button / Link ─── */
+
+export function IconButton({
+  href,
+  variant = "primary",
+  size = "md",
+  icon,
+  children,
+  className,
+  ...rest
+}: {
+  href?: string;
+  variant?: "primary" | "secondary";
+  size?: "sm" | "md" | "lg";
+  icon?: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+} & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "className" | "children">) {
+  const variantClass = {
+    primary: "bg-foreground text-background hover:opacity-90 transition-opacity",
+    secondary: "border border-border text-foreground hover:bg-muted transition-colors",
+  }[variant];
+
+  const sizeClass = {
+    sm: "gap-2 px-4 py-2 rounded-lg text-sm-md",
+    md: "gap-2 px-5 py-2.5 rounded-full text-base",
+    lg: "gap-3 px-6 py-3 rounded-xl text-base",
+  }[size];
+
+  return (
+    <a
+      href={href}
+      className={cn("inline-flex items-center font-medium", variantClass, sizeClass, className)}
+      {...rest}
+    >
+      {icon}
+      {children}
+    </a>
+  );
+}
+
+/* ─── Numbered Step ─── */
+
+export function NumberedStep({
+  index,
+  children,
+}: {
+  index: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="p-5 rounded-xl bg-muted/40 border border-border">
+      <div className="flex items-start gap-3">
+        <span className="shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold flex items-center justify-center mt-0.5">
+          {index}
+        </span>
+        <p className="text-sm-md font-normal text-foreground leading-loose">{children}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Two Column Layout ─── */
+
+export function TwoColumnLayout({
+  left,
+  right,
+  className,
+}: {
+  left: React.ReactNode;
+  right: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("grid md:grid-cols-2 gap-8 items-start", className)}>
+      {left}
+      {right}
+    </div>
+  );
+}
+
+/* ─── Section Group ─── */
+
+export function SectionGroup({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="space-y-12">
+      <FadeInView>
+        <SubSectionTitle size="xl" className="mb-3">
+          {title}
+        </SubSectionTitle>
+      </FadeInView>
+      {children}
+    </div>
+  );
+}
+
+/* ─── Colored Info Box ─── */
+
+export function ColoredInfoBox({
+  label,
+  sub,
+  color,
+  center,
+  badge: badgeText,
+  className,
+}: {
+  label: string;
+  sub?: string;
+  color: string;
+  center?: boolean;
+  badge?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "rounded-2xl flex flex-col items-center justify-center",
+        className
+      )}
+      style={{
+        borderWidth: center ? 3 : 2,
+        borderStyle: "solid",
+        borderColor: color + (center ? "cc" : "60"),
+        background: color + (center ? "18" : "10"),
+      }}
+    >
+      <span className="text-sm font-bold" style={{ color }}>
+        {label}
+      </span>
+      {sub && (
+        <span className="text-xxs font-normal text-muted-foreground mt-1">{sub}</span>
+      )}
+      {badgeText && (
+        <span
+          className="text-2xs font-semibold mt-1.5 px-1.5 py-0.5 rounded"
+          style={{ color, backgroundColor: color + "18" }}
+        >
+          {badgeText}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/* ─── Parallax Background Layer ─── */
+
+export function ParallaxBlobLayer({
+  bgY,
+  bgScale,
+  children,
+}: {
+  bgY: MotionValue<number>;
+  bgScale: MotionValue<number>;
+  children: React.ReactNode;
+}) {
+  return (
+    <motion.div
+      style={{ y: bgY, scale: bgScale }}
+      className="absolute inset-0 pointer-events-none"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function ParallaxAccentLayer({
+  accentY,
+  children,
+}: {
+  accentY: MotionValue<number>;
+  children: React.ReactNode;
+}) {
+  return (
+    <motion.div
+      style={{ y: accentY }}
+      className="absolute inset-0 pointer-events-none z-20"
+    >
+      {children}
+    </motion.div>
   );
 }
 

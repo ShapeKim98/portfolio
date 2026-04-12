@@ -1,7 +1,7 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { ProblemSolvingBlock } from "./Diagrams";
-import { ContentCard, FeatureItem, SubSectionTitle, VerticalFlow } from "./design-system";
+import { ContentCard, FeatureItem, SubSectionTitle, VerticalFlow, TwoColumnLayout, SectionGroup, NumberedStep, ColoredInfoBox } from "./design-system";
 import showpotPromo from "../../image/쇼팟표지.png";
 
 const FEATURES = [
@@ -42,12 +42,7 @@ export function ProjectShowPot() {
       </FadeInView>
 
       {/* ───── 프로젝트 설계 ───── */}
-      <div className="space-y-12">
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            프로젝트 설계
-          </SubSectionTitle>
-        </FadeInView>
+      <SectionGroup title="프로젝트 설계">
 
         {/* Clean Architecture 설계 */}
         <FadeInView>
@@ -65,25 +60,14 @@ export function ProjectShowPot() {
                 { label: "DataSource", sub: "Network/Local", color: "#64748b" },
               ].map((item, i, arr) => (
                 <div key={item.label} className="flex items-center gap-4 md:gap-6">
-                  <div
-                    className="w-24 h-24 rounded-2xl flex flex-col items-center justify-center"
-                    style={{
-                      borderWidth: item.center ? 3 : 2,
-                      borderStyle: "solid",
-                      borderColor: item.color + (item.center ? "cc" : "60"),
-                      background: item.color + (item.center ? "18" : "10"),
-                    }}
-                  >
-                    <span className="text-sm font-bold" style={{ color: item.color }}>
-                      {item.label}
-                    </span>
-                    <span className="text-xxs font-normal text-muted-foreground mt-1">{item.sub}</span>
-                    {item.center && (
-                      <span className="text-2xs font-semibold mt-1.5 px-1.5 py-0.5 rounded" style={{ color: item.color, backgroundColor: item.color + "18" }}>
-                        핵심
-                      </span>
-                    )}
-                  </div>
+                  <ColoredInfoBox
+                    label={item.label}
+                    sub={item.sub}
+                    color={item.color}
+                    center={item.center}
+                    badge={item.center ? "핵심" : undefined}
+                    className="w-24 h-24"
+                  />
                   {i < arr.length - 1 && (
                     <svg width="20" height="12" viewBox="0 0 20 12" className="text-border hidden md:block">
                       {/* i < 2 → 오른쪽 화살표(→), i >= 2 → 왼쪽 화살표(←) */}
@@ -132,25 +116,26 @@ export function ProjectShowPot() {
             <SubSectionTitle size="md" className="mb-6">
               JWT 토큰 리프레시 설계
             </SubSectionTitle>
-            <div className="grid md:grid-cols-2 gap-8 items-start">
-              {/* 왼쪽: 설명 */}
-              <div>
-                <p className="text-sm-md font-normal text-muted-foreground leading-loose">
-                  Alamofire의 RequestInterceptor를 활용해 요청 헤더에 토큰을 자동으로 적용하고, 액세스 토큰 오류 발생 시 토큰 재발급을 수행하는 로직을 구현했습니다.
-                </p>
-              </div>
-
-              {/* 오른쪽: 플로우 차트 (설명 포함) */}
-              <VerticalFlow
-                steps={[
-                  { label: "API 요청", desc: "RequestInterceptor가 헤더에 액세스 토큰 자동 삽입", color: "#2563eb" },
-                  { label: "401 Unauthorized", desc: "액세스 토큰 만료로 인한 인증 오류", color: "#ef4444" },
-                  { label: "리프레시 토큰으로 재발급", desc: "리프레시 토큰으로 새 액세스 토큰 요청", color: "#f59e0b" },
-                  { label: "새 액세스 토큰 저장", desc: "새 액세스 토큰을 로컬에 저장", color: "#7c3aed" },
-                  { label: "원래 요청 재시도 → 성공", desc: "새 토큰으로 원래 API 요청 자동 재시도", color: "#22c55e" },
-                ]}
-              />
-            </div>
+            <TwoColumnLayout
+              left={
+                <div>
+                  <p className="text-sm-md font-normal text-muted-foreground leading-loose">
+                    Alamofire의 RequestInterceptor를 활용해 요청 헤더에 토큰을 자동으로 적용하고, 액세스 토큰 오류 발생 시 토큰 재발급을 수행하는 로직을 구현했습니다.
+                  </p>
+                </div>
+              }
+              right={
+                <VerticalFlow
+                  steps={[
+                    { label: "API 요청", desc: "RequestInterceptor가 헤더에 액세스 토큰 자동 삽입", color: "#2563eb" },
+                    { label: "401 Unauthorized", desc: "액세스 토큰 만료로 인한 인증 오류", color: "#ef4444" },
+                    { label: "리프레시 토큰으로 재발급", desc: "리프레시 토큰으로 새 액세스 토큰 요청", color: "#f59e0b" },
+                    { label: "새 액세스 토큰 저장", desc: "새 액세스 토큰을 로컬에 저장", color: "#7c3aed" },
+                    { label: "원래 요청 재시도 → 성공", desc: "새 토큰으로 원래 API 요청 자동 재시도", color: "#22c55e" },
+                  ]}
+                />
+              }
+            />
           </ContentCard>
         </FadeInView>
 
@@ -175,12 +160,10 @@ export function ProjectShowPot() {
           </ContentCard>
         </FadeInView>
 
-        {/* ───── 기술 구현 ───── */}
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            기술 구현
-          </SubSectionTitle>
-        </FadeInView>
+      </SectionGroup>
+
+      {/* ───── 기술 구현 ───── */}
+      <SectionGroup title="기술 구현">
 
         <FadeInView>
           <div className="space-y-3">
@@ -190,18 +173,11 @@ export function ProjectShowPot() {
               "Swift Dependencies의 testValue를 활용해 테스트 가능한 환경을 구성하고, previewValue를 통해 프리뷰 환경에서 목업 데이터를 제공하여 불필요한 API 호출을 줄였습니다.",
               "SwiftJWT를 활용해 애플 리프레시 토큰 발급과 회원 탈퇴 요청에 필요한 Payload를 생성하여 애플 로그인 탈퇴 기능을 구현했습니다.",
             ].map((item, i) => (
-              <div key={i} className="p-5 rounded-xl bg-muted/40 border border-border">
-                <div className="flex items-start gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold flex items-center justify-center mt-0.5">
-                    {i + 1}
-                  </span>
-                  <p className="text-sm-md font-normal text-foreground leading-loose">{item}</p>
-                </div>
-              </div>
+              <NumberedStep key={i} index={i + 1}>{item}</NumberedStep>
             ))}
           </div>
         </FadeInView>
-      </div>
+      </SectionGroup>
     </div>
   );
 }

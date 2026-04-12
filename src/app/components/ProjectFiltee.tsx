@@ -9,7 +9,7 @@ import {
   SyncFlowDiagram,
   AppScreenshotPlaceholder,
 } from "./Diagrams";
-import { ContentCard, SubSectionTitle } from "./design-system";
+import { ContentCard, SectionGroup, SubSectionTitle, TwoColumnLayout } from "./design-system";
 import filteePromo from "../../image/필티표지.png";
 import filterScreenshot from "../../image/필터 제작 스크린샷.jpeg";
 import chatSearchScreenshot from "../../image/채팅 검색 스크린샷.PNG";
@@ -58,12 +58,8 @@ export function ProjectFiltee() {
       </FadeInView>
 
       {/* ───── 프로젝트 설계 ───── */}
-      <div className="mt-16 space-y-12">
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            프로젝트 설계
-          </SubSectionTitle>
-        </FadeInView>
+      <div className="mt-16">
+        <SectionGroup title="프로젝트 설계">
 
         {/* 바닐라 SwiftUI */}
         <FadeInView>
@@ -153,9 +149,10 @@ export function ProjectFiltee() {
             </SubSectionTitle>
 
             {/* 2-col: 왼쪽 내용 + 오른쪽 스크린샷 */}
-            <div className="grid md:grid-cols-2 gap-8 items-start">
-              {/* 왼쪽: Stack 구조 설명 + 다이어그램 + 스냅샷 전략 */}
-              <div>
+            <TwoColumnLayout
+              left={
+                <div>
+                  {/* 왼쪽: Stack 구조 설명 + 다이어그램 + 스냅샷 전략 */}
                 {/* Stack 구조 도입 설명 */}
                 <div className="mb-5">
                   <h6 className="text-base font-semibold text-foreground mb-3">필터값 이력의 순서 관리를 위한 Stack 구조 도입</h6>
@@ -221,7 +218,7 @@ export function ProjectFiltee() {
                               <div className="flex items-center justify-center gap-1">
                                 <span className="text-2xs font-semibold text-blue-700 dark:text-blue-300">{label}</span>
                                 {badge && (
-                                  <span className="text-[7px] font-semibold text-blue-500 bg-blue-500/15 px-1 rounded leading-snug">{badge}</span>
+                                  <span className="text-4xs font-semibold text-blue-500 bg-blue-500/15 px-1 rounded leading-snug">{badge}</span>
                                 )}
                               </div>
                             </div>
@@ -236,13 +233,13 @@ export function ProjectFiltee() {
                         <svg width="36" height="9" viewBox="0 0 36 9">
                           <path d="M2 4.5h28M27 1.5l6 3-6 3" fill="none" stroke="#f97316" strokeWidth="1.4"/>
                         </svg>
-                        <span className="text-[7px] text-orange-500 font-semibold">Undo</span>
+                        <span className="text-4xs text-orange-500 font-semibold">Undo</span>
                       </div>
                       <div className="flex flex-col items-center gap-0.5">
                         <svg width="36" height="9" viewBox="0 0 36 9">
                           <path d="M34 4.5H6M9 1.5l-6 3 6 3" fill="none" stroke="#3b82f6" strokeWidth="1.4"/>
                         </svg>
-                        <span className="text-[7px] text-blue-500 font-semibold">Redo</span>
+                        <span className="text-4xs text-blue-500 font-semibold">Redo</span>
                       </div>
                     </div>
 
@@ -270,7 +267,7 @@ export function ProjectFiltee() {
                               <div className="flex items-center justify-center gap-1">
                                 <span className="text-2xs font-semibold text-orange-700 dark:text-orange-300">{label}</span>
                                 {badge && (
-                                  <span className="text-[7px] font-semibold text-orange-500 bg-orange-500/15 px-1 rounded leading-snug">{badge}</span>
+                                  <span className="text-4xs font-semibold text-orange-500 bg-orange-500/15 px-1 rounded leading-snug">{badge}</span>
                                 )}
                               </div>
                             </div>
@@ -293,17 +290,18 @@ export function ProjectFiltee() {
                     </p>
                   </div>
                 </div>
-              </div>
-
-              {/* 오른쪽: 앱 스크린샷 */}
-              <div className="flex justify-center">
-                <img
-                  src={filterScreenshot}
-                  alt="필터 제작 스크린샷"
-                  className="w-full max-w-[240px] rounded-2xl"
-                />
-              </div>
-            </div>
+                </div>
+              }
+              right={
+                <div className="flex justify-center">
+                  <img
+                    src={filterScreenshot}
+                    alt="필터 제작 스크린샷"
+                    className="w-full max-w-[240px] rounded-2xl"
+                  />
+                </div>
+              }
+            />
           </ContentCard>
         </FadeInView>
 
@@ -454,7 +452,20 @@ export function ProjectFiltee() {
         </FadeInView>
 
         <SyncFlowDiagram
+          title="실시간 수신과 동기화 충돌 고려"
           description="채팅방 진입과 동시에 서버와의 동기화 작업이 진행되는 동안에도 실시간 소켓 메시지가 수신될 수 있다는 점을 고려해야했습니다. 소켓 연결은 동기화보다 먼저 수행하고, 동기화 완료 이전에 수신된 메시지는 별도의 대기열(Queue)에 저장하도록 구성했습니다. 동기화가 완료되면 대기열(Queue)에 저장된 메시지를 선처리한 뒤 일반 수신 흐름으로 전환되도록 구현해 실시간성과 데이터 정합성을 보장했습니다."
+          steps={[
+            { label: "채팅방 진입", color: "#2563eb", desc: "사용자가 채팅방에 접근" },
+            { label: "소켓 연결 (동기화 이전)", color: "#2563eb", desc: "동기화보다 소켓을 먼저 연결해 메시지 수신 준비" },
+            { label: "서버와 DB 동기화 시작", color: "#f59e0b", desc: "마지막 메시지 시점 기준으로 누락 메시지 조회" },
+            { label: "수신 메시지 → 대기열(Queue) 저장", color: "#f59e0b", desc: "동기화 중 수신된 실시간 메시지를 큐에 임시 보관" },
+            { label: "동기화 완료", color: "#22c55e", desc: "서버 데이터를 로컬 DB에 병합 완료" },
+            { label: "대기열 메시지 선처리", color: "#22c55e", desc: "큐에 보관된 메시지를 우선 적용해 정합성 확보" },
+            { label: "일반 수신 흐름 전환", color: "#22c55e", desc: "이후 수신 메시지는 일반 흐름으로 처리" },
+          ]}
+          problem="채팅방 진입 시 서버 동기화 도중 소켓으로 수신된 메시지가 누락되거나 순서가 뒤틀릴 수 있음"
+          solution="소켓 연결을 동기화보다 먼저 시작하고, 동기화 완료 전 수신된 메시지는 Queue에 임시 저장"
+          detail="Queue의 FIFO 특성을 활용해 수신 순서를 그대로 보존합니다. 동기화 완료 후 Queue의 메시지를 선처리한 뒤 일반 수신 흐름으로 전환하여 실시간성과 데이터 정합성을 모두 확보했습니다."
           screenshotSrc={chatScreenshot}
         />
 
@@ -465,9 +476,9 @@ export function ProjectFiltee() {
               채팅 검색 시 미로드 영역 스크롤 이동
             </SubSectionTitle>
             {/* 설명 + PSB + 플로우 다이어그램 + 앱스크린샷 — 2컬럼 */}
-            <div className="grid md:grid-cols-2 gap-8 items-start">
-              {/* 왼쪽: 설명 + PSB + 플로우 다이어그램 */}
-              <div className="flex flex-col gap-4">
+            <TwoColumnLayout
+              left={
+                <div className="flex flex-col gap-4">
                 <p className="text-sm-md font-normal text-muted-foreground leading-loose">
                   검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우, 곧바로 해당 위치로 스크롤 이동하는 데 어려움이 생길 수 있다는 점을 고려했습니다.
                 </p>
@@ -530,17 +541,18 @@ export function ProjectFiltee() {
                   </div>
                 ))}
                 </div>
-              </div>
-
-              {/* 오른쪽: 앱 스크린샷 */}
-              <div className="flex items-center justify-center">
-                <img
-                  src={chatSearchScreenshot}
-                  alt="채팅 검색 스크린샷"
-                  className="w-full max-w-[240px] rounded-2xl"
-                />
-              </div>
-            </div>
+                </div>
+              }
+              right={
+                <div className="flex items-center justify-center">
+                  <img
+                    src={chatSearchScreenshot}
+                    alt="채팅 검색 스크린샷"
+                    className="w-full max-w-[240px] rounded-2xl"
+                  />
+                </div>
+              }
+            />
           </ContentCard>
         </FadeInView>
 
@@ -556,51 +568,53 @@ export function ProjectFiltee() {
             <SubSectionTitle size="md" className="mb-4">
               결제 처리 흐름 설계
             </SubSectionTitle>
-            <div className="grid md:grid-cols-2 gap-8 items-start">
-              {/* 왼쪽: 설명 */}
-              <div>
-                <h6 className="text-sm-md font-semibold text-foreground mb-3">결제 검증의 주체에 대한 고려</h6>
-                <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-4">
-                  결제 기능은 실제 청구가 발생하는 민감한 기능이기 때문에 기능 구현에 앞서 검증 방식에 대한 고민을 했습니다.
-                </p>
-                <p className="text-sm-md font-normal text-muted-foreground leading-loose">
-                  앱은 사용자 디바이스에서 실행되기 때문에 탈옥 등의 방법으로 앱을 임의로 변조해 결제 로직을 수정하고, 사용자가 인위적으로 '결제 완료' 상태를 만들 수 있는 위험이 존재합니다. 반면 서버는 개발자가 통제하는 신뢰 가능한 환경이므로 모든 결제 검증은 서버에서 직접 수행하는 것을 원칙으로 했습니다.
-                </p>
-                <div className="mt-4 p-3 rounded-lg bg-primary/5 border border-primary/10">
-                  <p className="text-sm font-medium text-primary">원칙: 결제 검증의 주체는 항상 서버</p>
-                </div>
-              </div>
-
-              {/* 오른쪽: FlowChart */}
-              <div className="flex flex-col items-center gap-1.5">
-                {[
-                  { label: "사용자 필터 구매 시도", desc: "주문 번호 발급 요청", color: "#2563eb" },
-                  { label: "PG 결제 진행", desc: "Payment Gateway", color: "#7c3aed" },
-                  { label: "결제 완료 → 승인 정보 전달", desc: "앱 → 서버", color: "#f59e0b" },
-                  { label: "서버 검증", desc: "금액·상태·주문번호 유효성 확인", color: "#ef4444" },
-                  { label: "검증 완료 → 상품 지급", desc: "클라이언트 UI 업데이트", color: "#22c55e" },
-                ].map((step, i, arr) => (
-                  <div key={i} className="w-full max-w-[240px]">
-                    <div
-                      className="px-3 py-2.5 rounded-lg bg-card border text-center"
-                      style={{ borderColor: step.color + "50" }}
-                    >
-                      <span className="text-xs font-semibold" style={{ color: step.color }}>{step.label}</span>
-                      {step.desc && <p className="text-2xs text-muted-foreground mt-0.5">{step.desc}</p>}
-                    </div>
-                    {i < arr.length - 1 && (
-                      <div className="flex justify-center py-0.5">
-                        <svg width="10" height="12" viewBox="0 0 10 12" className="text-border">
-                          <path d="M5 0v8M2 6l3 4 3-4" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                        </svg>
-                      </div>
-                    )}
+            <TwoColumnLayout
+              left={
+                <div>
+                  <h6 className="text-sm-md font-semibold text-foreground mb-3">결제 검증의 주체에 대한 고려</h6>
+                  <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-4">
+                    결제 기능은 실제 청구가 발생하는 민감한 기능이기 때문에 기능 구현에 앞서 검증 방식에 대한 고민을 했습니다.
+                  </p>
+                  <p className="text-sm-md font-normal text-muted-foreground leading-loose">
+                    앱은 사용자 디바이스에서 실행되기 때문에 탈옥 등의 방법으로 앱을 임의로 변조해 결제 로직을 수정하고, 사용자가 인위적으로 '결제 완료' 상태를 만들 수 있는 위험이 존재합니다. 반면 서버는 개발자가 통제하는 신뢰 가능한 환경이므로 모든 결제 검증은 서버에서 직접 수행하는 것을 원칙으로 했습니다.
+                  </p>
+                  <div className="mt-4 p-3 rounded-lg bg-primary/5 border border-primary/10">
+                    <p className="text-sm font-medium text-primary">원칙: 결제 검증의 주체는 항상 서버</p>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              }
+              right={
+                <div className="flex flex-col items-center gap-1.5">
+                  {[
+                    { label: "사용자 필터 구매 시도", desc: "주문 번호 발급 요청", color: "#2563eb" },
+                    { label: "PG 결제 진행", desc: "Payment Gateway", color: "#7c3aed" },
+                    { label: "결제 완료 → 승인 정보 전달", desc: "앱 → 서버", color: "#f59e0b" },
+                    { label: "서버 검증", desc: "금액·상태·주문번호 유효성 확인", color: "#ef4444" },
+                    { label: "검증 완료 → 상품 지급", desc: "클라이언트 UI 업데이트", color: "#22c55e" },
+                  ].map((step, i, arr) => (
+                    <div key={i} className="w-full max-w-[240px]">
+                      <div
+                        className="px-3 py-2.5 rounded-lg bg-card border text-center"
+                        style={{ borderColor: step.color + "50" }}
+                      >
+                        <span className="text-xs font-semibold" style={{ color: step.color }}>{step.label}</span>
+                        {step.desc && <p className="text-2xs text-muted-foreground mt-0.5">{step.desc}</p>}
+                      </div>
+                      {i < arr.length - 1 && (
+                        <div className="flex justify-center py-0.5">
+                          <svg width="10" height="12" viewBox="0 0 10 12" className="text-border">
+                            <path d="M5 0v8M2 6l3 4 3-4" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              }
+            />
           </ContentCard>
         </FadeInView>
+        </SectionGroup>
       </div>
     </div>
   );

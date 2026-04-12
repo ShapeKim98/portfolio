@@ -118,6 +118,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* ===== Typography - Font Size ===== */
+  --text-4xs: 7px;
   --text-3xs: 8px;
   --text-2xs: 9px;
   --text-xxs: 10px;

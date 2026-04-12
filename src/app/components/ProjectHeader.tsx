@@ -1,6 +1,6 @@
 import { FadeInView } from "./ParallaxSection";
 import { TechTags, ScreenshotPlaceholder } from "./Diagrams";
-import { DotSeparator } from "./design-system";
+import { DotSeparator, IconButton } from "./design-system";
 import { Github, ExternalLink } from "lucide-react";
 
 interface ProjectHeaderProps {
@@ -69,25 +69,9 @@ export function ProjectHeader({
         </p>
 
         <div className="flex flex-wrap items-center gap-3 mb-8">
-          <a
-            href={githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-sm-md font-medium hover:opacity-90 transition-opacity"
-          >
-            <Github size={14} />
-            Repository
-          </a>
+          <IconButton href={githubUrl} variant="primary" size="sm" icon={<Github size={14} />} target="_blank" rel="noopener noreferrer">Repository</IconButton>
           {appStoreUrl && (
-            <a
-              href={appStoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground text-sm-md font-medium hover:bg-muted transition-colors"
-            >
-              <ExternalLink size={14} />
-              App Store
-            </a>
+            <IconButton href={appStoreUrl} variant="secondary" size="sm" icon={<ExternalLink size={14} />} target="_blank" rel="noopener noreferrer">App Store</IconButton>
           )}
         </div>
 

@@ -350,22 +350,28 @@ export function AppScreenshotPlaceholder({ label }: { label: string }) {
 }
 
 /* ─── Sync Flow Diagram (PSB + 설명 상단 / 흐름 좌 + 스크린샷 우) ─── */
-export function SyncFlowDiagram({ description, screenshotSrc }: { description?: string; screenshotSrc?: string }) {
-  const steps = [
-    { label: "채팅방 진입", color: "#2563eb", desc: "사용자가 채팅방에 접근" },
-    { label: "소켓 연결 (동기화 이전)", color: "#2563eb", desc: "동기화보다 소켓을 먼저 연결해 메시지 수신 준비" },
-    { label: "서버와 DB 동기화 시작", color: "#f59e0b", desc: "마지막 메시지 시점 기준으로 누락 메시지 조회" },
-    { label: "수신 메시지 → 대기열(Queue) 저장", color: "#f59e0b", desc: "동기화 중 수신된 실시간 메시지를 큐에 임시 보관" },
-    { label: "동기화 완료", color: "#22c55e", desc: "서버 데이터를 로컬 DB에 병합 완료" },
-    { label: "대기열 메시지 선처리", color: "#22c55e", desc: "큐에 보관된 메시지를 우선 적용해 정합성 확보" },
-    { label: "일반 수신 흐름 전환", color: "#22c55e", desc: "이후 수신 메시지는 일반 흐름으로 처리" },
-  ];
-
+export function SyncFlowDiagram({
+  title,
+  description,
+  steps,
+  problem,
+  solution,
+  detail,
+  screenshotSrc,
+}: {
+  title: string;
+  description?: string;
+  steps: { label: string; color: string; desc: string }[];
+  problem: string;
+  solution: string;
+  detail?: string;
+  screenshotSrc?: string;
+}) {
   return (
     <FadeInView>
       <ContentCard>
         <SubSectionTitle size="md" className="mb-4">
-          실시간 수신과 동기화 충돌 고려
+          {title}
         </SubSectionTitle>
 
         {/* 설명 텍스트 */}
@@ -378,9 +384,9 @@ export function SyncFlowDiagram({ description, screenshotSrc }: { description?: 
         {/* Problem / Solution */}
         <div className="mb-6">
           <ProblemSolvingBlock
-            problem="채팅방 진입 시 서버 동기화 도중 소켓으로 수신된 메시지가 누락되거나 순서가 뒤틀릴 수 있음"
-            solution="소켓 연결을 동기화보다 먼저 시작하고, 동기화 완료 전 수신된 메시지는 Queue에 임시 저장"
-            detail="Queue의 FIFO 특성을 활용해 수신 순서를 그대로 보존합니다. 동기화 완료 후 Queue의 메시지를 선처리한 뒤 일반 수신 흐름으로 전환하여 실시간성과 데이터 정합성을 모두 확보했습니다."
+            problem={problem}
+            solution={solution}
+            detail={detail}
           />
         </div>
 

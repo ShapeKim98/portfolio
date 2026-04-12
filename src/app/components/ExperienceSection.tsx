@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "mot
 import { FadeInView } from "./ParallaxSection";
 import { TechTags } from "./Diagrams";
 import { ChevronDown, ChevronUp, Building2 } from "lucide-react";
-import { SectionInner, SectionPageHeading, DotSeparator } from "./design-system";
+import { SectionInner, SectionPageHeading, DotSeparator, ParallaxBlobLayer, Divider } from "./design-system";
 
 interface WorkItem {
   title: string;
@@ -213,13 +213,10 @@ export function ExperienceSection() {
       className="relative py-32 md:py-40 px-6 bg-muted/30 overflow-hidden"
     >
       {/* Background decorative layer */}
-      <motion.div
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 pointer-events-none"
-      >
+      <ParallaxBlobLayer bgY={bgY} bgScale={bgScale}>
         <div className="absolute top-[5%] -right-[120px] w-[450px] h-[450px] rounded-full bg-primary/4 blur-3xl" />
         <div className="absolute bottom-[10%] -left-[100px] w-[350px] h-[350px] rounded-full bg-primary/3 blur-3xl" />
-      </motion.div>
+      </ParallaxBlobLayer>
 
       <SectionInner>
         {/* Section Header */}
@@ -267,7 +264,7 @@ export function ExperienceSection() {
           {alwaysVisibleItems.map((item, i) => (
             <FadeInView key={item.title} delay={i * 0.05}>
               <WorkItemCard item={item} />
-              <hr className="border-border" />
+              <Divider />
             </FadeInView>
           ))}
         </div>
@@ -301,7 +298,7 @@ export function ExperienceSection() {
                   >
                     <WorkItemCard item={item} />
                     {i < hiddenItems.length - 1 && (
-                      <hr className="border-border" />
+                      <Divider />
                     )}
                   </motion.div>
                 ))}

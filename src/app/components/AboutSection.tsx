@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useIsMobile } from "./ui/use-mobile";
-import { SectionInner, SectionHeading } from "./design-system";
+import { SectionInner, SectionHeading, ParallaxBlobLayer, ParallaxAccentLayer } from "./design-system";
 
 const VALUES = [
   {
@@ -78,10 +78,7 @@ export function AboutSection() {
       className="relative py-32 md:py-40 px-6 overflow-hidden"
     >
       {/* Layer 0: Background decorative */}
-      <motion.div
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 pointer-events-none"
-      >
+      <ParallaxBlobLayer bgY={bgY} bgScale={bgScale}>
         {/* Gradient blob - top right */}
         <div className="absolute top-[10%] -right-[100px] w-[400px] h-[400px] rounded-full bg-primary/5 blur-3xl" />
         {/* Gradient blob - bottom left */}
@@ -97,13 +94,10 @@ export function AboutSection() {
             }}
           />
         )}
-      </motion.div>
+      </ParallaxBlobLayer>
 
       {/* Layer 3: Accent decorative (foreground) */}
-      <motion.div
-        style={{ y: accentY }}
-        className="absolute inset-0 pointer-events-none z-20"
-      >
+      <ParallaxAccentLayer accentY={accentY}>
         {/* Small circle - top left */}
         <motion.div
           style={{ rotate: accentRotate }}
@@ -119,7 +113,7 @@ export function AboutSection() {
             +
           </span>
         )}
-      </motion.div>
+      </ParallaxAccentLayer>
 
       {/* Main content - z-10 */}
       <SectionInner>

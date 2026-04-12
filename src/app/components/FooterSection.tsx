@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { FadeInView } from "./ParallaxSection";
 import { Github, Mail, Phone } from "lucide-react";
-import { SectionInner } from "./design-system";
+import { SectionInner, IconButton, ParallaxBlobLayer, ParallaxAccentLayer } from "./design-system";
 
 export function FooterSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -21,25 +21,19 @@ export function FooterSection() {
   return (
     <section ref={sectionRef} id="contact" className="relative py-32 md:py-40 px-6 overflow-hidden">
       {/* Background */}
-      <motion.div
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 pointer-events-none"
-      >
+      <ParallaxBlobLayer bgY={bgY} bgScale={bgScale}>
         <div className="absolute top-[20%] left-[10%] w-[350px] h-[350px] rounded-full bg-primary/4 blur-3xl" />
         <div className="absolute bottom-[10%] right-[5%] w-[300px] h-[300px] rounded-full bg-primary/3 blur-3xl" />
-      </motion.div>
+      </ParallaxBlobLayer>
 
       {/* Accent */}
-      <motion.div
-        style={{ y: accentY }}
-        className="absolute inset-0 pointer-events-none z-20"
-      >
+      <ParallaxAccentLayer accentY={accentY}>
         <motion.div
           style={{ rotate: accentRotate }}
           className="absolute top-[15%] right-[15%] w-3 h-3 rounded-full border-2 border-primary/15"
         />
         <div className="absolute bottom-[30%] left-[8%] w-20 h-px bg-primary/10" />
-      </motion.div>
+      </ParallaxAccentLayer>
 
       <SectionInner className="max-w-3xl text-center">
         <FadeInView speed={1.3}>
@@ -54,22 +48,8 @@ export function FooterSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <a
-              href="mailto:shapekim98@gmail.com"
-              className="flex items-center gap-3 px-6 py-3 rounded-xl bg-foreground text-background text-base font-medium hover:opacity-90 transition-opacity"
-            >
-              <Mail size={18} />
-              shapekim98@gmail.com
-            </a>
-            <a
-              href="https://github.com/ShapeKim98"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 px-6 py-3 rounded-xl border border-border text-foreground text-base font-medium hover:bg-muted transition-colors"
-            >
-              <Github size={18} />
-              GitHub
-            </a>
+            <IconButton href="mailto:shapekim98@gmail.com" variant="primary" size="lg" icon={<Mail size={18} />}>shapekim98@gmail.com</IconButton>
+            <IconButton href="https://github.com/ShapeKim98" variant="secondary" size="lg" icon={<Github size={18} />} target="_blank" rel="noopener noreferrer">GitHub</IconButton>
           </div>
 
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
