@@ -46,12 +46,7 @@ export function Navigation() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a
-          href="#"
-          className="text-[18px] font-[700] tracking-[-0.04em] text-foreground hover:text-primary transition-colors"
-        >
-          DH.Kim
-        </a>
+        <div className="w-0" />
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
