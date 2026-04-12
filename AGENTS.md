@@ -1,12 +1,14 @@
 # Portfolio Project - Agent Rules
 
 ## 개발 워크플로우
-- 새로운 기능/수정 작업 시 반드시 `/issue-worktree` 스킬을 사용할 것
-- 워크트리를 통해 다른 브랜치 작업과 격리된 환경에서 진행
-
-## 브랜치 규칙
-- 형식: `feat/<이슈번호>-<간단한-설명>` (e.g. `feat/3-image-lightbox`)
+- 기능 추가/버그 수정 시 이슈 기반 브랜치에서 작업할 것
+- 브랜치 형식: `feat/<이슈번호>-<간단한-설명>` (e.g. `feat/3-image-lightbox`)
 - base 브랜치: `main`
+
+## 빌드 & 테스트
+- `npm run dev` — 개발 서버
+- `npm run build` — 프로덕션 빌드
+- `npm run preview` — 빌드 결과 프리뷰
 
 ## 커밋 컨벤션
 - `feat:` 새로운 기능
@@ -20,8 +22,5 @@
 - 본문: Summary, Test plan 섹션 포함
 - `Closes #이슈번호`로 이슈 자동 닫기
 
-## 기술 스택
-- React 18 + TypeScript + Vite
-- Tailwind CSS v4
-- Radix UI + Motion (framer-motion)
-- GitHub Pages 배포 (base: /portfolio/)
+## 배포
+- GitHub Pages (base path: /portfolio/)
