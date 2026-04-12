@@ -1,6 +1,8 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { AppScreenshotPlaceholder, FeatureGrid, LayerDiagram, ProblemSolvingBlock, ScreenshotPlaceholder } from "./Diagrams";
+import { ContentCard } from "./design-system";
+import { ClickableImage } from "./ClickableImage";
 import pokitPromo from "../../image/포킷표지.png";
 import tuistGraph from "../../image/Tuist Graph — 모듈 의존 관계 시각화.png";
 import linkThumb1 from "../../image/link-thumbnail-1.jpg";
@@ -45,21 +47,21 @@ export function ProjectPokit() {
       />
 
       <FadeInView>
-        <h4 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground mb-6">핵심 기능</h4>
+        <h4 className="text-2xl font-bold tracking-tight text-foreground mb-6">핵심 기능</h4>
         <FeatureGrid features={FEATURES} />
       </FadeInView>
 
       {/* ───── 프로젝트 설계 ───── */}
       <div className="mt-16 space-y-12">
         <FadeInView>
-          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
+          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
             프로젝트 설계
           </h4>
         </FadeInView>
 
         {/* Tuist Graph */}
         <FadeInView>
-          <img
+          <ClickableImage
             src={tuistGraph}
             alt="Tuist Graph — 모듈 의존 관계 시각화"
             className="w-full rounded-2xl object-contain bg-white p-4"
@@ -68,7 +70,7 @@ export function ProjectPokit() {
 
         {/* Modular Architecture 도입 */}
         <FadeInView>
-          <h5 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground mb-4">
+          <h5 className="text-2xl font-bold tracking-tight text-foreground mb-4">
             Modular Architecture 도입
           </h5>
           <div className="grid md:grid-cols-3 gap-4 mb-8">
@@ -87,8 +89,8 @@ export function ProjectPokit() {
               },
             ].map((item) => (
               <div key={item.title} className="p-5 rounded-xl bg-muted/40 border border-border">
-                <h6 className="text-[14px] font-[600] text-foreground mb-2">{item.title}</h6>
-                <p className="text-[12px] font-[400] text-muted-foreground leading-[1.8]">{item.desc}</p>
+                <h6 className="text-base font-semibold text-foreground mb-2">{item.title}</h6>
+                <p className="text-sm font-normal text-muted-foreground leading-loose">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -96,8 +98,8 @@ export function ProjectPokit() {
 
         {/* Tuist 도입 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               Modular Architecture를 위한 Tuist 도입
             </h5>
             <div className="space-y-4">
@@ -112,17 +114,17 @@ export function ProjectPokit() {
                 detail="Tuist를 도입하여 Swift 코드 기반으로 프로젝트 생성을 자동화했습니다. 모듈을 열거형(Enum)으로 정의하고, 공통 설정을 Swift 메서드로 추상화하여 반복 작업을 최소화했으며, Tuist Template을 활용해 디렉터리와 필수 파일 구성을 자동화했습니다. 그 결과, 새로운 모듈 추가 시 열거형 케이스 한 줄 추가와 명령어 한 줄이면 모듈 추가가 자동으로 완성되는 구조를 구축했습니다."
               />
             </div>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* Tuist Graph 장점 */}
         <FadeInView>
           <div className="p-6 md:p-8 rounded-2xl bg-primary/5 border border-primary/10">
-            <h5 className="text-[16px] font-[700] text-foreground mb-3 tracking-[-0.01em]">
+            <h5 className="text-lg font-bold text-foreground mb-3 tracking-snug">
               프로젝트 구조 시각화 및 유지보수 향상
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9]">
-              Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인할 수 있다는 점입니다. Tuist에서 제공하는 <code className="px-1.5 py-0.5 rounded bg-muted text-[13px] font-[500]">tuist graph</code> 명령어를 활용해 프로젝트의 전체 모듈 구조와 의존 관계를 명확히 파악했습니다. 이를 통해 프로젝트 구조를 점검하여, 향후 확장 및 리팩토링 방향을 체계적으로 수립할 수 있는 기반을 마련했습니다.
+            <p className="text-base font-normal text-muted-foreground leading-loose">
+              Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인할 수 있다는 점입니다. Tuist에서 제공하는 <code className="px-1.5 py-0.5 rounded bg-muted text-[13px] font-medium">tuist graph</code> 명령어를 활용해 프로젝트의 전체 모듈 구조와 의존 관계를 명확히 파악했습니다. 이를 통해 프로젝트 구조를 점검하여, 향후 확장 및 리팩토링 방향을 체계적으로 수립할 수 있는 기반을 마련했습니다.
             </p>
           </div>
         </FadeInView>
@@ -130,10 +132,10 @@ export function ProjectPokit() {
         {/* 모듈 구성 및 레이어 설계 */}
         <FadeInView>
           <div className="mb-4">
-            <h5 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground mb-3">
+            <h5 className="text-2xl font-bold tracking-tight text-foreground mb-3">
               모듈 구성 및 레이어 설계
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9]">
+            <p className="text-base font-normal text-muted-foreground leading-loose">
               계층화된 모듈 구조를 통해 기능 단위 분리, 공통 로직 재사용, 멀티 타겟 대응을 유연하게 수행할 수 있는 구조를 고민했습니다. 특히 모듈 간의 의존성을 단방향으로 유지하고, 재사용성이 높을수록 아래에 배치하는 전략을 통해 구조의 일관성과 유지보수성을 확보했습니다.
             </p>
           </div>
@@ -143,10 +145,10 @@ export function ProjectPokit() {
 
         {/* ───── URL 제목 및 썸네일 파싱 설계 ───── */}
         <FadeInView>
-          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
+          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
             URL 제목 및 썸네일 파싱 설계
           </h4>
-          <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-6">
+          <p className="text-base font-normal text-muted-foreground leading-loose mb-6">
             링크 저장 서비스의 특성상, 사용자가 저장한 웹페이지의 썸네일 이미지와 제목을 안정적으로 파싱하는 것이 핵심 UX 중 하나였습니다. 이를 구현하는 과정에서 다음과 같은 설계적 고민 및 문제 해결이 있었습니다.
           </p>
         </FadeInView>
@@ -168,15 +170,15 @@ export function ProjectPokit() {
             <div className="flex flex-col items-center justify-center gap-4">
               {/* OG 태그 파싱 성공 */}
               <div className="w-full max-w-[335px]">
-                <p className="text-[11px] font-[600] text-primary mb-1.5 tracking-[-0.01em]">OG 태그 파싱 성공</p>
+                <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 파싱 성공</p>
                 <div className="rounded-xl border border-border bg-card shadow-[2px_2px_6px_rgba(0,0,0,0.06)] overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb1} alt="" className="w-[124px] h-[108px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
-                      <p className="text-[14px] font-[600] leading-[18px] tracking-[-0.15px] text-foreground line-clamp-2">
+                      <p className="text-base font-semibold leading-[18px] tracking-[-0.15px] text-foreground line-clamp-2">
                         자연 친화적인 라이프스타일을 위한 환경 보호 방법
                       </p>
-                      <p className="text-[12px] font-[400] leading-[16px] tracking-[-0.13px] text-muted-foreground truncate">
+                      <p className="text-sm font-normal leading-[16px] tracking-[-0.13px] text-muted-foreground truncate">
                         https://www.youtube.com/watch?v=xSTwqKUyM8k
                       </p>
                     </div>
@@ -185,15 +187,15 @@ export function ProjectPokit() {
               </div>
               {/* OG 태그 미지원 — 기본 썸네일 대체 */}
               <div className="w-full max-w-[335px]">
-                <p className="text-[11px] font-[600] text-primary mb-1.5 tracking-[-0.01em]">OG 태그 미지원 — 기본 썸네일 대체</p>
+                <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 미지원 — 기본 썸네일 대체</p>
                 <div className="rounded-xl border border-border bg-card shadow-[2px_2px_6px_rgba(0,0,0,0.06)] overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb2} alt="" className="w-[124px] h-[94px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
-                      <p className="text-[14px] font-[600] leading-[18px] tracking-[-0.15px] text-foreground line-clamp-2">
+                      <p className="text-base font-semibold leading-[18px] tracking-[-0.15px] text-foreground line-clamp-2">
                         자연 친화적인 라이프스타일을 위한 환경 보호 방법
                       </p>
-                      <p className="text-[12px] font-[400] leading-[16px] tracking-[-0.13px] text-muted-foreground truncate">
+                      <p className="text-sm font-normal leading-[16px] tracking-[-0.13px] text-muted-foreground truncate">
                         https://www.youtube.com/watch?v=xSTwqKUyM8k
                       </p>
                     </div>
@@ -206,23 +208,23 @@ export function ProjectPokit() {
 
         {/* 썸네일 만료 이슈 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               썸네일 만료 이슈 분석 및 대응
             </h5>
 
             {/* 원인 파악 */}
             <div className="mb-6">
               <div>
-                <h6 className="text-[14px] font-[600] text-foreground mb-3">원인 파악을 위한 모니터링 및 가설 수립</h6>
-                <p className="text-[13px] font-[400] text-muted-foreground leading-[1.8] mb-3">
+                <h6 className="text-base font-semibold text-foreground mb-3">원인 파악을 위한 모니터링 및 가설 수립</h6>
+                <p className="text-[13px] font-normal text-muted-foreground leading-loose mb-3">
                   썸네일이 로드되지 않는 문제가 보고된 이후, 팀원들과 함께 다양한 케이스를 재현하며 원인을 추적했고, 해당 현상이 인스타그램 URL에서 공통적으로 발생하는 패턴을 확인했습니다.
                 </p>
-                <p className="text-[13px] font-[400] text-muted-foreground leading-[1.8] mb-3">
+                <p className="text-[13px] font-normal text-muted-foreground leading-loose mb-3">
                   이후 동일한 인스타그램 URL을 매일 확인하며 응답 결과를 모니터링한 결과, 3~4일이 경과한 시점부터 썸네일이 표시되지 않는 현상이 나타났습니다. 명확한 만료 주기를 확인하기 위해 인스타그램의 썸네일 만료 정책 관련 문서를 탐색했으나, 공식적인 자료를 발견하지 못했습니다.
                 </p>
                 <div className="p-3 rounded-lg bg-primary/5 border border-primary/10">
-                  <p className="text-[12px] font-[500] text-primary leading-[1.7]">
+                  <p className="text-sm font-medium text-primary leading-loose">
                     결론: 내부 모니터링 결과를 근거로 썸네일 URL이 약 3~4일 이후 만료되는 것으로 추정
                   </p>
                 </div>
@@ -231,11 +233,11 @@ export function ProjectPokit() {
 
             {/* JWT 착안 재파싱 플로우 다이어그램 */}
             <div className="mb-5 p-4 rounded-xl bg-card border border-border">
-              <h6 className="text-[12px] font-[600] text-foreground mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
+              <h6 className="text-sm font-semibold text-foreground mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
               <div className="grid md:grid-cols-2 gap-6 items-start">
                 {/* 왼쪽: JWT 패턴 대응 설명 */}
                 <div>
-                  <p className="text-[11px] font-[600] text-muted-foreground mb-3 uppercase tracking-[0.05em]">JWT 패턴과의 대응</p>
+                  <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">JWT 패턴과의 대응</p>
                   <div className="space-y-2">
                     {[
                       { jwt: "API 요청", thumbnail: "썸네일 조회 요청", color: "#2563eb" },
@@ -249,19 +251,19 @@ export function ProjectPokit() {
                           className="px-2 py-1.5 rounded text-center"
                           style={{ backgroundColor: item.color + "10", border: `1px solid ${item.color}30` }}
                         >
-                          <span className="text-[10px] font-[500]" style={{ color: item.color }}>{item.jwt}</span>
+                          <span className="text-[10px] font-medium" style={{ color: item.color }}>{item.jwt}</span>
                         </div>
                         <div
                           className="px-2 py-1.5 rounded text-center"
                           style={{ backgroundColor: item.color + "10", border: `1px solid ${item.color}30` }}
                         >
-                          <span className="text-[10px] font-[600]" style={{ color: item.color }}>{item.thumbnail}</span>
+                          <span className="text-[10px] font-semibold" style={{ color: item.color }}>{item.thumbnail}</span>
                         </div>
                       </div>
                     ))}
                     <div className="grid grid-cols-2 gap-2 pt-1">
-                      <p className="text-[9px] text-center text-muted-foreground">JWT 패턴</p>
-                      <p className="text-[9px] text-center text-muted-foreground">썸네일 재파싱</p>
+                      <p className="text-2xs text-center text-muted-foreground">JWT 패턴</p>
+                      <p className="text-2xs text-center text-muted-foreground">썸네일 재파싱</p>
                     </div>
                   </div>
                 </div>
@@ -281,8 +283,8 @@ export function ProjectPokit() {
                         className="px-3 py-2 rounded-lg bg-card border text-center"
                         style={{ borderColor: step.color + "50" }}
                       >
-                        <span className="text-[10px] font-[600]" style={{ color: step.color }}>{step.label}</span>
-                        {step.sub && <p className="text-[9px] text-muted-foreground mt-0.5">{step.sub}</p>}
+                        <span className="text-[10px] font-semibold" style={{ color: step.color }}>{step.label}</span>
+                        {step.sub && <p className="text-2xs text-muted-foreground mt-0.5">{step.sub}</p>}
                       </div>
                       {i < arr.length - 1 && (
                         <div className="flex justify-center py-0.5">
@@ -307,7 +309,7 @@ export function ProjectPokit() {
                 detail="사용자가 저장한 링크 데이터의 썸네일 URL을 갱신하지 않는 이상, 해당 URL은 만료된 상태로 유지되어 동일한 만료 URL을 계속 조회하게 됩니다. 이로 인해 썸네일 조회 실패 → 재파싱 → 동일 URL 재조회가 반복되는 구조적 한계가 있었습니다. 그 결과, 썸네일 정보를 안정적으로 유지하면서도 불필요한 재요청과 중복 파싱을 최소화한 구조를 완성했습니다."
               />
             </div>
-          </div>
+          </ContentCard>
         </FadeInView>
       </div>
     </div>
