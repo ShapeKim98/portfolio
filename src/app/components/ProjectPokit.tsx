@@ -1,6 +1,7 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { AppScreenshotPlaceholder, FeatureGrid, LayerDiagram, ProblemSolvingBlock, ScreenshotPlaceholder } from "./Diagrams";
+import { ClickableImage } from "./ClickableImage";
 import pokitPromo from "../../image/포킷표지.png";
 import tuistGraph from "../../image/Tuist Graph — 모듈 의존 관계 시각화.png";
 import linkThumb1 from "../../image/link-thumbnail-1.jpg";
@@ -59,7 +60,7 @@ export function ProjectPokit() {
 
         {/* Tuist Graph */}
         <FadeInView>
-          <img
+          <ClickableImage
             src={tuistGraph}
             alt="Tuist Graph — 모듈 의존 관계 시각화"
             className="w-full rounded-2xl object-contain bg-white p-4"

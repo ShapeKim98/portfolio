@@ -1,5 +1,6 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
+import { ClickableImage } from "./ClickableImage";
 import {
   FeatureGrid,
   LayerDiagram,
@@ -296,7 +297,7 @@ export function ProjectFiltee() {
 
               {/* 오른쪽: 앱 스크린샷 */}
               <div className="flex justify-center">
-                <img
+                <ClickableImage
                   src={filterScreenshot}
                   alt="필터 제작 스크린샷"
                   className="w-full max-w-[240px] rounded-2xl"
@@ -533,7 +534,7 @@ export function ProjectFiltee() {
 
               {/* 오른쪽: 앱 스크린샷 */}
               <div className="flex items-center justify-center">
-                <img
+                <ClickableImage
                   src={chatSearchScreenshot}
                   alt="채팅 검색 스크린샷"
                   className="w-full max-w-[240px] rounded-2xl"
