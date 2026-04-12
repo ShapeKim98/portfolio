@@ -1,5 +1,6 @@
 import { FadeInView } from "./ParallaxSection";
 import { ContentCard, SubSectionTitle, FeatureCard } from "./design-system";
+import { ClickableImage } from "./ClickableImage";
 
 /* ─── Architecture Layer Diagram ─── */
 export function LayerDiagram({
@@ -425,7 +426,7 @@ export function SyncFlowDiagram({
           {/* 오른쪽: 앱 스크린샷 */}
           <div className="flex justify-center">
             {screenshotSrc
-              ? <img src={screenshotSrc} alt="실시간 채팅 스크린샷" className="w-full max-w-[240px] rounded-2xl" />
+              ? <ClickableImage src={screenshotSrc} alt="실시간 채팅 스크린샷" className="w-full max-w-[240px] rounded-2xl" />
               : <AppScreenshotPlaceholder label="실시간 채팅 스크린샷" />}
           </div>
         </div>

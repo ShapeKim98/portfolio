@@ -1,6 +1,7 @@
 import { FadeInView } from "./ParallaxSection";
 import { TechTags, ScreenshotPlaceholder } from "./Diagrams";
 import { DotSeparator, IconButton } from "./design-system";
+import { ClickableImage } from "./ClickableImage";
 import { Github, ExternalLink } from "lucide-react";
 
 interface ProjectHeaderProps {
@@ -82,7 +83,7 @@ export function ProjectHeader({
         <FadeInView delay={0.2} speed={1.5}>
           <div className="mt-10">
             {screenshotSrc
-              ? <img src={screenshotSrc} alt={screenshotLabel} className="w-full rounded-2xl object-contain" />
+              ? <ClickableImage src={screenshotSrc} alt={screenshotLabel} className="w-full rounded-2xl object-contain" />
               : <ScreenshotPlaceholder label={screenshotLabel} />
             }
           </div>

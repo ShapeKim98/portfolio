@@ -3,6 +3,7 @@ import { ProjectHeader } from "./ProjectHeader";
 import { FeatureGrid, RxComposeArchitectureDiagram } from "./Diagrams";
 import { FeatureCard } from "./design-system";
 import { ContentCard, SubSectionTitle, Badge, Divider } from "./design-system";
+import { ClickableImage } from "./ClickableImage";
 import showpotPromo from "../../image/쇼팟표지.png";
 
 const FEATURES = [
@@ -102,7 +103,7 @@ export function ProjectRxCompose() {
 
           <Divider className="mb-5" />
 
-          <img
+          <ClickableImage
             src={showpotPromo}
             alt="ShowPot 앱 스크린샷"
             className="w-full rounded-xl object-contain mb-5"
