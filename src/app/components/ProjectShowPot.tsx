@@ -1,7 +1,6 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { ProblemSolvingBlock } from "./Diagrams";
-import { ContentCard, FeatureItem } from "./design-system";
 import showpotPromo from "../../image/쇼팟표지.png";
 
 const FEATURES = [
@@ -33,10 +32,13 @@ export function ProjectShowPot() {
       />
 
       <FadeInView>
-        <h4 className="text-2xl font-bold tracking-tight text-foreground mb-6">핵심 기능</h4>
+        <h4 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground mb-6">핵심 기능</h4>
         <div className="grid md:grid-cols-2 gap-3 mb-12">
           {FEATURES.map((f) => (
-            <FeatureItem key={f}>{f}</FeatureItem>
+            <div key={f} className="flex items-center gap-3 p-4 rounded-xl bg-muted/40 border border-border">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+              <span className="text-[13px] font-[500] text-foreground">{f}</span>
+            </div>
           ))}
         </div>
       </FadeInView>
@@ -44,15 +46,15 @@ export function ProjectShowPot() {
       {/* ───── 프로젝트 설계 ───── */}
       <div className="space-y-12">
         <FadeInView>
-          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
+          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
             프로젝트 설계
           </h4>
         </FadeInView>
 
         {/* Clean Architecture 설계 */}
         <FadeInView>
-          <ContentCard>
-            <h5 className="text-lg font-bold text-foreground mb-6 tracking-snug">
+          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
+            <h5 className="text-[16px] font-[700] text-foreground mb-6 tracking-[-0.01em]">
               Clean Architecture 의존성 흐름
             </h5>
             {/* 다이어그램: View→Composer→UseCase←Repository←DataSource */}
@@ -74,12 +76,12 @@ export function ProjectShowPot() {
                       background: item.color + (item.center ? "18" : "10"),
                     }}
                   >
-                    <span className="text-sm font-bold" style={{ color: item.color }}>
+                    <span className="text-[12px] font-[700]" style={{ color: item.color }}>
                       {item.label}
                     </span>
-                    <span className="text-[10px] font-normal text-muted-foreground mt-1">{item.sub}</span>
+                    <span className="text-[10px] font-[400] text-muted-foreground mt-1">{item.sub}</span>
                     {item.center && (
-                      <span className="text-2xs font-semibold mt-1.5 px-1.5 py-0.5 rounded" style={{ color: item.color, backgroundColor: item.color + "18" }}>
+                      <span className="text-[9px] font-[600] mt-1.5 px-1.5 py-0.5 rounded" style={{ color: item.color, backgroundColor: item.color + "18" }}>
                         핵심
                       </span>
                     )}
@@ -99,23 +101,23 @@ export function ProjectShowPot() {
             </div>
             {/* 의존성 방향 레이블 */}
             <div className="flex justify-center mb-5">
-              <p className="text-xs font-medium text-muted-foreground text-center">
+              <p className="text-[11px] font-[500] text-muted-foreground text-center">
                 의존성 방향: 모든 레이어는 UseCase(Domain)을 향해 의존하며, UseCase는 외부 레이어를 전혀 알지 못합니다.
               </p>
             </div>
-            <p className="text-[13px] font-normal text-muted-foreground leading-loose">
+            <p className="text-[13px] font-[400] text-muted-foreground leading-[1.8]">
               직접 설계해 오픈소스로 배포한 단방향 아키텍처(RxCompose)를 이번 프로젝트에 적용하여 라이브러리의 적용가능성 테스트 및 개선사항을 점검했습니다.
             </p>
-          </ContentCard>
+          </div>
         </FadeInView>
 
         {/* Repository 추상화 설계 */}
         <FadeInView>
-          <ContentCard>
-            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
+          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
+            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
               Repository 추상화 설계
             </h5>
-            <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
+            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-4">
               Feature 계층에 필요한 로직을 UseCase로 명시하여 Feature 계층과 Data 계층 간 의존성을 분리했습니다. 또한 Data 계층의 주요 기능을 추상화하는 방식에 대해 고민했습니다.
             </p>
             <ProblemSolvingBlock
@@ -123,19 +125,19 @@ export function ProjectShowPot() {
               solution="Repository를 Protocol이 아니라 메서드들을 클로저 형태로 인스턴스에 주입받는 구조체로 추상화"
               detail="UseCase가 불필요한 의존 없이 필요한 메서드만 활용할 수 있도록 구성했습니다. Data 계층의 주요 기능을 Repository로 추상화하여 비즈니스 로직과의 결합도를 낮추고, 재사용성을 높였습니다."
             />
-          </ContentCard>
+          </div>
         </FadeInView>
 
         {/* JWT 토큰 리프레시 설계 */}
         <FadeInView>
-          <ContentCard>
-            <h5 className="text-lg font-bold text-foreground mb-6 tracking-snug">
+          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
+            <h5 className="text-[16px] font-[700] text-foreground mb-6 tracking-[-0.01em]">
               JWT 토큰 리프레시 설계
             </h5>
             <div className="grid md:grid-cols-2 gap-8 items-start">
               {/* 왼쪽: 설명 */}
               <div>
-                <p className="text-[13px] font-normal text-muted-foreground leading-loose">
+                <p className="text-[13px] font-[400] text-muted-foreground leading-[1.9]">
                   Alamofire의 RequestInterceptor를 활용해 요청 헤더에 토큰을 자동으로 적용하고, 액세스 토큰 오류 발생 시 토큰 재발급을 수행하는 로직을 구현했습니다.
                 </p>
               </div>
@@ -156,14 +158,14 @@ export function ProjectShowPot() {
                     >
                       <div className="flex items-start gap-2">
                         <div
-                          className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-2xs font-bold text-white mt-0.5"
+                          className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-[700] text-white mt-0.5"
                           style={{ backgroundColor: step.color }}
                         >
                           {i + 1}
                         </div>
                         <div>
-                          <p className="text-xs font-semibold leading-[1.4]" style={{ color: step.color }}>{step.label}</p>
-                          <p className="text-[10px] font-normal text-muted-foreground leading-normal mt-0.5">{step.desc}</p>
+                          <p className="text-[11px] font-[600] leading-[1.4]" style={{ color: step.color }}>{step.label}</p>
+                          <p className="text-[10px] font-[400] text-muted-foreground leading-[1.5] mt-0.5">{step.desc}</p>
                         </div>
                       </div>
                     </div>
@@ -178,13 +180,13 @@ export function ProjectShowPot() {
                 ))}
               </div>
             </div>
-          </ContentCard>
+          </div>
         </FadeInView>
 
         {/* UI 컴포넌트 설계 */}
         <FadeInView>
-          <ContentCard>
-            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
+          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
+            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
               UI 컴포넌트 설계
             </h5>
             <div className="space-y-4">
@@ -199,12 +201,12 @@ export function ProjectShowPot() {
                 detail="오프셋에 따라 투명도 및 크기가 변하는 캐러셀 뷰를 구현했습니다."
               />
             </div>
-          </ContentCard>
+          </div>
         </FadeInView>
 
         {/* ───── 기술 구현 ───── */}
         <FadeInView>
-          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
+          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
             기술 구현
           </h4>
         </FadeInView>
@@ -219,10 +221,10 @@ export function ProjectShowPot() {
             ].map((item, i) => (
               <div key={i} className="p-5 rounded-xl bg-muted/40 border border-border">
                 <div className="flex items-start gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold flex items-center justify-center mt-0.5">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-[11px] font-[600] flex items-center justify-center mt-0.5">
                     {i + 1}
                   </span>
-                  <p className="text-[13px] font-normal text-foreground leading-loose">{item}</p>
+                  <p className="text-[13px] font-[400] text-foreground leading-[1.9]">{item}</p>
                 </div>
               </div>
             ))}

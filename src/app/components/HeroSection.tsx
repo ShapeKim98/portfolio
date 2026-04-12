@@ -58,7 +58,7 @@ export function HeroSection() {
           style={{ rotate: accentRotate }}
           className="absolute bottom-[30%] left-[15%] w-2 h-2 rounded-full bg-primary/20"
         />
-        <div className="absolute bottom-[20%] right-[12%] text-2xl text-primary/10 select-none">+</div>
+        <div className="absolute bottom-[20%] right-[12%] text-[18px] text-primary/10 select-none">+</div>
       </motion.div>
 
       {/* Main content */}
@@ -77,7 +77,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-[13px] font-medium tracking-wide">
+            <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-[13px] font-[500] tracking-[0.02em]">
               iOS Developer
             </span>
           </motion.div>
@@ -86,7 +86,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-8xl md:text-9xl font-extrabold tracking-tightest leading-none text-foreground mb-6"
+            className="text-[48px] md:text-[72px] font-[800] tracking-[-0.04em] leading-[1.1] text-foreground mb-6"
           >
             김도형
           </motion.h1>
@@ -97,7 +97,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-3xl font-normal text-muted-foreground leading-loose tracking-snug max-w-2xl mx-auto mb-12"
+            className="text-[17px] md:text-[20px] font-[400] text-muted-foreground leading-[1.8] tracking-[-0.01em] max-w-2xl mx-auto mb-12"
           >
             더 나은 방향을 향해 한 걸음씩 나아가는
             <br />
@@ -114,14 +114,14 @@ export function HeroSection() {
               href="https://github.com/ShapeKim98"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-base font-medium hover:opacity-90 transition-opacity"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-[14px] font-[500] hover:opacity-90 transition-opacity"
             >
               <Github size={16} />
               GitHub
             </a>
             <a
               href="mailto:shapekim98@gmail.com"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-foreground text-base font-medium hover:bg-muted transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-foreground text-[14px] font-[500] hover:bg-muted transition-colors"
             >
               <Mail size={16} />
               Contact
@@ -138,7 +138,7 @@ export function HeroSection() {
         style={{ opacity }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground"
       >
-        <span className="text-xs font-normal tracking-widest uppercase">Scroll</span>
+        <span className="text-[11px] font-[400] tracking-[0.1em] uppercase">Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}

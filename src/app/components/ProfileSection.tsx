@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { FadeInView } from "./ParallaxSection";
 import { GraduationCap, Users, Trophy, Mail, Phone, Github } from "lucide-react";
-import { SectionInner, SectionHeading } from "./design-system";
 
 const SKILLS = {
   "Framework / Library": [
@@ -84,14 +83,15 @@ export function ProfileSection() {
         <div className="absolute bottom-[20%] right-[8%] w-2 h-2 rounded-full bg-primary/20" />
       </motion.div>
 
-      <SectionInner>
+      <div className="relative z-10 max-w-5xl mx-auto">
         <FadeInView speed={1.2}>
           <div className="mb-16">
-            <SectionHeading>
-              <h2 className="text-6xl font-bold tracking-tighter leading-snug text-foreground">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-1 rounded-full bg-foreground" />
+              <h2 className="text-[30px] font-[700] tracking-[-0.03em] leading-[1.3] text-foreground">
                 Profile & Skills
               </h2>
-            </SectionHeading>
+            </div>
           </div>
         </FadeInView>
 
@@ -102,11 +102,11 @@ export function ProfileSection() {
             <div className="p-8 rounded-2xl bg-card border border-border">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/40 flex items-center justify-center">
-                  <span className="text-5xl font-extrabold text-primary">K</span>
+                  <span className="text-[28px] font-[800] text-primary">K</span>
                 </div>
                 <div>
-                  <h3 className="text-4xl font-bold tracking-tight text-foreground">김도형</h3>
-                  <p className="text-base font-normal text-muted-foreground">1998.02.05</p>
+                  <h3 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground">김도형</h3>
+                  <p className="text-[14px] font-[400] text-muted-foreground">1998.02.05</p>
                 </div>
               </div>
               <div className="space-y-3">
@@ -122,14 +122,14 @@ export function ProfileSection() {
               <div className="p-8 rounded-2xl bg-card border border-border">
                 <div className="flex items-center gap-3 mb-4">
                   <Trophy size={20} className="text-primary" />
-                  <h3 className="text-[18px] font-bold tracking-tight text-foreground">수상</h3>
+                  <h3 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground">수상</h3>
                 </div>
                 <div className="p-4 rounded-xl bg-muted/50">
-                  <p className="text-md font-semibold text-foreground mb-1">
+                  <p className="text-[15px] font-[600] text-foreground mb-1">
                     세종대학교 소프트웨어융합대학 해커톤
                   </p>
-                  <p className="text-[13px] font-medium text-primary mb-2">2등 총장상 · 2024.05</p>
-                  <p className="text-[13px] font-normal text-muted-foreground leading-loose">
+                  <p className="text-[13px] font-[500] text-primary mb-2">2등 총장상 · 2024.05</p>
+                  <p className="text-[13px] font-[400] text-muted-foreground leading-[1.7]">
                     당일 제시되는 3개의 키워드로 아이디어를 기획하고 MVP 개발하는 해커톤(무박 2일). 서핑 지역에 대한 정보와 레슨 매칭, 조난 구조 요청을 보낼 수 있는 서비스로써, iOS, WatchOS 어플리케이션 개발을 담당했습니다.
                   </p>
                 </div>
@@ -138,17 +138,17 @@ export function ProfileSection() {
               <div className="p-8 rounded-2xl bg-card border border-border">
                 <div className="flex items-center gap-3 mb-4">
                   <Users size={20} className="text-primary" />
-                  <h3 className="text-[18px] font-bold tracking-tight text-foreground">활동</h3>
+                  <h3 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground">활동</h3>
                 </div>
                 <div className="space-y-4">
                   {ACTIVITIES.map((act) => (
                     <div key={act.title} className="flex gap-4">
-                      <span className="text-sm font-medium text-muted-foreground whitespace-nowrap mt-0.5 min-w-[120px]">
+                      <span className="text-[12px] font-[500] text-muted-foreground whitespace-nowrap mt-0.5 min-w-[120px]">
                         {act.period}
                       </span>
                       <div>
-                        <p className="text-base font-semibold text-foreground">{act.title}</p>
-                        <p className="text-[13px] font-normal text-muted-foreground mt-0.5">{act.desc}</p>
+                        <p className="text-[14px] font-[600] text-foreground">{act.title}</p>
+                        <p className="text-[13px] font-[400] text-muted-foreground mt-0.5">{act.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -161,20 +161,20 @@ export function ProfileSection() {
         {/* Skills */}
         <FadeInView delay={0.1} speed={1.4}>
           <div className="p-8 md:p-10 rounded-2xl bg-card border border-border">
-            <h3 className="text-3xl font-bold tracking-tight text-foreground mb-8">
+            <h3 className="text-[20px] font-[700] tracking-[-0.02em] text-foreground mb-8">
               기술 스택
             </h3>
             <div className="space-y-8">
               {Object.entries(SKILLS).map(([section, groups]) => (
                 <div key={section}>
-                  <h4 className="text-base font-semibold text-primary mb-4 tracking-wide">
+                  <h4 className="text-[14px] font-[600] text-primary mb-4 tracking-[0.02em]">
                     {section}
                   </h4>
                   <div className="space-y-3">
                     {groups.map((group) => (
                       <div key={group.category || "default"} className="flex flex-wrap items-start gap-2">
                         {group.category && (
-                          <span className="text-sm font-medium text-muted-foreground min-w-[80px] mt-1.5">
+                          <span className="text-[12px] font-[500] text-muted-foreground min-w-[80px] mt-1.5">
                             {group.category}
                           </span>
                         )}
@@ -182,7 +182,7 @@ export function ProfileSection() {
                           {group.items.map((item) => (
                             <span
                               key={item}
-                              className="px-3 py-1.5 rounded-lg bg-muted text-[13px] font-medium text-foreground"
+                              className="px-3 py-1.5 rounded-lg bg-muted text-[13px] font-[500] text-foreground"
                             >
                               {item}
                             </span>
@@ -196,7 +196,7 @@ export function ProfileSection() {
             </div>
           </div>
         </FadeInView>
-      </SectionInner>
+      </div>
     </section>
   );
 }
@@ -215,18 +215,18 @@ function InfoRow({
   return (
     <div className="flex items-center gap-3">
       <Icon size={16} className="text-muted-foreground shrink-0" />
-      <span className="text-sm font-medium text-muted-foreground min-w-[50px]">{label}</span>
+      <span className="text-[12px] font-[500] text-muted-foreground min-w-[50px]">{label}</span>
       {href ? (
         <a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-base font-normal text-primary hover:underline"
+          className="text-[14px] font-[400] text-primary hover:underline"
         >
           {value}
         </a>
       ) : (
-        <span className="text-base font-normal text-foreground">{value}</span>
+        <span className="text-[14px] font-[400] text-foreground">{value}</span>
       )}
     </div>
   );
