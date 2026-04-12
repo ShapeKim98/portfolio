@@ -1,6 +1,7 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { FeatureGrid, RxComposeArchitectureDiagram } from "./Diagrams";
+import { ClickableImage } from "./ClickableImage";
 import showpotPromo from "../../image/쇼팟표지.png";
 
 const FEATURES = [
@@ -103,7 +104,7 @@ export function ProjectRxCompose() {
 
           <div className="h-px bg-border mb-5" />
 
-          <img
+          <ClickableImage
             src={showpotPromo}
             alt="ShowPot 앱 스크린샷"
             className="w-full rounded-xl object-contain mb-5"
