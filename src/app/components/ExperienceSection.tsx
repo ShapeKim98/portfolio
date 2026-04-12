@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "mot
 import { FadeInView } from "./ParallaxSection";
 import { TechTags } from "./Diagrams";
 import { ChevronDown, ChevronUp, Building2 } from "lucide-react";
+import { SectionInner, SectionHeading, DotSeparator } from "./design-system";
 
 interface WorkItem {
   title: string;
@@ -141,17 +142,17 @@ function WorkItemCard({ item }: { item: WorkItem }) {
   return (
     <div className="py-8">
       {/* Title + Period */}
-      <h4 className="text-[17px] font-[700] tracking-[-0.02em] text-foreground mb-2">
+      <h4 className="text-xl font-bold tracking-tight text-foreground mb-2">
         {item.title}
       </h4>
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="text-[12px] font-[500] text-primary">
+        <span className="text-sm font-medium text-primary">
           {item.project}
         </span>
         {item.period && (
           <>
-            <span className="w-1 h-1 rounded-full bg-border" />
-            <span className="text-[12px] font-[400] text-muted-foreground">
+            <DotSeparator />
+            <span className="text-sm font-normal text-muted-foreground">
               {item.period}
             </span>
           </>
@@ -170,7 +171,7 @@ function WorkItemCard({ item }: { item: WorkItem }) {
         {item.bullets.map((bullet, j) => (
           <li
             key={j}
-            className="flex gap-2 text-[14px] font-[400] text-muted-foreground leading-[1.8]"
+            className="flex gap-2 text-base font-normal text-muted-foreground leading-loose"
           >
             <span className="text-primary/50 mt-[2px] shrink-0">•</span>
             <span>{bullet}</span>
@@ -220,16 +221,15 @@ export function ExperienceSection() {
         <div className="absolute bottom-[10%] -left-[100px] w-[350px] h-[350px] rounded-full bg-primary/3 blur-3xl" />
       </motion.div>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
+      <SectionInner>
         {/* Section Header */}
         <FadeInView speed={1.2}>
           <div className="mb-16">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-1 rounded-full bg-foreground" />
-              <h2 className="text-[30px] font-[700] tracking-[-0.03em] leading-[1.3] text-foreground">
+            <SectionHeading>
+              <h2 className="text-6xl font-bold tracking-tighter leading-snug text-foreground">
                 Experience
               </h2>
-            </div>
+            </SectionHeading>
           </div>
         </FadeInView>
 
@@ -238,16 +238,16 @@ export function ExperienceSection() {
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-3">
               <Building2 size={20} className="text-primary" />
-              <h3 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground">
+              <h3 className="text-4xl font-bold tracking-tight text-foreground">
                 미스고(주)
               </h3>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-[13px] font-[400] text-muted-foreground mb-4">
+            <div className="flex flex-wrap items-center gap-3 text-[13px] font-normal text-muted-foreground mb-4">
               <span>2025. 08 ~ 2026. 04</span>
-              <span className="w-1 h-1 rounded-full bg-border" />
+              <DotSeparator />
               <span>iOS Developer</span>
             </div>
-            <div className="text-[15px] font-[400] text-muted-foreground leading-[1.9] max-w-3xl space-y-2">
+            <div className="text-md font-normal text-muted-foreground leading-loose max-w-3xl space-y-2">
               <p>
                 Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 3개 앱의
                 전체 iOS 개발을 단독으로 담당했습니다.
@@ -326,7 +326,7 @@ export function ExperienceSection() {
                 onClick={() => (expanded ? handleCollapse() : setExpanded(true))}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-[14px] font-[500] text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span
@@ -354,7 +354,7 @@ export function ExperienceSection() {
             </div>
           </FadeInView>
         )}
-      </div>
+      </SectionInner>
     </section>
   );
 }

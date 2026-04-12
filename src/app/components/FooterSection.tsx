@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { FadeInView } from "./ParallaxSection";
 import { Github, Mail, Phone } from "lucide-react";
+import { SectionInner } from "./design-system";
 
 export function FooterSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -40,22 +41,22 @@ export function FooterSection() {
         <div className="absolute bottom-[30%] left-[8%] w-20 h-px bg-primary/10" />
       </motion.div>
 
-      <div className="relative z-10 max-w-3xl mx-auto text-center">
+      <SectionInner className="max-w-3xl text-center">
         <FadeInView speed={1.3}>
-          <span className="text-[13px] font-[500] text-primary tracking-[0.08em] uppercase mb-4 block">
+          <span className="text-[13px] font-medium text-primary tracking-widest uppercase mb-4 block">
             Contact
           </span>
-          <h2 className="text-[32px] md:text-[48px] font-[800] tracking-[-0.03em] leading-[1.2] text-foreground mb-6">
+          <h2 className="text-6xl md:text-8xl font-extrabold tracking-tighter leading-tight text-foreground mb-6">
             Let's Connect
           </h2>
-          <p className="text-[16px] font-[400] text-muted-foreground leading-[1.8] mb-12">
+          <p className="text-lg font-normal text-muted-foreground leading-loose mb-12">
             함께 성장하고, 더 나은 서비스를 만들어 나갈 수 있는 기회를 기다리고 있습니다.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <a
               href="mailto:shapekim98@gmail.com"
-              className="flex items-center gap-3 px-6 py-3 rounded-xl bg-foreground text-background text-[14px] font-[500] hover:opacity-90 transition-opacity"
+              className="flex items-center gap-3 px-6 py-3 rounded-xl bg-foreground text-background text-base font-medium hover:opacity-90 transition-opacity"
             >
               <Mail size={18} />
               shapekim98@gmail.com
@@ -64,7 +65,7 @@ export function FooterSection() {
               href="https://github.com/ShapeKim98"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-6 py-3 rounded-xl border border-border text-foreground text-[14px] font-[500] hover:bg-muted transition-colors"
+              className="flex items-center gap-3 px-6 py-3 rounded-xl border border-border text-foreground text-base font-medium hover:bg-muted transition-colors"
             >
               <Github size={18} />
               GitHub
@@ -73,16 +74,16 @@ export function FooterSection() {
 
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <Phone size={14} />
-            <span className="text-[13px] font-[400]">010-9027-8292</span>
+            <span className="text-[13px] font-normal">010-9027-8292</span>
           </div>
         </FadeInView>
-      </div>
+      </SectionInner>
 
-      <div className="relative z-10 max-w-5xl mx-auto mt-20 pt-8 border-t border-border text-center">
-        <p className="text-[12px] font-[400] text-muted-foreground">
+      <SectionInner className="mt-20 pt-8 border-t border-border text-center">
+        <p className="text-sm font-normal text-muted-foreground">
           © 2025 김도형. All rights reserved.
         </p>
-      </div>
+      </SectionInner>
     </section>
   );
 }

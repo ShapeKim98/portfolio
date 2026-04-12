@@ -9,6 +9,7 @@ import {
   SyncFlowDiagram,
   AppScreenshotPlaceholder,
 } from "./Diagrams";
+import { ContentCard } from "./design-system";
 import filteePromo from "../../image/필티표지.png";
 import filterScreenshot from "../../image/필터 제작 스크린샷.jpeg";
 import chatSearchScreenshot from "../../image/채팅 검색 스크린샷.PNG";
@@ -52,40 +53,40 @@ export function ProjectFiltee() {
 
       {/* Features */}
       <FadeInView>
-        <h4 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground mb-6">핵심 기능</h4>
+        <h4 className="text-2xl font-bold tracking-tight text-foreground mb-6">핵심 기능</h4>
         <FeatureGrid features={FEATURES} />
       </FadeInView>
 
       {/* ───── 프로젝트 설계 ───── */}
       <div className="mt-16 space-y-12">
         <FadeInView>
-          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
+          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
             프로젝트 설계
           </h4>
         </FadeInView>
 
         {/* 바닐라 SwiftUI */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               바닐라 SwiftUI 선택
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-4">
+            <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
               SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData API를 충분히 활용하기 어려운 상황을 경험하며, 애플이 의도한 설계 방향은 자체 제공 API와 UI 프레임워크 간의 긴밀한 연동에 있다는 점을 체감했습니다.
             </p>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9]">
+            <p className="text-base font-normal text-muted-foreground leading-loose">
               또한 디자인 패턴은 협업 환경에서 컨벤션을 유지하는 데 유효한 수단이지만 이번 프로젝트는 단독으로 진행되었고, 일관된 구조만 갖춘다면 기능 확장이나 추후 iOS 개발자 합류에도 무리가 없다고 판단하여 설계 복잡도를 높이지 않는 선에서 유연한 구조를 선택했습니다.
             </p>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* 4계층 구조 */}
         <FadeInView>
           <div className="mb-4">
-            <h5 className="text-[16px] font-[700] text-foreground mb-3 tracking-[-0.01em]">
+            <h5 className="text-lg font-bold text-foreground mb-3 tracking-snug">
               App - Feature - Model - Core 4계층 구조 설계
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9]">
+            <p className="text-base font-normal text-muted-foreground leading-loose">
               기능 복잡도와 개발 효율성을 고려해 계층 구조는 단순하게 유지하되 각 계층의 책임과 역할은 명확히 나누는 방향으로 설계했습니다. 특히 1인 개발 환경에서 확장성과 유지보수 편의성을 확보하는 실용적인 구조를 목표로 했습니다.
             </p>
           </div>
@@ -98,11 +99,11 @@ export function ProjectFiltee() {
 
         {/* 테스트 및 외부 변화 대응 전략 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-3 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-3 tracking-snug">
               테스트 및 외부 변화 대응 전략
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-6">
+            <p className="text-base font-normal text-muted-foreground leading-loose mb-6">
               구조를 직접 설계해 나가면서 의존성 주입과 외부 변화에 대응할 수 있는 방법에 대해 고민하게 되었고, 이를 고려한 전략들을 설계했습니다.
             </p>
             <div className="space-y-4">
@@ -117,23 +118,23 @@ export function ProjectFiltee() {
                 detail="DTO를 도입하여 클라이언트 내부 모델과 분리된 구조로 설계했습니다. 이를 통해 API 변경이 클라이언트 로직 전반에 영향을 주지 않도록 했습니다."
               />
             </div>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* ───── 사진 필터 제작 기능 설계 ───── */}
         <FadeInView>
-          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
+          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
             사진 필터 제작 기능 설계
           </h4>
         </FadeInView>
 
         {/* Metal 선택 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-3 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-3 tracking-snug">
               고해상도 이미지 보편화에 따른 Metal 선택
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-4">
+            <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
               최근 카메라 기술의 발전으로 고해상도 이미지 사용이 일반화되면서, 슬라이더 조작과 같이 실시간으로 고해상도 이미지를 반복 렌더링해야 하는 기능의 특성상, 렌더링 성능에 대해 고민하게 되었습니다.
             </p>
             <ProblemSolvingBlock
@@ -141,13 +142,13 @@ export function ProjectFiltee() {
               solution="Metal을 통해 렌더링 파이프라인을 직접 구성하고, GPU 자원을 보다 직접적으로 활용함으로써 실시간 렌더링 성능을 확보"
               detail="MTLTexture와 MTKView를 통해 렌더링 파이프라인을 직접 구성하고, MTLCommandBuffer로 렌더 명령을 GPU에 직접 제출했습니다. 이를 통해 슬라이더 조작마다 고해상도 이미지를 실시간으로 재렌더링하는 과정에서 CIFilter 대비 더 낮은 지연과 안정적인 프레임 유지를 달성했습니다."
             />
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* Undo/Redo Flow */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               필터값 실행 취소 및 다시 실행 기능 설계
             </h5>
 
@@ -157,8 +158,8 @@ export function ProjectFiltee() {
               <div>
                 {/* Stack 구조 도입 설명 */}
                 <div className="mb-5">
-                  <h6 className="text-[14px] font-[600] text-foreground mb-3">필터값 이력의 순서 관리를 위한 Stack 구조 도입</h6>
-                  <p className="text-[13px] font-[400] text-muted-foreground leading-[1.8]">
+                  <h6 className="text-base font-semibold text-foreground mb-3">필터값 이력의 순서 관리를 위한 Stack 구조 도입</h6>
+                  <p className="text-[13px] font-normal text-muted-foreground leading-loose">
                     필터값 상태는 스냅샷 형태로 저장되며, 각 스냅샷은 사용자가 슬라이더 조작을 마칠 때마다 캡처됩니다.
                     작업을 최신순으로 쌓고, 필요 시 가장 최근 작업을 다시 복원하는 흐름은 Stack의 LIFO 특성과 유사하다는 점에서 Stack 구조를 도입했습니다.
                   </p>
@@ -166,7 +167,7 @@ export function ProjectFiltee() {
 
                 {/* Stack 다이어그램 */}
                 <div className="p-4 rounded-xl bg-card border border-border mb-5">
-                  <h6 className="text-[12px] font-[600] text-foreground mb-3 text-center">
+                  <h6 className="text-sm font-semibold text-foreground mb-3 text-center">
                     Stack 구조 및 실행 취소 / 다시 실행 흐름
                   </h6>
 
@@ -174,21 +175,21 @@ export function ProjectFiltee() {
                   <div className="flex items-end justify-center gap-3 mb-1">
                     <div className="flex flex-col items-center gap-1 flex-1 max-w-[150px]">
                       <div className="w-full px-2 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/30 text-center">
-                        <span className="text-[9px] font-[600] text-blue-600 dark:text-blue-400">슬라이더 조작 완료</span>
+                        <span className="text-2xs font-semibold text-blue-600 dark:text-blue-400">슬라이더 조작 완료</span>
                       </div>
                       <div className="flex flex-col items-center gap-0">
                         <div className="w-px h-3 bg-blue-400/60" />
-                        <span className="text-[8px] font-[700] text-blue-500">Push ↓</span>
+                        <span className="text-[8px] font-bold text-blue-500">Push ↓</span>
                       </div>
                     </div>
                     <div className="w-10 shrink-0" />
                     <div className="flex flex-col items-center gap-1 flex-1 max-w-[150px]">
                       <div className="w-full px-2 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/30 text-center">
-                        <span className="text-[9px] font-[600] text-orange-600 dark:text-orange-400">실행 취소 요청</span>
+                        <span className="text-2xs font-semibold text-orange-600 dark:text-orange-400">실행 취소 요청</span>
                       </div>
                       <div className="flex flex-col items-center gap-0">
                         <div className="w-px h-3 bg-orange-400/60" />
-                        <span className="text-[8px] font-[700] text-orange-500">Pop ↓ → Push ↓</span>
+                        <span className="text-[8px] font-bold text-orange-500">Pop ↓ → Push ↓</span>
                       </div>
                     </div>
                   </div>
@@ -199,10 +200,10 @@ export function ProjectFiltee() {
                     <div className="flex-1 max-w-[150px]">
                       <div className="mb-1.5">
                         <div className="flex items-center justify-between">
-                          <p className="text-[10px] font-[600] text-blue-600 dark:text-blue-400">실행 취소 Stack</p>
-                          <span className="text-[8px] font-[700] px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-500">TOP</span>
+                          <p className="text-[10px] font-semibold text-blue-600 dark:text-blue-400">실행 취소 Stack</p>
+                          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-500/10 text-blue-500">TOP</span>
                         </div>
-                        <p className="text-[8px] text-blue-400/80 mt-0.5 leading-[1.3]">최신 작업이 가장 위에 쌓임</p>
+                        <p className="text-[8px] text-blue-400/80 mt-0.5 leading-snug">최신 작업이 가장 위에 쌓임</p>
                       </div>
                       <div className="flex min-h-[140px] flex-col justify-end rounded-lg border border-dashed border-blue-200 dark:border-blue-900 bg-blue-500/5 p-2">
                         <div className="space-y-1.5">
@@ -218,9 +219,9 @@ export function ProjectFiltee() {
                                 opacity: 1 - i * 0.16,
                               }}>
                               <div className="flex items-center justify-center gap-1">
-                                <span className="text-[9px] font-[600] text-blue-700 dark:text-blue-300">{label}</span>
+                                <span className="text-2xs font-semibold text-blue-700 dark:text-blue-300">{label}</span>
                                 {badge && (
-                                  <span className="text-[7px] font-[600] text-blue-500 bg-blue-500/15 px-1 rounded leading-[1.4]">{badge}</span>
+                                  <span className="text-[7px] font-semibold text-blue-500 bg-blue-500/15 px-1 rounded leading-snug">{badge}</span>
                                 )}
                               </div>
                             </div>
@@ -235,13 +236,13 @@ export function ProjectFiltee() {
                         <svg width="36" height="9" viewBox="0 0 36 9">
                           <path d="M2 4.5h28M27 1.5l6 3-6 3" fill="none" stroke="#f97316" strokeWidth="1.4"/>
                         </svg>
-                        <span className="text-[7px] text-orange-500 font-[600]">Undo</span>
+                        <span className="text-[7px] text-orange-500 font-semibold">Undo</span>
                       </div>
                       <div className="flex flex-col items-center gap-0.5">
                         <svg width="36" height="9" viewBox="0 0 36 9">
                           <path d="M34 4.5H6M9 1.5l-6 3 6 3" fill="none" stroke="#3b82f6" strokeWidth="1.4"/>
                         </svg>
-                        <span className="text-[7px] text-blue-500 font-[600]">Redo</span>
+                        <span className="text-[7px] text-blue-500 font-semibold">Redo</span>
                       </div>
                     </div>
 
@@ -249,10 +250,10 @@ export function ProjectFiltee() {
                     <div className="flex-1 max-w-[150px]">
                       <div className="mb-1.5">
                         <div className="flex items-center justify-between">
-                          <p className="text-[10px] font-[600] text-orange-600 dark:text-orange-400">다시 실행 Stack</p>
-                          <span className="text-[8px] font-[700] px-1.5 py-0.5 rounded-full bg-orange-500/10 text-orange-500">TOP</span>
+                          <p className="text-[10px] font-semibold text-orange-600 dark:text-orange-400">다시 실행 Stack</p>
+                          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-orange-500/10 text-orange-500">TOP</span>
                         </div>
-                        <p className="text-[8px] text-orange-400/80 mt-0.5 leading-[1.3]">실행 취소된 스냅샷 보존</p>
+                        <p className="text-[8px] text-orange-400/80 mt-0.5 leading-snug">실행 취소된 스냅샷 보존</p>
                       </div>
                       <div className="flex min-h-[140px] flex-col justify-end rounded-lg border border-dashed border-orange-200 dark:border-orange-900 bg-orange-500/5 p-2">
                         <div className="space-y-1.5">
@@ -267,9 +268,9 @@ export function ProjectFiltee() {
                                 opacity: 1 - i * 0.16,
                               }}>
                               <div className="flex items-center justify-center gap-1">
-                                <span className="text-[9px] font-[600] text-orange-700 dark:text-orange-300">{label}</span>
+                                <span className="text-2xs font-semibold text-orange-700 dark:text-orange-300">{label}</span>
                                 {badge && (
-                                  <span className="text-[7px] font-[600] text-orange-500 bg-orange-500/15 px-1 rounded leading-[1.4]">{badge}</span>
+                                  <span className="text-[7px] font-semibold text-orange-500 bg-orange-500/15 px-1 rounded leading-snug">{badge}</span>
                                 )}
                               </div>
                             </div>
@@ -282,12 +283,12 @@ export function ProjectFiltee() {
 
                 {/* 스냅샷 시점 전략 */}
                 <div>
-                  <h6 className="text-[14px] font-[600] text-foreground mb-2">필터값 스냅샷 시점 전략</h6>
-                  <p className="text-[13px] font-[400] text-muted-foreground leading-[1.8] mb-3">
+                  <h6 className="text-base font-semibold text-foreground mb-2">필터값 스냅샷 시점 전략</h6>
+                  <p className="text-[13px] font-normal text-muted-foreground leading-loose mb-3">
                     슬라이더 값을 조절할 때마다 필터값을 저장하는 방식은 반복적인 상태 기록이 누적되면서 성능 및 사용자 경험 측면에서 부담이 될 수 있다고 판단했습니다.
                   </p>
                   <div className="p-3 rounded-xl bg-primary/5 border border-primary/10">
-                    <p className="text-[12px] font-[500] text-primary leading-[1.7]">
+                    <p className="text-sm font-medium text-primary leading-loose">
                       스냅샷 시점: DragGesture의 onEnded 시점에 캡처하여 반복적 상태 기록 누적을 방지
                     </p>
                   </div>
@@ -303,41 +304,41 @@ export function ProjectFiltee() {
                 />
               </div>
             </div>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* ───── 채팅 기능 설계 ───── */}
         <FadeInView>
-          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
+          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
             채팅 기능 설계
           </h4>
         </FadeInView>
 
         {/* 로컬 DB 도입 배경 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               로컬 DB 도입 배경
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-4">
+            <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
               채팅 내역은 한 번 저장되면 이후 변경되지 않는 정적인 데이터에 가까워, 채팅방 진입 시마다 동일한 데이터를 서버로부터 반복 요청하는 방식이 과연 효율적인지에 대한 고민이 들었습니다.
             </p>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9]">
+            <p className="text-base font-normal text-muted-foreground leading-loose">
               더 나아가 로컬 DB를 도입 시 서버 트래픽 개선 뿐만 아니라 실시간 채팅 메시지 검색 시에도 서버를 거치지 않고 클라이언트에서 빠르게 조회할 수 있다는 가능성이 보였습니다. 이러한 점들을 종합적으로 고려하여 로컬 DB를 적용하는 방향으로 설계를 결정하게 되었습니다.
             </p>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* CoreData 선택 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-3 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-3 tracking-snug">
               CoreData 선택
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9]">
+            <p className="text-base font-normal text-muted-foreground leading-loose">
               프로젝트가 iOS 단독 플랫폼이며 iOS 16 이상을 타겟으로 하고 있다는 점을 고려했습니다. CoreData는 비교적 낮은 iOS 버전에서도 사용할 수 있고, Apple에서 직접 제공하는 퍼스트파티 프레임워크라는 점에서 안정성과 호환성이 높다고 판단했습니다. 특히 채팅 기능에는 날짜 기반 커서 페이지네이션이나 검색어 기반 메시지 조회 등 비교적 복잡한 쿼리가 요구되므로 이를 지원하는 CoreData의 장점이 효과적이라고 생각했습니다.
             </p>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* CoreData Schema + ERD 통합 */}
@@ -384,8 +385,8 @@ export function ProjectFiltee() {
 
         {/* 클라이언트 모델과 동기화 전략 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               클라이언트 모델과 동기화 전략
             </h5>
             <div className="space-y-4">
@@ -395,16 +396,16 @@ export function ProjectFiltee() {
                 detail="클라이언트 단에서 공통 모델을 정의하고 DTO를 통해 상호 변환하는 구조를 설계했습니다."
               />
             </div>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* 데이터 조회 효율화 — 페이지네이션 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               데이터 조회 효율화 — 페이지네이션 직접 구현
             </h5>
-            <p className="text-[13px] font-[400] text-muted-foreground leading-[1.9] mb-4">
+            <p className="text-[13px] font-normal text-muted-foreground leading-loose mb-4">
               채팅은 실시간으로 데이터가 누적되는 특성이 있어 전체를 한 번에 불러오는 방식은 데이터가 많아질수록 초기 로딩 부담이 커집니다. 또한 오프셋 기반 페이지네이션은 새로운 메시지가 삽입될 때 데이터가 밀려 중복이나 누락이 생길 수 있어, 시간 순으로 정렬되는 채팅 데이터에는 날짜 기반 커서 페이지네이션이 적합하다고 판단했습니다.
             </p>
             <ProblemSolvingBlock
@@ -425,7 +426,7 @@ export function ProjectFiltee() {
                   <div key={i} className="flex items-start flex-1">
                     <div className="flex flex-col items-center w-full">
                       <div
-                        className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-[700] text-white mb-2 shrink-0"
+                        className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-white mb-2 shrink-0"
                         style={{ backgroundColor: item.color }}
                       >
                         {item.step}
@@ -434,8 +435,8 @@ export function ProjectFiltee() {
                         className="w-full px-2 py-2.5 rounded-lg bg-card border text-center"
                         style={{ borderColor: item.color + "50" }}
                       >
-                        <p className="text-[10px] font-[600] leading-[1.4]" style={{ color: item.color }}>{item.label}</p>
-                        <p className="text-[9px] text-muted-foreground leading-[1.5] mt-1">{item.desc}</p>
+                        <p className="text-[10px] font-semibold leading-snug" style={{ color: item.color }}>{item.label}</p>
+                        <p className="text-2xs text-muted-foreground leading-normal mt-1">{item.desc}</p>
                       </div>
                     </div>
                     {i < arr.length - 1 && (
@@ -449,7 +450,7 @@ export function ProjectFiltee() {
                 ))}
               </div>
             </div>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         <SyncFlowDiagram
@@ -459,15 +460,15 @@ export function ProjectFiltee() {
 
         {/* 채팅 검색 기능 설계 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard>
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               채팅 검색 시 미로드 영역 스크롤 이동
             </h5>
             {/* 설명 + PSB + 플로우 다이어그램 + 앱스크린샷 — 2컬럼 */}
             <div className="grid md:grid-cols-2 gap-8 items-start">
               {/* 왼쪽: 설명 + PSB + 플로우 다이어그램 */}
               <div className="flex flex-col gap-4">
-                <p className="text-[13px] font-[400] text-muted-foreground leading-[1.9]">
+                <p className="text-[13px] font-normal text-muted-foreground leading-loose">
                   검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우, 곧바로 해당 위치로 스크롤 이동하는 데 어려움이 생길 수 있다는 점을 고려했습니다.
                 </p>
                 <ProblemSolvingBlock
@@ -496,9 +497,9 @@ export function ProjectFiltee() {
                             height: "44px",
                           }}
                         >
-                          <span className="text-[10px] font-[600]" style={{ color: item.color }}>{item.label}</span>
+                          <span className="text-[10px] font-semibold" style={{ color: item.color }}>{item.label}</span>
                         </div>
-                        <p className="text-[9px] text-muted-foreground leading-[1.4] text-center px-2">{item.desc}</p>
+                        <p className="text-2xs text-muted-foreground leading-snug text-center px-2">{item.desc}</p>
                       </div>
                     ) : (
                       <div
@@ -507,14 +508,14 @@ export function ProjectFiltee() {
                       >
                         <div className="flex items-start gap-2">
                           <div
-                            className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-[700] text-white mt-0.5"
+                            className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-2xs font-bold text-white mt-0.5"
                             style={{ backgroundColor: item.color }}
                           >
                             {i + 1}
                           </div>
                           <div>
-                            <p className="text-[11px] font-[600] leading-[1.4]" style={{ color: item.color }}>{item.label}</p>
-                            <p className="text-[10px] font-[400] text-muted-foreground leading-[1.5] mt-0.5">{item.desc}</p>
+                            <p className="text-xs font-semibold leading-snug" style={{ color: item.color }}>{item.label}</p>
+                            <p className="text-[10px] font-normal text-muted-foreground leading-normal mt-0.5">{item.desc}</p>
                           </div>
                         </div>
                       </div>
@@ -540,33 +541,33 @@ export function ProjectFiltee() {
                 />
               </div>
             </div>
-          </div>
+          </ContentCard>
         </FadeInView>
 
         {/* ───── 결제 기능 설계 ───── */}
         <FadeInView>
-          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
+          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
             결제 기능 설계
           </h4>
         </FadeInView>
 
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border mb-8">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+          <ContentCard className="mb-8">
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               결제 처리 흐름 설계
             </h5>
             <div className="grid md:grid-cols-2 gap-8 items-start">
               {/* 왼쪽: 설명 */}
               <div>
-                <h6 className="text-[13px] font-[600] text-foreground mb-3">결제 검증의 주체에 대한 고려</h6>
-                <p className="text-[13px] font-[400] text-muted-foreground leading-[1.9] mb-4">
+                <h6 className="text-[13px] font-semibold text-foreground mb-3">결제 검증의 주체에 대한 고려</h6>
+                <p className="text-[13px] font-normal text-muted-foreground leading-loose mb-4">
                   결제 기능은 실제 청구가 발생하는 민감한 기능이기 때문에 기능 구현에 앞서 검증 방식에 대한 고민을 했습니다.
                 </p>
-                <p className="text-[13px] font-[400] text-muted-foreground leading-[1.9]">
+                <p className="text-[13px] font-normal text-muted-foreground leading-loose">
                   앱은 사용자 디바이스에서 실행되기 때문에 탈옥 등의 방법으로 앱을 임의로 변조해 결제 로직을 수정하고, 사용자가 인위적으로 '결제 완료' 상태를 만들 수 있는 위험이 존재합니다. 반면 서버는 개발자가 통제하는 신뢰 가능한 환경이므로 모든 결제 검증은 서버에서 직접 수행하는 것을 원칙으로 했습니다.
                 </p>
                 <div className="mt-4 p-3 rounded-lg bg-primary/5 border border-primary/10">
-                  <p className="text-[12px] font-[500] text-primary">원칙: 결제 검증의 주체는 항상 서버</p>
+                  <p className="text-sm font-medium text-primary">원칙: 결제 검증의 주체는 항상 서버</p>
                 </div>
               </div>
 
@@ -584,8 +585,8 @@ export function ProjectFiltee() {
                       className="px-3 py-2.5 rounded-lg bg-card border text-center"
                       style={{ borderColor: step.color + "50" }}
                     >
-                      <span className="text-[11px] font-[600]" style={{ color: step.color }}>{step.label}</span>
-                      {step.desc && <p className="text-[9px] text-muted-foreground mt-0.5">{step.desc}</p>}
+                      <span className="text-xs font-semibold" style={{ color: step.color }}>{step.label}</span>
+                      {step.desc && <p className="text-2xs text-muted-foreground mt-0.5">{step.desc}</p>}
                     </div>
                     {i < arr.length - 1 && (
                       <div className="flex justify-center py-0.5">
@@ -598,7 +599,7 @@ export function ProjectFiltee() {
                 ))}
               </div>
             </div>
-          </div>
+          </ContentCard>
         </FadeInView>
       </div>
     </div>

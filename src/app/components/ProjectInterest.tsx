@@ -30,12 +30,12 @@ export function ProjectInterest() {
       />
 
       <FadeInView>
-        <h4 className="text-[18px] font-[700] tracking-[-0.02em] text-foreground mb-6">핵심 기능</h4>
+        <h4 className="text-2xl font-bold tracking-tight text-foreground mb-6">핵심 기능</h4>
         <div className="grid md:grid-cols-2 gap-3 mb-12">
           {FEATURES.map((f) => (
             <div key={f} className="flex items-center gap-3 p-4 rounded-xl bg-muted/40 border border-border">
               <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-              <span className="text-[13px] font-[500] text-foreground">{f}</span>
+              <span className="text-[13px] font-medium text-foreground">{f}</span>
             </div>
           ))}
         </div>
@@ -44,7 +44,7 @@ export function ProjectInterest() {
       {/* ───── 프로젝트 설계 ───── */}
       <div className="space-y-12">
         <FadeInView>
-          <h4 className="text-[22px] font-[700] tracking-[-0.02em] text-foreground mb-3">
+          <h4 className="text-4xl font-bold tracking-tight text-foreground mb-3">
             프로젝트 설계
           </h4>
         </FadeInView>
@@ -52,47 +52,47 @@ export function ProjectInterest() {
         {/* WatchConnectivity 설계 */}
         <FadeInView>
           <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               Apple Watch ↔ iPhone 통신 설계
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-6">
+            <p className="text-base font-normal text-muted-foreground leading-loose mb-6">
               운동 중 실시간으로 심박수와 칼로리를 아이폰에 전달하고, 아이폰의 운동 제어 명령을 애플워치로 전송하는 양방향 통신 구조가 필요했습니다. WCSession을 통한 1초 주기 동기화로 두 기기 간 일관된 운동 상태를 유지했습니다.
             </p>
 
             {/* 통신 구조 다이어그램 */}
             <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-6">
               <div className="w-40 h-40 rounded-2xl border-2 border-blue-500/40 bg-blue-500/5 flex flex-col items-center justify-center p-3">
-                <span className="text-[14px] font-[700] text-blue-500 mb-2">Apple Watch</span>
+                <span className="text-base font-bold text-blue-500 mb-2">Apple Watch</span>
                 <div className="space-y-1 text-center">
-                  <span className="block text-[11px] font-[400] text-muted-foreground">HealthKit</span>
-                  <span className="block text-[11px] font-[400] text-muted-foreground">WatchKit</span>
-                  <span className="block text-[11px] font-[400] text-muted-foreground">HKWorkoutSession</span>
+                  <span className="block text-xs font-normal text-muted-foreground">HealthKit</span>
+                  <span className="block text-xs font-normal text-muted-foreground">WatchKit</span>
+                  <span className="block text-xs font-normal text-muted-foreground">HKWorkoutSession</span>
                 </div>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <span className="text-[10px] font-[500] text-muted-foreground">WCSession</span>
+                <span className="text-[10px] font-medium text-muted-foreground">WCSession</span>
                 <div className="flex items-center gap-1">
                   <div className="w-16 md:w-24 h-0.5 bg-primary/30" />
                   <svg width="12" height="8" viewBox="0 0 12 8" className="text-primary">
                     <path d="M0 4h8M6 1l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" />
                   </svg>
                 </div>
-                <span className="text-[9px] font-[400] text-muted-foreground">심박수, 칼로리</span>
+                <span className="text-2xs font-normal text-muted-foreground">심박수, 칼로리</span>
                 <div className="flex items-center gap-1">
                   <svg width="12" height="8" viewBox="0 0 12 8" className="text-primary rotate-180">
                     <path d="M0 4h8M6 1l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" />
                   </svg>
                   <div className="w-16 md:w-24 h-0.5 bg-primary/30" />
                 </div>
-                <span className="text-[9px] font-[400] text-muted-foreground">운동 상태 제어</span>
-                <span className="text-[10px] font-[400] text-primary mt-1">1초 주기 동기화</span>
+                <span className="text-2xs font-normal text-muted-foreground">운동 상태 제어</span>
+                <span className="text-[10px] font-normal text-primary mt-1">1초 주기 동기화</span>
               </div>
               <div className="w-40 h-40 rounded-2xl border-2 border-green-500/40 bg-green-500/5 flex flex-col items-center justify-center p-3">
-                <span className="text-[14px] font-[700] text-green-600 dark:text-green-400 mb-2">iPhone</span>
+                <span className="text-base font-bold text-green-600 dark:text-green-400 mb-2">iPhone</span>
                 <div className="space-y-1 text-center">
-                  <span className="block text-[11px] font-[400] text-muted-foreground">SwiftUI</span>
-                  <span className="block text-[11px] font-[400] text-muted-foreground">SwiftData</span>
-                  <span className="block text-[11px] font-[400] text-muted-foreground">Combine Timer</span>
+                  <span className="block text-xs font-normal text-muted-foreground">SwiftUI</span>
+                  <span className="block text-xs font-normal text-muted-foreground">SwiftData</span>
+                  <span className="block text-xs font-normal text-muted-foreground">Combine Timer</span>
                 </div>
               </div>
             </div>
@@ -115,10 +115,10 @@ export function ProjectInterest() {
         {/* HealthKit 설계 */}
         <FadeInView>
           <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               HealthKit 설계
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-4">
+            <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
               운동 데이터의 정확한 측정과 애플 피트니스 앱과의 연동을 위해 HealthKit을 활용했습니다. 권한 관리부터 운동 세션 핸들링까지 체계적으로 설계했습니다.
             </p>
             <div className="space-y-4">
@@ -143,10 +143,10 @@ export function ProjectInterest() {
         {/* Clean Architecture 적용 */}
         <FadeInView>
           <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               Clean Architecture 적용
             </h5>
-            <p className="text-[14px] font-[400] text-muted-foreground leading-[1.9] mb-4">
+            <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
               HealthKit, WatchConnectivity, SwiftData 등 복잡한 외부 프레임워크를 다루다 보니 ViewModel에 과도한 책임이 집중되는 문제가 생겼습니다. Clean Architecture를 통해 각 역할을 분리했습니다.
             </p>
             <ProblemSolvingBlock
@@ -160,7 +160,7 @@ export function ProjectInterest() {
         {/* 타이머 설계 */}
         <FadeInView>
           <div className="p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-            <h5 className="text-[16px] font-[700] text-foreground mb-4 tracking-[-0.01em]">
+            <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
               타이머 설계
             </h5>
             <ProblemSolvingBlock

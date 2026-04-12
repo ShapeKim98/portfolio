@@ -52,13 +52,13 @@ function ProjectDivider({
           <div className="flex items-end gap-4 mb-6">
             <motion.span
               style={{ opacity: numberOpacity, y: numberY }}
-              className="text-[64px] md:text-[120px] font-[900] text-primary/10 leading-none"
+              className="text-[64px] md:text-[120px] font-black text-primary/10 leading-none"
             >
               {number}
             </motion.span>
             <motion.h3
               style={{ opacity: titleOpacity, y: titleY }}
-              className="text-[28px] md:text-[40px] font-[800] tracking-[-0.03em] text-foreground pb-3"
+              className="text-[28px] md:text-[40px] font-extrabold tracking-tighter text-foreground pb-3"
             >
               {title}
             </motion.h3>
