@@ -43,7 +43,7 @@ export function FooterSection() {
 
       <SectionInner className="max-w-3xl text-center">
         <FadeInView speed={1.3}>
-          <span className="text-[13px] font-medium text-primary tracking-widest uppercase mb-4 block">
+          <span className="text-sm-md font-medium text-primary tracking-widest uppercase mb-4 block">
             Contact
           </span>
           <h2 className="text-6xl md:text-8xl font-extrabold tracking-tighter leading-tight text-foreground mb-6">
@@ -74,7 +74,7 @@ export function FooterSection() {
 
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <Phone size={14} />
-            <span className="text-[13px] font-normal">010-9027-8292</span>
+            <span className="text-sm-md font-normal">010-9027-8292</span>
           </div>
         </FadeInView>
       </SectionInner>

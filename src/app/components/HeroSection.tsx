@@ -77,7 +77,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-[13px] font-medium tracking-wide">
+            <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm-md font-medium tracking-wide">
               iOS Developer
             </span>
           </motion.div>

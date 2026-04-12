@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "mot
 import { FadeInView } from "./ParallaxSection";
 import { TechTags } from "./Diagrams";
 import { ChevronDown, ChevronUp, Building2 } from "lucide-react";
-import { SectionInner, SectionHeading, DotSeparator } from "./design-system";
+import { SectionInner, SectionPageHeading, DotSeparator } from "./design-system";
 
 interface WorkItem {
   title: string;
@@ -223,15 +223,7 @@ export function ExperienceSection() {
 
       <SectionInner>
         {/* Section Header */}
-        <FadeInView speed={1.2}>
-          <div className="mb-16">
-            <SectionHeading>
-              <h2 className="text-6xl font-bold tracking-tighter leading-snug text-foreground">
-                Experience
-              </h2>
-            </SectionHeading>
-          </div>
-        </FadeInView>
+        <SectionPageHeading>Experience</SectionPageHeading>
 
         {/* Company Header */}
         <FadeInView speed={1.3}>
@@ -242,7 +234,7 @@ export function ExperienceSection() {
                 미스고(주)
               </h3>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-[13px] font-normal text-muted-foreground mb-4">
+            <div className="flex flex-wrap items-center gap-3 text-sm-md font-normal text-muted-foreground mb-4">
               <span>2025. 08 ~ 2026. 04</span>
               <DotSeparator />
               <span>iOS Developer</span>

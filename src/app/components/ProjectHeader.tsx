@@ -56,7 +56,7 @@ export function ProjectHeader({
 
       <FadeInView delay={0.1} speed={1.4}>
         <p className="text-xl font-medium text-foreground mb-2">{subtitle}</p>
-        <div className="flex flex-wrap items-center gap-4 text-[13px] font-normal text-muted-foreground mb-6">
+        <div className="flex flex-wrap items-center gap-4 text-sm-md font-normal text-muted-foreground mb-6">
           <span>{period}</span>
           <DotSeparator />
           <span>{team}</span>
@@ -73,7 +73,7 @@ export function ProjectHeader({
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-[13px] font-medium hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-sm-md font-medium hover:opacity-90 transition-opacity"
           >
             <Github size={14} />
             Repository
@@ -83,7 +83,7 @@ export function ProjectHeader({
               href={appStoreUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground text-[13px] font-medium hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground text-sm-md font-medium hover:bg-muted transition-colors"
             >
               <ExternalLink size={14} />
               App Store

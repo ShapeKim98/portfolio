@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { FadeInView } from "./ParallaxSection";
 import { GraduationCap, Users, Trophy, Mail, Phone, Github } from "lucide-react";
-import { SectionInner, SectionHeading } from "./design-system";
+import { SectionInner, SectionPageHeading } from "./design-system";
 
 const SKILLS = {
   "Framework / Library": [
@@ -85,15 +85,7 @@ export function ProfileSection() {
       </motion.div>
 
       <SectionInner>
-        <FadeInView speed={1.2}>
-          <div className="mb-16">
-            <SectionHeading>
-              <h2 className="text-6xl font-bold tracking-tighter leading-snug text-foreground">
-                Profile & Skills
-              </h2>
-            </SectionHeading>
-          </div>
-        </FadeInView>
+        <SectionPageHeading>Profile & Skills</SectionPageHeading>
 
         {/* Profile Info */}
         <FadeInView speed={1.3}>
@@ -128,8 +120,8 @@ export function ProfileSection() {
                   <p className="text-md font-semibold text-foreground mb-1">
                     세종대학교 소프트웨어융합대학 해커톤
                   </p>
-                  <p className="text-[13px] font-medium text-primary mb-2">2등 총장상 · 2024.05</p>
-                  <p className="text-[13px] font-normal text-muted-foreground leading-loose">
+                  <p className="text-sm-md font-medium text-primary mb-2">2등 총장상 · 2024.05</p>
+                  <p className="text-sm-md font-normal text-muted-foreground leading-loose">
                     당일 제시되는 3개의 키워드로 아이디어를 기획하고 MVP 개발하는 해커톤(무박 2일). 서핑 지역에 대한 정보와 레슨 매칭, 조난 구조 요청을 보낼 수 있는 서비스로써, iOS, WatchOS 어플리케이션 개발을 담당했습니다.
                   </p>
                 </div>
@@ -148,7 +140,7 @@ export function ProfileSection() {
                       </span>
                       <div>
                         <p className="text-base font-semibold text-foreground">{act.title}</p>
-                        <p className="text-[13px] font-normal text-muted-foreground mt-0.5">{act.desc}</p>
+                        <p className="text-sm-md font-normal text-muted-foreground mt-0.5">{act.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -182,7 +174,7 @@ export function ProfileSection() {
                           {group.items.map((item) => (
                             <span
                               key={item}
-                              className="px-3 py-1.5 rounded-lg bg-muted text-[13px] font-medium text-foreground"
+                              className="px-3 py-1.5 rounded-lg bg-muted text-sm-md font-medium text-foreground"
                             >
                               {item}
                             </span>

@@ -1,7 +1,8 @@
 import { FadeInView } from "./ParallaxSection";
 import { ProjectHeader } from "./ProjectHeader";
 import { FeatureGrid, RxComposeArchitectureDiagram } from "./Diagrams";
-import { ContentCard } from "./design-system";
+import { FeatureCard } from "./design-system";
+import { ContentCard, SubSectionTitle } from "./design-system";
 import showpotPromo from "../../image/쇼팟표지.png";
 
 const FEATURES = [
@@ -57,15 +58,12 @@ export function ProjectRxCompose() {
 
       <FadeInView>
         <div className="mb-8">
-          <h4 className="text-2xl font-bold tracking-tight text-foreground mb-6">
+          <SubSectionTitle size="lg" className="mb-6">
             기능 및 기술 설명
-          </h4>
+          </SubSectionTitle>
           <div className="space-y-4">
             {FEATURES.map((f) => (
-              <div key={f.title} className="p-5 rounded-xl bg-muted/40 border border-border">
-                <h5 className="text-base font-semibold text-foreground mb-2">{f.title}</h5>
-                <p className="text-[13px] font-normal text-muted-foreground leading-loose">{f.desc}</p>
-              </div>
+              <FeatureCard key={f.title} title={f.title}>{f.desc}</FeatureCard>
             ))}
           </div>
         </div>
@@ -81,7 +79,7 @@ export function ProjectRxCompose() {
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary">적용 사례</span>
               </div>
               <h5 className="text-2xl font-bold text-foreground tracking-snug">ShowPot</h5>
-              <p className="text-[13px] font-normal text-muted-foreground mt-1">
+              <p className="text-sm-md font-normal text-muted-foreground mt-1">
                 내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit + RxSwift + Clean Architecture
               </p>
             </div>

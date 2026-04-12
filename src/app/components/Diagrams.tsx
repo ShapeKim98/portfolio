@@ -1,5 +1,5 @@
 import { FadeInView } from "./ParallaxSection";
-import { ContentCard } from "./design-system";
+import { ContentCard, SubSectionTitle, FeatureCard } from "./design-system";
 
 /* ─── Architecture Layer Diagram ─── */
 export function LayerDiagram({
@@ -24,11 +24,11 @@ export function LayerDiagram({
                 style={{ borderLeftColor: layer.color, borderLeftWidth: 3 }}
               >
                 <div className="min-w-[100px]">
-                  <span className="text-[13px] font-bold" style={{ color: layer.color }}>
+                  <span className="text-sm-md font-bold" style={{ color: layer.color }}>
                     {layer.name}
                   </span>
                 </div>
-                <p className="text-[13px] font-normal text-muted-foreground leading-loose">
+                <p className="text-sm-md font-normal text-muted-foreground leading-loose">
                   {layer.desc}
                 </p>
               </div>
@@ -56,7 +56,7 @@ export function FlowChart({
           {steps.map((step, i) => (
             <div key={i} className="w-full max-w-md">
               <div className="p-4 rounded-xl bg-card border border-border text-center">
-                <span className="text-[13px] font-semibold text-foreground">{step.label}</span>
+                <span className="text-sm-md font-semibold text-foreground">{step.label}</span>
                 {step.desc && (
                   <p className="text-sm font-normal text-muted-foreground mt-1">{step.desc}</p>
                 )}
@@ -94,13 +94,13 @@ export function DBSchema({
           {tables.map((table) => (
             <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
               <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
-                <span className="text-[13px] font-bold text-primary">{table.name}</span>
+                <span className="text-sm-md font-bold text-primary">{table.name}</span>
               </div>
               <div className="p-3 space-y-1.5">
                 {table.fields.map((f) => (
                   <div key={f.name} className="flex items-center gap-2">
                     {f.key && (
-                      <span className="text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                      <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                         PK
                       </span>
                     )}
@@ -153,7 +153,7 @@ export function DBRelationDiagram() {
                       {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
                       {f.fk && <span className="text-2xs font-bold text-orange-500 bg-orange-500/10 px-1 py-0.5 rounded shrink-0">FK</span>}
                       <span className="text-xs font-medium text-foreground">{f.name}</span>
-                      <span className="text-[10px] font-normal text-muted-foreground ml-auto">{f.type}</span>
+                      <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
                   ))}
                 </div>
@@ -175,7 +175,7 @@ export function DBRelationDiagram() {
                       {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
                       {f.fk && <span className="text-2xs font-bold text-primary/70 bg-primary/10 px-1 py-0.5 rounded shrink-0">FK</span>}
                       <span className="text-xs font-medium text-foreground">{f.name}</span>
-                      <span className="text-[10px] font-normal text-muted-foreground ml-auto">{f.type}</span>
+                      <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
                   ))}
                 </div>
@@ -199,7 +199,7 @@ export function DBRelationDiagram() {
                       {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
                       {f.fk && <span className="text-2xs font-bold text-green-500 bg-green-500/10 px-1 py-0.5 rounded shrink-0">FK</span>}
                       <span className="text-xs font-medium text-foreground">{f.name}</span>
-                      <span className="text-[10px] font-normal text-muted-foreground ml-auto">{f.type}</span>
+                      <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
                   ))}
                 </div>
@@ -269,14 +269,14 @@ export function ProblemSolvingBlock({
         <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-destructive/10 text-destructive text-xs font-semibold">
           Problem
         </span>
-        <p className="text-[13px] font-medium text-foreground leading-loose">{problem}</p>
+        <p className="text-sm-md font-medium text-foreground leading-loose">{problem}</p>
       </div>
       <div className="flex items-start gap-3">
         <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold">
           Solution
         </span>
         <div>
-          <p className="text-[13px] font-medium text-foreground leading-loose">{solution}</p>
+          <p className="text-sm-md font-medium text-foreground leading-loose">{solution}</p>
           {detail && (
             <p className="text-sm font-normal text-muted-foreground leading-loose mt-1.5">{detail}</p>
           )}
@@ -291,10 +291,7 @@ export function FeatureGrid({ features }: { features: { title: string; desc: str
   return (
     <div className="grid md:grid-cols-2 gap-4">
       {features.map((f) => (
-        <div key={f.title} className="p-5 rounded-xl bg-muted/40 border border-border">
-          <h5 className="text-base font-semibold text-foreground mb-1.5">{f.title}</h5>
-          <p className="text-[13px] font-normal text-muted-foreground leading-loose">{f.desc}</p>
-        </div>
+        <FeatureCard key={f.title} title={f.title}>{f.desc}</FeatureCard>
       ))}
     </div>
   );
@@ -346,7 +343,7 @@ export function AppScreenshotPlaceholder({ label }: { label: string }) {
             <path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </div>
-        <p className="text-[10px] font-normal text-muted-foreground leading-normal">{label}</p>
+        <p className="text-xxs font-normal text-muted-foreground leading-normal">{label}</p>
       </div>
     </div>
   );
@@ -367,9 +364,9 @@ export function SyncFlowDiagram({ description, screenshotSrc }: { description?: 
   return (
     <FadeInView>
       <ContentCard>
-        <h5 className="text-lg font-bold text-foreground mb-4 tracking-snug">
+        <SubSectionTitle size="md" className="mb-4">
           실시간 수신과 동기화 충돌 고려
-        </h5>
+        </SubSectionTitle>
 
         {/* 설명 텍스트 */}
         {description && (
@@ -406,7 +403,7 @@ export function SyncFlowDiagram({ description, screenshotSrc }: { description?: 
                     </div>
                     <div>
                       <p className="text-xs font-semibold leading-snug" style={{ color: step.color }}>{step.label}</p>
-                      <p className="text-[10px] font-normal text-muted-foreground leading-normal mt-0.5">{step.desc}</p>
+                      <p className="text-xxs font-normal text-muted-foreground leading-normal mt-0.5">{step.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -451,13 +448,13 @@ export function DBSchemaWithERD({
           {tables.map((table) => (
             <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
               <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
-                <span className="text-[13px] font-bold text-primary">{table.name}</span>
+                <span className="text-sm-md font-bold text-primary">{table.name}</span>
               </div>
               <div className="p-3 space-y-1.5">
                 {table.fields.map((f) => (
                   <div key={f.name} className="flex items-center gap-2">
                     {f.key && (
-                      <span className="text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                      <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                         PK
                       </span>
                     )}
@@ -472,7 +469,7 @@ export function DBSchemaWithERD({
 
         {/* ERD 관계도 — 수평 화살표 */}
         <div className="mt-2 pt-5 border-t border-border">
-          <h4 className="text-[13px] font-bold text-foreground mb-5 tracking-snug">
+          <h4 className="text-sm-md font-bold text-foreground mb-5 tracking-snug">
             테이블 관계도 (ERD)
           </h4>
           <div className="overflow-x-auto">
@@ -492,7 +489,7 @@ export function DBSchemaWithERD({
                   <svg width="64" height="16" viewBox="0 0 64 16">
                     <path d="M60 8H12M16 4L4 8l12 4" fill="none" stroke="#f97316" strokeWidth="1.5" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-[8px] text-orange-400 font-medium whitespace-nowrap">participants</span>
+                  <span className="text-3xs text-orange-400 font-medium whitespace-nowrap">participants</span>
                 </div>
 
                 {/* ChatRoom (중앙, 1:1:) */}
@@ -508,7 +505,7 @@ export function DBSchemaWithERD({
                   <svg width="64" height="16" viewBox="0 0 64 16">
                     <path d="M4 8h48M48 4l12 4-12 4" fill="none" stroke="#22c55e" strokeWidth="1.5" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-[8px] text-green-500 font-medium whitespace-nowrap">messages</span>
+                  <span className="text-3xs text-green-500 font-medium whitespace-nowrap">messages</span>
                 </div>
 
                 {/* ChatMessage */}
@@ -523,11 +520,11 @@ export function DBSchemaWithERD({
               {/* lastMessage 1:1 참조 */}
               <div className="flex justify-center mb-3">
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card border border-primary/20">
-                  <span className="text-[10px] font-semibold text-primary">ChatRoom</span>
+                  <span className="text-xxs font-semibold text-primary">ChatRoom</span>
                   <svg width="44" height="10" viewBox="0 0 44 10">
                     <path d="M0 5h34M30 1l10 4-10 4" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="4 2" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-[10px] font-medium text-primary/70">lastMessage</span>
+                  <span className="text-xxs font-medium text-primary/70">lastMessage</span>
                   <span className="text-2xs text-muted-foreground">(1:1)</span>
                 </div>
               </div>
@@ -536,15 +533,15 @@ export function DBSchemaWithERD({
               <div className="flex flex-wrap gap-x-4 gap-y-1.5 pt-3 border-t border-border">
                 <div className="flex items-center gap-1.5">
                   <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#f97316" strokeWidth="1.5"/></svg>
-                  <span className="text-[10px] text-muted-foreground">ChatRoom ↔ Participant (1:N)</span>
+                  <span className="text-xxs text-muted-foreground">ChatRoom ↔ Participant (1:N)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#22c55e" strokeWidth="1.5"/></svg>
-                  <span className="text-[10px] text-muted-foreground">ChatRoom ↔ ChatMessage (1:N)</span>
+                  <span className="text-xxs text-muted-foreground">ChatRoom ↔ ChatMessage (1:N)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="3 2"/></svg>
-                  <span className="text-[10px] text-muted-foreground">lastMessage 참조 (1:1)</span>
+                  <span className="text-xxs text-muted-foreground">lastMessage 참조 (1:1)</span>
                 </div>
               </div>
             </div>
