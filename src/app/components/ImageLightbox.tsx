@@ -116,7 +116,7 @@ export function ImageLightbox({ open, onClose, src, alt }: ImageLightboxProps) {
 
       {/* Image container */}
       <div
-        className="relative z-10 max-h-[90vh] max-w-[90vw] overflow-hidden"
+        className="relative z-10"
         onWheel={handleWheel}
       >
         <img
@@ -126,6 +126,7 @@ export function ImageLightbox({ open, onClose, src, alt }: ImageLightboxProps) {
           className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-[0_0_40px_rgba(255,255,255,0.08)] select-none"
           style={{
             transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
+            transformOrigin: "center center",
             cursor: scale > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in",
             transition: isDragging ? "none" : "transform 0.2s ease-out",
           }}
