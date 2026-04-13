@@ -40,9 +40,7 @@ argument-hint: "[작업 설명]"
 
     Closes #<이슈번호>
     ```
-  - `--add-assignee`로 본인(리포지토리 소유자) 지정
-  - `--add-reviewer`로 본인 지정
-  - `--add-label "ai-generated"` 라벨 추가
+  - `gh pr edit`로 본인(리포지토리 소유자)을 assignee 및 reviewer로 지정
 
 ## 6. 워크트리 정리
 - `ExitWorktree`로 워크트리를 정리
