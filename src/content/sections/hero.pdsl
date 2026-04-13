@@ -1,0 +1,20 @@
+---
+type: section
+id: hero
+sectionType: hero
+
+badge: "iOS Developer"
+title: "김도형"
+subtitle: "더 나은 방향을 향해 한 걸음씩 나아가는\niOS 개발자입니다."
+
+cta:
+  - label: "GitHub"
+    href: "https://github.com/ShapeKim98"
+    variant: primary
+    icon: Github
+    target: _blank
+  - label: "Contact"
+    href: "mailto:shapekim98@gmail.com"
+    variant: secondary
+    icon: Mail
+---

@@ -1,0 +1,26 @@
+---
+type: project
+index: "04"
+title: ShowPot
+subtitle: "내한 공연 정보, 티켓팅 알림 (iOS 16+)"
+period: "2025.03.29 ~ 2025.04.14"
+team: "PM 1명, 디자이너 2명, 서버 2명, iOS 1명, 안드로이드 2명"
+role: "iOS 개발"
+description: "내한 공연 정보 제공 및 티켓팅 알림 서비스입니다."
+techStack:
+  - UIKit
+  - SnapKit
+  - RxSwift
+  - MVI
+  - Clean Architecture
+  - Kingfisher
+  - Alamofire
+  - Swift Concurrency
+  - Swift Dependencies
+  - KakaoSDK
+  - Firebase
+  - SwiftJWT
+githubUrl: "https://github.com/AlreadyTakenSeat/ShowPot-iOS"
+screenshotLabel: "ShowPot 앱 스크린샷"
+screenshot: "@/image/쇼팟표지.png"
+---

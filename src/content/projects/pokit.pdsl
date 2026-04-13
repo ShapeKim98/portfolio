@@ -1,0 +1,26 @@
+---
+type: project
+index: "03"
+title: Pokit
+subtitle: "간편 링크 아카이빙 앱 (iOS 16+)"
+period: "2024.05.11 ~ 2024.08.27 (유지보수 중)"
+team: "PM 1명, 디자이너 2명, 서버 2명, iOS 2명, 안드로이드 2명"
+role: "iOS 개발"
+description: "간편하게 링크를 저장하고, 분류하고, 잊지 않고 볼 수 있도록 도와주는 서비스입니다."
+techStack:
+  - SwiftUI
+  - TCA
+  - Modular Architecture
+  - Tuist
+  - Github Actions
+  - Fastlane
+  - Moya
+  - Nuke
+  - KakaoSDK
+  - Firebase
+  - Share Extension
+githubUrl: "https://github.com/YAPP-Github/Pokit-iOS"
+appStoreUrl: "https://apps.apple.com/kr/app/pokit-%ED%8F%AC%ED%82%B7-%EA%B0%84%ED%8E%B8-%EB%A7%81%ED%81%AC-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99-%EC%95%B1/id6514313808"
+screenshotLabel: "Pokit 앱 스크린샷"
+screenshot: "@/image/포킷표지.png"
+---

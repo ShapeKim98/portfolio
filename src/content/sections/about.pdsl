@@ -1,0 +1,33 @@
+---
+type: section
+id: about
+sectionType: about
+
+heading: "iOS Developer"
+name: "김도형"
+nameEn: "Kim Dohyeong"
+tagline: "개발에 대한 꾸준한 고민과 되돌아보는 태도를 바탕으로, 더 나은 방향을 향해 한 걸음씩 나아가고 있습니다."
+
+values:
+  - tag: "겸손한 자세"
+    title: "'내가 틀릴 수 있다'는 전제에서 출발합니다."
+    description: "가설이나 의견을 단정 짓기보다 다양한 가능성을 경청하고, 코드에서도 스스로의 선택을 다시 점검하며 개선점을 찾는 습관을 들여왔습니다. 협업에서는 상대방의 의견을 존중하며 더 나은 결론에 도달하기 위해 노력합니다."
+  - tag: "의도 중심 사고"
+    title: "업무의 '무엇'보다 '왜'를 먼저 파악합니다."
+    description: "의도를 이해해야만 방식의 적절성을 판단하고, 더 나은 대안을 찾을 수 있다고 생각합니다. 이 과정에서 겪은 시행착오는 방향을 조정하는 중요한 계기가 되었고, 사용자 경험을 개선해 나가며 큰 보람을 느꼈습니다."
+  - tag: "도전하는 태도"
+    title: "시간의 차이는 있어도, 불가능한 일은 없다고 생각합니다."
+    description: "낯선 기술이나 환경이 필요하면 주저하지 않고 도전하며, 스스로 해결 방법을 찾기 위해 다양한 시도를 합니다. 환경이나 상황을 이유로 한계를 짓기보다, 실제로 결과를 만들어내는 개발자가 되고자 합니다."
+
+contact:
+  - label: "Birth"
+    value: "1998.02.05"
+  - label: "Email"
+    value: "shapekim98@gmail.com"
+    href: "mailto:shapekim98@gmail.com"
+  - label: "GitHub"
+    value: "ShapeKim98"
+    href: "https://github.com/ShapeKim98"
+  - label: "Phone"
+    value: "010-9027-8292"
+---

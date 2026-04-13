@@ -1,0 +1,22 @@
+---
+type: project
+index: "04"
+title: "인터레스트"
+subtitle: "사용자 맞춤 인터벌 트레이닝 (iOS 17+)"
+period: "2023.11 ~ 2024.04"
+team: "iOS 5명"
+role: "iOS 개발, 디자인"
+description: "사용자 맞춤 인터벌 트레이닝을 가이드 해주는 서비스입니다."
+techStack:
+  - SwiftUI
+  - MVVM
+  - Clean Architecture
+  - Tuist
+  - HealthKit
+  - WatchConnectivity
+  - WatchKit
+  - SwiftData
+githubUrl: "https://github.com/TEAM-ALOM/interest-iOS"
+screenshotLabel: "인터레스트 앱 스크린샷"
+screenshot: "@/image/인터레스트표지.png"
+---
