@@ -25,6 +25,10 @@ argument-hint: "[작업 설명]"
 - 작업 단위로 의미 있는 커밋을 생성
 - 커밋 메시지 형식: `feat: <설명> (#<이슈번호>)` / `fix:` / `chore:` / `refactor:`
 - 작업 완료 후 `npm run build`로 빌드 확인
+- **UI 변경사항 프리뷰 확인** (필요 시):
+  - `preview_start`로 `Worktree Dev Server` (port 5174) 실행
+  - base path가 `/portfolio/`이므로 `http://localhost:5174/portfolio/`로 이동하여 확인
+  - 워크트리 cwd에서 서버가 실행되므로 워크트리의 변경사항이 반영됨
 
 ## 5. 푸시 및 PR 생성
 - `git push -u origin <브랜치명>`
