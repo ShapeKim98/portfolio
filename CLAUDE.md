@@ -14,6 +14,7 @@
 - `/edit-content [대상]` — DSL 콘텐츠 편집
 - `/dsl-validate` — DSL 문법 + 빌드 검증
 - `/diagram-spec [생성|분석|업데이트]` — 다이어그램 명세 작성/코드 변환/추출
+- `/manage-dsl [add|modify|remove] [태그명]` — DSL 태그 추가/수정/삭제
 
 ## 금지사항
 - `src/content/` 밖에서 콘텐츠 하드코딩 금지
