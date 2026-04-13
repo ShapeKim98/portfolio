@@ -22,5 +22,10 @@
 - 본문: Summary, Test plan 섹션 포함
 - `Closes #이슈번호`로 이슈 자동 닫기
 
+## 스킬 (Skills)
+- `/issue-worktree [작업 설명]` — 이슈 생성 -> 워크트리 브랜치 -> 작업 -> 커밋/푸시 -> PR 생성 자동화
+  - 소스: `skills/issue-worktree.md`
+  - 심볼릭 링크: `.claude/skills/issue-worktree/SKILL.md`
+
 ## 배포
 - GitHub Pages (base path: /portfolio/)
