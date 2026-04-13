@@ -1,0 +1,1 @@
+../../../skills/diagram-spec.md
