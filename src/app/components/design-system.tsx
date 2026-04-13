@@ -243,7 +243,7 @@ export function IconButton({
   className?: string;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "className" | "children">) {
   const variantClass = {
-    primary: "bg-foreground text-background hover:opacity-90 transition-opacity",
+    primary: "bg-foreground hover:opacity-90 transition-opacity",
     secondary: "border border-border text-foreground hover:bg-muted transition-colors",
   }[variant];
 
@@ -253,10 +253,13 @@ export function IconButton({
     lg: "gap-3 px-6 py-3 rounded-xl text-base",
   }[size];
 
+  const variantStyle = variant === "primary" ? { color: "var(--background)" } : undefined;
+
   return (
     <a
       href={href}
       className={cn("inline-flex items-center font-medium", variantClass, sizeClass, className)}
+      style={variantStyle}
       {...rest}
     >
       {icon}
