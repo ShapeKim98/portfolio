@@ -130,11 +130,15 @@ export class Parser {
               tok.params ?? {},
               tok.line,
             );
-            // 블록 열기에 인라인 콘텐츠가 있는 경우 (예: @feature "제목")
+            // 블록 열기에 인라인 콘텐츠가 있는 경우 (예: @feature "제목" 설명텍스트)
             if (tok.content) {
-              const quoteMatch = tok.content.match(/^"([^"]*)"$/);
+              const quoteMatch = tok.content.match(/^"([^"]*)"\s*(.*)$/);
               if (quoteMatch) {
                 blockNode.params._title = quoteMatch[1];
+                // 따옴표 뒤 나머지 텍스트가 있으면 _rest에 저장
+                if (quoteMatch[2]) {
+                  blockNode.params._rest = quoteMatch[2];
+                }
               }
             }
             blockNode.children = this.parseChildren(tag);

@@ -29,10 +29,10 @@ export function ColoredCardGrid({
       {items.map((item, i) => (
         <div
           key={i}
-          className="p-3 rounded-lg border"
+          className="p-3 rounded-xl border bg-card"
           style={{
-            borderColor: item.color + "40",
-            backgroundColor: item.color + "08",
+            borderColor: item.color + "30",
+            backgroundColor: item.color + "12",
           }}
         >
           <span

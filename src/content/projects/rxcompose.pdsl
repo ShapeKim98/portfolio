@@ -19,8 +19,6 @@ divider:
 
 @fade-in
 @card
-#### RxCompose 단방향 데이터 흐름 구조도
-
 @diagram-spec "RxCompose 단방향 데이터 흐름 구조도"
   type: horizontal-flow-with-branches
   main-flow:

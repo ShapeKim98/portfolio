@@ -10,7 +10,7 @@ export function IconButton({
   ...rest
 }: {
   href?: string;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "link";
   size?: "sm" | "md" | "lg";
   icon?: React.ReactNode;
   children: React.ReactNode;
@@ -19,6 +19,7 @@ export function IconButton({
   const variantClass = {
     primary: "bg-foreground hover:opacity-90 transition-opacity",
     secondary: "border border-border text-foreground hover:bg-muted transition-colors",
+    link: "text-primary hover:underline transition-colors",
   }[variant];
 
   const sizeClass = {
@@ -27,7 +28,7 @@ export function IconButton({
     lg: "gap-3 px-6 py-3 rounded-xl text-base",
   }[size];
 
-  const variantStyle = variant === "primary" ? { color: "var(--background)" } : undefined;
+  const variantStyle = variant === "primary" ? { color: "var(--background)" } : variant === "link" ? undefined : undefined;
 
   return (
     <a

@@ -21,7 +21,7 @@ export function ScrollSection({
   const opacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
 
   return (
-    <motion.div ref={ref} style={{ y, opacity }} className={className}>
+    <motion.div ref={ref} style={{ y, opacity }} className={`relative ${className}`}>
       {children}
     </motion.div>
   );

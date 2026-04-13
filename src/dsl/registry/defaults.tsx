@@ -42,6 +42,13 @@ import { DeepParallax } from "@/app/organisms/animation/DeepParallax";
 /* ─── Templates ─── */
 import { TwoColumnLayout } from "@/app/templates/TwoColumnLayout";
 
+/* ─── Image Glob (Vite resolve) ─── */
+const _imageGlob = import.meta.glob<{ default: string }>("/src/image/*", { eager: true });
+const IMAGE_MODULES: Record<string, string> = {};
+for (const [path, mod] of Object.entries(_imageGlob)) {
+  IMAGE_MODULES[path] = mod.default;
+}
+
 /* ─── Helpers ─── */
 
 function parseNumber(val: string | boolean | undefined, fallback: number): number {
@@ -117,12 +124,12 @@ export function createDefaultRegistry(): ComponentRegistry {
     ),
   });
 
-  // feature-list → div wrapper for FeatureItem children
+  // feature-list → div wrapper for FeatureItem children (mb-12 — main과 일치)
   registry.register({
     tag: "feature-list",
     isBlock: true,
     renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => (
-      <div className={cn("grid gap-3", node.params.cols === "2" ? "md:grid-cols-2" : "")}>
+      <div className={cn("grid gap-3 mb-12", node.params.cols === "2" ? "md:grid-cols-2" : node.params.cols === "3" ? "md:grid-cols-3" : "")}>
         {children}
       </div>
     ),
@@ -137,14 +144,16 @@ export function createDefaultRegistry(): ComponentRegistry {
     ),
   });
 
-  // section-group → SectionGroup
+  // section-group → SectionGroup (mt-16 래퍼 — main 브랜치와 일치)
   registry.register({
     tag: "section-group",
     isBlock: true,
     renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => (
-      <SectionGroup title={node.params._title as string ?? ""}>
-        {children}
-      </SectionGroup>
+      <div className="mt-16">
+        <SectionGroup title={node.params._title as string ?? ""}>
+          {children}
+        </SectionGroup>
+      </div>
     ),
   });
 
@@ -217,7 +226,7 @@ export function createDefaultRegistry(): ComponentRegistry {
     },
   });
 
-  // fade-in → FadeInView
+  // fade-in → FadeInView (mb-8 기본 간격 — main과 일치)
   registry.register({
     tag: "fade-in",
     isBlock: true,
@@ -226,7 +235,7 @@ export function createDefaultRegistry(): ComponentRegistry {
         delay={parseNumber(node.params.delay, 0)}
         speed={parseNumber(node.params.speed, 1)}
         direction={node.params.direction as "up" | "left" | "right" | "none" | undefined}
-        className={node.params.className as string | undefined}
+        className={cn("mb-8", node.params.className as string | undefined)}
       >
         {children}
       </FadeInView>
@@ -291,8 +300,8 @@ export function createDefaultRegistry(): ComponentRegistry {
     isBlock: true,
     renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
       const layers = extractBlocksByTag(node, "layer").map(l => ({
-        label: (l.params._title as string) ?? "",
-        description: extractTextContent(l.children),
+        name: (l.params._title as string) ?? "",
+        desc: extractTextContent(l.children) || ((l.params._rest as string) ?? ""),
         color: (l.params.color as string) ?? "#6366f1",
       }));
       return <LayerDiagram title={(node.params._title as string) ?? ""} layers={layers} />;
@@ -306,7 +315,7 @@ export function createDefaultRegistry(): ComponentRegistry {
     renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
       const steps = extractBlocksByTag(node, "step").map(s => ({
         label: (s.params._title as string) ?? "",
-        description: extractTextContent(s.children),
+        desc: extractTextContent(s.children) || ((s.params._rest as string) ?? ""),
         color: (s.params.color as string) ?? "#6366f1",
       }));
       return <FlowChart title={(node.params._title as string) ?? ""} steps={steps} />;
@@ -320,7 +329,7 @@ export function createDefaultRegistry(): ComponentRegistry {
     renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
       const steps = extractBlocksByTag(node, "flow-step").map(s => ({
         label: (s.params._title as string) ?? "",
-        desc: (s.params.desc as string) ?? extractTextContent(s.children),
+        desc: (s.params.desc as string) || extractTextContent(s.children) || ((s.params._rest as string) ?? ""),
         color: (s.params.color as string) ?? "#6366f1",
       }));
       return <VerticalFlow steps={steps} maxWidth={node.params.maxWidth as string | undefined} />;
@@ -382,7 +391,7 @@ export function createDefaultRegistry(): ComponentRegistry {
       return (
         <IconButton
           href={node.attributes.href ?? node.params.href as string | undefined}
-          variant={node.params.variant as "primary" | "secondary" | undefined}
+          variant={node.params.variant as "primary" | "secondary" | "link" | undefined}
           size={node.params.size as "sm" | "md" | "lg" | undefined}
           icon={IconComp ? <IconComp size={14} /> : undefined}
           target={node.attributes.target as string | undefined}
@@ -418,13 +427,31 @@ export function createDefaultRegistry(): ComponentRegistry {
   });
 
   // image → ClickableImage or img
+  // @image(lightbox) "@/image/파일.png" alt="설명"
+  // content에 이미지 경로가 들어옴 → import.meta.glob으로 Vite resolve
   registry.register({
     tag: "image",
     isBlock: false,
     renderer: ({ node }: { node: LeafNode }) => {
-      const src = node.attributes.src ?? node.params.src as string ?? "";
-      const alt = node.attributes.alt ?? node.params.alt as string ?? "";
+      const rawSrc = node.content || node.attributes.src || (node.params.src as string) || "";
+      const alt = node.attributes.alt ?? (node.params.alt as string) ?? "";
       const className = node.params.className as string | undefined;
+
+      // @/image/... 경로를 Vite resolve URL로 변환
+      let src = rawSrc;
+      if (rawSrc.startsWith("@/image/")) {
+        const filename = rawSrc.replace("@/image/", "");
+        const key = `/src/image/${filename}`;
+        const resolved = IMAGE_MODULES[key];
+        if (typeof resolved === "string") {
+          src = resolved;
+        } else {
+          // fallback: 한글 파일명 등 glob 매칭 실패 시 직접 경로 사용
+          // Vite dev server에서는 /src/image/파일명 으로 접근 가능
+          src = `/portfolio/src/image/${encodeURI(filename)}`;
+        }
+      }
+
       if (parseBool(node.params.lightbox)) {
         return <ClickableImage src={src} alt={alt} className={className} />;
       }
