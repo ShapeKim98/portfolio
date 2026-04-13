@@ -1,7 +1,11 @@
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { ScrollSection } from "../organisms/animation";
 import { ProjectHeader } from "../organisms/ProjectHeader";
+import { DSLRenderer } from "../pages/DSLRenderer";
+import { createDefaultRegistry } from "@/dsl/registry";
+import type { RootNode } from "@/dsl/ast/nodes";
+import type { ProjectFrontmatter } from "@/dsl/frontmatter";
 
 /**
  * ProjectDivider: 150vh 긴 컨테이너 안에서 내부 요소를 sticky로 화면에 고정해,
@@ -150,3 +154,52 @@ export function ProjectRenderer({
     </>
   );
 }
+
+/**
+ * DSLProjectPage: .pdsl 파일의 frontmatter + AST를 받아
+ * ProjectDivider + ProjectSectionWrapper + ProjectHeader + DSLRenderer를 조합.
+ *
+ * screenshotSrc는 Vite import로 해상된 이미지 URL을 외부에서 주입받음
+ * (frontmatter.screenshot은 "@/image/..." 문자열이므로 Vite 빌드에서 해상 불가).
+ */
+export function DSLProjectPage({
+  frontmatter,
+  ast,
+  screenshotSrc,
+}: {
+  frontmatter: ProjectFrontmatter_DSL;
+  ast: RootNode;
+  screenshotSrc?: string;
+}) {
+  const registry = useMemo(() => createDefaultRegistry(), []);
+  const number = frontmatter.index.padStart(2, "0");
+  const divId = `project-${number}`;
+
+  return (
+    <>
+      <ProjectDivider id={divId} number={number} title={frontmatter.title} />
+      <ProjectSectionWrapper bg={frontmatter.divider?.bg}>
+        <ProjectHeader
+          index={number}
+          type={frontmatter.type}
+          title={frontmatter.title}
+          subtitle={frontmatter.subtitle}
+          period={frontmatter.period}
+          team={frontmatter.team}
+          role={frontmatter.role}
+          description={frontmatter.description}
+          techStack={frontmatter.techStack}
+          githubUrl={frontmatter.githubUrl}
+          appStoreUrl={frontmatter.appStoreUrl}
+          screenshotLabel={frontmatter.screenshotLabel ?? ""}
+          screenshotSrc={screenshotSrc}
+          hideScreenshot={frontmatter.hideScreenshot}
+        />
+        <DSLRenderer node={ast} registry={registry} />
+      </ProjectSectionWrapper>
+    </>
+  );
+}
+
+/** Alias for the DSL-sourced frontmatter type (imported from dsl/frontmatter.ts) */
+type ProjectFrontmatter_DSL = import("@/dsl/frontmatter").ProjectFrontmatter;

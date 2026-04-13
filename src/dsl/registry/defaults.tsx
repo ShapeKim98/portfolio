@@ -3,6 +3,10 @@ import type { BlockNode, LeafNode } from "../ast/nodes";
 import { getIcon } from "../icon-map";
 import { cn } from "@/app/components/ui/utils";
 
+/* ─── Registry Helpers ─── */
+import { extractBlocksByTag, extractSlot, extractTextContent, extractListItems } from "./helpers";
+import { DIAGRAM_MAP } from "./diagram-map";
+
 /* ─── Atoms ─── */
 import { Badge } from "@/app/atoms/Badge";
 
@@ -17,6 +21,8 @@ import { ContentCard } from "@/app/organisms/ContentCard";
 import { FeatureCard } from "@/app/organisms/FeatureCard";
 import { VerticalFlow } from "@/app/organisms/VerticalFlow";
 import { ColoredInfoBox } from "@/app/organisms/ColoredInfoBox";
+import { ColoredCardGrid } from "@/app/organisms/ColoredCardGrid";
+import { InfoBoxFlow } from "@/app/organisms/InfoBoxFlow";
 import { SectionGroup } from "@/app/organisms/SectionGroup";
 
 /* ─── Organisms / Diagrams ─── */
@@ -25,6 +31,8 @@ import { FlowChart } from "@/app/organisms/diagrams/FlowChart";
 import { ProblemSolvingBlock } from "@/app/organisms/diagrams/ProblemSolvingBlock";
 import { TechTags } from "@/app/organisms/diagrams/TechTags";
 import { ScreenshotPlaceholder } from "@/app/organisms/diagrams/ScreenshotPlaceholder";
+import { DBSchemaWithERD } from "@/app/organisms/diagrams/DBSchemaWithERD";
+import { SyncFlowDiagram } from "@/app/organisms/diagrams/SyncFlowDiagram";
 
 /* ─── Organisms / Animation ─── */
 import { FadeInView } from "@/app/organisms/animation/FadeInView";
@@ -281,49 +289,68 @@ export function createDefaultRegistry(): ComponentRegistry {
   registry.register({
     tag: "layer-diagram",
     isBlock: true,
-    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => (
-      <LayerDiagram
-        title={node.params._title as string ?? ""}
-        layers={parseJsonArray(node.params.layers)}
-      />
-    ),
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      const layers = extractBlocksByTag(node, "layer").map(l => ({
+        label: (l.params._title as string) ?? "",
+        description: extractTextContent(l.children),
+        color: (l.params.color as string) ?? "#6366f1",
+      }));
+      return <LayerDiagram title={(node.params._title as string) ?? ""} layers={layers} />;
+    },
   });
 
   // flow-chart → FlowChart
   registry.register({
     tag: "flow-chart",
     isBlock: true,
-    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => (
-      <FlowChart
-        title={node.params._title as string ?? ""}
-        steps={parseJsonArray(node.params.steps)}
-      />
-    ),
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      const steps = extractBlocksByTag(node, "step").map(s => ({
+        label: (s.params._title as string) ?? "",
+        description: extractTextContent(s.children),
+        color: (s.params.color as string) ?? "#6366f1",
+      }));
+      return <FlowChart title={(node.params._title as string) ?? ""} steps={steps} />;
+    },
   });
 
   // vertical-flow → VerticalFlow
   registry.register({
     tag: "vertical-flow",
     isBlock: true,
-    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => (
-      <VerticalFlow
-        steps={parseJsonArray(node.params.steps)}
-        maxWidth={node.params.maxWidth as string | undefined}
-      />
-    ),
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      const steps = extractBlocksByTag(node, "flow-step").map(s => ({
+        label: (s.params._title as string) ?? "",
+        desc: (s.params.desc as string) ?? extractTextContent(s.children),
+        color: (s.params.color as string) ?? "#6366f1",
+      }));
+      return <VerticalFlow steps={steps} maxWidth={node.params.maxWidth as string | undefined} />;
+    },
   });
 
   // problem-solution → ProblemSolvingBlock
   registry.register({
     tag: "problem-solution",
     isBlock: true,
-    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => (
-      <ProblemSolvingBlock
-        problem={node.params.problem as string ?? ""}
-        solution={node.params.solution as string ?? ""}
-        detail={node.params.detail as string | undefined}
-      />
-    ),
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      // @problem, @solution, @detail are leaf tags (single line, no close tag)
+      let problem = "";
+      let solution = "";
+      let detail: string | undefined;
+      for (const child of node.children) {
+        if (child.kind === "leaf") {
+          if (child.tag === "problem") problem = child.content;
+          else if (child.tag === "solution") solution = child.content;
+          else if (child.tag === "detail") detail = child.content;
+        }
+      }
+      return (
+        <ProblemSolvingBlock
+          problem={problem}
+          solution={solution}
+          detail={detail}
+        />
+      );
+    },
   });
 
   /* ══════════════════════════════════════════
@@ -438,6 +465,148 @@ export function createDefaultRegistry(): ComponentRegistry {
         className={node.params.className as string | undefined}
       />
     ),
+  });
+
+  /* ══════════════════════════════════════════
+   *  Block Tags (new data-driven)
+   * ══════════════════════════════════════════ */
+
+  // db-schema → DBSchemaWithERD
+  registry.register({
+    tag: "db-schema",
+    isBlock: true,
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      const tables = extractBlocksByTag(node, "table").map(t => ({
+        name: (t.params._title as string) ?? "",
+        fields: extractListItems(t.children).map(item => {
+          // Parse "field: Type (PK)" format
+          const match = item.match(/^(\w+):\s*(.+?)(?:\s*\((\w+)\))?$/);
+          if (match) {
+            return { name: match[1], type: match[2].trim(), key: match[3] === "PK" };
+          }
+          const parts = item.split(":");
+          return { name: parts[0]?.trim() ?? "", type: parts[1]?.trim() ?? "", key: item.includes("(PK)") };
+        }),
+      }));
+      const relationsBlock = extractBlocksByTag(node, "relations")[0];
+      const relations = relationsBlock ? extractListItems(relationsBlock.children) : [];
+      return <DBSchemaWithERD title={(node.params._title as string) ?? ""} tables={tables} relations={relations} />;
+    },
+  });
+
+  // sync-flow → SyncFlowDiagram
+  registry.register({
+    tag: "sync-flow",
+    isBlock: true,
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      const descParts: string[] = [];
+      const steps: { label: string; color: string; desc: string }[] = [];
+      let problem = "";
+      let solution = "";
+      let detail: string | undefined;
+      let screenshotSrc: string | undefined;
+
+      for (const child of node.children) {
+        if (child.kind === "block" && child.tag === "step") {
+          steps.push({
+            label: (child.params._title as string) ?? "",
+            color: (child.params.color as string) ?? "#6366f1",
+            desc: extractTextContent(child.children),
+          });
+        } else if (child.kind === "block" && child.tag === "problem-solution") {
+          // @problem, @solution, @detail are leaf tags inside @problem-solution
+          for (const psChild of (child as BlockNode).children) {
+            if (psChild.kind === "leaf") {
+              if (psChild.tag === "problem") problem = psChild.content;
+              else if (psChild.tag === "solution") solution = psChild.content;
+              else if (psChild.tag === "detail") detail = psChild.content;
+            }
+          }
+        } else if (child.kind === "leaf" && child.tag === "image") {
+          screenshotSrc = child.attributes.src ?? (child.params.src as string);
+        } else if (child.kind === "paragraph") {
+          descParts.push(extractTextContent(child.children));
+        }
+      }
+
+      return (
+        <SyncFlowDiagram
+          title={(node.params._title as string) ?? ""}
+          description={descParts.join(" ") || undefined}
+          steps={steps}
+          problem={problem}
+          solution={solution}
+          detail={detail}
+          screenshotSrc={screenshotSrc}
+        />
+      );
+    },
+  });
+
+  // colored-card-grid → ColoredCardGrid
+  registry.register({
+    tag: "colored-card-grid",
+    isBlock: true,
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      const items = extractBlocksByTag(node, "colored-card").map(c => ({
+        label: (c.params._title as string) ?? "",
+        description: extractTextContent(c.children),
+        color: (c.params.color as string) ?? "#6366f1",
+        mono: parseBool(c.params.mono),
+      }));
+      return (
+        <ColoredCardGrid
+          items={items}
+          cols={parseNumber(node.params.cols, 2)}
+          gap={parseNumber(node.params.gap, 2)}
+          className={node.params.className as string | undefined}
+        />
+      );
+    },
+  });
+
+  // colored-card → fallback wrapper (used inside colored-card-grid)
+  registry.register({
+    tag: "colored-card",
+    isBlock: true,
+    renderer: ({ children }: { node: BlockNode; children: React.ReactNode }) => (
+      <div>{children}</div>
+    ),
+  });
+
+  // info-box-flow → InfoBoxFlow
+  registry.register({
+    tag: "info-box-flow",
+    isBlock: true,
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      const items = node.children
+        .filter((c): c is import("../ast/nodes").LeafNode => c.kind === "leaf" && c.tag === "info-box")
+        .map(c => ({
+          label: (c.params.label as string) ?? c.content,
+          sub: c.params.sub as string | undefined,
+          color: (c.params.color as string) ?? "#6366f1",
+          center: parseBool(c.params.center),
+        }));
+      return (
+        <InfoBoxFlow
+          items={items}
+          arrowBreak={parseNumber(node.params["arrow-break"], undefined as unknown as number)}
+          className={node.params.className as string | undefined}
+        />
+      );
+    },
+  });
+
+  // diagram-spec → DIAGRAM_MAP lookup or null
+  registry.register({
+    tag: "diagram-spec",
+    isBlock: true,
+    renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
+      const title = (node.params._title as string) ?? "";
+      const DiagramComp = DIAGRAM_MAP[title];
+      if (DiagramComp) return <DiagramComp />;
+      return null;
+    },
   });
 
   return registry;

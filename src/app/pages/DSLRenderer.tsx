@@ -10,15 +10,10 @@ import {
   type BlockRenderer,
   type LeafRenderer,
 } from "@/dsl/registry/ComponentRegistry";
+import { createDefaultRegistry } from "@/dsl/registry";
 import { SubSectionTitle } from "@/app/atoms/SubSectionTitle";
 import { SectionPageHeading } from "@/app/templates/SectionPageHeading";
 import { Divider } from "@/app/atoms/Divider";
-
-/* ─── Default Registry Factory ─── */
-
-function createDefaultRegistry(): ComponentRegistry {
-  return new ComponentRegistry();
-}
 
 /* ─── Core Recursive Renderer ─── */
 
@@ -27,7 +22,7 @@ interface DSLRendererProps {
   registry: ComponentRegistry;
 }
 
-export function DSLRenderer({ node, registry }: DSLRendererProps) {
+export const DSLRenderer = React.memo(function DSLRenderer({ node, registry }: DSLRendererProps) {
   switch (node.kind) {
     case "root":
       return (
@@ -134,7 +129,7 @@ export function DSLRenderer({ node, registry }: DSLRendererProps) {
     default:
       return null;
   }
-}
+});
 
 /* ─── DSLPage Wrapper ─── */
 
