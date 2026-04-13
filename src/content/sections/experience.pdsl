@@ -2,6 +2,7 @@
 type: section
 id: experience
 sectionType: experience
+heading: "Experience"
 
 initialVisibleCount: 4
 

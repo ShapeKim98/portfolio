@@ -17,4 +17,6 @@ cta:
     href: "mailto:shapekim98@gmail.com"
     variant: secondary
     icon: Mail
+
+scrollIndicator: "Scroll"
 ---

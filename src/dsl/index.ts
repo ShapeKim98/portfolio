@@ -23,5 +23,8 @@ export type {
 export { createErrorChain } from "./errors";
 export type { DSLError } from "./errors";
 
+// Builder
+export { DocumentBuilder, serialize } from "./builder";
+
 // Vite Plugin
 export { pdslPlugin } from "./vite";
