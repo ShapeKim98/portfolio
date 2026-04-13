@@ -40,7 +40,7 @@ argument-hint: "[작업 설명]"
 
     Closes #<이슈번호>
     ```
-  - `gh pr edit`로 본인(리포지토리 소유자)을 assignee 및 reviewer로 지정
+  - `gh pr edit`로 본인(리포지토리 소유자)을 assignee로 지정
 
 ## 6. 워크트리 정리
 - `ExitWorktree`로 워크트리를 정리
