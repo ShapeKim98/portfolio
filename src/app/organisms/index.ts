@@ -17,3 +17,5 @@ export { ProjectFiltee } from "./ProjectFiltee";
 export { ProjectPokit } from "./ProjectPokit";
 export { ProjectInterest } from "./ProjectInterest";
 export { ProjectShowPot } from "./ProjectShowPot";
+export { InfoBoxFlow } from "./InfoBoxFlow";
+export { ColoredCardGrid } from "./ColoredCardGrid";
