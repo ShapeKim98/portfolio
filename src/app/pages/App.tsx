@@ -1,19 +1,8 @@
-import { useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import {
-  Navigation,
-  HeroSection,
-  AboutSection,
-  ProfileSection,
-  ExperienceSection,
-  FooterSection,
-  ProjectRxCompose,
-  ProjectFiltee,
-  ProjectPokit,
-  ProjectInterest,
-  SectionIndicator,
-} from "../organisms";
+import { Navigation, SectionIndicator } from "../organisms";
 import { ScrollSection } from "../organisms/animation";
+import { sections, projects, footer } from "@/content/manifest";
 
 /**
  * ProjectDivider: 150vh 긴 컨테이너 안에서 내부 요소를 sticky로 화면에 고정해,
@@ -135,35 +124,30 @@ export default function App() {
       <Navigation />
       <SectionIndicator />
 
-      <HeroSection />
-      <AboutSection />
-      <ProfileSection />
-      <ExperienceSection />
+      <Suspense fallback={null}>
+        {sections.map(s => {
+          const Comp = s.component;
+          return <Comp key={s.id} />;
+        })}
+      </Suspense>
 
       {/* Projects */}
       <div id="projects">
-        <ProjectDivider id="project-01" number="01" title="RxCompose" />
-        <ProjectSection>
-          <ProjectRxCompose />
-        </ProjectSection>
-
-        <ProjectDivider id="project-02" number="02" title="Filtee" />
-        <ProjectSection bg>
-          <ProjectFiltee />
-        </ProjectSection>
-
-        <ProjectDivider id="project-03" number="03" title="Pokit" />
-        <ProjectSection>
-          <ProjectPokit />
-        </ProjectSection>
-
-        <ProjectDivider id="project-04" number="04" title="인터레스트" />
-        <ProjectSection>
-          <ProjectInterest />
-        </ProjectSection>
+        <Suspense fallback={null}>
+          {projects.map(p => (
+            <React.Fragment key={p.id}>
+              <ProjectDivider id={p.id} number={p.number} title={p.title} />
+              <ProjectSection bg={p.bg}>
+                <p.component />
+              </ProjectSection>
+            </React.Fragment>
+          ))}
+        </Suspense>
       </div>
 
-      <FooterSection />
+      <Suspense fallback={null}>
+        <footer.component />
+      </Suspense>
     </div>
   );
 }
