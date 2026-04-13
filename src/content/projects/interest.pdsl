@@ -20,3 +20,107 @@ githubUrl: "https://github.com/TEAM-ALOM/interest-iOS"
 screenshotLabel: "인터레스트 앱 스크린샷"
 screenshot: "@/image/인터레스트표지.png"
 ---
+
+@fade-in
+### 핵심 기능
+
+@feature-list
+- 인터벌 운동 사용자화 및 로컬 스토리지 저장 기능
+- 운동 타이머 기능
+- 심박수 및 칼로리 추적 기능
+- 심박수 구간에 따른 운동 강도 가이드
+- 애플워치 연동 및 미러링 기능
+@/feature-list
+@/fade-in
+
+@section-group "프로젝트 설계"
+
+@fade-in
+@card
+#### Apple Watch ↔ iPhone 통신 설계
+
+운동 중 실시간으로 심박수와 칼로리를 아이폰에 전달하고, 아이폰의 운동 제어 명령을 애플워치로 전송하는 양방향 통신 구조가 필요했습니다. WCSession을 통한 1초 주기 동기화로 두 기기 간 일관된 운동 상태를 유지했습니다.
+
+@diagram-spec "Apple Watch ↔ iPhone 통신 구조"
+  type: bidirectional-flow
+  left:
+    label: "Apple Watch"
+    color: "#3b82f6"
+    items: [HealthKit, WatchKit, HKWorkoutSession]
+  right:
+    label: "iPhone"
+    color: "#22c55e"
+    items: [SwiftUI, SwiftData, Combine Timer]
+  connection:
+    protocol: "WCSession"
+    forward: "심박수, 칼로리"
+    backward: "운동 상태 제어"
+    interval: "1초 주기 동기화"
+@/diagram-spec
+
+@problem-solution
+@problem 애플워치에서 측정한 운동 정보를 아이폰으로 실시간 전송 필요
+@solution WCSessionDelegate의 session(_:didReceive:) 함수를 활용하여 실시간 전송
+@detail 애플워치에서 수신한 운동 정보를 아이폰으로 전송함으로써, 실시간 심박수 및 칼로리 측정 기능을 구현했습니다.
+@/problem-solution
+
+@problem-solution
+@problem 애플워치와 아이폰 간 주기적 운동정보 동기화 필요
+@solution 별도의 Timer 객체 구성을 통해 1초마다 운동정보를 통신
+@detail 애플워치와 아이폰 간의 주기적인 운동정보 동기화를 구현했습니다.
+@/problem-solution
+@/card
+@/fade-in
+
+@fade-in
+@card
+#### HealthKit 설계
+
+운동 데이터의 정확한 측정과 애플 피트니스 앱과의 연동을 위해 HealthKit을 활용했습니다. 권한 관리부터 운동 세션 핸들링까지 체계적으로 설계했습니다.
+
+@problem-solution
+@problem HealthKit 데이터 접근 권한 관리 필요
+@solution HKQuantityType을 활용하여 필요한 운동정보를 정의하고 권한 요청 구성
+@detail HKHealthStore의 requestAuthorization(toShare:read:completion:) 메서드를 통해 심박수, 칼로리, 운동 타입 정보 요청 권한을 관리했습니다.
+@/problem-solution
+
+@problem-solution
+@problem 애플 피트니스앱과 운동정보 연동 필요
+@solution WorkoutManager를 구성하여 HKWorkoutSession 생성 및 상태 핸들링
+@detail HKWorkoutSessionDelegate를 활용해 운동 상태(시작, 종료, 일시정지, 재개)를 핸들링하는 로직을 구현함으로써, 애플의 피트니스앱과 운동정보 연동을 구현했습니다.
+@/problem-solution
+
+@problem-solution
+@problem 애플워치 AOD(Always On Display) 화면 상태 변화 대응 필요
+@solution SwiftUI의 ScenePhase Environment를 통해 AOD 화면 상태 변화에 대응
+@/problem-solution
+@/card
+@/fade-in
+
+@fade-in
+@card
+#### Clean Architecture 적용
+
+HealthKit, WatchConnectivity, SwiftData 등 복잡한 외부 프레임워크를 다루다 보니 ViewModel에 과도한 책임이 집중되는 문제가 생겼습니다. Clean Architecture를 통해 각 역할을 분리했습니다.
+
+@problem-solution
+@problem ViewModel에 HealthKit, WatchConnectivity, SwiftData 로직이 집중되어 유지보수가 어려운 문제
+@solution Clean Architecture를 적용하여 외부 프레임워크 로직을 ViewModel에서 분리
+@detail HealthKit, WatchConnectivity, SwiftData 로직을 각각 독립된 레이어로 분리함으로써, ViewModel에 과도한 책임이 집중되는 문제를 방지하고 로직의 재사용성과 유지보수성을 향상시켰습니다.
+@/problem-solution
+@/card
+@/fade-in
+
+@fade-in
+@card
+#### 타이머 설계
+
+@problem-solution
+@problem Timer 객체 사용 시 메모리 누수 가능성
+@solution Combine의 Timer 객체를 사용해 타이머 기능을 구현하고, AnyCancellable로 작업 취소
+@detail Combine의 Timer 퍼블리셔와 AnyCancellable을 활용해 Timer 작업을 필요 시 취소함으로써 메모리 누수를 방지했습니다.
+@/problem-solution
+@/card
+@/fade-in
+
+@/section-group
