@@ -1,0 +1,63 @@
+---
+type: section
+id: profile
+sectionType: profile
+heading: "Profile & Skills"
+skillsHeading: "기술 스택"
+
+profile:
+  name: "김도형"
+  birth: "1998.02.05"
+  email: "shapekim98@gmail.com"
+  emailHref: "mailto:shapekim98@gmail.com"
+  github: "ShapeKim98"
+  githubHref: "https://github.com/ShapeKim98"
+  phone: "010-9027-8292"
+  education: "세종대학교 컴퓨터공학과 졸업 (2024.08)"
+
+award:
+  title: "세종대학교 소프트웨어융합대학 해커톤"
+  prize: "2등 총장상"
+  date: "2024.05"
+  description: "당일 제시되는 3개의 키워드로 아이디어를 기획하고 MVP 개발하는 해커톤(무박 2일). 서핑 지역에 대한 정보와 레슨 매칭, 조난 구조 요청을 보낼 수 있는 서비스로써, iOS, WatchOS 어플리케이션 개발을 담당했습니다."
+
+activities:
+  - period: "2024.12 ~ 2025.06"
+    title: "SeSAC iOS 앱 개발자 데뷔과정 PLUS 도봉 SW 2기"
+    desc: "iOS 개발, CS, 시스템 학습을 통한 과제 및 서비스 레벨 프로젝트 수행"
+  - period: "2024.05 ~ 2024.09"
+    title: "YAPP(기업형 연합 IT동아리) 24기"
+    desc: '간편 링크 아카이빙 앱 "Pokit" 개발 및 출시'
+  - period: "2024.11 ~ 2025.03"
+    title: "YAPP(기업형 연합 IT동아리) 25기"
+    desc: "iOS 및 CL(커뮤니케이션 리드) 운영진 활동"
+
+skills:
+  "Framework / Library":
+    - category: "UI"
+      items: ["SwiftUI", "UIKit", "SnapKit"]
+    - category: "Apple"
+      items: ["HealthKit", "WatchConnectivity", "WatchKit", "Share Extension", "AuthenticationServices"]
+    - category: "Network"
+      items: ["Alamofire", "Moya", "Kingfisher"]
+    - category: "Programming"
+      items: ["RxSwift", "Swift Concurrency"]
+    - category: "Architecture"
+      items: ["TCA", "ReactorKit"]
+    - category: "DI"
+      items: ["Swift Dependencies"]
+    - category: "Others"
+      items: ["Firebase", "KakaoSDK", "GoogleSignIn"]
+  Architecture:
+    - category: ""
+      items: ["MVC", "MVVM", "MVI", "Clean Architecture", "Modular Architecture"]
+  Tool:
+    - category: "IDE"
+      items: ["Xcode", "VSCode"]
+    - category: "CI/CD"
+      items: ["Github Actions", "Fastlane", "Xcode Cloud"]
+    - category: "Dep. Mgmt"
+      items: ["Tuist", "SPM"]
+    - category: "Others"
+      items: ["Github Desktop", "Figma"]
+---

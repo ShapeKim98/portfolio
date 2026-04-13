@@ -1,0 +1,23 @@
+---
+type: section
+id: contact
+sectionType: footer
+
+heading: "Let's Connect"
+subtitle: "함께 성장하고, 더 나은 서비스를 만들어 나갈 수 있는 기회를 기다리고 있습니다."
+label: "Contact"
+
+cta:
+  - label: "shapekim98@gmail.com"
+    href: "mailto:shapekim98@gmail.com"
+    variant: primary
+    icon: Mail
+  - label: "GitHub"
+    href: "https://github.com/ShapeKim98"
+    variant: secondary
+    icon: Github
+    target: _blank
+
+phone: "010-9027-8292"
+copyright: "© 2025 김도형. All rights reserved."
+---
