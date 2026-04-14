@@ -49,6 +49,7 @@ export const KNOWN_LEAF_TAGS = new Set([
   "space",
   "include",
   "info-box",
+  "diagram",
 ]);
 
 /** 알려진 슬롯 태그 (named children) */

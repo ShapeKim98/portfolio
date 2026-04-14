@@ -163,9 +163,11 @@ export class Parser {
             this.factory.createHeading(
               tok.headingLevel! as 1 | 2 | 3 | 4 | 5 | 6,
               tok.content!,
+              pendingClasses,
               tok.line,
             ),
           );
+          pendingClasses = [];
           break;
         }
 
@@ -221,23 +223,27 @@ export class Parser {
    */
   private parseInline(text: string, line: number): InlineNode[] {
     const nodes: InlineNode[] = [];
-    const regex = /\*\*([^*]+)\*\*/g;
+    const regex = /\*\*([^*]+)\*\*|`([^`]+)`/g;
     let lastIndex = 0;
     let match;
 
     while ((match = regex.exec(text)) !== null) {
-      // bold 전 텍스트
+      // 매치 전 텍스트
       if (match.index > lastIndex) {
         const before = text.slice(lastIndex, match.index);
         nodes.push(this.factory.createText(before, line));
       }
 
-      // bold 텍스트
-      const boldContent = match[1];
-      const boldChildren: InlineNode[] = [
-        this.factory.createText(boldContent, line),
-      ];
-      nodes.push(this.factory.createBold(boldChildren, line));
+      if (match[1] !== undefined) {
+        // bold 텍스트
+        const boldChildren: InlineNode[] = [
+          this.factory.createText(match[1], line),
+        ];
+        nodes.push(this.factory.createBold(boldChildren, line));
+      } else if (match[2] !== undefined) {
+        // inline code
+        nodes.push(this.factory.createInlineCode(match[2], line));
+      }
 
       lastIndex = regex.lastIndex;
     }

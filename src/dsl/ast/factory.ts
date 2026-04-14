@@ -15,6 +15,7 @@ import type {
   DividerNode,
   TextNode,
   BoldNode,
+  InlineCodeNode,
   InlineNode,
 } from "./nodes";
 
@@ -71,6 +72,7 @@ export class NodeFactory {
   createHeading(
     level: 1 | 2 | 3 | 4 | 5 | 6,
     content: string,
+    classes: string[],
     line: number,
   ): HeadingNode {
     return {
@@ -78,6 +80,7 @@ export class NodeFactory {
       id: `h_${this.counter++}`,
       level,
       content,
+      classes,
       line,
     };
   }
@@ -114,6 +117,15 @@ export class NodeFactory {
       kind: "bold",
       id: `b_${this.counter++}`,
       children,
+      line,
+    };
+  }
+
+  createInlineCode(content: string, line: number): InlineCodeNode {
+    return {
+      kind: "inlineCode",
+      id: `ic_${this.counter++}`,
+      content,
       line,
     };
   }

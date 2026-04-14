@@ -53,24 +53,27 @@ divider: { bg: false }
 | `## 제목` | SubSectionTitle size="xl" |
 | `### 제목` | SubSectionTitle size="lg" |
 | `#### 제목` | SubSectionTitle size="md" |
+| `##### 제목` | `<h5>` text-2xl font-bold |
+| `###### 제목` | `<h6>` text-base font-semibold |
 
 ### 텍스트
 | DSL | 설명 |
 |---|---|
-| 일반 텍스트 | 본문 단락 `<p>` |
+| 일반 텍스트 | 본문 단락 `<p>` (기본: text-sm-md, margin 없음) |
 | `**bold**` | font-semibold |
+| `` `code` `` | 인라인 코드 (bg-muted, rounded) |
 | `---` | Divider 구분선 |
-| `{.class1 .class2}` | 다음 블록에 Tailwind 클래스 적용 |
+| `{.class1 .class2}` | 다음 블록/단락/제목에 Tailwind 클래스 적용 |
 
 ### 블록 컴포넌트
 | DSL | 컴포넌트 | 파라미터 |
 |---|---|---|
 | `@card ... @/card` | ContentCard | `padding=sm\|md\|lg`, `className` |
-| `@features ... @/features` | FeatureCard 배열 | - |
+| `@features ... @/features` | FeatureCard 배열 | `cols=1\|2\|3` (기본 2) |
 | `@feature "제목" ... @/feature` | FeatureCard | title 필수 |
 | `@feature-list` ... `@/feature-list` | FeatureItem 배열 | 각 `- 항목` |
 | `@numbered-steps` ... `@/numbered-steps` | NumberedStep 배열 | `1. 항목` |
-| `@section-group "제목" ... @/section-group` | SectionGroup | title |
+| `@section-group "제목" ... @/section-group` | SectionGroup | title, `spacing=false` |
 
 ### 리프 토큰
 | DSL | 컴포넌트 | 파라미터 |
@@ -80,6 +83,7 @@ divider: { bg: false }
 | `@tech-tags Tag1, Tag2, ...` | TechTags | 쉼표 구분 |
 | `@kv "키" "값"` | KeyValueRow | key, value |
 | `@space(N)` | 여백 | Tailwind 단위 |
+| `@diagram "이름"` | 다이어그램 컴포넌트 | diagram-map.ts lookup |
 
 ### 레이아웃
 | DSL | 컴포넌트 | 파라미터 |

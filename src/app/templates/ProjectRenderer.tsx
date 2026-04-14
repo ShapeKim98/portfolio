@@ -1,7 +1,10 @@
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { ScrollSection } from "../organisms/animation";
 import { ProjectHeader } from "../organisms/ProjectHeader";
+import type { RootNode } from "@/dsl/ast/nodes";
+import { DSLRenderer } from "@/app/pages/DSLRenderer";
+import { createDefaultRegistry } from "@/dsl/registry";
 
 /**
  * ProjectDivider: 150vh 긴 컨테이너 안에서 내부 요소를 sticky로 화면에 고정해,
@@ -113,6 +116,17 @@ interface ProjectFrontmatter {
   screenshotSrc?: string;
   hideScreenshot?: boolean;
   bg?: boolean;
+}
+
+export type { ProjectFrontmatter };
+
+export function DSLProjectPage({ frontmatter, ast }: { frontmatter: ProjectFrontmatter; ast: RootNode }) {
+  const registry = useMemo(() => createDefaultRegistry(), []);
+  return (
+    <ProjectRenderer frontmatter={frontmatter}>
+      <DSLRenderer node={ast} registry={registry} />
+    </ProjectRenderer>
+  );
 }
 
 export function ProjectRenderer({

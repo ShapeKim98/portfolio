@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { ComponentRegistry } from "./ComponentRegistry";
 import type { BlockNode, LeafNode } from "../ast/nodes";
 import { getIcon } from "../icon-map";
+import { getDiagram } from "./diagram-map";
 import { cn } from "@/app/components/ui/utils";
 
 /* ─── Atoms ─── */
@@ -88,11 +90,18 @@ export function createDefaultRegistry(): ComponentRegistry {
   registry.register({
     tag: "features",
     isBlock: true,
-    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => (
-      <div className={cn("grid gap-4", node.params.cols === "2" ? "md:grid-cols-2" : node.params.cols === "3" ? "md:grid-cols-3" : "")}>
-        {children}
-      </div>
-    ),
+    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => {
+      const cols = node.params.cols as string;
+      const gridClass = cn("grid gap-4",
+        cols === "1" ? "" : cols === "3" ? "md:grid-cols-3" : "md:grid-cols-2",
+        node.params.className as string | undefined
+      );
+      return (
+        <div className={gridClass}>
+          {children}
+        </div>
+      );
+    },
   });
 
   // feature → FeatureCard (title from node.params._title)
@@ -114,7 +123,7 @@ export function createDefaultRegistry(): ComponentRegistry {
     tag: "feature-list",
     isBlock: true,
     renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => (
-      <div className={cn("grid gap-3", node.params.cols === "2" ? "md:grid-cols-2" : "")}>
+      <div className={cn("grid md:grid-cols-2 gap-3 mb-12", node.params.className as string | undefined)}>
         {children}
       </div>
     ),
@@ -133,11 +142,15 @@ export function createDefaultRegistry(): ComponentRegistry {
   registry.register({
     tag: "section-group",
     isBlock: true,
-    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => (
-      <SectionGroup title={node.params._title as string ?? ""}>
-        {children}
-      </SectionGroup>
-    ),
+    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => {
+      const spacing = node.params.spacing !== "false";
+      const group = (
+        <SectionGroup title={node.params._title as string ?? ""}>
+          {children}
+        </SectionGroup>
+      );
+      return spacing ? <div className="mt-16">{group}</div> : group;
+    },
   });
 
   // two-column → TwoColumnLayout (extract left/right slots from children)
@@ -170,12 +183,12 @@ export function createDefaultRegistry(): ComponentRegistry {
         <div
           className={cn(
             "grid",
-            `gap-${gap}`,
             cols === 2 && "md:grid-cols-2",
             cols === 3 && "md:grid-cols-3",
             cols === 4 && "md:grid-cols-4",
             node.params.className as string | undefined,
           )}
+          style={{ gap: `${gap * 4}px` }}
         >
           {children}
         </div>
@@ -191,17 +204,23 @@ export function createDefaultRegistry(): ComponentRegistry {
       const direction = node.params.direction as string ?? "row";
       const gap = parseNumber(node.params.gap, 4);
       const wrap = parseBool(node.params.wrap);
+      const alignVal = node.params.items as string | undefined;
+      const justifyVal = node.params.justify as string | undefined;
+      const ITEMS_MAP: Record<string, string> = { start: "flex-start", end: "flex-end", center: "center", baseline: "baseline", stretch: "stretch" };
+      const JUSTIFY_MAP: Record<string, string> = { start: "flex-start", end: "flex-end", center: "center", between: "space-between", around: "space-around", evenly: "space-evenly" };
       return (
         <div
           className={cn(
             "flex",
             direction === "col" || direction === "column" ? "flex-col" : "flex-row",
-            `gap-${gap}`,
             wrap && "flex-wrap",
-            node.params.items as string && `items-${node.params.items}`,
-            node.params.justify as string && `justify-${node.params.justify}`,
             node.params.className as string | undefined,
           )}
+          style={{
+            gap: `${gap * 4}px`,
+            ...(alignVal ? { alignItems: ITEMS_MAP[alignVal] || alignVal } : {}),
+            ...(justifyVal ? { justifyContent: JUSTIFY_MAP[justifyVal] || justifyVal } : {}),
+          }}
         >
           {children}
         </div>
@@ -420,7 +439,7 @@ export function createDefaultRegistry(): ComponentRegistry {
     isBlock: false,
     renderer: ({ node }: { node: LeafNode }) => {
       const size = parseNumber(node.params.size, 4);
-      return <div className={`h-${size}`} aria-hidden />;
+      return <div style={{ height: `${size * 4}px` }} aria-hidden />;
     },
   });
 
@@ -438,6 +457,22 @@ export function createDefaultRegistry(): ComponentRegistry {
         className={node.params.className as string | undefined}
       />
     ),
+  });
+
+  // diagram → lazy-loaded diagram component
+  registry.register({
+    tag: "diagram",
+    isBlock: false,
+    renderer: ({ node }: { node: LeafNode }) => {
+      const name = node.content;
+      const DiagramComp = getDiagram(name);
+      if (!DiagramComp) return <div data-pdsl-tag="diagram">Unknown diagram: {name}</div>;
+      return (
+        <Suspense fallback={null}>
+          <DiagramComp />
+        </Suspense>
+      );
+    },
   });
 
   return registry;

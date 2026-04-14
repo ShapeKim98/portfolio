@@ -53,6 +53,7 @@ export interface HeadingNode extends ASTNodeBase {
   kind: "heading";
   level: 1 | 2 | 3 | 4 | 5 | 6;
   content: string;
+  classes: string[];
 }
 
 /* ─── 단락 노드 ─── */
@@ -82,7 +83,12 @@ export interface BoldNode extends ASTNodeBase {
   children: InlineNode[];
 }
 
-export type InlineNode = TextNode | BoldNode | LeafNode;
+export interface InlineCodeNode extends ASTNodeBase {
+  kind: "inlineCode";
+  content: string;
+}
+
+export type InlineNode = TextNode | BoldNode | LeafNode | InlineCodeNode;
 
 /* ─── 루트 노드 ─── */
 
@@ -102,4 +108,5 @@ export type ASTNode =
   | ParagraphNode
   | DividerNode
   | TextNode
-  | BoldNode;
+  | BoldNode
+  | InlineCodeNode;

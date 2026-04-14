@@ -13,6 +13,7 @@ import {
 import { SubSectionTitle } from "@/app/atoms/SubSectionTitle";
 import { SectionPageHeading } from "@/app/templates/SectionPageHeading";
 import { Divider } from "@/app/atoms/Divider";
+import { cn } from "@/app/components/ui/utils";
 
 /* ─── Default Registry Factory ─── */
 
@@ -79,26 +80,20 @@ export function DSLRenderer({ node, registry }: DSLRendererProps) {
     }
 
     case "heading": {
-      // Map heading levels to design system components
-      // Level 1 → SectionPageHeading
-      // Level 2 → SubSectionTitle size="xl"
-      // Level 3 → SubSectionTitle size="lg"
-      // Level 4+ → SubSectionTitle size="md"
+      const cls = node.classes?.length > 0 ? node.classes.join(" ") : undefined;
       switch (node.level) {
         case 1:
           return <SectionPageHeading>{node.content}</SectionPageHeading>;
         case 2:
-          return (
-            <SubSectionTitle size="xl">{node.content}</SubSectionTitle>
-          );
+          return <SubSectionTitle size="xl" className={cls}>{node.content}</SubSectionTitle>;
         case 3:
-          return (
-            <SubSectionTitle size="lg">{node.content}</SubSectionTitle>
-          );
-        default:
-          return (
-            <SubSectionTitle size="md">{node.content}</SubSectionTitle>
-          );
+          return <SubSectionTitle size="lg" className={cls}>{node.content}</SubSectionTitle>;
+        case 4:
+          return <SubSectionTitle size="md" className={cls}>{node.content}</SubSectionTitle>;
+        case 5:
+          return <h5 className={cn("text-2xl font-bold text-foreground tracking-snug", cls)}>{node.content}</h5>;
+        case 6:
+          return <h6 className={cn("text-base font-semibold text-foreground", cls)}>{node.content}</h6>;
       }
     }
 
@@ -129,6 +124,13 @@ export function DSLRenderer({ node, registry }: DSLRendererProps) {
             <DSLRenderer key={c.id} node={c} registry={registry} />
           ))}
         </strong>
+      );
+
+    case "inlineCode":
+      return (
+        <code className="px-1.5 py-0.5 rounded bg-muted text-sm-md font-medium">
+          {node.content}
+        </code>
       );
 
     default:

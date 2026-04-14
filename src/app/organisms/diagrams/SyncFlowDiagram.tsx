@@ -46,10 +46,10 @@ export function SyncFlowDiagram({
         <div className="grid md:grid-cols-2 gap-8 items-start">
           <div className="flex flex-col items-center gap-1.5">
             {steps.map((step, i) => (
-              <div key={i} className="w-full max-w-[280px]">
+              <div key={i} className="w-full max-w-[240px]">
                 <div
-                  className="p-2.5 rounded-lg bg-card border"
-                  style={{ borderColor: step.color + "40" }}
+                  className="px-3 py-2.5 rounded-lg bg-card border"
+                  style={{ borderColor: step.color + "50" }}
                 >
                   <div className="flex items-start gap-2">
                     <div
@@ -66,7 +66,10 @@ export function SyncFlowDiagram({
                 </div>
                 {i < steps.length - 1 && (
                   <div className="flex justify-center py-0.5">
-                    <div className="w-0.5 h-3 bg-border" />
+                    <svg width="8" height="16" viewBox="0 0 8 16" fill="none" className="text-border">
+                      <line x1="4" y1="0" x2="4" y2="12" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="M1 10 L4 14 L7 10" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </div>
                 )}
               </div>
