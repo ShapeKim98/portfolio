@@ -1,8 +1,17 @@
-import React, { Suspense, useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { Navigation, SectionIndicator } from "../organisms";
-import { ScrollSection } from "../organisms/animation";
-import { sections, projects, footer } from "@/content/manifest";
+import { Navigation } from "./components/Navigation";
+import { HeroSection } from "./components/HeroSection";
+import { AboutSection } from "./components/AboutSection";
+import { ProfileSection } from "./components/ProfileSection";
+import { ProjectRxCompose } from "./components/ProjectRxCompose";
+import { ProjectFiltee } from "./components/ProjectFiltee";
+import { ProjectPokit } from "./components/ProjectPokit";
+import { ProjectInterest } from "./components/ProjectInterest";
+import { ExperienceSection } from "./components/ExperienceSection";
+import { FooterSection } from "./components/FooterSection";
+import { ScrollSection } from "./components/ParallaxSection";
+import { SectionIndicator } from "./components/SectionIndicator";
 
 /**
  * ProjectDivider: 150vh 긴 컨테이너 안에서 내부 요소를 sticky로 화면에 고정해,
@@ -124,30 +133,35 @@ export default function App() {
       <Navigation />
       <SectionIndicator />
 
-      <Suspense fallback={null}>
-        {sections.map(s => {
-          const Comp = s.component;
-          return <Comp key={s.id} />;
-        })}
-      </Suspense>
+      <HeroSection />
+      <AboutSection />
+      <ProfileSection />
+      <ExperienceSection />
 
       {/* Projects */}
       <div id="projects">
-        <Suspense fallback={null}>
-          {projects.map(p => (
-            <React.Fragment key={p.id}>
-              <ProjectDivider id={p.id} number={p.number} title={p.title} />
-              <ProjectSection bg={p.bg}>
-                <p.component />
-              </ProjectSection>
-            </React.Fragment>
-          ))}
-        </Suspense>
+        <ProjectDivider id="project-01" number="01" title="RxCompose" />
+        <ProjectSection>
+          <ProjectRxCompose />
+        </ProjectSection>
+
+        <ProjectDivider id="project-02" number="02" title="Filtee" />
+        <ProjectSection bg>
+          <ProjectFiltee />
+        </ProjectSection>
+
+        <ProjectDivider id="project-03" number="03" title="Pokit" />
+        <ProjectSection>
+          <ProjectPokit />
+        </ProjectSection>
+
+        <ProjectDivider id="project-04" number="04" title="인터레스트" />
+        <ProjectSection>
+          <ProjectInterest />
+        </ProjectSection>
       </div>
 
-      <Suspense fallback={null}>
-        <footer.component />
-      </Suspense>
+      <FooterSection />
     </div>
   );
 }

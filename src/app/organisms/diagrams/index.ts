@@ -10,6 +10,3 @@ export { ScreenshotPlaceholder } from "./ScreenshotPlaceholder";
 export { AppScreenshotPlaceholder } from "./AppScreenshotPlaceholder";
 export { SyncFlowDiagram } from "./SyncFlowDiagram";
 export { RxComposeArchitectureDiagram } from "./RxComposeArchitectureDiagram";
-export { OGTagParsingDiagram } from "./OGTagParsingDiagram";
-export { AppleWatchCommunicationDiagram } from "./AppleWatchCommunicationDiagram";
-export { UndoRedoStackDiagram } from "./UndoRedoStackDiagram";

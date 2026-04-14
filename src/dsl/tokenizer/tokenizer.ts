@@ -80,9 +80,9 @@ export function tokenize(source: string): Token[] {
       const rest = tagMatch[3];
       const params = paramStr ? parseParams(paramStr) : {};
 
-      // 리프 태그 판별: KNOWN_LEAF_TAGS에 등록된 태그만 리프로 처리
-      // 인용 콘텐츠 휴리스틱 제거 — @feature "제목" 같은 블록 태그가 리프로 잘못 판별되는 문제 방지
-      const isLeaf = KNOWN_LEAF_TAGS.has(tag);
+      // 리프 태그 판별: 알려진 리프 태그이거나 인용 콘텐츠가 있는 단일 라인
+      const isLeaf =
+        KNOWN_LEAF_TAGS.has(tag) || (rest && rest.startsWith('"'));
 
       if (isLeaf) {
         const { content, attributes } = parseLeafContent(rest);
