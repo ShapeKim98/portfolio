@@ -6,6 +6,7 @@ import type { RootNode } from "@/dsl/ast/nodes";
 import { DSLRenderer } from "@/app/pages/DSLRenderer";
 import { createDefaultRegistry } from "@/dsl/registry";
 
+
 /**
  * ProjectDivider: 150vh 긴 컨테이너 안에서 내부 요소를 sticky로 화면에 고정해,
  * 스크롤 진행도에 따라 번호 → 타이틀 → 수평선 확장이 단계적으로 펼쳐지는
@@ -120,10 +121,14 @@ interface ProjectFrontmatter {
 
 export type { ProjectFrontmatter };
 
-export function DSLProjectPage({ frontmatter, ast }: { frontmatter: ProjectFrontmatter; ast: RootNode }) {
+export function DSLProjectPage({ frontmatter, ast }: { frontmatter: ProjectFrontmatter & { screenshot?: string }; ast: RootNode }) {
   const registry = useMemo(() => createDefaultRegistry(), []);
+  const resolved = useMemo(() => ({
+    ...frontmatter,
+    screenshotSrc: frontmatter.screenshot ?? frontmatter.screenshotSrc,
+  }), [frontmatter]);
   return (
-    <ProjectRenderer frontmatter={frontmatter}>
+    <ProjectRenderer frontmatter={resolved}>
       <DSLRenderer node={ast} registry={registry} />
     </ProjectRenderer>
   );

@@ -13,13 +13,8 @@ import {
 import { SubSectionTitle } from "@/app/atoms/SubSectionTitle";
 import { SectionPageHeading } from "@/app/templates/SectionPageHeading";
 import { Divider } from "@/app/atoms/Divider";
+import { createDefaultRegistry } from "@/dsl/registry";
 import { cn } from "@/app/components/ui/utils";
-
-/* ─── Default Registry Factory ─── */
-
-function createDefaultRegistry(): ComponentRegistry {
-  return new ComponentRegistry();
-}
 
 /* ─── Core Recursive Renderer ─── */
 

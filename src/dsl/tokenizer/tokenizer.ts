@@ -80,9 +80,8 @@ export function tokenize(source: string): Token[] {
       const rest = tagMatch[3];
       const params = paramStr ? parseParams(paramStr) : {};
 
-      // 리프 태그 판별: 알려진 리프 태그이거나 인용 콘텐츠가 있는 단일 라인
-      const isLeaf =
-        KNOWN_LEAF_TAGS.has(tag) || (rest && rest.startsWith('"'));
+      // 리프 태그 판별: 알려진 리프 태그만 리프로 처리
+      const isLeaf = KNOWN_LEAF_TAGS.has(tag);
 
       if (isLeaf) {
         const { content, attributes } = parseLeafContent(rest);
