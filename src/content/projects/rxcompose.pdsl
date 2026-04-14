@@ -17,41 +17,13 @@ divider:
   bg: false
 ---
 
-@fade-in
-@card
-#### RxCompose 단방향 데이터 흐름 구조도
-
-@diagram-spec "RxCompose 단방향 데이터 흐름 구조도"
-  type: horizontal-flow-with-branches
-  main-flow:
-    - { label: "View", sub: "@Compose", color: "#3b82f6" }
-    - { arrow: "send()", color: "#7c3aed" }
-    - { label: "Action", sub: "PublishRelay", color: "#7c3aed" }
-    - { arrow: "bind()", color: "#f59e0b" }
-    - { label: "Reducer", sub: "reducer(&state,…)", color: "#f59e0b" }
-    - { arrow: "returns", color: "#ef4444" }
-    - { label: "Effect<Action>", sub: "유형에 따라 분기", color: "#ef4444" }
-  effect-branches:
-    - { label: ".none", desc: "Effect 종료 — State 갱신", color: "#22c55e", continues-to: "State" }
-    - { label: ".send(Action)", desc: "새 Action 재귀 디스패치", color: "#7c3aed", loops-back-to: "Action", dash: true, note: "재진입" }
-    - { label: "Side Effect", desc: "단방향 흐름 외부에서 독립 동작", color: "#f97316", sub-items: [".run", ".timer", ".interval"], note: "완료 후 Action으로 직렬화", loops-back-to: "Action", dash: true, loop-note: "직렬화 후 재진입" }
-    - { label: ".cancel()", desc: "Side Effect 취소", color: "#ef4444" }
-  after-effect:
-    - { arrow: "", color: "#22c55e" }
-    - { label: "State", sub: "@ComposableState", color: "#22c55e" }
-    - { arrow: "Driver", color: "#3b82f6" }
-    - { label: "View 바인딩 ↩", sub: "사이클 완성", color: "#3b82f6", dashed-border: true }
-  annotation:
-    - { from: "State", label: "@PresentState", desc: ["특정 프로퍼티 변경만 감지", "present()로 화면 전환에 활용"], color: "#7c3aed", dashed: true }
-  description: "View에서 send()로 Action을 발행하면, Action이 Reducer로 바인딩되어 Effect<Action>을 반환합니다. Effect는 유형에 따라 분기되며 (.none → State 갱신, .send → Action 재귀 디스패치, Side Effect → 외부 비동기 작업 후 Action 직렬화, .cancel → Side Effect 취소), 최종적으로 State가 갱신되면 Driver를 통해 View에 바인딩되어 사이클이 완성됩니다. @PresentState는 State의 특정 프로퍼티 변경만 감지하여 화면 전환에 활용합니다."
-@/diagram-spec
-@/card
-@/fade-in
+@diagram "RxComposeArchitecture"
 
 @fade-in
+{.mb-6}
 ### 기능 및 기술 설명
 
-@features
+@features(cols=1)
 @feature "Composer 프로토콜"
   Action 및 State를 정의하고, reducer를 재귀적으로 호출하기 위한 프로토콜. Action을 PublishRelay로 정의하여 Effect가 발생할 때마다 내부 map 연산을 통해 새로운 State를 생성하고, reducer 메서드로 재가공한 뒤 바인딩하는 구조로 구현했습니다. Protocol 기반 제약을 도입하여, 개발자가 설계 의도에 부합하는 구조를 자연스럽게 구현하도록 유도했습니다.
 @/feature
@@ -84,28 +56,32 @@ divider:
 
 @fade-in
 @card
-{.flex .flex-wrap .items-start .justify-between .gap-3 .mb-5}
+@flex(direction=row, gap=3, items=start, justify=between, wrap=true, className="mb-5")
 @badge(variant=primary, size=xs) "적용 사례"
 
 ##### ShowPot
 
+{.text-sm-md .font-normal .text-muted-foreground .mt-1}
 내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit + RxSwift + Clean Architecture
 
-{.text-right .shrink-0}
+{.text-xs .text-muted-foreground .text-right .shrink-0}
 2025.03
 
+{.text-xs .text-muted-foreground .text-right}
 PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2
 
 @button(href="https://github.com/AlreadyTakenSeat/ShowPot-iOS", variant=link, size=xs, icon=github) "GitHub"
+@/flex
 
 ---
 
-@image(lightbox) "@/image/쇼팟표지.png" alt="ShowPot 앱 스크린샷"
+@image(lightbox, className="w-full rounded-xl object-contain mb-5") "@/image/쇼팟표지.png" alt="ShowPot 앱 스크린샷"
 
-{.flex .items-center .gap-2 .mb-5}
-**적용 범위** — 13개 화면 전체에 Composer 패턴 적용
+{.flex .items-center .gap-2 .mb-5 .text-sm}
+**적용 범위** — **13개 화면 전체에 Composer 패턴 적용**
 
-**Effect 활용**
+{.text-sm .font-semibold .text-foreground .mb-3}
+Effect 활용
 
 @colored-card-grid(cols=2)
 @colored-card(color=#2563eb, mono) ".run"
@@ -122,9 +98,10 @@ PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2
 @/colored-card
 @/colored-card-grid
 
-@card
-**@PresentState 활용 — 화면 전환 관리**
+@card(className="!p-3 !rounded-xl !bg-card")
+{.text-sm .font-semibold .text-foreground .mb-2} @PresentState 활용 — 화면 전환 관리
 
+{.text-sm .font-normal .text-muted-foreground .leading-loose}
 ShowDetail → AlarmSelection, Account → Login 등 화면 전환을 상태 기반으로 관리. Optional ViewModel을 @PresentState로 선언하여 nil 여부로 present/dismiss를 제어했습니다.
 @/card
 @/card
