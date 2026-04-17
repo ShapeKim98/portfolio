@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useIsMobile } from "./ui/use-mobile";
 import { SectionInner, SectionHeading, ParallaxBlobLayer, ParallaxAccentLayer } from "./design-system";
+import profileImg from "@/image/증명사진.jpg";
 
 const VALUES = [
   {
@@ -127,16 +128,25 @@ export function AboutSection() {
               iOS Developer
             </span>
           </SectionHeading>
-          <h2 className="text-8xl md:text-9xl font-bold tracking-tighter leading-tight text-foreground mb-6">
-            <span>김도형 </span>
-            <span className="text-[40px] md:text-[60px] font-normal text-muted-foreground">
-              Kim Dohyeong
-            </span>
-          </h2>
-          <p className="text-3xl font-normal text-muted-foreground leading-relaxed max-w-2xl tracking-tight">
-            개발에 대한 꾸준한 고민과 되돌아보는 태도를 바탕으로, 더 나은 방향을
-            향해 한 걸음씩 나아가고 있습니다.
-          </p>
+          <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-8xl md:text-9xl font-bold tracking-tighter leading-tight text-foreground mb-6">
+                <span>김도형 </span>
+                <span className="text-[40px] md:text-[60px] font-normal text-muted-foreground">
+                  Kim Dohyeong
+                </span>
+              </h2>
+              <p className="text-3xl font-normal text-muted-foreground leading-relaxed max-w-2xl tracking-tight">
+                개발에 대한 꾸준한 고민과 되돌아보는 태도를 바탕으로, 더 나은 방향을
+                향해 한 걸음씩 나아가고 있습니다.
+              </p>
+            </div>
+            <img
+              src={profileImg}
+              alt="김도형 프로필 사진"
+              className="w-48 h-64 md:w-56 md:h-72 object-cover rounded-2xl shadow-md shrink-0"
+            />
+          </div>
         </motion.div>
 
         {/* Layer 2: Cards */}
