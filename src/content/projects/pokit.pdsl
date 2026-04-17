@@ -67,7 +67,7 @@ screenshot: "@/image/포킷표지.png"
 {.mb-4}
 ### Modular Architecture 도입
 
-@features(cols=3)
+@features(cols=3, className="mb-8")
 @feature "기능 테스트 과정의 간소화"
 프로젝트 개발이 점점 고도화됨에 따라, 특정 기능을 검증하기 위해 여러 단계를 거쳐야 하는 상황을 개선하고자 했습니다. 이에 테스트 흐름을 보다 간결하고 효율적으로 설계해 개발 과정의 집중도를 높였습니다.
 @/feature
@@ -112,11 +112,13 @@ Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인
 @/fade-in
 
 @fade-in
+@flex(direction=col, gap=0, className="mb-4")
 {.mb-3}
 ### 모듈 구성 및 레이어 설계
 
 {.text-base .font-normal .text-muted-foreground .leading-loose}
 계층화된 모듈 구조를 통해 기능 단위 분리, 공통 로직 재사용, 멀티 타겟 대응을 유연하게 수행할 수 있는 구조를 고민했습니다. 특히 모듈 간의 의존성을 단방향으로 유지하고, 재사용성이 높을수록 아래에 배치하는 전략을 통해 구조의 일관성과 유지보수성을 확보했습니다.
+@/flex
 @/fade-in
 
 @layer-diagram "모듈 계층 구조"
@@ -158,7 +160,6 @@ Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인
 @/flex
 @/left
 @right
-<!-- OGTagParsing diagram: NOT registered in diagram-map.ts -->
 @diagram "OGTagParsing"
 @/right
 @/two-column
@@ -169,8 +170,7 @@ Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인
 {.mb-4}
 #### 썸네일 만료 이슈 분석 및 대응
 
-{.mb-6}
-@flex(direction=col, gap=0)
+@flex(direction=col, gap=0, className="mb-6")
 {.mb-3}
 ###### 원인 파악을 위한 모니터링 및 가설 수립
 
@@ -180,20 +180,15 @@ Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인
 {.text-sm-md .font-normal .text-muted-foreground .leading-loose .mb-3}
 이후 동일한 인스타그램 URL을 매일 확인하며 응답 결과를 모니터링한 결과, 3~4일이 경과한 시점부터 썸네일이 표시되지 않는 현상이 나타났습니다. 명확한 만료 주기를 확인하기 위해 인스타그램의 썸네일 만료 정책 관련 문서를 탐색했으나, 공식적인 자료를 발견하지 못했습니다.
 
-@card(className="bg-primary/5 border-primary/10")
+@box(className="p-3 rounded-lg bg-primary/5 border border-primary/10")
 {.text-sm .font-medium .text-primary .leading-loose}
 결론: 내부 모니터링 결과를 근거로 썸네일 URL이 약 3~4일 이후 만료되는 것으로 추정
-@/card
+@/box
 @/flex
 
-{.mb-5}
-@card(className="border-border")
-{.text-sm .font-semibold .text-foreground .mb-4 .text-center}
-###### JWT 리프레시 구조에 착안한 재파싱 로직 흐름
-
-<!-- JWTRefresh diagram: NOT registered in diagram-map.ts -->
+@box(className="mb-5 p-4 rounded-xl bg-card border border-border")
 @diagram "JWTRefresh"
-@/card
+@/box
 
 @flex(direction=col, gap=4)
 @problem-solution

@@ -20,6 +20,7 @@ divider:
 @diagram "RxComposeArchitecture"
 
 @fade-in
+@flex(direction=col, className="mb-8")
 {.mb-6}
 ### 기능 및 기술 설명
 
@@ -52,34 +53,41 @@ divider:
   주기적인 액션 실행을 위한 timer, interval Effect. 별도의 Disposable을 받아 원하는 시점에 액션 실행을 종료할 수 있도록 구성했습니다.
 @/feature
 @/features
+@/flex
 @/fade-in
 
 @fade-in
 @card
 @flex(direction=row, gap=3, items=start, justify=between, wrap=true, className="mb-5")
+@flex(direction=col, gap=0)
+{.flex .items-center .gap-2 .mb-1}
 @badge(variant=primary, size=xs) "적용 사례"
 
 ##### ShowPot
 
 {.text-sm-md .font-normal .text-muted-foreground .mt-1}
 내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit + RxSwift + Clean Architecture
-
-{.text-xs .text-muted-foreground .text-right .shrink-0}
+@/flex
+@flex(direction=col, gap=0, className="text-right shrink-0")
+{.text-xs .text-muted-foreground}
 2025.03
 
-{.text-xs .text-muted-foreground .text-right}
+{.text-xs .text-muted-foreground}
 PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2
 
 @button(href="https://github.com/AlreadyTakenSeat/ShowPot-iOS", variant=link, size=xs, icon=github) "GitHub"
 @/flex
+@/flex
 
+{.mb-5}
 ---
 
 @image(lightbox, className="w-full rounded-xl object-contain mb-5") "@/image/쇼팟표지.png" alt="ShowPot 앱 스크린샷"
 
-{.flex .items-center .gap-2 .mb-5 .text-sm}
-**적용 범위** — **13개 화면 전체에 Composer 패턴 적용**
+{.flex .items-center .gap-2 .mb-5}
+[적용 범위]{.text-sm .font-semibold .text-foreground} [—]{.text-sm .text-muted-foreground} [13개 화면 전체에 Composer 패턴 적용]{.text-sm .font-medium .text-foreground}
 
+@flex(direction=col, gap=0, className="mb-5")
 {.text-sm .font-semibold .text-foreground .mb-3}
 Effect 활용
 
@@ -97,9 +105,10 @@ Effect 활용
   병렬 실행 — 홈: 장르·아티스트·공연 동시 조회
 @/colored-card
 @/colored-card-grid
+@/flex
 
 @card(className="!p-3 !rounded-xl !bg-card")
-{.text-sm .font-semibold .text-foreground .mb-2} @PresentState 활용 — 화면 전환 관리
+{.text-sm .font-semibold .text-foreground .mb-1.5} @PresentState 활용 — 화면 전환 관리
 
 {.text-sm .font-normal .text-muted-foreground .leading-loose}
 ShowDetail → AlarmSelection, Account → Login 등 화면 전환을 상태 기반으로 관리. Optional ViewModel을 @PresentState로 선언하여 nil 여부로 present/dismiss를 제어했습니다.

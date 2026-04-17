@@ -69,11 +69,13 @@ SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData 
 @/fade-in
 
 @fade-in
+@flex(direction=col, gap=0, className="mb-4")
 {.mb-3}
 #### App - Feature - Model - Core 4계층 구조 설계
 
 {.text-base .font-normal .text-muted-foreground .leading-loose}
 기능 복잡도와 개발 효율성을 고려해 계층 구조는 단순하게 유지하되 각 계층의 책임과 역할은 명확히 나누는 방향으로 설계했습니다. 특히 1인 개발 환경에서 확장성과 유지보수 편의성을 확보하는 실용적인 구조를 목표로 했습니다.
+@/flex
 @/fade-in
 
 @layer-diagram "4계층 모듈 구조"
@@ -139,11 +141,13 @@ SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData 
 
 @two-column
 @left
-{.mb-5}
+@flex(direction=col, gap=0, className="mb-5")
+{.mb-3}
 ###### 필터값 이력의 순서 관리를 위한 Stack 구조 도입
 
 {.text-sm-md .font-normal .text-muted-foreground .leading-loose}
 필터값 상태는 스냅샷 형태로 저장되며, 각 스냅샷은 사용자가 슬라이더 조작을 마칠 때마다 캡처됩니다. 작업을 최신순으로 쌓고, 필요 시 가장 최근 작업을 다시 복원하는 흐름은 Stack의 LIFO 특성과 유사하다는 점에서 Stack 구조를 도입했습니다.
+@/flex
 
 @diagram "UndoRedoStack"
 
@@ -157,7 +161,9 @@ SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData 
 스냅샷 시점: DragGesture의 onEnded 시점에 캡처하여 반복적 상태 기록 누적을 방지
 @/left
 @right
+@flex(justify=center)
 @image(lightbox, className="w-full max-w-[240px] rounded-2xl") "@/image/필터 제작 스크린샷.jpeg" alt="필터 제작 스크린샷"
+@/flex
 @/right
 @/two-column
 @/card
@@ -249,16 +255,16 @@ SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData 
 @detail 채팅은 실시간으로 쌓이는 데이터 흐름을 갖고 있기 때문에 유연한 커서 기반 페이지네이션이 적합하다고 판단했고, 시간 순으로 정렬되는 데이터 특성을 반영하여 커서를 날짜 기반으로 구성해 의도한 범위만 조회할 수 있도록 했습니다.
 @/problem-solution
 
-@flow-chart "날짜 기반 커서 페이지네이션 흐름"
-@step(color="#2563eb") "1. 최신 메시지 N개 조회" 최신 메시지부터 N개 조회. 가장 오래된 날짜를 cursor로 저장
+@flow-chart(direction=horizontal) "날짜 기반 커서 페이지네이션 흐름"
+@step(color="#2563eb", step="1") "최신 메시지 N개 조회" 최신 메시지부터 N개 조회. 가장 오래된 날짜를 cursor로 저장
 @/step
-@step(color="#7c3aed") "2. List셀 재사용 + .task 감지" 상단 셀이 나타나면 SwiftUI .task 모디파이어가 자동 트리거됨
+@step(color="#7c3aed", step="2") "List셀 재사용 + .task 감지" 상단 셀이 나타나면 SwiftUI .task 모디파이어가 자동 트리거됨
 @/step
-@step(color="#7c3aed") "3. cursor 이전 N개 추가 조회" cursor(날짜) 이전 범위의 메시지를 추가 조회 요청
+@step(color="#7c3aed", step="3") "cursor 이전 N개 추가 조회" cursor(날짜) 이전 범위의 메시지를 추가 조회 요청
 @/step
-@step(color="#f59e0b") "4. 목록 상단 병합 + cursor 갱신" 새 메시지를 목록 상단에 삽입. cursor를 새 범위의 끝으로 갱신
+@step(color="#f59e0b", step="4") "목록 상단 병합 + cursor 갱신" 새 메시지를 목록 상단에 삽입. cursor를 새 범위의 끝으로 갱신
 @/step
-@step(color="#22c55e") "5. 데이터 소진 시 종료" 더 이상 불러올 데이터가 없을 때까지 2–4 반복
+@step(color="#22c55e", step="5") "데이터 소진 시 종료" 더 이상 불러올 데이터가 없을 때까지 2–4 반복
 @/step
 @/flow-chart
 @/card
@@ -298,6 +304,7 @@ SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData 
 
 @two-column
 @left
+@flex(direction=col, gap=4)
 {.text-sm-md .font-normal .text-muted-foreground .leading-loose}
 검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우, 곧바로 해당 위치로 스크롤 이동하는 데 어려움이 생길 수 있다는 점을 고려했습니다.
 
@@ -307,21 +314,24 @@ SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData 
 @detail 검색된 메시지의 날짜와 현재 페이지네이션 커서의 날짜를 비교하여, 대상이 미로드 영역에 해당하면 해당 범위의 데이터를 먼저 선조회합니다. 조회 완료 후 해당 메시지가 포함된 위치로 ScrollViewProxy를 통해 자연스럽게 스크롤 이동합니다.
 @/problem-solution
 
-@vertical-flow
+@vertical-flow(maxWidth=max-w-[240px])
 @flow-step(color="#2563eb") "키워드 검색" desc: "로컬 DB에서 키워드 기반 메시지 조회"
 @/flow-step
 @flow-step(color="#7c3aed") "검색 메시지 날짜 확인" desc: "검색된 메시지의 날짜와 현재 cursor 날짜 비교"
 @/flow-step
-@flow-step(color="#f59e0b") "날짜 < 커서?" desc: "해당 범위가 아직 로드되지 않은 상태"
+@flow-step(color="#f59e0b", shape=diamond) "날짜 < 커서?" desc: "해당 범위가 아직 로드되지 않은 상태"
 @/flow-step
 @flow-step(color="#f59e0b") "커서~날짜 범위 선조회" desc: "cursor~메시지 날짜 사이 데이터를 먼저 로드"
 @/flow-step
 @flow-step(color="#22c55e") "해당 위치로 스크롤" desc: "해당 메시지 위치로 자연스럽게 스크롤"
 @/flow-step
 @/vertical-flow
+@/flex
 @/left
 @right
+@flex(items=center, justify=center)
 @image(lightbox, className="w-full max-w-[240px] rounded-2xl") "@/image/채팅 검색 스크린샷.PNG" alt="채팅 검색 스크린샷"
+@/flex
 @/right
 @/two-column
 @/card
@@ -352,7 +362,7 @@ SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData 
 원칙: 결제 검증의 주체는 항상 서버
 @/left
 @right
-@vertical-flow
+@vertical-flow(showNumber=false, align=center, maxWidth=max-w-[240px])
 @flow-step(color="#2563eb") "사용자 필터 구매 시도" desc: "주문 번호 발급 요청"
 @/flow-step
 @flow-step(color="#7c3aed") "PG 결제 진행" desc: "Payment Gateway"
