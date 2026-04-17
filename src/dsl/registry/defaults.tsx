@@ -112,28 +112,54 @@ export function createDefaultRegistry(): ComponentRegistry {
   });
 
   // feature → FeatureCard (title from node.params._title)
+  // C4: 단일 paragraph면 텍스트만 추출해 이중 래핑 방지
   registry.register({
     tag: "feature",
     isBlock: true,
-    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => (
-      <FeatureCard
-        title={node.params._title as string ?? ""}
-        className={node.params.className as string | undefined}
-      >
-        {children}
-      </FeatureCard>
-    ),
+    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => {
+      let content: React.ReactNode = children;
+      if (node.children.length === 1 && node.children[0].kind === "paragraph") {
+        content = extractTextContent(node.children[0].children);
+      }
+      return (
+        <FeatureCard
+          title={node.params._title as string ?? ""}
+          className={node.params.className as string | undefined}
+        >
+          {content}
+        </FeatureCard>
+      );
+    },
   });
 
   // feature-list → div wrapper for FeatureItem children
+  // C2: LIST_ITEM(paragraph로 병합됨)을 파싱해 각 줄을 FeatureItem으로 변환
   registry.register({
     tag: "feature-list",
     isBlock: true,
-    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => (
-      <div className={cn("grid md:grid-cols-2 gap-3 mb-12", node.params.className as string | undefined)}>
-        {children}
-      </div>
-    ),
+    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => {
+      const items: string[] = [];
+      for (const child of node.children) {
+        if (child.kind === "paragraph") {
+          const text = extractTextContent(child.children);
+          text.split("\n").filter(Boolean).forEach(line => {
+            items.push(line.replace(/^-\s*/, "").trim());
+          });
+        }
+      }
+      if (items.length > 0) {
+        return (
+          <div className={cn("grid md:grid-cols-2 gap-3", node.params.className as string | undefined)}>
+            {items.map((item, i) => <FeatureItem key={i}>{item}</FeatureItem>)}
+          </div>
+        );
+      }
+      return (
+        <div className={cn("grid md:grid-cols-2 gap-3", node.params.className as string | undefined)}>
+          {children}
+        </div>
+      );
+    },
   });
 
   // feature-item → FeatureItem
@@ -201,6 +227,17 @@ export function createDefaultRegistry(): ComponentRegistry {
         </div>
       );
     },
+  });
+
+  // box → plain div container with className
+  registry.register({
+    tag: "box",
+    isBlock: true,
+    renderer: ({ node, children }: { node: BlockNode; children: React.ReactNode }) => (
+      <div className={node.params.className as string | undefined}>
+        {children}
+      </div>
+    ),
   });
 
   // flex → CSS flex div
@@ -309,8 +346,8 @@ export function createDefaultRegistry(): ComponentRegistry {
     isBlock: true,
     renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
       const layers = extractBlocksByTag(node, "layer").map(l => ({
-        label: (l.params._title as string) ?? "",
-        description: extractTextContent(l.children),
+        name: (l.params._title as string) ?? "",
+        desc: (l.params._restContent as string) ?? extractTextContent(l.children),
         color: (l.params.color as string) ?? "#6366f1",
       }));
       return <LayerDiagram title={(node.params._title as string) ?? ""} layers={layers} />;
@@ -324,10 +361,17 @@ export function createDefaultRegistry(): ComponentRegistry {
     renderer: ({ node }: { node: BlockNode; children: React.ReactNode }) => {
       const steps = extractBlocksByTag(node, "step").map(s => ({
         label: (s.params._title as string) ?? "",
-        description: extractTextContent(s.children),
+        desc: extractTextContent(s.children),
         color: (s.params.color as string) ?? "#6366f1",
+        step: s.params.step as string | undefined,
       }));
-      return <FlowChart title={(node.params._title as string) ?? ""} steps={steps} />;
+      return (
+        <FlowChart
+          title={(node.params._title as string) ?? ""}
+          steps={steps}
+          direction={node.params.direction as "vertical" | "horizontal" | undefined}
+        />
+      );
     },
   });
 
@@ -340,8 +384,16 @@ export function createDefaultRegistry(): ComponentRegistry {
         label: (s.params._title as string) ?? "",
         desc: (s.params.desc as string) ?? extractTextContent(s.children),
         color: (s.params.color as string) ?? "#6366f1",
+        shape: s.params.shape as "circle" | "diamond" | undefined,
       }));
-      return <VerticalFlow steps={steps} maxWidth={node.params.maxWidth as string | undefined} />;
+      return (
+        <VerticalFlow
+          steps={steps}
+          maxWidth={node.params.maxWidth as string | undefined}
+          showNumber={node.params.showNumber !== "false"}
+          align={node.params.align as "left" | "center" | undefined}
+        />
+      );
     },
   });
 
@@ -399,8 +451,8 @@ export function createDefaultRegistry(): ComponentRegistry {
       return (
         <IconButton
           href={node.attributes.href ?? node.params.href as string | undefined}
-          variant={node.params.variant as "primary" | "secondary" | undefined}
-          size={node.params.size as "sm" | "md" | "lg" | undefined}
+          variant={node.params.variant as "primary" | "secondary" | "link" | undefined}
+          size={node.params.size as "xs" | "sm" | "md" | "lg" | undefined}
           icon={IconComp ? <IconComp size={14} /> : undefined}
           target={node.attributes.target as string | undefined}
           rel={node.attributes.rel as string | undefined}

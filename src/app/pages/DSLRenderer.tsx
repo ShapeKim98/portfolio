@@ -67,11 +67,17 @@ export function DSLRenderer({ node, registry }: DSLRendererProps) {
 
     case "leaf": {
       const def = registry.get(node.tag);
+      let rendered: React.ReactNode;
       if (def && !def.isBlock) {
         const Comp = def.renderer as LeafRenderer;
-        return <Comp node={node} />;
+        rendered = <Comp node={node} />;
+      } else {
+        rendered = <span data-pdsl-tag={node.tag}>{node.content}</span>;
       }
-      return <span data-pdsl-tag={node.tag}>{node.content}</span>;
+      if (node.classes && node.classes.length > 0) {
+        return <div className={node.classes.join(" ")}>{rendered}</div>;
+      }
+      return rendered;
     }
 
     case "heading": {
@@ -106,8 +112,10 @@ export function DSLRenderer({ node, registry }: DSLRendererProps) {
       );
     }
 
-    case "divider":
-      return <Divider />;
+    case "divider": {
+      const cls = node.classes?.length > 0 ? node.classes.join(" ") : undefined;
+      return <Divider className={cls} />;
+    }
 
     case "text":
       return <>{node.content}</>;
@@ -126,6 +134,11 @@ export function DSLRenderer({ node, registry }: DSLRendererProps) {
         <code className="px-1.5 py-0.5 rounded bg-muted text-sm-md font-medium">
           {node.content}
         </code>
+      );
+
+    case "inlineSpan":
+      return (
+        <span className={node.classes.join(" ")}>{node.content}</span>
       );
 
     default:

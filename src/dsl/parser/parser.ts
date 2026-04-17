@@ -130,11 +130,14 @@ export class Parser {
               tok.params ?? {},
               tok.line,
             );
-            // 블록 열기에 인라인 콘텐츠가 있는 경우 (예: @feature "제목")
+            // 블록 열기에 인라인 콘텐츠가 있는 경우 (예: @feature "제목" 또는 @layer "App" 설명...)
             if (tok.content) {
-              const quoteMatch = tok.content.match(/^"([^"]*)"$/);
+              const quoteMatch = tok.content.match(/^"([^"]*)"(?:\s+(.*))?$/);
               if (quoteMatch) {
                 blockNode.params._title = quoteMatch[1];
+                if (quoteMatch[2]) {
+                  blockNode.params._restContent = quoteMatch[2];
+                }
               }
             }
             blockNode.children = this.parseChildren(tag);
@@ -152,8 +155,10 @@ export class Parser {
               tok.content ?? "",
               tok.attributes ?? {},
               tok.line,
+              pendingClasses,
             ),
           );
+          pendingClasses = [];
           break;
         }
 
@@ -173,7 +178,8 @@ export class Parser {
 
         case "DIVIDER": {
           this.advance();
-          children.push(this.factory.createDivider(tok.line));
+          children.push(this.factory.createDivider(tok.line, pendingClasses));
+          pendingClasses = [];
           break;
         }
 
@@ -223,7 +229,8 @@ export class Parser {
    */
   private parseInline(text: string, line: number): InlineNode[] {
     const nodes: InlineNode[] = [];
-    const regex = /\*\*([^*]+)\*\*|`([^`]+)`/g;
+    // **bold** | `code` | [text]{.class1 .class2}
+    const regex = /\*\*([^*]+)\*\*|`([^`]+)`|\[([^\]]+)\]\{([^}]+)\}/g;
     let lastIndex = 0;
     let match;
 
@@ -243,6 +250,14 @@ export class Parser {
       } else if (match[2] !== undefined) {
         // inline code
         nodes.push(this.factory.createInlineCode(match[2], line));
+      } else if (match[3] !== undefined && match[4] !== undefined) {
+        // inline span: [text]{.class1 .class2}
+        const spanText = match[3];
+        const classes = match[4]
+          .split(/\s+/)
+          .map(c => c.replace(/^\./, ""))
+          .filter(Boolean);
+        nodes.push(this.factory.createInlineSpan(spanText, classes, line));
       }
 
       lastIndex = regex.lastIndex;

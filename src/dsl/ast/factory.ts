@@ -16,6 +16,7 @@ import type {
   TextNode,
   BoldNode,
   InlineCodeNode,
+  InlineSpanNode,
   InlineNode,
 } from "./nodes";
 
@@ -57,6 +58,7 @@ export class NodeFactory {
     content: string,
     attributes: Record<string, string>,
     line: number,
+    classes: string[] = [],
   ): LeafNode {
     return {
       kind: "leaf",
@@ -65,6 +67,7 @@ export class NodeFactory {
       params,
       content,
       attributes,
+      classes,
       line,
     };
   }
@@ -99,8 +102,8 @@ export class NodeFactory {
     };
   }
 
-  createDivider(line: number): DividerNode {
-    return { kind: "divider", id: `div_${this.counter++}`, line };
+  createDivider(line: number, classes: string[] = []): DividerNode {
+    return { kind: "divider", id: `div_${this.counter++}`, line, classes };
   }
 
   createText(content: string, line: number): TextNode {
@@ -126,6 +129,20 @@ export class NodeFactory {
       kind: "inlineCode",
       id: `ic_${this.counter++}`,
       content,
+      line,
+    };
+  }
+
+  createInlineSpan(
+    content: string,
+    classes: string[],
+    line: number,
+  ): InlineSpanNode {
+    return {
+      kind: "inlineSpan",
+      id: `is_${this.counter++}`,
+      content,
+      classes,
       line,
     };
   }

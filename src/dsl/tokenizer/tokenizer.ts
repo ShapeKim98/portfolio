@@ -153,7 +153,8 @@ function parseParams(paramStr: string): Record<string, string | boolean> {
       result[trimmed] = true;
     } else {
       const key = trimmed.slice(0, eqIdx).trim();
-      const val = trimmed.slice(eqIdx + 1).trim();
+      const raw = trimmed.slice(eqIdx + 1).trim();
+      const val = raw.replace(/^"(.*)"$/, "$1");
       result[key] = val;
     }
   }

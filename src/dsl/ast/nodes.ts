@@ -45,6 +45,8 @@ export interface LeafNode extends ASTNodeBase {
   content: string;
   /** 속성: alt="설명" → {alt: "설명"} */
   attributes: Record<string, string>;
+  /** {.class} 프리픽스에서 파싱 — 렌더링 시 wrapper div에 적용 */
+  classes: string[];
 }
 
 /* ─── 제목 노드 ─── */
@@ -69,6 +71,7 @@ export interface ParagraphNode extends ASTNodeBase {
 
 export interface DividerNode extends ASTNodeBase {
   kind: "divider";
+  classes: string[];
 }
 
 /* ─── 인라인 노드 ─── */
@@ -88,7 +91,19 @@ export interface InlineCodeNode extends ASTNodeBase {
   content: string;
 }
 
-export type InlineNode = TextNode | BoldNode | LeafNode | InlineCodeNode;
+/** 인라인 스팬: [텍스트]{.class1 .class2} */
+export interface InlineSpanNode extends ASTNodeBase {
+  kind: "inlineSpan";
+  classes: string[];
+  content: string;
+}
+
+export type InlineNode =
+  | TextNode
+  | BoldNode
+  | LeafNode
+  | InlineCodeNode
+  | InlineSpanNode;
 
 /* ─── 루트 노드 ─── */
 
@@ -109,4 +124,5 @@ export type ASTNode =
   | DividerNode
   | TextNode
   | BoldNode
-  | InlineCodeNode;
+  | InlineCodeNode
+  | InlineSpanNode;
