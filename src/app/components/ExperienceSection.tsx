@@ -78,8 +78,8 @@ const WORK_ITEMS: WorkItem[] = [
     period: "2025. 10. 20 ~ 11. 21 · 약 1개월",
     tags: ["TCA", "TalkPlus SDK", "Swift Concurrency"],
     bullets: [
-      "TalkPlus SDK 기반 실시간 채팅 구축, 계약서 작성·전문가 지원/초대/퇴장 등 13종 메시지 타입 정의 및 화면 분기 처리",
-      "채팅 → 계약서 작성 → 중개 요청 → 전문가 지원/승인/거절 → 채팅방 초대까지 비상장주식 거래 중개 전체 흐름 설계·구현",
+      "TalkPlus SDK 기반 실시간 채팅 구축, 다양한 메시지 타입 정의 및 화면 분기 처리",
+      "채팅 기반 중개 요청·승인 플로우 설계·구현",
       "푸시 알림 데이터를 actor 기반으로 스레드 안전하게 관리하고, AsyncThrowingStream을 활용해 TCA 상태 관리와 통합 — 기존 앱 진입점(AppDelegate)에 산재하던 130줄의 알림 처리 코드 제거",
     ],
   },
