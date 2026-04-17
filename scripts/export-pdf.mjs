@@ -1,7 +1,13 @@
 // 지정된 URL을 Puppeteer로 렌더링하여 A4 다중 페이지 PDF로 내보내는 스크립트.
 // 사용법: node scripts/export-pdf.mjs [url] [widthPx] [outPath]
+//
+// 환경별 Chromium 전략:
+//   - Linux(Vercel/서버리스/CI): @sparticuz/chromium + puppeteer-core
+//     (Vercel 빌드 샌드박스에는 libnspr4 등 Chromium 의존 라이브러리가 없어서
+//      full puppeteer의 bundled Chromium이 실행되지 않음. 자체 포함 바이너리를 쓴다.)
+//   - macOS/기타: full puppeteer (bundled Chromium)
+//   - PUPPETEER_EXECUTABLE_PATH 환경변수 지정 시 언제나 그 경로를 우선 사용.
 
-import puppeteer from 'puppeteer';
 import { mkdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -17,20 +23,44 @@ const DESKTOP_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' +
   '(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
-async function main() {
-  const launchOptions = {
-    headless: 'new',
-    args: [
-      '--no-sandbox',
-      '--disable-dev-shm-usage',
-      '--force-color-profile=srgb',
-    ],
-  };
+const useServerlessChromium =
+  process.platform === 'linux' && !process.env.PUPPETEER_EXECUTABLE_PATH;
 
+async function getPuppeteerAndLaunchOptions() {
+  const baseArgs = [
+    '--no-sandbox',
+    '--disable-dev-shm-usage',
+    '--force-color-profile=srgb',
+  ];
+
+  if (useServerlessChromium) {
+    const [{ default: puppeteer }, { default: chromium }] = await Promise.all([
+      import('puppeteer-core'),
+      import('@sparticuz/chromium'),
+    ]);
+    const executablePath = await chromium.executablePath();
+    console.log(`[export-pdf] using @sparticuz/chromium at ${executablePath}`);
+    return {
+      puppeteer,
+      launchOptions: {
+        headless: chromium.headless,
+        args: [...chromium.args, ...baseArgs],
+        executablePath,
+        defaultViewport: chromium.defaultViewport,
+      },
+    };
+  }
+
+  const { default: puppeteer } = await import('puppeteer');
+  const launchOptions = { headless: 'new', args: baseArgs };
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
     launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
   }
+  return { puppeteer, launchOptions };
+}
 
+async function main() {
+  const { puppeteer, launchOptions } = await getPuppeteerAndLaunchOptions();
   const browser = await puppeteer.launch(launchOptions);
 
   try {
