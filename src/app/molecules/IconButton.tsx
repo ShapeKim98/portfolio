@@ -10,8 +10,8 @@ export function IconButton({
   ...rest
 }: {
   href?: string;
-  variant?: "primary" | "secondary";
-  size?: "sm" | "md" | "lg";
+  variant?: "primary" | "secondary" | "link";
+  size?: "xs" | "sm" | "md" | "lg";
   icon?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
@@ -19,9 +19,11 @@ export function IconButton({
   const variantClass = {
     primary: "bg-foreground hover:opacity-90 transition-opacity",
     secondary: "border border-border text-foreground hover:bg-muted transition-colors",
+    link: "text-primary hover:underline transition-colors",
   }[variant];
 
   const sizeClass = {
+    xs: "gap-1 text-xs",
     sm: "gap-2 px-4 py-2 rounded-lg text-sm-md",
     md: "gap-2 px-5 py-2.5 rounded-full text-base",
     lg: "gap-3 px-6 py-3 rounded-xl text-base",

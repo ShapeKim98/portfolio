@@ -2,7 +2,7 @@ import { VerticalFlow } from "@/app/organisms/VerticalFlow";
 
 export function JWTRefreshDiagram() {
   return (
-    <div className="mb-5 p-4 rounded-xl bg-card border border-border">
+    <>
       <h6 className="text-sm font-semibold text-foreground mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
       <div className="grid md:grid-cols-2 gap-6 items-start">
         {/* 왼쪽: JWT 패턴 대응 설명 */}
@@ -51,6 +51,6 @@ export function JWTRefreshDiagram() {
           ]}
         />
       </div>
-    </div>
+    </>
   );
 }
