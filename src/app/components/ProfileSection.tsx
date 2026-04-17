@@ -86,14 +86,9 @@ export function ProfileSection() {
           <div className="grid md:grid-cols-2 gap-8 mb-16">
             {/* Left - Info */}
             <div className="p-8 rounded-2xl bg-card border border-border">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/40 flex items-center justify-center">
-                  <span className="text-5xl font-extrabold text-primary">K</span>
-                </div>
-                <div>
-                  <h3 className="text-4xl font-bold tracking-tight text-foreground">김도형</h3>
-                  <p className="text-base font-normal text-muted-foreground">1998.02.05</p>
-                </div>
+              <div className="mb-6">
+                <h3 className="text-4xl font-bold tracking-tight text-foreground">김도형</h3>
+                <p className="text-base font-normal text-muted-foreground">1998.02.05</p>
               </div>
               <div className="space-y-3">
                 <InfoRow icon={Mail} label="Email" value="shapekim98@gmail.com" href="mailto:shapekim98@gmail.com" />
