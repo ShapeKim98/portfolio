@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Download } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "About", href: "#about" },
@@ -59,6 +59,14 @@ export function Navigation() {
               {item.label}
             </a>
           ))}
+          <a
+            href={`${import.meta.env.BASE_URL}portfolio.pdf`}
+            download
+            aria-label="Download portfolio PDF"
+            className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+          >
+            <Download size={18} />
+          </a>
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
@@ -69,6 +77,14 @@ export function Navigation() {
 
         {/* Mobile */}
         <div className="flex md:hidden items-center gap-2">
+          <a
+            href={`${import.meta.env.BASE_URL}portfolio.pdf`}
+            download
+            aria-label="Download portfolio PDF"
+            className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+          >
+            <Download size={18} />
+          </a>
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground"

@@ -309,7 +309,7 @@ export function ExperienceSection() {
         {/* Toggle Button */}
         {WORK_ITEMS.length > INITIAL_VISIBLE_COUNT && (
           <FadeInView>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8" data-print-hide>
               <motion.button
                 onClick={() => (expanded ? handleCollapse() : setExpanded(true))}
                 whileHover={{ scale: 1.03 }}
