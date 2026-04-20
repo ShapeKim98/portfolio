@@ -12,6 +12,7 @@
     transform: none !important;
     animation: none !important;
     transition: none !important;
+    filter: none !important;
   }
   .fixed { display: none !important; }
   [class*="sticky"] { position: static !important; }
@@ -28,6 +29,14 @@
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
+
+  /* 제목이 본문과 분리되지 않게 */
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
 }
 
 /* 수동 print 모드: ?print=1 로 접근 시 <html> 에 .print-mode 클래스 부여 */
@@ -38,6 +47,7 @@ html.print-mode *::after {
   transform: none !important;
   animation: none !important;
   transition: none !important;
+  filter: none !important;
 }
 html.print-mode .fixed { display: none !important; }
 html.print-mode [class*="sticky"] { position: static !important; }
