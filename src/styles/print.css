@@ -250,19 +250,28 @@ html.print-mode section[id="experience"] .grid.grid-cols-1.md\:grid-cols-8.lg\:g
   page-break-before: avoid !important;
 }
 
-/* 프로젝트 표지는 쪼개지지 않게만 유지. break-after 제약은 제거하여
-   "표지 + 사이드바 + 본문이 반드시 한 페이지에 붙어야 함" 때문에 발생하는
-   빈 페이지를 방지한다. */
+/* 프로젝트 표지는 쪼개지지 않고 바로 뒤 본문(사이드바/Overview)과도 붙어야
+   "표지 + 프로젝트 이름 + 프로젝트 정보"가 같은 페이지에서 읽힌다. */
 html.print-mode article > section:first-child {
   break-inside: avoid !important;
   page-break-inside: avoid !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
 }
-/* 표지 이미지는 웹과 같이 full-width + 자연 비율 유지 */
+/* 표지 이미지 — 너무 크면 표지 단독 페이지가 되므로 적당히 축소 */
 html.print-mode article > section:first-child img {
   width: 100% !important;
   height: auto !important;
-  max-height: 520px !important;
+  max-height: 340px !important;
   object-fit: cover !important;
+}
+/* 사이드바(메타)도 본문 시작과 분리되지 않게 */
+html.print-mode article aside.lg\:col-span-3,
+html.print-mode article aside.lg\:col-span-4 {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
 }
 
 /* 표지 이미지 오버레이 텍스트는 PDF 에서 좀 더 진한 배경 필요

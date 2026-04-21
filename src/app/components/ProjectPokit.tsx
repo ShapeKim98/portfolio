@@ -183,18 +183,12 @@ export function ProjectPokit() {
         </FadeInView>
 
         {/* 모듈 구성 및 레이어 설계 */}
-        <FadeInView>
-          <div className="mb-4">
-            <SubSectionTitle size="lg" className="mb-3">
-              모듈 구성 및 레이어 설계
-            </SubSectionTitle>
-            <p className="text-base font-normal text-muted-foreground leading-loose">
-              계층화된 모듈 구조를 통해 기능 단위 분리, 공통 로직 재사용, 멀티 타겟 대응을 유연하게 수행할 수 있는 구조를 고민했습니다. 특히 모듈 간의 의존성을 단방향으로 유지하고, 재사용성이 높을수록 아래에 배치하는 전략을 통해 구조의 일관성과 유지보수성을 확보했습니다.
-            </p>
-          </div>
-        </FadeInView>
-
-        <LayerDiagram title="모듈 계층 구조" layers={MODULE_LAYERS} />
+        <LayerDiagram
+          subtitle="모듈 구성 및 레이어 설계"
+          description="계층화된 모듈 구조를 통해 기능 단위 분리, 공통 로직 재사용, 멀티 타겟 대응을 유연하게 수행할 수 있는 구조를 고민했습니다. 특히 모듈 간의 의존성을 단방향으로 유지하고, 재사용성이 높을수록 아래에 배치하는 전략을 통해 구조의 일관성과 유지보수성을 확보했습니다."
+          title="모듈 계층 구조"
+          layers={MODULE_LAYERS}
+        />
 
         {/* ───── URL 제목 및 썸네일 파싱 설계 ───── */}
         <FadeInView>

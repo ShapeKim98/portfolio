@@ -6,13 +6,27 @@ import { ClickableImage } from "./ClickableImage";
 export function LayerDiagram({
   layers,
   title,
+  subtitle,
+  description,
 }: {
   layers: { name: string; desc: string; color: string }[];
   title: string;
+  subtitle?: string;
+  description?: string;
 }) {
   return (
     <FadeInView>
       <div data-print-keep>
+      {subtitle && (
+        <SubSectionTitle size="md" className="mb-3">
+          {subtitle}
+        </SubSectionTitle>
+      )}
+      {description && (
+        <p className="text-base font-normal text-muted-foreground leading-loose mb-5">
+          {description}
+        </p>
+      )}
       <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-6">{title}</h4>
       <div className="space-y-3">
         {layers.map((layer, i) => (
@@ -259,7 +273,7 @@ export function ProblemSolvingBlock({
   detail?: string;
 }) {
   return (
-    <dl className="flex flex-col gap-5">
+    <dl className="flex flex-col gap-5" data-print-keep>
       <div className="grid grid-cols-[88px_1fr] gap-4 border-l-[3px] border-destructive pl-4 py-1">
         <dt className="text-xs uppercase tracking-widest text-destructive font-medium pt-0.5">
           Problem
@@ -366,6 +380,7 @@ export function SyncFlowDiagram({
 }) {
   return (
     <FadeInView>
+      <div data-print-keep>
       <SubSectionTitle size="md" className="mb-4">
         {title}
       </SubSectionTitle>
@@ -387,7 +402,7 @@ export function SyncFlowDiagram({
       </div>
 
       {/* 흐름 다이어그램 (좌) + 앱 스크린샷 (우) */}
-      <div className="grid md:grid-cols-2 gap-8 items-start" data-print-keep>
+      <div className="grid md:grid-cols-2 gap-8 items-start">
         {/* 왼쪽: 흐름 다이어그램 */}
         <div className="flex flex-col items-center gap-1.5">
           {steps.map((step, i) => (
@@ -424,6 +439,7 @@ export function SyncFlowDiagram({
             ? <ClickableImage src={screenshotSrc} alt={screenshotAlt} className="w-full max-w-[240px] rounded-2xl" />
             : <AppScreenshotPlaceholder label={screenshotAlt} />}
         </div>
+      </div>
       </div>
     </FadeInView>
   );

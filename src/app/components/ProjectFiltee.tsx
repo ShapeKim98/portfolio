@@ -117,18 +117,9 @@ export function ProjectFiltee() {
         </FadeInView>
 
         {/* 4계층 구조 */}
-        <FadeInView>
-          <div className="mb-4">
-            <SubSectionTitle size="md" className="mb-3">
-              App - Feature - Model - Core 4계층 구조 설계
-            </SubSectionTitle>
-            <p className="text-base font-normal text-muted-foreground leading-loose">
-              기능 복잡도와 개발 효율성을 고려해 계층 구조는 단순하게 유지하되 각 계층의 책임과 역할은 명확히 나누는 방향으로 설계했습니다. 특히 1인 개발 환경에서 확장성과 유지보수 편의성을 확보하는 실용적인 구조를 목표로 했습니다.
-            </p>
-          </div>
-        </FadeInView>
-
         <LayerDiagram
+          subtitle="App - Feature - Model - Core 4계층 구조 설계"
+          description="기능 복잡도와 개발 효율성을 고려해 계층 구조는 단순하게 유지하되 각 계층의 책임과 역할은 명확히 나누는 방향으로 설계했습니다. 특히 1인 개발 환경에서 확장성과 유지보수 편의성을 확보하는 실용적인 구조를 목표로 했습니다."
           title="4계층 모듈 구조"
           layers={APP_LAYERS}
         />

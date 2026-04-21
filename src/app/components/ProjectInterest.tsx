@@ -195,6 +195,7 @@ export function ProjectInterest() {
 
               {/* HealthKit 설계 */}
               <FadeInView>
+                <div data-print-keep>
                 <SubSectionTitle size="md" className="mb-4">
                   HealthKit 설계
                 </SubSectionTitle>
@@ -217,10 +218,12 @@ export function ProjectInterest() {
                     solution="SwiftUI의 ScenePhase Environment를 통해 AOD 화면 상태 변화에 대응"
                   />
                 </ProblemSolvingList>
+                </div>
               </FadeInView>
 
               {/* Clean Architecture */}
               <FadeInView>
+                <div data-print-keep>
                 <SubSectionTitle size="md" className="mb-4">
                   Clean Architecture 적용
                 </SubSectionTitle>
@@ -232,10 +235,12 @@ export function ProjectInterest() {
                   solution="Clean Architecture를 적용하여 외부 프레임워크 로직을 ViewModel에서 분리"
                   detail="HealthKit, WatchConnectivity, SwiftData 로직을 각각 독립된 레이어로 분리함으로써, ViewModel에 과도한 책임이 집중되는 문제를 방지하고 로직의 재사용성과 유지보수성을 향상시켰습니다."
                 />
+                </div>
               </FadeInView>
 
               {/* 타이머 설계 */}
               <FadeInView>
+                <div data-print-keep>
                 <SubSectionTitle size="md" className="mb-4">
                   타이머 설계
                 </SubSectionTitle>
@@ -244,6 +249,7 @@ export function ProjectInterest() {
                   solution="Combine의 Timer 객체를 사용해 타이머 기능을 구현하고, AnyCancellable로 작업 취소"
                   detail="Combine의 Timer 퍼블리셔와 AnyCancellable을 활용해 Timer 작업을 필요 시 취소함으로써 메모리 누수를 방지했습니다."
                 />
+                </div>
               </FadeInView>
             </SectionGroup>
           </ProjectLayout>
