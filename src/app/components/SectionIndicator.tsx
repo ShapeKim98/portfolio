@@ -17,6 +17,7 @@ const SECTIONS: SectionItem[] = [
   { id: "project-02", label: "02  Filtee", kind: "sub" },
   { id: "project-03", label: "03  Pokit", kind: "sub" },
   { id: "project-04", label: "04  인터레스트", kind: "sub" },
+  { id: "project-05", label: "05  ShowPot", kind: "sub" },
   { id: "contact", label: "Contact", kind: "main" },
 ];
 
@@ -87,15 +88,16 @@ export function SectionIndicator() {
             key={section.id}
             type="button"
             onClick={() => handleClick(section.id)}
-            className={`group pointer-events-auto flex items-center justify-end gap-3 ${
+            className={`group pointer-events-auto relative flex items-center justify-end gap-3 min-h-[44px] ${
               isSub ? "pl-4" : ""
             }`}
-            aria-label={`Go to ${section.label}`}
-            aria-current={isActive ? "true" : undefined}
+            aria-label={`${section.label} 섹션으로 이동`}
+            aria-current={isActive ? "location" : undefined}
           >
             {/* Label: active면 상시, 아니면 hover에서만 */}
             <span
-              className={`text-right tracking-snug whitespace-nowrap transition-all duration-300 ${
+              aria-hidden={!isActive}
+              className={`text-right tracking-snug whitespace-nowrap transition-[opacity,transform,color] duration-200 ${
                 isSub ? "text-xs font-medium" : "text-sm font-semibold"
               } ${
                 isActive
@@ -108,7 +110,7 @@ export function SectionIndicator() {
 
             {/* Dot / Bar */}
             <span
-              className={`block rounded-full transition-all duration-300 ${
+              className={`block rounded-full transition-[width,height,background-color] duration-200 ${
                 isActive
                   ? `bg-primary ${isSub ? "w-5 h-[2px]" : "w-6 h-[2px]"}`
                   : `bg-muted-foreground/40 group-hover:bg-muted-foreground/70 ${
