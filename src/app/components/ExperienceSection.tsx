@@ -140,7 +140,7 @@ const INITIAL_VISIBLE_COUNT = 4;
 
 function WorkItemCard({ item }: { item: WorkItem }) {
   return (
-    <div className="py-8">
+    <div className="py-8" data-print-keep>
       {/* Title + Period */}
       <h4 className="text-xl font-bold tracking-tight text-foreground mb-2">
         {item.title}

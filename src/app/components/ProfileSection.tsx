@@ -147,7 +147,7 @@ export function ProfileSection() {
             </h3>
             <div className="space-y-8">
               {Object.entries(SKILLS).map(([section, groups]) => (
-                <div key={section}>
+                <div key={section} data-print-keep>
                   <h4 className="text-base font-semibold text-primary mb-4 tracking-wide">
                     {section}
                   </h4>
