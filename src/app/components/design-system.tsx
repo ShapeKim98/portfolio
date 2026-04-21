@@ -598,6 +598,21 @@ export function SectionGroup({
   );
 }
 
+/** Wrap 2+ ProblemSolvingBlock siblings with hairline dividers in between. */
+export function ProblemSolvingList({ children }: { children: React.ReactNode }) {
+  const items = React.Children.toArray(children).filter(Boolean);
+  return (
+    <div className="space-y-6">
+      {items.map((child, i) => (
+        <React.Fragment key={i}>
+          {i > 0 && <Divider />}
+          {child}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
 /* ─────────────────────────────────────────────────────────────
  * ColoredInfoBox — preserved for complex Diagrams usage
  * ──────────────────────────────────────────────────────────── */

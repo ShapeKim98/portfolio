@@ -9,6 +9,7 @@ import {
   NumberedFeatureList,
   Eyebrow,
   Figure,
+  ProblemSolvingList,
 } from "./design-system";
 import { ProjectCover, ProjectLayout, ProjectSidebar, ProjectSubsection } from "./ProjectLayout";
 import { ClickableImage } from "./ClickableImage";
@@ -155,7 +156,7 @@ export function ProjectPokit() {
           <SubSectionTitle size="md" className="mb-4">
             Modular Architecture를 위한 Tuist 도입
           </SubSectionTitle>
-          <div className="space-y-4">
+          <ProblemSolvingList>
             <ProblemSolvingBlock
               problem="코드 레벨 분리만으로는 모든 코드에 접근이 가능해 개발자의 의도치 않은 참조나 책임 혼선이 발생할 수 있음"
               solution="물리적 의존성 분리를 통한 책임 명확화"
@@ -166,7 +167,7 @@ export function ProjectPokit() {
               solution="Tuist를 활용한 모듈화 자동화"
               detail="Tuist를 도입하여 Swift 코드 기반으로 프로젝트 생성을 자동화했습니다. 모듈을 열거형(Enum)으로 정의하고, 공통 설정을 Swift 메서드로 추상화하여 반복 작업을 최소화했으며, Tuist Template을 활용해 디렉터리와 필수 파일 구성을 자동화했습니다. 그 결과, 새로운 모듈 추가 시 열거형 케이스 한 줄 추가와 명령어 한 줄이면 모듈 추가가 자동으로 완성되는 구조를 구축했습니다."
             />
-          </div>
+          </ProblemSolvingList>
         </FadeInView>
 
         {/* Tuist Graph 장점 */}
@@ -208,7 +209,7 @@ export function ProjectPokit() {
         <FadeInView>
           <TwoColumnLayout
             left={
-              <div className="space-y-4">
+              <ProblemSolvingList>
                 <ProblemSolvingBlock
                   problem="일부 사이트에서 사용자 에이전트를 명시하지 않으면 OG 태그 데이터를 반환하지 않음"
                   solution="사용자 에이전트를 명시적으로 지정하는 방식으로 해결"
@@ -219,7 +220,7 @@ export function ProjectPokit() {
                   solution="사용자가 직접 제목을 입력하고 기본 썸네일 이미지를 자동 삽입하는 UX 개선안을 PM에게 제안"
                   detail="이를 단순히 오류로 처리하기보다, 사용자 경험 저하를 최소화하는 방향으로 해결했습니다."
                 />
-              </div>
+              </ProblemSolvingList>
             }
             right={
               <div className="flex flex-col items-center justify-center gap-4">
@@ -338,7 +339,7 @@ export function ProjectPokit() {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <ProblemSolvingList>
               <ProblemSolvingBlock
                 problem="인스타그램 URL에서 3~4일 경과 후 썸네일이 표시되지 않는 문제"
                 solution="JWT 토큰 리프레시 구조에 착안한 재파싱 로직 설계"
@@ -349,7 +350,7 @@ export function ProjectPokit() {
                 solution="새로 파싱된 썸네일 URL을 사용자 링크 데이터에 갱신하는 API를 서버 개발자에게 제안하여 협업 진행"
                 detail="사용자가 저장한 링크 데이터의 썸네일 URL을 갱신하지 않는 이상, 해당 URL은 만료된 상태로 유지되어 동일한 만료 URL을 계속 조회하게 됩니다. 이로 인해 썸네일 조회 실패 → 재파싱 → 동일 URL 재조회가 반복되는 구조적 한계가 있었습니다. 그 결과, 썸네일 정보를 안정적으로 유지하면서도 불필요한 재요청과 중복 파싱을 최소화한 구조를 완성했습니다."
               />
-            </div>
+            </ProblemSolvingList>
         </FadeInView>
         </SectionGroup>
       </div>

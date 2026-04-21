@@ -12,6 +12,7 @@ import {
   SubSectionTitle,
   TwoColumnLayout,
   NumberedFeatureList,
+  ProblemSolvingList,
 } from "./design-system";
 import { ProjectCover, ProjectLayout, ProjectSidebar, ProjectSubsection } from "./ProjectLayout";
 import filteePromo from "../../image/필티표지.png";
@@ -140,7 +141,7 @@ export function ProjectFiltee() {
           <p className="text-base font-normal text-muted-foreground leading-loose mb-6">
             구조를 직접 설계해 나가면서 의존성 주입과 외부 변화에 대응할 수 있는 방법에 대해 고민하게 되었고, 이를 고려한 전략들을 설계했습니다.
           </p>
-          <div className="space-y-4">
+          <ProblemSolvingList>
             <ProblemSolvingBlock
               problem="실제 객체와 테스트 객체를 분기 주입해야 하며, Xcode Preview 환경에서도 외부 데이터 통신 없이 독립적으로 동작해야 함"
               solution="SwiftUI Environment 기반 의존성 주입 + Preview 전용 테스트 객체 설계"
@@ -151,7 +152,7 @@ export function ProjectFiltee() {
               solution="API 변경에 따른 클라이언트 영향 최소화 설계"
               detail="DTO를 도입하여 클라이언트 내부 모델과 분리된 구조로 설계했습니다. 이를 통해 API 변경이 클라이언트 로직 전반에 영향을 주지 않도록 했습니다."
             />
-          </div>
+          </ProblemSolvingList>
         </FadeInView>
 
         {/* ───── 사진 필터 제작 기능 설계 ───── */}

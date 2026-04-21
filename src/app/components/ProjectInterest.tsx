@@ -5,6 +5,7 @@ import {
   SectionGroup,
   SubSectionTitle,
   NumberedFeatureList,
+  ProblemSolvingList,
 } from "./design-system";
 import {
   ProjectCover,
@@ -145,7 +146,7 @@ export function ProjectInterest() {
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <ProblemSolvingList>
                   <ProblemSolvingBlock
                     problem="애플워치에서 측정한 운동 정보를 아이폰으로 실시간 전송 필요"
                     solution="WCSessionDelegate의 session(_:didReceive:) 함수를 활용하여 실시간 전송"
@@ -156,7 +157,7 @@ export function ProjectInterest() {
                     solution="별도의 Timer 객체 구성을 통해 1초마다 운동정보를 통신"
                     detail="애플워치와 아이폰 간의 주기적인 운동정보 동기화를 구현했습니다."
                   />
-                </div>
+                </ProblemSolvingList>
               </FadeInView>
 
               {/* HealthKit 설계 */}
@@ -167,7 +168,7 @@ export function ProjectInterest() {
                 <p className="text-base font-normal text-muted-foreground leading-relaxed mb-4">
                   운동 데이터의 정확한 측정과 애플 피트니스 앱과의 연동을 위해 HealthKit을 활용했습니다. 권한 관리부터 운동 세션 핸들링까지 체계적으로 설계했습니다.
                 </p>
-                <div className="space-y-4">
+                <ProblemSolvingList>
                   <ProblemSolvingBlock
                     problem="HealthKit 데이터 접근 권한 관리 필요"
                     solution="HKQuantityType을 활용하여 필요한 운동정보를 정의하고 권한 요청 구성"
@@ -182,7 +183,7 @@ export function ProjectInterest() {
                     problem="애플워치 AOD(Always On Display) 화면 상태 변화 대응 필요"
                     solution="SwiftUI의 ScenePhase Environment를 통해 AOD 화면 상태 변화에 대응"
                   />
-                </div>
+                </ProblemSolvingList>
               </FadeInView>
 
               {/* Clean Architecture */}
