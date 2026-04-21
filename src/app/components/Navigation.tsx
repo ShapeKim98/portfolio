@@ -61,7 +61,7 @@ export function Navigation() {
           ))}
           <a
             href={`${import.meta.env.BASE_URL}portfolio.pdf`}
-            download
+            download="김도형_iOS_포트폴리오.pdf"
             aria-label="Download portfolio PDF"
             className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
           >
@@ -79,7 +79,7 @@ export function Navigation() {
         <div className="flex md:hidden items-center gap-2">
           <a
             href={`${import.meta.env.BASE_URL}portfolio.pdf`}
-            download
+            download="김도형_iOS_포트폴리오.pdf"
             aria-label="Download portfolio PDF"
             className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
           >

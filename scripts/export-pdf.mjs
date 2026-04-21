@@ -147,18 +147,18 @@ async function main() {
     // 출력 디렉토리 생성
     await mkdir(path.dirname(outPath), { recursive: true });
 
-    // 배경이 페이지 끝까지 이어지도록 Puppeteer 마진은 0 으로 두고,
-    // 내용 쪽 여백은 print.css 의 body padding 으로 처리한다.
+    // 페이지 여백은 유지하되, 배경(body 흰 배경)은 이 여백 안쪽(@page 내용 영역)에만
+    // 칠해지도록 print.css 에서 html 배경을 transparent 로 둔다.
     await page.pdf({
       path: outPath,
       format: 'A4',
       printBackground: true,
       scale: 0.62,
       margin: {
-        top: '0mm',
-        right: '0mm',
-        bottom: '0mm',
-        left: '0mm',
+        top: '12mm',
+        right: '10mm',
+        bottom: '12mm',
+        left: '10mm',
       },
       preferCSSPageSize: false,
     });

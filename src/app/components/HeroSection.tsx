@@ -110,7 +110,7 @@ export function HeroSection() {
               variant="secondary"
               size="md"
               icon={<Download size={16} />}
-              download=""
+              download="김도형_iOS_포트폴리오.pdf"
               data-print-hide
             >
               PDF

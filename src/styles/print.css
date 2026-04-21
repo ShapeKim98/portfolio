@@ -2,15 +2,16 @@
    ?print=1 URL 진입 시 main.tsx 가 html.print-mode 클래스를 부착한다.
    Puppeteer(scripts/export-pdf.mjs)가 이 URL 을 렌더링해 PDF 로 저장한다. */
 
-/* 인쇄 페이지 여백은 0 으로 두어 배경이 가장자리까지 닿게 하고,
-   내용 여백은 body 에 padding 으로 준다. */
-@page { size: auto; margin: 0; }
+/* 인쇄 페이지 여백 — Puppeteer page.pdf({margin}) 또는 브라우저 인쇄 대화상자 값이
+   이 규칙을 덮어쓸 수 있다. 배경은 이 여백 안쪽에만 들어가고, 바깥(페이지 가장자리)은
+   물리적 용지 흰 배경으로 남긴다. */
+@page { size: auto; margin: 12mm 10mm; }
 
 /* 공통: 브라우저 인쇄 & print-mode 에서 시차 스크롤/애니메이션 해제 */
 @media print {
-  html, body { background: white !important; }
-  /* 배경은 가장자리까지, 내용은 안쪽으로 밀어주는 여백 */
-  body { padding: 12mm 10mm !important; }
+  /* 배경은 @page 안쪽(내용 영역)에만 칠해지도록 html 이 아닌 body 만 배경 지정 */
+  html { background: transparent !important; }
+  body { background: white !important; }
   *, *::before, *::after {
     opacity: 1 !important;
     transform: none !important;
