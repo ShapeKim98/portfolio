@@ -12,6 +12,13 @@
   /* 배경은 @page 안쪽(내용 영역)에만 칠해지도록 html 이 아닌 body 만 배경 지정 */
   html { background: transparent !important; }
   body { background: white !important; }
+  /* 테마 배경(bg-background: cream/grey)/섹션 배경 톤 제거 → 순수 흰 배경으로 */
+  [class*="bg-background"] { background: white !important; }
+  [class*="bg-muted"] { background: transparent !important; }
+  /* Parallax 블러 장식(색 원형)은 PDF 에서 노출되지 않게 숨김 */
+  [class*="blur-3xl"],
+  [class*="blur-2xl"],
+  [class*="blur-xl"] { display: none !important; }
   *, *::before, *::after {
     opacity: 1 !important;
     transform: none !important;
@@ -81,3 +88,12 @@ html.print-mode #project-01,
 html.print-mode #project-02,
 html.print-mode #project-03,
 html.print-mode #project-04 { display: none !important; }
+
+/* print-mode: 테마 배경/장식 레이어 제거 (브라우저 ?print=1 미리보기용) */
+html.print-mode { background: transparent !important; }
+html.print-mode body { background: white !important; }
+html.print-mode [class*="bg-background"] { background: white !important; }
+html.print-mode [class*="bg-muted"] { background: transparent !important; }
+html.print-mode [class*="blur-3xl"],
+html.print-mode [class*="blur-2xl"],
+html.print-mode [class*="blur-xl"] { display: none !important; }
