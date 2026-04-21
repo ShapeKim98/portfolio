@@ -87,7 +87,9 @@ export function ProjectRxCompose() {
           <ProjectLayout
             sidebar={
               <ProjectSidebar
-                subtitle={META.subtitle}
+                number={META.number}
+                title={META.title}
+                kind={META.kind}
                 period={META.period}
                 role={META.role}
                 team={META.team}
@@ -124,8 +126,8 @@ export function ProjectRxCompose() {
             <ProjectSubsection eyebrow="Use Case">
               <FadeInView>
                 <ContentCard>
-                  {/* Header — editorial row: number / name+kind+desc / meta */}
-                  <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 mb-5">
+                  {/* Header — editorial row: [number | name+kind+desc] ← → [meta right-aligned] */}
+                  <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-start gap-x-6 gap-y-4 mb-5">
                     <div className="flex items-baseline gap-4 min-w-0">
                       <span className="text-xs font-medium tracking-widest text-muted-foreground tabular-nums shrink-0">
                         01
@@ -143,7 +145,7 @@ export function ProjectRxCompose() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-1 shrink-0 md:text-right">
+                    <div className="flex flex-col items-start md:items-end gap-1 text-left md:text-right">
                       <span className="text-xs tracking-widest uppercase text-muted-foreground tabular-nums">
                         2025.03
                       </span>
@@ -154,7 +156,7 @@ export function ProjectRxCompose() {
                         href="https://github.com/AlreadyTakenSeat/ShowPot-iOS"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 mt-1 text-xs font-medium text-foreground hover:opacity-70 transition-opacity md:self-end"
+                        className="inline-flex items-center gap-1 mt-1 text-xs font-medium text-foreground hover:opacity-70 transition-opacity"
                       >
                         <svg
                           width="12"

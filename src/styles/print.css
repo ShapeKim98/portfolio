@@ -44,11 +44,16 @@
   /* Hero min-h-screen → auto */
   section[id="hero"] { min-height: 0 !important; padding-top: 24px !important; padding-bottom: 24px !important; }
 
-  /* Project cover 이미지 크기 제한 — 한 페이지 내 수납 우선 */
+  /* Project cover 이미지 — PDF 에서 컴팩트하게 (표지 + 타이틀 + 본문 첫 섹션이 한 페이지에 같이 흐르도록) */
   section[id^="project-"] img,
-  [data-print-keep] img { max-height: 360px !important; width: auto !important; }
+  [data-print-keep] img {
+    max-height: 260px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
 
-  /* Project grid — sticky 해제 + 1단 stack */
+  /* Project grid — sticky 해제 */
   aside.lg\:sticky { position: static !important; }
 
   /* Legacy 150vh container (removed in this redesign, kept as safeguard) */
@@ -78,7 +83,7 @@
     page-break-before: always !important;
   }
 
-  /* Tailwind 카드 패턴 (rounded + border-border) — 페이지 중간에서 잘리지 않도록 유지 */
+  /* 카드 패턴 — 페이지 중간에서 잘리지 않도록 */
   div[class*="rounded-\\[10px\\]"][class*="border-border"],
   div[class*="rounded-xl"][class*="border-border"],
   div[class*="rounded-2xl"][class*="border-border"] {
@@ -86,26 +91,14 @@
     page-break-inside: avoid !important;
   }
 
-  /* EditorialGrid 의 GridLabel(좌측) + GridBody(우측) 전체를 한 덩어리로 유지 시도 */
-  section > div > div > .grid,
-  section .grid.grid-cols-1 {
-    break-inside: auto !important;
-  }
-
-  /* 각 "서브섹션" (eyebrow + content 스택) 가급적 유지 */
-  section[id^="project-"] article > section,
-  section article section {
-    break-inside: avoid-page;
-    page-break-inside: avoid;
-  }
-
-  /* NumberedFeatureList 각 <li>, DefList 각 row, Timeline 각 row — 항목 단위 쪼개짐 방지 */
+  /* 리스트 항목, Definition 항목, Figure 단위 쪼개짐 방지 */
   ol > li,
   ul > li,
-  dl > div { break-inside: avoid !important; page-break-inside: avoid !important; }
-
-  /* Figure(이미지 + 캡션) 쪼개짐 방지 */
+  dl > div,
   figure { break-inside: avoid !important; page-break-inside: avoid !important; }
+
+  /* 각 ProjectSubsection / ContentCard / SectionGroup 은 가능한 한 유지 */
+  article section { break-inside: avoid-page; page-break-inside: avoid; }
 }
 
 /* ───────────────────────────────────────────────────────────
@@ -144,12 +137,14 @@ html.print-mode [class*="blur-2xl"],
 html.print-mode [class*="blur-xl"] { display: none !important; }
 
 /* ───────────────────────────────────────────────────────────
- * print-mode: 프로젝트 메타 사이드바를 본문 상단 가로 메타바로 재구성
- * — sticky 해제 + grid 2열 → 1열 stack, sidebar가 body 위에 1회 노출되도록 명시
+ * print-mode: 프로젝트 레이아웃 재구성
+ * - 사이드바 sticky 해제 → 본문 상단 가로 메타바
+ * - 커버 이미지 고정 높이로 축소 → 표지+본문 한 페이지에 흐를 수 있도록
  * ─────────────────────────────────────────────────────────── */
 html.print-mode article .grid.lg\:grid-cols-12 {
   display: block !important;
 }
+html.print-mode article aside.lg\:col-span-3,
 html.print-mode article aside.lg\:col-span-4 {
   position: static !important;
   width: 100% !important;
@@ -160,26 +155,30 @@ html.print-mode article aside.lg\:col-span-4 {
   page-break-inside: avoid !important;
 }
 
-/* 새 프로젝트는 새 페이지에서 시작 (커버 섹션 기준) */
-html.print-mode article > section:first-child {
-  break-before: page !important;
-  page-break-before: always !important;
-}
-/* 최상단 Hero 바로 뒤 About 은 같은 페이지에 흐를 수 있음 — 오직 article(프로젝트)에만 적용 */
-
-/* print-mode 이미지 크기 제한 */
+/* 프로젝트 커버 이미지 — PDF 에서 compact (260px 내외)로 제한
+   → 표지+제목+Overview 도입부가 한 페이지에 같이 들어가기 쉬움 */
 html.print-mode section[id^="project-"] img,
-html.print-mode [data-print-keep] img { max-height: 360px !important; height: auto !important; }
+html.print-mode [data-print-keep] img {
+  max-height: 260px !important;
+  height: auto !important;
+  width: auto !important;
+  object-fit: contain !important;
+}
 
-/* print-mode NumberedFeatureList 각 항목 쪼개짐 방지 */
+/* 이미지 컨테이너(ProjectCover의 group) 높이도 제한해 min-h-[420px] 등의 바이트를
+   덮어써서 표지 전체 높이 축소 */
+html.print-mode section[id^="project-"] .group,
+html.print-mode article > section:first-child .group {
+  min-height: 0 !important;
+  max-height: 300px !important;
+}
+
+/* 리스트/Figure/카드 항목 쪼개짐 방지 */
 html.print-mode ol > li,
 html.print-mode ul > li,
-html.print-mode dl > div { break-inside: avoid !important; page-break-inside: avoid !important; }
-
-/* print-mode Figure 쪼개짐 방지 */
+html.print-mode dl > div,
 html.print-mode figure { break-inside: avoid !important; page-break-inside: avoid !important; }
 
-/* print-mode card/ContentCard 쪼개짐 방지 */
 html.print-mode div[class*="rounded-\\[10px\\]"][class*="border-border"],
 html.print-mode div[class*="rounded-xl"][class*="border-border"],
 html.print-mode div[class*="rounded-2xl"][class*="border-border"] {
@@ -187,8 +186,14 @@ html.print-mode div[class*="rounded-2xl"][class*="border-border"] {
   page-break-inside: avoid !important;
 }
 
-/* print-mode 각 프로젝트 body 서브섹션 쪼개짐 최소화 */
-html.print-mode article section {
-  break-inside: avoid-page;
-  page-break-inside: avoid;
-}
+/* Project subsection / SectionGroup 는 가능한 한 유지 */
+html.print-mode article section { break-inside: avoid-page; page-break-inside: avoid; }
+
+/* 새 프로젝트가 본문 중간에 어색하게 이어지지 않도록 — 각 프로젝트 최상위 article 직전에
+   page break 를 주되, 커버 + 본문이 같이 페이지에 흐르도록 커버를 작게 유지.
+   article 내부에서는 break-before 를 걸지 않는다. */
+html.print-mode article { break-before: page !important; page-break-before: always !important; }
+
+/* 첫 번째 article(RxCompose, 보통 본문 시작)은 그래도 직전 Experience 와 자연스럽게
+   연결될 수 있도록 break-before auto. 원하면 여기서 조정. */
+html.print-mode #projects > article:first-child { break-before: auto !important; page-break-before: auto !important; }

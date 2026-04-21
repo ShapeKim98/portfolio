@@ -83,7 +83,9 @@ export function ProjectPokit() {
           <ProjectLayout
             sidebar={
               <ProjectSidebar
-                subtitle={META.subtitle}
+                number={META.number}
+                title={META.title}
+                kind={META.kind}
                 period={META.period}
                 role={META.role}
                 team={META.team}
