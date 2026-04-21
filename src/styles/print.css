@@ -3,23 +3,22 @@
    Puppeteer(scripts/export-pdf.mjs)가 이 URL 을 렌더링해 PDF 로 저장한다. */
 
 /* 인쇄 페이지 여백 — Puppeteer page.pdf({margin}) 또는 브라우저 인쇄 대화상자 값이
-   이 규칙을 덮어쓸 수 있다. 배경은 이 여백 안쪽에만 들어가고, 바깥(페이지 가장자리)은
-   물리적 용지 흰 배경으로 남긴다. */
+   이 규칙을 덮어쓸 수 있다. */
 @page { size: auto; margin: 12mm 10mm; }
 
 /* ───────────────────────────────────────────────────────────
- * 공통: 브라우저 인쇄 & print-mode 에서 장식/레이아웃 해제
+ * @media print 규칙 (실제 프린터 출력 / 브라우저 인쇄 미리보기)
  * ─────────────────────────────────────────────────────────── */
 @media print {
   html { background: transparent !important; }
   body { background: white !important; }
 
-  /* 테마 배경/섹션 배경 톤 제거 → 순수 흰 배경 */
+  /* 테마 배경 톤 제거 */
   [class*="bg-background"] { background: white !important; }
   [class*="bg-muted"] { background: transparent !important; }
   [class*="bg-card"] { background: transparent !important; }
 
-  /* Blur 장식(색 원형)은 PDF 에서 노출되지 않게 숨김 (보험, 현재 섹션에 없음) */
+  /* Blur 장식 숨김 (보험) */
   [class*="blur-3xl"],
   [class*="blur-2xl"],
   [class*="blur-xl"] { display: none !important; }
@@ -38,71 +37,19 @@
   [class*="sticky"] { position: static !important; }
   [class*="h-screen"] { height: auto !important; }
 
-  /* SideIndex 공간(본문 좌측 padding) 해제 */
+  /* SideIndex 공간 해제 */
   main { padding-left: 0 !important; padding-top: 0 !important; }
 
   /* Hero min-h-screen → auto */
   section[id="hero"] { min-height: 0 !important; padding-top: 24px !important; padding-bottom: 24px !important; }
 
-  /* Project cover 이미지 — PDF 에서 컴팩트하게 (표지 + 타이틀 + 본문 첫 섹션이 한 페이지에 같이 흐르도록) */
-  section[id^="project-"] img,
-  [data-print-keep] img {
-    max-height: 260px !important;
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important;
-  }
-
-  /* Project grid — sticky 해제 */
-  aside.lg\:sticky { position: static !important; }
-
-  /* Legacy 150vh container (removed in this redesign, kept as safeguard) */
-  section.relative.h-\[150vh\],
-  div.relative.h-\[150vh\] { height: auto !important; min-height: 0 !important; }
-
   /* 인쇄 시 숨김 플래그 */
   [data-print-hide] { display: none !important; }
-
-  /* 제목이 본문과 분리되지 않게 */
-  h1, h2, h3, h4, h5, h6 {
-    break-after: avoid !important;
-    page-break-after: avoid !important;
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-  }
-
-  /* 명시적 print-keep 플래그 — 블럭 단위 페이지 분할 방지 */
-  [data-print-keep] {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-  }
-
-  /* 명시적 page break 플래그 */
-  [data-print-break] {
-    break-before: page !important;
-    page-break-before: always !important;
-  }
-
-  /* 카드 패턴 — 페이지 중간에서 잘리지 않도록 */
-  div[class*="rounded-\\[10px\\]"][class*="border-border"],
-  div[class*="rounded-xl"][class*="border-border"],
-  div[class*="rounded-2xl"][class*="border-border"] {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-  }
-
-  /* 리스트 항목, Definition 항목, Figure 단위 쪼개짐 방지 */
-  ol > li,
-  ul > li,
-  dl > div,
-  figure { break-inside: avoid !important; page-break-inside: avoid !important; }
-
-  /* 각 ProjectSubsection / ContentCard / SectionGroup 은 가능한 한 유지 */
-  article section { break-inside: avoid-page; page-break-inside: avoid; }
 }
 
 /* ───────────────────────────────────────────────────────────
  * 수동 print 모드: ?print=1 로 접근 시 <html> 에 .print-mode 클래스 부여
+ * Puppeteer 기반 PDF 추출은 이 경로를 주로 사용한다.
  * ─────────────────────────────────────────────────────────── */
 html.print-mode *,
 html.print-mode *::before,
@@ -116,14 +63,8 @@ html.print-mode *::after {
 html.print-mode .fixed { display: none !important; }
 html.print-mode [class*="sticky"] { position: static !important; }
 html.print-mode [class*="h-screen"] { height: auto !important; }
-
-/* SideIndex padding 해제 */
 html.print-mode main { padding-left: 0 !important; padding-top: 0 !important; }
 html.print-mode section[id="hero"] { min-height: 0 !important; padding-top: 24px !important; padding-bottom: 24px !important; }
-
-/* Legacy 150vh safeguard */
-html.print-mode section.relative.h-\[150vh\],
-html.print-mode div.relative.h-\[150vh\] { height: auto !important; min-height: 0 !important; }
 html.print-mode [data-print-hide] { display: none !important; }
 
 /* 테마 배경/장식 레이어 제거 */
@@ -137,9 +78,132 @@ html.print-mode [class*="blur-2xl"],
 html.print-mode [class*="blur-xl"] { display: none !important; }
 
 /* ───────────────────────────────────────────────────────────
- * print-mode: 프로젝트 레이아웃 재구성
- * - 사이드바 sticky 해제 → 본문 상단 가로 메타바
- * - 커버 이미지 고정 높이로 축소 → 표지+본문 한 페이지에 흐를 수 있도록
+ * 공통 페이지네이션 규칙 — @media print + html.print-mode 모두 적용
+ * ─────────────────────────────────────────────────────────── */
+
+/* 제목은 뒤 본문과 같이 */
+@media print {
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+html.print-mode h1, html.print-mode h2, html.print-mode h3,
+html.print-mode h4, html.print-mode h5, html.print-mode h6 {
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+/* Eyebrow / subsection 라벨 (span.tracking-widest.uppercase) 뒤 본문과 같이 유지 */
+@media print {
+  span.uppercase.tracking-widest { break-after: avoid !important; page-break-after: avoid !important; }
+}
+html.print-mode span.uppercase.tracking-widest {
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+/* 명시적 플래그 */
+@media print {
+  [data-print-keep] { break-inside: avoid !important; page-break-inside: avoid !important; }
+  [data-print-break] { break-before: page !important; page-break-before: always !important; }
+}
+html.print-mode [data-print-keep] {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+html.print-mode [data-print-break] {
+  break-before: page !important;
+  page-break-before: always !important;
+}
+
+/* ───────────────────────────────────────────────────────────
+ * 블록 단위 쪼개짐 방지
+ * Tailwind arbitrary value 셀렉터는 attr 값 내부에서 이스케이프 없이 매칭한다.
+ * ─────────────────────────────────────────────────────────── */
+@media print {
+  /* ContentCard / FeatureCard / 둥근 모서리 + border-border 패턴 */
+  [class*="rounded-[10px]"][class*="border-border"],
+  [class*="rounded-xl"][class*="border-border"],
+  [class*="rounded-2xl"][class*="border-border"],
+  .rounded-\[10px\].border-border,
+  .rounded-xl.border-border,
+  .rounded-2xl.border-border {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* 리스트 항목, definition 항목, Figure */
+  ol > li, ul > li, dl > div, figure {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* ProjectSubsection / SectionGroup 내부 서브섹션 */
+  article section, section article section {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  /* EditorialGrid 각 서브블록(Skills/Career/Education/Awards/Activities) 전체를
+     한 덩어리로 유지 — eyebrow(GridLabel) + body(GridBody) 가 분리되지 않도록 */
+  #background .grid,
+  section .grid.grid-cols-1.md\:grid-cols-8.lg\:grid-cols-12 {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  /* TwoColumnLayout 내부 열이 쪼개지지 않게 */
+  .grid.md\:grid-cols-2 > * {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Footer (Contact) 하단 저작권 라인이 분리되지 않게 */
+  section[id="contact"] { break-inside: avoid-page; page-break-inside: avoid; }
+  section[id="contact"] .border-t { break-before: avoid !important; page-break-before: avoid !important; }
+}
+
+html.print-mode [class*="rounded-[10px]"][class*="border-border"],
+html.print-mode [class*="rounded-xl"][class*="border-border"],
+html.print-mode [class*="rounded-2xl"][class*="border-border"],
+html.print-mode .rounded-\[10px\].border-border,
+html.print-mode .rounded-xl.border-border,
+html.print-mode .rounded-2xl.border-border {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+html.print-mode ol > li,
+html.print-mode ul > li,
+html.print-mode dl > div,
+html.print-mode figure {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+html.print-mode article section,
+html.print-mode section article section {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+html.print-mode #background .grid,
+html.print-mode section .grid.grid-cols-1.md\:grid-cols-8.lg\:grid-cols-12 {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+html.print-mode .grid.md\:grid-cols-2 > * {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+html.print-mode section[id="contact"] { break-inside: avoid-page; page-break-inside: avoid; }
+html.print-mode section[id="contact"] .border-t { break-before: avoid !important; page-break-before: avoid !important; }
+
+/* ───────────────────────────────────────────────────────────
+ * 프로젝트 레이아웃 재구성 (web과 유사하지만 사이드바를 위로 스택)
+ * + 각 프로젝트 article 은 새 페이지에서 시작
  * ─────────────────────────────────────────────────────────── */
 html.print-mode article .grid.lg\:grid-cols-12 {
   display: block !important;
@@ -150,50 +214,42 @@ html.print-mode article aside.lg\:col-span-4 {
   width: 100% !important;
   margin-bottom: 24px !important;
   padding-bottom: 20px !important;
-  border-bottom: 1px solid rgba(17,17,17,0.1) !important;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1) !important;
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
 
-/* 프로젝트 커버 이미지 — PDF 에서 compact (260px 내외)로 제한
-   → 표지+제목+Overview 도입부가 한 페이지에 같이 들어가기 쉬움 */
-html.print-mode section[id^="project-"] img,
-html.print-mode [data-print-keep] img {
-  max-height: 260px !important;
+/* 각 프로젝트 article 은 새 페이지에서 시작. (예외 없음 — RxCompose 포함) */
+html.print-mode article {
+  break-before: page !important;
+  page-break-before: always !important;
+}
+
+/* 프로젝트 표지 이미지(image + overlay) 는 제목/본문과 함께 렌더되도록 한 덩어리로 유지.
+   이미지 높이는 원본 비율 유지하되 한 페이지에 본문 일부가 같이 흐르도록 상한을 둔다. */
+html.print-mode article > section:first-child {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+html.print-mode article > section:first-child img {
+  max-height: 280px !important;
   height: auto !important;
   width: auto !important;
   object-fit: contain !important;
 }
-
-/* 이미지 컨테이너(ProjectCover의 group) 높이도 제한해 min-h-[420px] 등의 바이트를
-   덮어써서 표지 전체 높이 축소 */
-html.print-mode section[id^="project-"] .group,
-html.print-mode article > section:first-child .group {
-  min-height: 0 !important;
-  max-height: 300px !important;
+/* 표지 컨테이너도 과도하게 높지 않도록 */
+html.print-mode article > section:first-child .group,
+html.print-mode article > section:first-child > div {
+  max-height: 320px !important;
 }
 
-/* 리스트/Figure/카드 항목 쪼개짐 방지 */
-html.print-mode ol > li,
-html.print-mode ul > li,
-html.print-mode dl > div,
-html.print-mode figure { break-inside: avoid !important; page-break-inside: avoid !important; }
-
-html.print-mode div[class*="rounded-\\[10px\\]"][class*="border-border"],
-html.print-mode div[class*="rounded-xl"][class*="border-border"],
-html.print-mode div[class*="rounded-2xl"][class*="border-border"] {
-  break-inside: avoid !important;
-  page-break-inside: avoid !important;
+/* 표지 이미지 오버레이 텍스트는 PDF 에서 좀 더 진한 배경 필요
+   (puppeteer scale 로 인해 엷게 보일 수 있음) */
+html.print-mode article > section:first-child .absolute[style*="linear-gradient"] {
+  background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.75) 100%) !important;
 }
 
-/* Project subsection / SectionGroup 는 가능한 한 유지 */
-html.print-mode article section { break-inside: avoid-page; page-break-inside: avoid; }
-
-/* 새 프로젝트가 본문 중간에 어색하게 이어지지 않도록 — 각 프로젝트 최상위 article 직전에
-   page break 를 주되, 커버 + 본문이 같이 페이지에 흐르도록 커버를 작게 유지.
-   article 내부에서는 break-before 를 걸지 않는다. */
-html.print-mode article { break-before: page !important; page-break-before: always !important; }
-
-/* 첫 번째 article(RxCompose, 보통 본문 시작)은 그래도 직전 Experience 와 자연스럽게
-   연결될 수 있도록 break-before auto. 원하면 여기서 조정. */
-html.print-mode #projects > article:first-child { break-before: auto !important; page-break-before: auto !important; }
+/* 상단 progress bar 숨김 — html.print-mode 기본 data-print-hide 적용되지만 보험 */
+html.print-mode .fixed.top-0 { display: none !important; }

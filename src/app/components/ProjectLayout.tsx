@@ -89,20 +89,18 @@ export function ProjectCover({
           alt={imageAlt ?? title}
           className="block w-full h-auto max-h-[85vh] object-contain"
         />
-        {/* Readable gradient overlay (print-hide keeps PDF legible without dark cast) */}
+        {/* Readable gradient overlay — kept in PDF too to match web design */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
               "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.65) 100%)",
           }}
-          data-print-hide
         />
 
-        {/* Overlay metadata (bottom) — web only, hidden on print */}
+        {/* Overlay metadata (bottom) */}
         <div
           className="absolute inset-x-0 bottom-0 text-white pointer-events-none"
-          data-print-hide
         >
           <div
             className={cn(
@@ -140,43 +138,6 @@ export function ProjectCover({
         </div>
       </div>
 
-      {/* Print-only text header (replaces dark overlay in PDF for legibility) */}
-      <div
-        className="hidden print:block"
-        style={{ pageBreakInside: "avoid" }}
-      >
-        <div
-          className={cn(
-            "mx-auto w-full",
-            "max-w-[clamp(320px,100%,1280px)]",
-            "px-[clamp(24px,5vw,96px)]"
-          )}
-        >
-          <div className="py-6 flex flex-wrap items-end justify-between gap-6 border-b border-border">
-            <div className="flex items-baseline gap-4">
-              <span className="text-sm font-medium tracking-widest text-muted-foreground tabular-nums">
-                {number}
-              </span>
-              <div className="flex flex-col gap-1">
-                <span className="text-[11px] font-medium tracking-widest uppercase text-muted-foreground">
-                  {kindLabel}
-                </span>
-                <h3 className="text-xl font-medium tracking-tight text-foreground">
-                  {title}
-                </h3>
-                {subtitle && (
-                  <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
-                )}
-              </div>
-            </div>
-            {meta && (
-              <div className="text-xs tracking-widest uppercase text-muted-foreground tabular-nums text-right">
-                {meta}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
