@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { Github, Mail, ChevronDown } from "lucide-react";
+import { Github, Mail, ChevronDown, Download } from "lucide-react";
 import { Badge, IconButton, ParallaxBlobLayer, ParallaxAccentLayer } from "./design-system";
 
 export function HeroSection() {
@@ -105,6 +105,16 @@ export function HeroSection() {
           >
             <IconButton href="https://github.com/ShapeKim98" variant="primary" size="md" icon={<Github size={16} />} target="_blank" rel="noopener noreferrer">GitHub</IconButton>
             <IconButton href="mailto:shapekim98@gmail.com" variant="secondary" size="md" icon={<Mail size={16} />}>Contact</IconButton>
+            <IconButton
+              href={`${import.meta.env.BASE_URL}portfolio.pdf`}
+              variant="secondary"
+              size="md"
+              icon={<Download size={16} />}
+              download=""
+              data-print-hide
+            >
+              PDF
+            </IconButton>
           </motion.div>
         </motion.div>
       </motion.div>
