@@ -38,7 +38,7 @@ export function ProjectHeader({
   hideScreenshot,
 }: ProjectHeaderProps) {
   return (
-    <div className="mb-16">
+    <div className="mb-16" data-print-keep>
       <FadeInView speed={1.3}>
         <div className="flex items-center gap-3 mb-4">
           <span className="text-8xl md:text-[64px] font-black text-primary/10 leading-none">

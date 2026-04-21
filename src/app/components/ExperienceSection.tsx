@@ -140,7 +140,7 @@ const INITIAL_VISIBLE_COUNT = 4;
 
 function WorkItemCard({ item }: { item: WorkItem }) {
   return (
-    <div className="py-8">
+    <div className="py-8" data-print-keep>
       {/* Title + Period */}
       <h4 className="text-xl font-bold tracking-tight text-foreground mb-2">
         {item.title}
@@ -309,7 +309,7 @@ export function ExperienceSection() {
         {/* Toggle Button */}
         {WORK_ITEMS.length > INITIAL_VISIBLE_COUNT && (
           <FadeInView>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8" data-print-hide>
               <motion.button
                 onClick={() => (expanded ? handleCollapse() : setExpanded(true))}
                 whileHover={{ scale: 1.03 }}

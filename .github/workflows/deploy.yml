@@ -30,8 +30,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Build + PDF
+        # @sparticuz/chromium 이 자체 포함 Chromium 바이너리를 제공하므로
+        # apt 의존성 설치가 필요 없다.
+        run: npm run build:pdf
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
