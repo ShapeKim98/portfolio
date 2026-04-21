@@ -2,7 +2,9 @@
    ?print=1 URL 진입 시 main.tsx 가 html.print-mode 클래스를 부착한다.
    Puppeteer(scripts/export-pdf.mjs)가 이 URL 을 렌더링해 PDF 로 저장한다. */
 
-@page { size: auto; margin: 0; }
+/* 인쇄 페이지 상하단 여백 확보 — Puppeteer page.pdf({margin}) 또는 브라우저
+   인쇄 대화상자 값이 이 규칙을 덮어쓸 수 있다. */
+@page { size: auto; margin: 12mm 10mm; }
 
 /* 공통: 브라우저 인쇄 & print-mode 에서 시차 스크롤/애니메이션 해제 */
 @media print {
@@ -23,6 +25,12 @@
 
   /* 인쇄 시 숨김 플래그 */
   [data-print-hide] { display: none !important; }
+
+  /* 프로젝트 인트로 디바이더(수평선 확장 애니메이션 블록) 제거 — 본문에
+     이미 프로젝트 번호+타이틀이 있으므로 인쇄용에서는 중복이자 공백 원인 */
+  #project-01, #project-02, #project-03, #project-04 {
+    display: none !important;
+  }
 
   /* 제목이 본문과 분리되지 않게 */
   h1, h2, h3, h4, h5, h6 {
@@ -66,3 +74,7 @@ html.print-mode [class*="h-screen"] { height: auto !important; }
 html.print-mode section.relative.h-\[150vh\],
 html.print-mode div.relative.h-\[150vh\] { height: auto !important; min-height: 0 !important; }
 html.print-mode [data-print-hide] { display: none !important; }
+html.print-mode #project-01,
+html.print-mode #project-02,
+html.print-mode #project-03,
+html.print-mode #project-04 { display: none !important; }

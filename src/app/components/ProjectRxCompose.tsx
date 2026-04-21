@@ -40,22 +40,25 @@ const FEATURES = [
 export function ProjectRxCompose() {
   return (
     <div>
-      <ProjectHeader
-        index="01"
-        type="library"
-        title="RxCompose"
-        subtitle="RxSwift 기반 단방향 아키텍처 라이브러리 (iOS 13+, RxSwift 6.9+)"
-        period="2025.02.17 ~ 2025.03.30"
-        team="iOS 1명"
-        role="iOS 개발"
-        description="ReactorKit은 Effect 개념이 없기 때문에 상태 변화에 따른 후속 작업을 정의하기 어렵다는 문제점이 있습니다. 이러한 문제점을 해결하기 위해, TCA의 단방향 아키텍처 매커니즘을 RxSwift 환경에 맞춰 구현했습니다. 실제 ShowPot이라는 프로젝트에 활용하여 적용 가능성 테스트 및 개선사항을 점검했습니다."
-        techStack={["Swift Package Manager", "CocoaPods"]}
-        githubUrl="https://github.com/ShapeKim98/RxCompose"
-        screenshotLabel="RxCompose 아키텍처 다이어그램 스크린샷"
-        hideScreenshot
-      />
+      {/* 인쇄 시 프로젝트 헤더와 아키텍처 다이어그램이 같은 페이지에 유지되도록 묶는다. */}
+      <div data-print-keep>
+        <ProjectHeader
+          index="01"
+          type="library"
+          title="RxCompose"
+          subtitle="RxSwift 기반 단방향 아키텍처 라이브러리 (iOS 13+, RxSwift 6.9+)"
+          period="2025.02.17 ~ 2025.03.30"
+          team="iOS 1명"
+          role="iOS 개발"
+          description="ReactorKit은 Effect 개념이 없기 때문에 상태 변화에 따른 후속 작업을 정의하기 어렵다는 문제점이 있습니다. 이러한 문제점을 해결하기 위해, TCA의 단방향 아키텍처 매커니즘을 RxSwift 환경에 맞춰 구현했습니다. 실제 ShowPot이라는 프로젝트에 활용하여 적용 가능성 테스트 및 개선사항을 점검했습니다."
+          techStack={["Swift Package Manager", "CocoaPods"]}
+          githubUrl="https://github.com/ShapeKim98/RxCompose"
+          screenshotLabel="RxCompose 아키텍처 다이어그램 스크린샷"
+          hideScreenshot
+        />
 
-      <RxComposeArchitectureDiagram />
+        <RxComposeArchitectureDiagram />
+      </div>
 
       <FadeInView>
         <div className="mb-8">
