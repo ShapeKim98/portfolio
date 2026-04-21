@@ -8,6 +8,7 @@ import { ProjectRxCompose } from "./components/ProjectRxCompose";
 import { ProjectFiltee } from "./components/ProjectFiltee";
 import { ProjectPokit } from "./components/ProjectPokit";
 import { ProjectInterest } from "./components/ProjectInterest";
+import { ProjectShowPot } from "./components/ProjectShowPot";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { FooterSection } from "./components/FooterSection";
 import { ScrollSection } from "./components/ParallaxSection";
@@ -48,17 +49,18 @@ function ProjectDivider({
   return (
     <div id={id} ref={containerRef} className="relative h-[150vh]">
       <div className="sticky top-0 h-screen flex items-center">
-        <div className="max-w-5xl mx-auto w-full px-6">
+        <div className="max-w-6xl mx-auto w-full px-6">
           <div className="flex items-end gap-4 mb-6">
             <motion.span
               style={{ opacity: numberOpacity, y: numberY }}
-              className="text-[64px] md:text-[120px] font-black text-primary/10 leading-none"
+              className="text-[64px] md:text-[120px] font-black text-primary/10 leading-none tabular-nums"
+              aria-hidden="true"
             >
               {number}
             </motion.span>
             <motion.h3
               style={{ opacity: titleOpacity, y: titleY }}
-              className="text-[28px] md:text-[40px] font-extrabold tracking-tighter text-foreground pb-3"
+              className="text-[28px] md:text-[40px] font-black tracking-tightest text-foreground pb-3 text-balance"
             >
               {title}
             </motion.h3>
@@ -99,12 +101,13 @@ function ProjectSection({
       <motion.div
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
       >
         <div className="absolute top-[15%] -right-[80px] w-[300px] h-[300px] rounded-full bg-primary/3 blur-3xl" />
         <div className="absolute bottom-[20%] -left-[60px] w-[250px] h-[250px] rounded-full bg-primary/2 blur-3xl" />
       </motion.div>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto">
         <ScrollSection>
           {children}
         </ScrollSection>
@@ -122,6 +125,7 @@ function ScrollProgress() {
     <motion.div
       style={{ scaleX, transformOrigin: "left" }}
       className="fixed top-0 left-0 right-0 h-[2px] bg-primary z-[60]"
+      aria-hidden="true"
     />
   );
 }
@@ -158,6 +162,11 @@ export default function App() {
         <ProjectDivider id="project-04" number="04" title="인터레스트" />
         <ProjectSection>
           <ProjectInterest />
+        </ProjectSection>
+
+        <ProjectDivider id="project-05" number="05" title="ShowPot" />
+        <ProjectSection bg>
+          <ProjectShowPot />
         </ProjectSection>
       </div>
 

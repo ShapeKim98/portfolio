@@ -41,14 +41,14 @@ export function ProjectHeader({
     <div className="mb-16" data-print-keep>
       <FadeInView speed={1.3}>
         <div className="flex items-center gap-3 mb-4">
-          <span className="text-8xl md:text-[64px] font-black text-primary/10 leading-none">
+          <span className="text-8xl md:text-[64px] font-black text-primary/10 leading-none tabular-nums" aria-hidden="true">
             {index}
           </span>
           <div>
-            <span className="text-xs font-medium text-primary tracking-widest uppercase">
+            <span className="text-xs font-medium text-primary tracking-wide uppercase">
               {type === "library" ? "Open Source Library" : "Project"}
             </span>
-            <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-foreground leading-tight">
+            <h3 className="text-5xl md:text-7xl font-black tracking-tightest text-foreground leading-[0.9] text-balance">
               {title}
             </h3>
           </div>
@@ -56,23 +56,23 @@ export function ProjectHeader({
       </FadeInView>
 
       <FadeInView delay={0.1} speed={1.4}>
-        <p className="text-xl font-medium text-foreground mb-2">{subtitle}</p>
+        <p className="text-xl font-medium text-foreground mb-2 text-balance">{subtitle}</p>
         <div className="flex flex-wrap items-center gap-4 text-sm-md font-normal text-muted-foreground mb-6">
-          <span>{period}</span>
+          <span className="tabular-nums">{period}</span>
           <DotSeparator />
           <span>{team}</span>
           <DotSeparator />
           <span>담당: {role}</span>
         </div>
 
-        <p className="text-md font-normal text-muted-foreground leading-loose max-w-3xl mb-6">
+        <p className="text-md font-normal text-muted-foreground leading-loose max-w-2xl mb-6 text-pretty">
           {description}
         </p>
 
         <div className="flex flex-wrap items-center gap-3 mb-8">
-          <IconButton href={githubUrl} variant="primary" size="sm" icon={<Github size={14} />} target="_blank" rel="noopener noreferrer">Repository</IconButton>
+          <IconButton href={githubUrl} variant="primary" size="sm" icon={<Github size={14} aria-hidden="true" />} target="_blank" rel="noopener noreferrer" aria-label={`${title} GitHub 저장소 (새 탭)`}>Repository</IconButton>
           {appStoreUrl && (
-            <IconButton href={appStoreUrl} variant="secondary" size="sm" icon={<ExternalLink size={14} />} target="_blank" rel="noopener noreferrer">App Store</IconButton>
+            <IconButton href={appStoreUrl} variant="secondary" size="sm" icon={<ExternalLink size={14} aria-hidden="true" />} target="_blank" rel="noopener noreferrer" aria-label={`${title} App Store (새 탭)`}>App Store</IconButton>
           )}
         </div>
 

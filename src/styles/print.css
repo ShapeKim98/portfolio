@@ -38,7 +38,7 @@
 
   /* 프로젝트 인트로 디바이더(수평선 확장 애니메이션 블록) 제거 — 본문에
      이미 프로젝트 번호+타이틀이 있으므로 인쇄용에서는 중복이자 공백 원인 */
-  #project-01, #project-02, #project-03, #project-04 {
+  #project-01, #project-02, #project-03, #project-04, #project-05 {
     display: none !important;
   }
 
@@ -87,7 +87,8 @@ html.print-mode [data-print-hide] { display: none !important; }
 html.print-mode #project-01,
 html.print-mode #project-02,
 html.print-mode #project-03,
-html.print-mode #project-04 { display: none !important; }
+html.print-mode #project-04,
+html.print-mode #project-05 { display: none !important; }
 
 /* print-mode: 테마 배경/장식 레이어 제거 (브라우저 ?print=1 미리보기용) */
 html.print-mode { background: transparent !important; }
