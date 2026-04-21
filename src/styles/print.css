@@ -225,24 +225,42 @@ html.print-mode article {
   page-break-before: always !important;
 }
 
-/* 프로젝트 표지 이미지(image + overlay) 는 제목/본문과 함께 렌더되도록 한 덩어리로 유지.
-   이미지 높이는 원본 비율 유지하되 한 페이지에 본문 일부가 같이 흐르도록 상한을 둔다. */
-html.print-mode article > section:first-child {
-  break-inside: avoid !important;
-  page-break-inside: avoid !important;
+/* 프로젝트 내부 대제목(SectionGroup title — "프로젝트 설계" 등) 앞에서 새 페이지로.
+   + 직접 사용된 SubSectionTitle size="xl" (h4.text-xl) 앞에서도 새 페이지로.
+   공간이 충분해도 강제 페이지 분리로 섹션 경계를 시각적으로 명확히 한다. */
+html.print-mode article [data-print-section-break],
+html.print-mode article h4.text-xl {
+  break-before: page !important;
+  page-break-before: always !important;
+}
+
+/* 대제목 자체는 본문과 같이 유지 */
+html.print-mode [data-print-section-break] {
+  break-inside: auto;
+}
+html.print-mode [data-print-section-break] > :first-child {
   break-after: avoid !important;
   page-break-after: avoid !important;
 }
-html.print-mode article > section:first-child img {
-  max-height: 280px !important;
-  height: auto !important;
-  width: auto !important;
-  object-fit: contain !important;
+
+/* Experience 섹션: intro (EXPERIENCE / 미스고(주) / role) 와 WORK 리스트가
+   가능하면 같은 페이지에 이어지도록 — WORK grid 앞에 break 발생을 피함 */
+html.print-mode section[id="experience"] .grid.grid-cols-1.md\:grid-cols-8.lg\:grid-cols-12:nth-of-type(2) {
+  break-before: avoid !important;
+  page-break-before: avoid !important;
 }
-/* 표지 컨테이너도 과도하게 높지 않도록 */
-html.print-mode article > section:first-child .group,
-html.print-mode article > section:first-child > div {
-  max-height: 320px !important;
+
+/* 프로젝트 표지(image + overlay) 는 한 덩어리로 유지 */
+html.print-mode article > section:first-child {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+/* 표지 이미지는 웹과 같이 full-width + 자연 비율 유지 */
+html.print-mode article > section:first-child img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 520px !important;
+  object-fit: cover !important;
 }
 
 /* 표지 이미지 오버레이 텍스트는 PDF 에서 좀 더 진한 배경 필요

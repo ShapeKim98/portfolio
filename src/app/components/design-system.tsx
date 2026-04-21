@@ -584,7 +584,7 @@ export function SectionGroup({
   children: React.ReactNode;
 }) {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10" data-print-section-break>
       <FadeInView>
         <SubSectionTitle size="xl">{title}</SubSectionTitle>
       </FadeInView>
