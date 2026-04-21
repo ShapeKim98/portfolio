@@ -12,6 +12,7 @@ export function LayerDiagram({
 }) {
   return (
     <FadeInView>
+      <div data-print-keep>
       <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-6">{title}</h4>
       <div className="space-y-3">
         {layers.map((layer, i) => (
@@ -34,6 +35,7 @@ export function LayerDiagram({
             </div>
           </div>
         ))}
+      </div>
       </div>
     </FadeInView>
   );
@@ -385,7 +387,7 @@ export function SyncFlowDiagram({
       </div>
 
       {/* 흐름 다이어그램 (좌) + 앱 스크린샷 (우) */}
-      <div className="grid md:grid-cols-2 gap-8 items-start">
+      <div className="grid md:grid-cols-2 gap-8 items-start" data-print-keep>
         {/* 왼쪽: 흐름 다이어그램 */}
         <div className="flex flex-col items-center gap-1.5">
           {steps.map((step, i) => (
@@ -439,6 +441,7 @@ export function DBSchemaWithERD({
 }) {
   return (
     <FadeInView>
+      <div data-print-keep>
       <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-6">{title}</h4>
 
       {/* 테이블 스키마 */}
@@ -545,6 +548,7 @@ export function DBSchemaWithERD({
           </div>
         </div>
       </div>
+      </div>
     </FadeInView>
   );
 }
@@ -553,6 +557,7 @@ export function DBSchemaWithERD({
 export function RxComposeArchitectureDiagram() {
   return (
     <FadeInView>
+      <div data-print-keep>
       <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-5">
         RxCompose 단방향 데이터 흐름 구조도
       </h4>
@@ -727,6 +732,7 @@ export function RxComposeArchitectureDiagram() {
             <text x="530" y="96" textAnchor="middle" fontSize="6" fill="#94a3b8">present()로 화면 전환에 활용</text>
 
           </svg>
+      </div>
       </div>
     </FadeInView>
   );

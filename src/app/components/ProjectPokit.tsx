@@ -227,7 +227,7 @@ export function ProjectPokit() {
               {/* OG 태그 파싱 성공 */}
               <div className="w-full max-w-[335px]">
                 <Eyebrow className="mb-1.5">OG 태그 파싱 성공</Eyebrow>
-                <div className="border-t border-b border-border overflow-hidden">
+                <div className="rounded-[10px] border border-border bg-card overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb1} alt="" className="w-[124px] h-[108px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
@@ -244,7 +244,7 @@ export function ProjectPokit() {
               {/* OG 태그 미지원 — 기본 썸네일 대체 */}
               <div className="w-full max-w-[335px]">
                 <Eyebrow className="mb-1.5">OG 태그 미지원 — 기본 썸네일 대체</Eyebrow>
-                <div className="border-t border-b border-border overflow-hidden">
+                <div className="rounded-[10px] border border-border bg-card overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb2} alt="" className="w-[124px] h-[94px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">

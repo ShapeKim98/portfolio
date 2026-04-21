@@ -108,41 +108,74 @@ export function ProjectInterest() {
                   운동 중 실시간으로 심박수와 칼로리를 아이폰에 전달하고, 아이폰의 운동 제어 명령을 애플워치로 전송하는 양방향 통신 구조가 필요했습니다. WCSession을 통한 1초 주기 동기화로 두 기기 간 일관된 운동 상태를 유지했습니다.
                 </p>
 
-                {/* 통신 구조 다이어그램 — 원본 컬러 */}
-                <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-6">
-                  <div className="w-40 h-40 rounded-2xl border-2 border-blue-500/40 bg-blue-500/5 flex flex-col items-center justify-center p-3">
-                    <span className="text-base font-bold text-blue-500 mb-2">Apple Watch</span>
-                    <div className="space-y-1 text-center">
-                      <span className="block text-xs font-normal text-muted-foreground">HealthKit</span>
-                      <span className="block text-xs font-normal text-muted-foreground">WatchKit</span>
-                      <span className="block text-xs font-normal text-muted-foreground">HKWorkoutSession</span>
+                {/* 통신 구조 다이어그램 — 양방향 흐름 강조. 모바일/데스크톱 모두 좌우 배치 유지. */}
+                <div className="mb-6">
+                  <div className="flex flex-row items-stretch justify-center gap-2 md:gap-0">
+                    {/* Apple Watch */}
+                    <div className="w-[100px] h-[100px] md:w-40 md:h-40 rounded-2xl border-2 border-blue-500/40 bg-blue-500/5 flex flex-col items-center justify-center p-2 md:p-3 shrink-0">
+                      <span className="text-xs md:text-base font-bold text-blue-500 mb-1 md:mb-2">Apple Watch</span>
+                      <div className="space-y-0.5 md:space-y-1 text-center">
+                        <span className="block text-[9px] md:text-xs font-normal text-muted-foreground">HealthKit</span>
+                        <span className="block text-[9px] md:text-xs font-normal text-muted-foreground">WatchKit</span>
+                        <span className="block text-[9px] md:text-xs font-normal text-muted-foreground">HKWorkoutSession</span>
+                      </div>
+                    </div>
+
+                    {/* 중간 양방향 화살표 영역 — 수평 */}
+                    <div className="flex flex-col justify-center px-2 md:px-4 flex-1 md:max-w-[320px] gap-3">
+                      {/* Watch → iPhone: 심박수, 칼로리 */}
+                      <div className="flex flex-col items-center gap-0.5">
+                        <span className="text-[10px] md:text-[11px] font-medium text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                          심박수, 칼로리
+                        </span>
+                        <div className="flex items-center w-full gap-1">
+                          <div className="flex-1 h-0.5 bg-blue-500/40" />
+                          <svg
+                            width="14"
+                            height="10"
+                            viewBox="0 0 14 10"
+                            className="text-blue-500 shrink-0"
+                          >
+                            <path d="M0 5h10M7 1l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                          </svg>
+                        </div>
+                      </div>
+
+                      {/* iPhone → Watch: 운동 제어 명령 */}
+                      <div className="flex flex-col items-center gap-0.5">
+                        <span className="text-[10px] md:text-[11px] font-medium text-green-600 dark:text-green-400 whitespace-nowrap">
+                          운동 제어 명령
+                        </span>
+                        <div className="flex items-center w-full gap-1">
+                          <svg
+                            width="14"
+                            height="10"
+                            viewBox="0 0 14 10"
+                            className="text-green-600 dark:text-green-400 shrink-0 rotate-180"
+                          >
+                            <path d="M0 5h10M7 1l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                          </svg>
+                          <div className="flex-1 h-0.5 bg-green-500/40" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* iPhone */}
+                    <div className="w-[100px] h-[100px] md:w-40 md:h-40 rounded-2xl border-2 border-green-500/40 bg-green-500/5 flex flex-col items-center justify-center p-2 md:p-3 shrink-0">
+                      <span className="text-xs md:text-base font-bold text-green-600 dark:text-green-400 mb-1 md:mb-2">iPhone</span>
+                      <div className="space-y-0.5 md:space-y-1 text-center">
+                        <span className="block text-[9px] md:text-xs font-normal text-muted-foreground">SwiftUI</span>
+                        <span className="block text-[9px] md:text-xs font-normal text-muted-foreground">SwiftData</span>
+                        <span className="block text-[9px] md:text-xs font-normal text-muted-foreground">Combine Timer</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <span className="text-[11px] font-medium text-muted-foreground">WCSession</span>
-                    <div className="flex items-center gap-1">
-                      <div className="w-16 md:w-24 h-0.5 bg-primary/30" />
-                      <svg width="12" height="8" viewBox="0 0 12 8" className="text-primary">
-                        <path d="M0 4h8M6 1l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                      </svg>
-                    </div>
-                    <span className="text-[10px] font-normal text-muted-foreground">심박수, 칼로리</span>
-                    <div className="flex items-center gap-1">
-                      <svg width="12" height="8" viewBox="0 0 12 8" className="text-primary rotate-180">
-                        <path d="M0 4h8M6 1l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                      </svg>
-                      <div className="w-16 md:w-24 h-0.5 bg-primary/30" />
-                    </div>
-                    <span className="text-[10px] font-normal text-muted-foreground">운동 상태 제어</span>
-                    <span className="text-[11px] font-medium text-primary mt-1">1초 주기 동기화</span>
-                  </div>
-                  <div className="w-40 h-40 rounded-2xl border-2 border-green-500/40 bg-green-500/5 flex flex-col items-center justify-center p-3">
-                    <span className="text-base font-bold text-green-600 dark:text-green-400 mb-2">iPhone</span>
-                    <div className="space-y-1 text-center">
-                      <span className="block text-xs font-normal text-muted-foreground">SwiftUI</span>
-                      <span className="block text-xs font-normal text-muted-foreground">SwiftData</span>
-                      <span className="block text-xs font-normal text-muted-foreground">Combine Timer</span>
-                    </div>
+
+                  {/* 채널 캡션 — WCSession · 1초 주기 동기화 */}
+                  <div className="mt-4 flex items-center justify-center gap-2 text-[11px]">
+                    <span className="font-medium text-muted-foreground">WCSession</span>
+                    <span className="text-muted-foreground/50">·</span>
+                    <span className="font-medium text-primary">1초 주기 동기화</span>
                   </div>
                 </div>
 
