@@ -1,12 +1,41 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, type MotionValue } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useReducedMotion,
+  type MotionValue,
+} from "motion/react";
+
+/**
+ * Editorial 모션 프리셋 훅 — Design Spec v2
+ * - prefers-reduced-motion 시 거리·시간 축소
+ * - 스프링/ease 통일
+ */
+export function useEditorialMotion() {
+  const shouldReduce = useReducedMotion() ?? false;
+  const easeEditorial: [number, number, number, number] = [0.23, 1, 0.32, 1];
+  return {
+    shouldReduce,
+    fadeInTransition: shouldReduce
+      ? { duration: 0.2, ease: "linear" as const }
+      : { duration: 0.45, ease: easeEditorial },
+    fadeDistance: shouldReduce ? 0 : 24,
+    scrollSpring: { stiffness: 140, damping: 28, restDelta: 0.001 } as const,
+    parallaxSpring: { stiffness: 80, damping: 22, restDelta: 0.001 } as const,
+    easeEditorial,
+  };
+}
 
 /**
  * 스프링 기반 스무스 패럴렉스 훅
  */
 function useParallax(scrollYProgress: MotionValue<number>, distance: number) {
-  const y = useTransform(scrollYProgress, [0, 1], [-distance, distance]);
-  return useSpring(y, { stiffness: 120, damping: 30, restDelta: 0.001 });
+  const shouldReduce = useReducedMotion() ?? false;
+  const effective = shouldReduce ? 0 : distance;
+  const y = useTransform(scrollYProgress, [0, 1], [-effective, effective]);
+  return useSpring(y, { stiffness: 140, damping: 28, restDelta: 0.001 });
 }
 
 interface ParallaxSectionProps {
@@ -55,13 +84,15 @@ export function ScrollSection({
   speed?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduce = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 95%", "start 15%"],
   });
 
-  const rawY = useTransform(scrollYProgress, [0, 1], [40 * speed, 0]);
-  const y = useSpring(rawY, { stiffness: 120, damping: 28, restDelta: 0.001 });
+  const distance = shouldReduce ? 0 : 24 * speed;
+  const rawY = useTransform(scrollYProgress, [0, 1], [distance, 0]);
+  const y = useSpring(rawY, { stiffness: 140, damping: 28, restDelta: 0.001 });
   const opacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
 
   return (
@@ -72,7 +103,10 @@ export function ScrollSection({
 }
 
 /**
- * FadeInView: 스프링 기반 진입 애니메이션 (부드러운 강도)
+ * FadeInView: 스프링 기반 진입 애니메이션 (Editorial 튜닝)
+ * - y 거리 24px (축소)
+ * - stiffness 140 / damping 28
+ * - prefers-reduced-motion 대응
  */
 export function FadeInView({
   children,
@@ -88,26 +122,32 @@ export function FadeInView({
   speed?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduce = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 98%", "start 20%"],
   });
 
   const startPoint = Math.min(delay * 0.15, 0.3);
+  const distance = shouldReduce ? 0 : 24 * speed;
 
   const rawY = useTransform(
     scrollYProgress,
     [startPoint, 0.7 + startPoint * 0.3],
-    [50 * speed, 0]
+    [distance, 0]
   );
   const rawX = useTransform(
     scrollYProgress,
     [startPoint, 0.7 + startPoint * 0.3],
-    direction === "left" ? [-40, 0] : direction === "right" ? [40, 0] : [0, 0]
+    direction === "left"
+      ? [shouldReduce ? 0 : -distance, 0]
+      : direction === "right"
+        ? [shouldReduce ? 0 : distance, 0]
+        : [0, 0]
   );
 
-  const y = useSpring(rawY, { stiffness: 100, damping: 25, restDelta: 0.001 });
-  const x = useSpring(rawX, { stiffness: 100, damping: 25, restDelta: 0.001 });
+  const y = useSpring(rawY, { stiffness: 140, damping: 28, restDelta: 0.001 });
+  const x = useSpring(rawX, { stiffness: 140, damping: 28, restDelta: 0.001 });
   const opacity = useTransform(
     scrollYProgress,
     [startPoint, 0.35 + startPoint * 0.3],
@@ -130,7 +170,7 @@ export function FadeInView({
 }
 
 /**
- * DeepParallax: 지속적 패럴렉스 (부드러운 강도)
+ * DeepParallax: 지속적 패럴렉스 (배경 레이어 — 의도적으로 느린 스프링)
  */
 export function DeepParallax({
   children,
@@ -144,12 +184,16 @@ export function DeepParallax({
   fade?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduce = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  const y = useParallax(scrollYProgress, 70 * speed);
+  const distance = shouldReduce ? 0 : 70 * speed;
+  const rawY = useTransform(scrollYProgress, [0, 1], [-distance, distance]);
+  // 배경 레이어는 의도적으로 느린 스프링 (Editorial 깊이감)
+  const y = useSpring(rawY, { stiffness: 80, damping: 22, restDelta: 0.001 });
   const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
 
   return (
