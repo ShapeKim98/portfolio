@@ -2,27 +2,29 @@
 
 :root {
   --font-size: 16px;
-  --background: #fafafa;
-  --foreground: #1a1a2e;
-  --card: #ffffff;
-  --card-foreground: #1a1a2e;
-  --popover: #ffffff;
-  --popover-foreground: #1a1a2e;
-  --primary: #2563eb;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #1a1a2e;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #e0e7ff;
-  --accent-foreground: #1e40af;
+  /* ===== Editorial palette — Vermilion × Cream × Espresso (Light) ===== */
+  --background: #FAF8F4;
+  --foreground: #1C1510;
+  --card: #FFFFFE;
+  --card-foreground: #1C1510;
+  --popover: #FFFFFE;
+  --popover-foreground: #1C1510;
+  --primary: #C0392B;
+  --primary-foreground: #FAF8F4;
+  --secondary: #EDE6D6;
+  --secondary-foreground: #1C1510;
+  --muted: #EDE6D6;
+  --muted-foreground: #6B5D4F;
+  --accent: #F0E4D0;
+  --accent-foreground: #1C1510;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.08);
+  --border: #DDD5C5;
+  --border-hairline: rgba(28, 21, 16, 0.08);
   --input: transparent;
-  --input-background: #f3f3f5;
-  --switch-background: #cbced4;
-  --ring: oklch(0.708 0 0);
+  --input-background: #F0E4D0;
+  --switch-background: #DDD5C5;
+  --ring: #C0392B;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -37,28 +39,32 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* ===== Motion easing ===== */
+  --ease-editorial: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .dark {
-  --background: #0f0f1a;
-  --foreground: #e2e8f0;
-  --card: #1a1a2e;
-  --card-foreground: #e2e8f0;
-  --popover: #1a1a2e;
-  --popover-foreground: #e2e8f0;
-  --primary: #60a5fa;
-  --primary-foreground: #0f0f1a;
-  --secondary: #1e293b;
-  --secondary-foreground: #e2e8f0;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e3a5f;
-  --accent-foreground: #93c5fd;
+  --background: #111009;
+  --foreground: #EDE8E0;
+  --card: #1A1712;
+  --card-foreground: #EDE8E0;
+  --popover: #1A1712;
+  --popover-foreground: #EDE8E0;
+  --primary: #E74C3C;
+  --primary-foreground: #111009;
+  --secondary: #201D18;
+  --secondary-foreground: #EDE8E0;
+  --muted: #201D18;
+  --muted-foreground: #A89B8A;
+  --accent: #2A2218;
+  --accent-foreground: #EDE8E0;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: #1e293b;
-  --ring: oklch(0.439 0 0);
+  --border: #2A2620;
+  --border-hairline: rgba(237, 232, 224, 0.1);
+  --input: #201D18;
+  --ring: #E74C3C;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -93,6 +99,7 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
+  --color-border-hairline: var(--border-hairline);
   --color-input: var(--input);
   --color-input-background: var(--input-background);
   --color-switch-background: var(--switch-background);
@@ -117,26 +124,26 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* ===== Typography - Font Size ===== */
-  --text-4xs: 7px;
-  --text-3xs: 8px;
-  --text-2xs: 9px;
-  --text-xxs: 10px;
-  --text-xs: 11px;
-  --text-sm: 12px;
-  --text-sm-md: 13px;
-  --text-base: 14px;
-  --text-md: 15px;
-  --text-lg: 16px;
-  --text-xl: 17px;
-  --text-2xl: 18px;
-  --text-3xl: 20px;
-  --text-4xl: 22px;
-  --text-5xl: 28px;
-  --text-6xl: 32px;
-  --text-7xl: 36px;
-  --text-8xl: 48px;
-  --text-9xl: 72px;
+  /* ===== Typography - Font Size (rem 전환) ===== */
+  --text-4xs: 0.4375rem;   /* 7px */
+  --text-3xs: 0.5rem;      /* 8px */
+  --text-2xs: 0.5625rem;   /* 9px */
+  --text-xxs: 0.625rem;    /* 10px */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.8125rem;    /* 13px */
+  --text-sm-md: 0.8125rem; /* 13px */
+  --text-base: 0.875rem;   /* 14px */
+  --text-md: 0.9375rem;    /* 15px */
+  --text-lg: 0.9375rem;    /* 15px */
+  --text-xl: 1rem;         /* 16px */
+  --text-2xl: 1.125rem;    /* 18px */
+  --text-3xl: 1.25rem;     /* 20px */
+  --text-4xl: 1.5rem;      /* 24px */
+  --text-5xl: 1.875rem;    /* 30px */
+  --text-6xl: 2.25rem;     /* 36px */
+  --text-7xl: 3rem;        /* 48px */
+  --text-8xl: 4.5rem;      /* 72px */
+  --text-9xl: 6rem;        /* 96px */
 
   /* ===== Typography - Font Weight ===== */
   --font-weight-normal: 400;
@@ -147,12 +154,12 @@
   --font-weight-black: 900;
 
   /* ===== Typography - Letter Spacing ===== */
-  --tracking-tightest: -0.04em;
-  --tracking-tighter: -0.03em;
-  --tracking-tight: -0.02em;
+  --tracking-tightest: -0.055em;
+  --tracking-tighter: -0.025em;
+  --tracking-tight: -0.015em;
   --tracking-snug: -0.01em;
   --tracking-normal: 0em;
-  --tracking-wide: 0.02em;
+  --tracking-wide: 0.08em;
   --tracking-wider: 0.05em;
   --tracking-widest: 0.08em;
 
@@ -163,6 +170,9 @@
   --leading-normal: 1.5;
   --leading-relaxed: 1.625;
   --leading-loose: 1.8;
+
+  /* ===== Motion easing ===== */
+  --ease-editorial: var(--ease-editorial);
 }
 
 @layer base {
@@ -184,7 +194,14 @@
     font-size: var(--font-size);
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     letter-spacing: -0.02em;
-    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   h1 {
@@ -227,5 +244,71 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+
+  /* Focus ring — 전역 접근성 */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* 이미지 기본 hairline outline */
+  img {
+    outline: 1px solid rgba(28, 21, 16, 0.06);
+    outline-offset: -1px;
+  }
+}
+
+.dark img {
+  outline-color: rgba(237, 232, 224, 0.08);
+}
+
+@media print {
+  img {
+    outline: none;
+  }
+}
+
+/* 전역 reduced-motion 처리 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  .shadow-editorial {
+    box-shadow:
+      0 1px 2px rgba(28, 21, 16, 0.04),
+      0 4px 12px rgba(28, 21, 16, 0.06),
+      0 16px 32px rgba(28, 21, 16, 0.04);
+  }
+  .shadow-editorial-hover {
+    box-shadow:
+      0 2px 4px rgba(28, 21, 16, 0.06),
+      0 8px 24px rgba(28, 21, 16, 0.08),
+      0 24px 48px rgba(28, 21, 16, 0.06);
+  }
+  .dark .shadow-editorial {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.4),
+      0 4px 12px rgba(0, 0, 0, 0.3),
+      0 16px 32px rgba(0, 0, 0, 0.2);
+  }
+  .dark .shadow-editorial-hover {
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.5),
+      0 8px 24px rgba(0, 0, 0, 0.4),
+      0 24px 48px rgba(0, 0, 0, 0.3);
   }
 }
