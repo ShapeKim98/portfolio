@@ -73,63 +73,67 @@ export function ProfileSection() {
         <motion.div
           style={{ rotate: accentRotate }}
           className="absolute top-[12%] right-[10%] w-3 h-3 rounded-full border-2 border-primary/15"
+          aria-hidden="true"
         />
-        <div className="absolute top-[35%] left-[5%] w-16 h-px bg-primary/12" />
-        <div className="absolute bottom-[20%] right-[8%] w-2 h-2 rounded-full bg-primary/20" />
+        <div className="absolute top-[35%] left-[5%] w-16 h-px bg-primary/12" aria-hidden="true" />
+        <div className="absolute bottom-[20%] right-[8%] w-2 h-2 rounded-full bg-primary/20" aria-hidden="true" />
       </ParallaxAccentLayer>
 
       <SectionInner>
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">
+          Section 02 — Profile
+        </p>
         <SectionPageHeading>Profile & Skills</SectionPageHeading>
 
-        {/* Profile Info */}
+        {/* Profile Info — editorial 비대칭 (2fr/3fr) */}
         <FadeInView speed={1.3}>
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-8 mb-16">
             {/* Left - Info */}
-            <div className="p-8 rounded-2xl bg-card border border-border">
+            <div className="p-8 rounded-2xl bg-card border border-border shadow-editorial">
               <div className="mb-6">
-                <h3 className="text-4xl font-bold tracking-tight text-foreground">김도형</h3>
-                <p className="text-base font-normal text-muted-foreground">1998.02.05</p>
+                <h3 className="text-4xl font-black tracking-tighter text-foreground">김도형</h3>
+                <p className="text-base font-normal text-muted-foreground tabular-nums">1998.02.05</p>
               </div>
               <div className="space-y-3">
                 <InfoRow icon={Mail} label="Email" value="shapekim98@gmail.com" href="mailto:shapekim98@gmail.com" />
-                <InfoRow icon={Github} label="GitHub" value="ShapeKim98" href="https://github.com/ShapeKim98" />
-                <InfoRow icon={Phone} label="Phone" value="010-9027-8292" />
+                <InfoRow icon={Github} label="GitHub" value="ShapeKim98" href="https://github.com/ShapeKim98" external />
+                <InfoRow icon={Phone} label="Phone" value="010-9027-8292" href="tel:+821090278292" tabular />
                 <InfoRow icon={GraduationCap} label="학력" value="세종대학교 컴퓨터공학과 졸업 (2024.08)" />
               </div>
             </div>
 
             {/* Right - Award */}
             <div className="space-y-6">
-              <div className="p-8 rounded-2xl bg-card border border-border">
+              <div className="p-8 rounded-2xl bg-card border border-border shadow-editorial">
                 <div className="flex items-center gap-3 mb-4">
-                  <Trophy size={20} className="text-primary" />
+                  <Trophy size={20} className="text-primary" aria-hidden="true" />
                   <h3 className="text-2xl font-bold tracking-tight text-foreground">수상</h3>
                 </div>
                 <div className="p-4 rounded-xl bg-muted/50">
-                  <p className="text-md font-semibold text-foreground mb-1">
+                  <p className="text-md font-semibold text-foreground mb-1 text-balance">
                     세종대학교 소프트웨어융합대학 해커톤
                   </p>
-                  <p className="text-sm-md font-medium text-primary mb-2">2등 총장상 · 2024.05</p>
-                  <p className="text-sm-md font-normal text-muted-foreground leading-loose">
+                  <p className="text-sm-md font-medium text-primary mb-2 tabular-nums">2등 총장상 · 2024.05</p>
+                  <p className="text-sm-md font-normal text-muted-foreground leading-loose text-pretty">
                     당일 제시되는 3개의 키워드로 아이디어를 기획하고 MVP 개발하는 해커톤(무박 2일). 서핑 지역에 대한 정보와 레슨 매칭, 조난 구조 요청을 보낼 수 있는 서비스로써, iOS, WatchOS 어플리케이션 개발을 담당했습니다.
                   </p>
                 </div>
               </div>
 
-              <div className="p-8 rounded-2xl bg-card border border-border">
+              <div className="p-8 rounded-2xl bg-card border border-border shadow-editorial">
                 <div className="flex items-center gap-3 mb-4">
-                  <Users size={20} className="text-primary" />
+                  <Users size={20} className="text-primary" aria-hidden="true" />
                   <h3 className="text-2xl font-bold tracking-tight text-foreground">활동</h3>
                 </div>
                 <div className="space-y-4">
                   {ACTIVITIES.map((act) => (
                     <div key={act.title} className="flex gap-4">
-                      <span className="text-sm font-medium text-muted-foreground whitespace-nowrap mt-0.5 min-w-[120px]">
+                      <span className="text-sm font-medium text-muted-foreground whitespace-nowrap mt-0.5 min-w-[140px] tabular-nums">
                         {act.period}
                       </span>
                       <div>
-                        <p className="text-base font-semibold text-foreground">{act.title}</p>
-                        <p className="text-sm-md font-normal text-muted-foreground mt-0.5">{act.desc}</p>
+                        <p className="text-base font-semibold text-foreground text-balance">{act.title}</p>
+                        <p className="text-sm-md font-normal text-muted-foreground mt-0.5 text-pretty">{act.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -141,8 +145,8 @@ export function ProfileSection() {
 
         {/* Skills */}
         <FadeInView delay={0.1} speed={1.4}>
-          <div className="p-8 md:p-10 rounded-2xl bg-card border border-border">
-            <h3 className="text-3xl font-bold tracking-tight text-foreground mb-8">
+          <div className="p-8 md:p-10 rounded-2xl bg-card border border-border shadow-editorial">
+            <h3 className="text-3xl font-black tracking-tighter text-foreground mb-8">
               기술 스택
             </h3>
             <div className="space-y-8">
@@ -187,27 +191,37 @@ function InfoRow({
   label,
   value,
   href,
+  external,
+  tabular,
 }: {
   icon: React.ComponentType<{ size?: number; className?: string }>;
   label: string;
   value: string;
   href?: string;
+  external?: boolean;
+  tabular?: boolean;
 }) {
   return (
     <div className="flex items-center gap-3">
-      <Icon size={16} className="text-muted-foreground shrink-0" />
+      <Icon size={16} className="text-muted-foreground shrink-0" aria-hidden="true" />
       <span className="text-sm font-medium text-muted-foreground min-w-[50px]">{label}</span>
       {href ? (
         <a
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-base font-normal text-primary hover:underline"
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className={`text-base font-normal text-primary hover:underline ${tabular ? "tabular-nums" : ""}`}
+          aria-label={
+            external
+              ? `${label} 프로필 (새 탭)`
+              : label === "Phone"
+                ? `전화 걸기 ${value}`
+                : `${label}로 연락하기`
+          }
         >
           {value}
         </a>
       ) : (
-        <span className="text-base font-normal text-foreground">{value}</span>
+        <span className={`text-base font-normal text-foreground ${tabular ? "tabular-nums" : ""}`}>{value}</span>
       )}
     </div>
   );

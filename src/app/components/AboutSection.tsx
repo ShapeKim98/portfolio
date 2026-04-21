@@ -103,14 +103,15 @@ export function AboutSection() {
         <motion.div
           style={{ rotate: accentRotate }}
           className="absolute top-[20%] left-[8%] w-3 h-3 rounded-full border-2 border-primary/20"
+          aria-hidden="true"
         />
         {/* Horizontal line - right */}
-        <div className="absolute top-[40%] right-[5%] w-20 h-px bg-primary/15" />
+        <div className="absolute top-[40%] right-[5%] w-20 h-px bg-primary/15" aria-hidden="true" />
         {/* Filled dot - bottom right */}
-        <div className="absolute bottom-[25%] right-[12%] w-1.5 h-1.5 rounded-full bg-primary/25" />
+        <div className="absolute bottom-[25%] right-[12%] w-1.5 h-1.5 rounded-full bg-primary/25" aria-hidden="true" />
         {/* Plus sign - left */}
         {!isMobile && (
-          <span className="absolute bottom-[40%] left-[15%] text-3xl text-primary/15 leading-none select-none">
+          <span className="absolute bottom-[40%] left-[15%] text-3xl text-primary/15 leading-none select-none" aria-hidden="true">
             +
           </span>
         )}
@@ -123,50 +124,53 @@ export function AboutSection() {
           style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
           className="mb-16"
         >
-          <SectionHeading accent="primary">
+          <SectionHeading
+            sectionNumber="01"
+            kicker="Section 01 — About"
+          >
             <span className="text-lg font-bold text-primary tracking-tighter">
               iOS Developer
             </span>
           </SectionHeading>
           <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
             <div className="flex-1 min-w-0">
-              <h2 className="text-8xl md:text-9xl font-bold tracking-tighter leading-tight text-foreground mb-6">
+              <h2 className="text-8xl md:text-9xl font-black tracking-tightest leading-[0.9] text-foreground text-balance mb-6">
                 <span>김도형 </span>
-                <span className="text-[40px] md:text-[60px] font-normal text-muted-foreground">
+                <span className="text-[40px] md:text-[60px] font-light text-muted-foreground">
                   Kim Dohyeong
                 </span>
               </h2>
-              <p className="text-3xl font-normal text-muted-foreground leading-relaxed max-w-2xl tracking-tight">
+              <p className="text-3xl font-light text-muted-foreground leading-relaxed max-w-2xl tracking-tight text-pretty">
                 개발에 대한 꾸준한 고민과 되돌아보는 태도를 바탕으로, 더 나은 방향을
                 향해 한 걸음씩 나아가고 있습니다.
               </p>
             </div>
             <img
               src={profileImg}
-              alt="김도형 프로필 사진"
-              className="w-48 h-64 md:w-56 md:h-72 object-cover rounded-2xl shadow-md shrink-0"
+              alt="iOS 개발자 김도형의 프로필 사진"
+              className="w-48 h-64 md:w-56 md:h-72 object-cover rounded-2xl shadow-editorial shrink-0"
             />
           </div>
         </motion.div>
 
-        {/* Layer 2: Cards */}
-        <div className="grid md:grid-cols-3 gap-5 mb-16">
+        {/* Layer 2: Cards — editorial 비대칭 그리드 (2fr / 1.5fr / 1fr) */}
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1.5fr_1fr] gap-5 mb-16">
           {VALUES.map((value, i) => (
             <motion.div
               key={value.tag}
               style={{ y: cardYs[i], opacity: cardOpacities[i] }}
             >
-              <div className="p-6 rounded-2xl bg-card border border-border h-full">
+              <div className="p-6 rounded-2xl bg-card border border-border shadow-editorial h-full">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-primary" />
-                  <span className="text-base font-bold text-primary">
+                  <div className="w-2 h-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span className="text-xs font-medium text-primary tracking-wide uppercase">
                     {value.tag}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold tracking-tighter text-foreground mb-3 leading-snug">
+                <h3 className="text-lg font-bold tracking-tighter text-foreground mb-3 leading-snug text-balance">
                   {value.title}
                 </h3>
-                <p className="text-base font-normal text-muted-foreground leading-relaxed tracking-snug">
+                <p className="text-base font-normal text-muted-foreground leading-relaxed tracking-snug text-pretty">
                   {value.description}
                 </p>
               </div>
@@ -179,7 +183,7 @@ export function AboutSection() {
           <div className="border-t border-border pt-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { label: "Birth", value: "1998.02.05" },
+                { label: "Birth", value: "1998.02.05", tabular: true },
                 {
                   label: "Email",
                   value: "shapekim98@gmail.com",
@@ -189,24 +193,33 @@ export function AboutSection() {
                   label: "GitHub",
                   value: "ShapeKim98",
                   href: "https://github.com/ShapeKim98",
+                  external: true,
                 },
-                { label: "Phone", value: "010-9027-8292" },
+                { label: "Phone", value: "010-9027-8292", href: "tel:+821090278292", tabular: true },
               ].map((item) => (
                 <div key={item.label}>
-                  <p className="text-sm font-medium text-muted-foreground tracking-wider uppercase mb-1.5">
+                  <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-1.5">
                     {item.label}
                   </p>
                   {item.href ? (
                     <a
                       href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-base font-medium text-foreground hover:text-primary transition-colors"
+                      {...(item.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className={`text-base font-medium text-foreground hover:text-primary transition-colors ${item.tabular ? "tabular-nums" : ""}`}
+                      aria-label={
+                        item.external
+                          ? `${item.label} 프로필 (새 탭)`
+                          : item.label === "Phone"
+                            ? `전화 걸기 ${item.value}`
+                            : `${item.label}로 연락하기`
+                      }
                     >
                       {item.value}
                     </a>
                   ) : (
-                    <p className="text-base font-medium text-foreground">
+                    <p className={`text-base font-medium text-foreground ${item.tabular ? "tabular-nums" : ""}`}>
                       {item.value}
                     </p>
                   )}

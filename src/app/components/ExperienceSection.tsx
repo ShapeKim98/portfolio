@@ -220,23 +220,26 @@ export function ExperienceSection() {
 
       <SectionInner>
         {/* Section Header */}
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">
+          Section 03 — Experience
+        </p>
         <SectionPageHeading>Experience</SectionPageHeading>
 
         {/* Company Header */}
         <FadeInView speed={1.3}>
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-3">
-              <Building2 size={20} className="text-primary" />
-              <h3 className="text-4xl font-bold tracking-tight text-foreground">
+              <Building2 size={20} className="text-primary" aria-hidden="true" />
+              <h3 className="text-4xl font-black tracking-tighter text-foreground">
                 미스고(주)
               </h3>
             </div>
             <div className="flex flex-wrap items-center gap-3 text-sm-md font-normal text-muted-foreground mb-4">
-              <span>2025. 08 ~ 2026. 04</span>
+              <span className="tabular-nums">2025. 08 ~ 2026. 04</span>
               <DotSeparator />
               <span>iOS Developer</span>
             </div>
-            <div className="text-md font-normal text-muted-foreground leading-loose max-w-3xl space-y-2">
+            <div className="text-md font-normal text-muted-foreground leading-loose max-w-2xl space-y-2 text-pretty">
               <p>
                 Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 2개 앱의
                 전체 iOS 개발을 단독으로 담당했습니다.
