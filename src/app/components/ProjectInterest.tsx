@@ -111,7 +111,7 @@ export function ProjectInterest() {
 
                   {/* 통신 구조 다이어그램 — 원본 컬러 */}
                   <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-6">
-                    <div className="w-40 h-40 rounded-2xl border-2 border-blue-500/40 bg-blue-500/5 flex flex-col items-center justify-center p-3">
+                    <div className="w-40 h-40 rounded-[10px] border border-blue-500/40 bg-blue-500/5 flex flex-col items-center justify-center p-3">
                       <span className="text-base font-bold text-blue-500 mb-2">Apple Watch</span>
                       <div className="space-y-1 text-center">
                         <span className="block text-xs font-normal text-muted-foreground">HealthKit</span>
@@ -137,7 +137,7 @@ export function ProjectInterest() {
                       <span className="text-[10px] font-normal text-muted-foreground">운동 상태 제어</span>
                       <span className="text-[11px] font-medium text-primary mt-1">1초 주기 동기화</span>
                     </div>
-                    <div className="w-40 h-40 rounded-2xl border-2 border-green-500/40 bg-green-500/5 flex flex-col items-center justify-center p-3">
+                    <div className="w-40 h-40 rounded-[10px] border border-green-500/40 bg-green-500/5 flex flex-col items-center justify-center p-3">
                       <span className="text-base font-bold text-green-600 dark:text-green-400 mb-2">iPhone</span>
                       <div className="space-y-1 text-center">
                         <span className="block text-xs font-normal text-muted-foreground">SwiftUI</span>

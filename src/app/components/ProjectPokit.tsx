@@ -114,7 +114,7 @@ export function ProjectPokit() {
           <ClickableImage
             src={tuistGraph}
             alt="Tuist Graph — 모듈 의존 관계 시각화"
-            className="w-full rounded-2xl object-contain bg-white p-4"
+            className="w-full rounded-[10px] object-contain bg-white p-4"
           />
         </FadeInView>
 
@@ -138,7 +138,7 @@ export function ProjectPokit() {
                 desc: "프로젝트의 규모가 커질수록 유지보수와 확장을 유연하게 이어가기 위해, 기능과 계층을 단순한 코드 단위가 아닌 독립적인 모듈 단위로 구성할 필요가 있다고 판단했습니다. 모듈 단위 구성은 각 기능의 책임을 명확히 하고, 다른 코드와의 의존성을 줄여 관심사 분리(Separation of Concerns)를 실현합니다.",
               },
             ].map((item) => (
-              <div key={item.title} className="p-5 rounded-xl bg-muted/40 border border-border">
+              <div key={item.title} className="p-5 rounded-[10px] bg-card border border-border">
                 <h6 className="text-base font-semibold text-foreground mb-2">{item.title}</h6>
                 <p className="text-sm font-normal text-muted-foreground leading-loose">{item.desc}</p>
               </div>
@@ -169,7 +169,7 @@ export function ProjectPokit() {
 
         {/* Tuist Graph 장점 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-primary/5 border border-primary/10">
+          <div className="p-6 md:p-8 rounded-[10px] bg-card border border-border">
             <SubSectionTitle size="md" className="mb-3">
               프로젝트 구조 시각화 및 유지보수 향상
             </SubSectionTitle>
@@ -223,8 +223,8 @@ export function ProjectPokit() {
               <div className="flex flex-col items-center justify-center gap-4">
               {/* OG 태그 파싱 성공 */}
               <div className="w-full max-w-[335px]">
-                <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 파싱 성공</p>
-                <div className="rounded-xl border border-border bg-card shadow-[2px_2px_6px_rgba(0,0,0,0.06)] overflow-hidden">
+                <Eyebrow className="mb-1.5">OG 태그 파싱 성공</Eyebrow>
+                <div className="rounded-[10px] border border-border bg-card overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb1} alt="" className="w-[124px] h-[108px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
@@ -240,8 +240,8 @@ export function ProjectPokit() {
               </div>
               {/* OG 태그 미지원 — 기본 썸네일 대체 */}
               <div className="w-full max-w-[335px]">
-                <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 미지원 — 기본 썸네일 대체</p>
-                <div className="rounded-xl border border-border bg-card shadow-[2px_2px_6px_rgba(0,0,0,0.06)] overflow-hidden">
+                <Eyebrow className="mb-1.5">OG 태그 미지원 — 기본 썸네일 대체</Eyebrow>
+                <div className="rounded-[10px] border border-border bg-card overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb2} alt="" className="w-[124px] h-[94px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
@@ -277,8 +277,8 @@ export function ProjectPokit() {
                 <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-3">
                   이후 동일한 인스타그램 URL을 매일 확인하며 응답 결과를 모니터링한 결과, 3~4일이 경과한 시점부터 썸네일이 표시되지 않는 현상이 나타났습니다. 명확한 만료 주기를 확인하기 위해 인스타그램의 썸네일 만료 정책 관련 문서를 탐색했으나, 공식적인 자료를 발견하지 못했습니다.
                 </p>
-                <div className="p-3 rounded-lg bg-primary/5 border border-primary/10">
-                  <p className="text-sm font-medium text-primary leading-loose">
+                <div className="p-3 rounded-[10px] bg-card border border-border">
+                  <p className="text-sm font-medium text-foreground leading-loose">
                     결론: 내부 모니터링 결과를 근거로 썸네일 URL이 약 3~4일 이후 만료되는 것으로 추정
                   </p>
                 </div>
@@ -286,7 +286,7 @@ export function ProjectPokit() {
             </div>
 
             {/* JWT 착안 재파싱 플로우 다이어그램 */}
-            <div className="mb-5 p-4 rounded-xl bg-card border border-border">
+            <div className="mb-5 p-4 rounded-[10px] bg-card border border-border">
               <h6 className="text-sm font-semibold text-foreground mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
               <div className="grid md:grid-cols-2 gap-6 items-start">
                 {/* 왼쪽: JWT 패턴 대응 설명 */}
@@ -302,13 +302,13 @@ export function ProjectPokit() {
                     ].map((item, i) => (
                       <div key={i} className="grid grid-cols-2 gap-2 items-center">
                         <div
-                          className="px-2 py-1.5 rounded text-center"
+                          className="px-2 py-1.5 rounded-[10px] text-center"
                           style={{ backgroundColor: item.color + "10", border: `1px solid ${item.color}30` }}
                         >
                           <span className="text-xxs font-medium" style={{ color: item.color }}>{item.jwt}</span>
                         </div>
                         <div
-                          className="px-2 py-1.5 rounded text-center"
+                          className="px-2 py-1.5 rounded-[10px] text-center"
                           style={{ backgroundColor: item.color + "10", border: `1px solid ${item.color}30` }}
                         >
                           <span className="text-xxs font-semibold" style={{ color: item.color }}>{item.thumbnail}</span>
