@@ -171,9 +171,14 @@ export function ProjectSidebar({
 }) {
   return (
     <div className="flex flex-col gap-6">
-      {/* Project identity — shown in sidebar so users keep context while scrolling */}
+      {/* Project identity — shown in sidebar so users keep context while scrolling.
+          Hidden in PDF (data-print-hide) because ProjectCover already displays
+          the project number/kind/title prominently. */}
       {title && (
-        <div className="flex flex-col gap-1.5 pb-5 border-b border-border">
+        <div
+          className="flex flex-col gap-1.5 pb-5 border-b border-border"
+          data-print-hide
+        >
           {number && (
             <span className="text-xs font-medium tracking-widest text-muted-foreground tabular-nums">
               {number}
