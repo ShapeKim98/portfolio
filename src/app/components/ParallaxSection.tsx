@@ -1,12 +1,19 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, type MotionValue } from "motion/react";
 
+/* ─────────────────────────────────────────────────────────────
+ * Motion tokens — use these everywhere instead of inline configs
+ * ──────────────────────────────────────────────────────────── */
+export const SPRING_SNAP = { stiffness: 200, damping: 30, restDelta: 0.001 };
+export const SPRING_SMOOTH = { stiffness: 120, damping: 30, restDelta: 0.001 };
+export const SPRING_SOFT = { stiffness: 80, damping: 22, restDelta: 0.001 };
+
 /**
  * 스프링 기반 스무스 패럴렉스 훅
  */
 function useParallax(scrollYProgress: MotionValue<number>, distance: number) {
   const y = useTransform(scrollYProgress, [0, 1], [-distance, distance]);
-  return useSpring(y, { stiffness: 120, damping: 30, restDelta: 0.001 });
+  return useSpring(y, SPRING_SMOOTH);
 }
 
 interface ParallaxSectionProps {
@@ -21,7 +28,7 @@ export function ParallaxSection({
   children,
   className = "",
   id,
-  speed = 0.2,
+  speed = 0.15,
   fadeIn = true,
 }: ParallaxSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -30,11 +37,11 @@ export function ParallaxSection({
     offset: ["start end", "end start"],
   });
 
-  const y = useParallax(scrollYProgress, 40 * speed);
+  const y = useParallax(scrollYProgress, 24 * speed);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={ref} id={id} className={`relative overflow-hidden ${className}`}>
+    <section ref={ref} id={id} className={`relative ${className}`}>
       <motion.div style={fadeIn ? { y, opacity } : { y }}>
         {children}
       </motion.div>
@@ -43,7 +50,7 @@ export function ParallaxSection({
 }
 
 /**
- * ScrollSection: 스크롤 연동 부드러운 진입
+ * ScrollSection: 스크롤 연동 부드러운 진입 (진입 거리 축소)
  */
 export function ScrollSection({
   children,
@@ -60,8 +67,8 @@ export function ScrollSection({
     offset: ["start 95%", "start 15%"],
   });
 
-  const rawY = useTransform(scrollYProgress, [0, 1], [40 * speed, 0]);
-  const y = useSpring(rawY, { stiffness: 120, damping: 28, restDelta: 0.001 });
+  const rawY = useTransform(scrollYProgress, [0, 1], [24 * speed, 0]);
+  const y = useSpring(rawY, SPRING_SMOOTH);
   const opacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
 
   return (
@@ -72,7 +79,7 @@ export function ScrollSection({
 }
 
 /**
- * FadeInView: 스프링 기반 진입 애니메이션 (부드러운 강도)
+ * FadeInView: 간결한 진입 fade-up (장식적 패럴럭스 없음)
  */
 export function FadeInView({
   children,
@@ -98,16 +105,16 @@ export function FadeInView({
   const rawY = useTransform(
     scrollYProgress,
     [startPoint, 0.7 + startPoint * 0.3],
-    [50 * speed, 0]
+    [24 * speed, 0]
   );
   const rawX = useTransform(
     scrollYProgress,
     [startPoint, 0.7 + startPoint * 0.3],
-    direction === "left" ? [-40, 0] : direction === "right" ? [40, 0] : [0, 0]
+    direction === "left" ? [-20, 0] : direction === "right" ? [20, 0] : [0, 0]
   );
 
-  const y = useSpring(rawY, { stiffness: 100, damping: 25, restDelta: 0.001 });
-  const x = useSpring(rawX, { stiffness: 100, damping: 25, restDelta: 0.001 });
+  const y = useSpring(rawY, SPRING_SOFT);
+  const x = useSpring(rawX, SPRING_SOFT);
   const opacity = useTransform(
     scrollYProgress,
     [startPoint, 0.35 + startPoint * 0.3],
@@ -130,7 +137,7 @@ export function FadeInView({
 }
 
 /**
- * DeepParallax: 지속적 패럴렉스 (부드러운 강도)
+ * DeepParallax (kept for compat, reduced intensity)
  */
 export function DeepParallax({
   children,
@@ -149,7 +156,7 @@ export function DeepParallax({
     offset: ["start end", "end start"],
   });
 
-  const y = useParallax(scrollYProgress, 70 * speed);
+  const y = useParallax(scrollYProgress, 30 * speed);
   const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
 
   return (

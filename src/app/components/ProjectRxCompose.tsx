@@ -1,10 +1,38 @@
 import { FadeInView } from "./ParallaxSection";
-import { ProjectHeader } from "./ProjectHeader";
-import { FeatureGrid, RxComposeArchitectureDiagram } from "./Diagrams";
-import { FeatureCard } from "./design-system";
-import { ContentCard, SubSectionTitle, Badge, Divider } from "./design-system";
+import { RxComposeArchitectureDiagram } from "./Diagrams";
+import {
+  SectionInner,
+  NumberedFeatureList,
+  Eyebrow,
+  Figure,
+  Badge,
+  Divider,
+  ContentCard,
+  DefList,
+} from "./design-system";
+import {
+  ProjectCover,
+  ProjectLayout,
+  ProjectSidebar,
+  ProjectSubsection,
+} from "./ProjectLayout";
 import { ClickableImage } from "./ClickableImage";
 import showpotPromo from "../../image/쇼팟표지.png";
+
+const META = {
+  number: "01",
+  title: "RxCompose",
+  kind: "library" as const,
+  subtitle:
+    "RxSwift 기반 단방향 아키텍처 라이브러리 (iOS 13+, RxSwift 6.9+)",
+  description:
+    "ReactorKit은 Effect 개념이 없기 때문에 상태 변화에 따른 후속 작업을 정의하기 어렵다는 문제점이 있습니다. 이러한 문제점을 해결하기 위해, TCA의 단방향 아키텍처 매커니즘을 RxSwift 환경에 맞춰 구현했습니다. 실제 ShowPot이라는 프로젝트에 활용하여 적용 가능성 테스트 및 개선사항을 점검했습니다.",
+  period: "2025.02.17 ~ 2025.03.30",
+  role: "iOS 개발",
+  team: "iOS 1명",
+  techStack: ["Swift Package Manager", "CocoaPods"],
+  githubUrl: "https://github.com/ShapeKim98/RxCompose",
+};
 
 const FEATURES = [
   {
@@ -37,126 +65,148 @@ const FEATURES = [
   },
 ];
 
+const EFFECT_USAGE = [
+  { term: ".run", desc: "비동기 API 호출 (목록 조회, 구독/해제)" },
+  { term: ".send", desc: "액션 연쇄 발행 (API 완료 후 상태 갱신)" },
+  { term: ".none", desc: "순수 상태 변이 (선택 토글, UI 상태 등)" },
+  { term: ".merge", desc: "병렬 실행 — 홈: 장르·아티스트·공연 동시 조회" },
+];
+
 export function ProjectRxCompose() {
   return (
-    <div>
-      {/* 인쇄 시 프로젝트 헤더와 아키텍처 다이어그램이 같은 페이지에 유지되도록 묶는다. */}
-      <div data-print-keep>
-        <ProjectHeader
-          index="01"
-          type="library"
-          title="RxCompose"
-          subtitle="RxSwift 기반 단방향 아키텍처 라이브러리 (iOS 13+, RxSwift 6.9+)"
-          period="2025.02.17 ~ 2025.03.30"
-          team="iOS 1명"
-          role="iOS 개발"
-          description="ReactorKit은 Effect 개념이 없기 때문에 상태 변화에 따른 후속 작업을 정의하기 어렵다는 문제점이 있습니다. 이러한 문제점을 해결하기 위해, TCA의 단방향 아키텍처 매커니즘을 RxSwift 환경에 맞춰 구현했습니다. 실제 ShowPot이라는 프로젝트에 활용하여 적용 가능성 테스트 및 개선사항을 점검했습니다."
-          techStack={["Swift Package Manager", "CocoaPods"]}
-          githubUrl="https://github.com/ShapeKim98/RxCompose"
-          screenshotLabel="RxCompose 아키텍처 다이어그램 스크린샷"
-          hideScreenshot
-        />
+    <article>
+      <ProjectCover
+        number={META.number}
+        title={META.title}
+        subtitle={META.subtitle}
+        kind={META.kind}
+        meta={`${META.period} · ${META.role} · ${META.team}`}
+      />
 
-        <RxComposeArchitectureDiagram />
-      </div>
-
-      <FadeInView>
-        <div className="mb-8">
-          <SubSectionTitle size="lg" className="mb-6">
-            기능 및 기술 설명
-          </SubSectionTitle>
-          <div className="space-y-4">
-            {FEATURES.map((f) => (
-              <FeatureCard key={f.title} title={f.title}>{f.desc}</FeatureCard>
-            ))}
-          </div>
-        </div>
-      </FadeInView>
-
-      {/* ───── 적용 사례 ───── */}
-      <FadeInView>
-        <ContentCard>
-          {/* 헤더 */}
-          <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <Badge variant="primary" size="xs">적용 사례</Badge>
-              </div>
-              <h5 className="text-2xl font-bold text-foreground tracking-snug">ShowPot</h5>
-              <p className="text-sm-md font-normal text-muted-foreground mt-1">
-                내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit + RxSwift + Clean Architecture
+      <section className="py-16 md:py-20">
+        <SectionInner>
+          <ProjectLayout
+            sidebar={
+              <ProjectSidebar
+                subtitle={META.subtitle}
+                period={META.period}
+                role={META.role}
+                team={META.team}
+                techStack={META.techStack}
+                githubUrl={META.githubUrl}
+              />
+            }
+          >
+            {/* Overview */}
+            <ProjectSubsection eyebrow="Overview">
+              <p className="text-base font-normal text-muted-foreground leading-relaxed max-w-3xl">
+                {META.description}
               </p>
-            </div>
-            <div className="text-right shrink-0">
-              <p className="text-xs text-muted-foreground">2025.03</p>
-              <p className="text-xs text-muted-foreground">PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2</p>
-              <a
-                href="https://github.com/AlreadyTakenSeat/ShowPot-iOS"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 mt-1.5 text-xs font-medium text-primary hover:underline"
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-            </div>
-          </div>
+            </ProjectSubsection>
 
-          <Divider className="mb-5" />
+            {/* Architecture */}
+            <ProjectSubsection eyebrow="Architecture">
+              <div data-print-keep>
+                <RxComposeArchitectureDiagram />
+              </div>
+            </ProjectSubsection>
 
-          <ClickableImage
-            src={showpotPromo}
-            alt="ShowPot 앱 스크린샷"
-            className="w-full rounded-xl object-contain mb-5"
-          />
+            {/* Features (numbered, long-form) */}
+            <ProjectSubsection eyebrow="Features">
+              <NumberedFeatureList
+                items={FEATURES.map((f) => ({
+                  title: f.title,
+                  desc: f.desc,
+                }))}
+              />
+            </ProjectSubsection>
 
-          {/* 적용 범위 */}
-          <div className="flex items-center gap-2 mb-5">
-            <span className="text-sm font-semibold text-foreground">적용 범위</span>
-            <span className="text-sm text-muted-foreground">—</span>
-            <span className="text-sm font-medium text-foreground">13개 화면 전체에 Composer 패턴 적용</span>
-          </div>
+            {/* Use Cases — ShowPot */}
+            <ProjectSubsection eyebrow="Use Case">
+              <FadeInView>
+                <ContentCard>
+                  <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
+                    <div className="flex flex-col gap-1">
+                      <Badge variant="muted" size="xs">
+                        적용 사례
+                      </Badge>
+                      <h5 className="text-lg font-medium text-foreground tracking-tight">
+                        ShowPot
+                      </h5>
+                      <p className="text-sm font-normal text-muted-foreground max-w-prose">
+                        내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit + RxSwift +
+                        Clean Architecture
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0 flex flex-col gap-1">
+                      <p className="text-xs tracking-widest uppercase text-muted-foreground tabular-nums">
+                        2025.03
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2
+                      </p>
+                      <a
+                        href="https://github.com/AlreadyTakenSeat/ShowPot-iOS"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 mt-1 text-xs font-medium text-foreground hover:opacity-70 transition-opacity self-end"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                        </svg>
+                        GitHub
+                      </a>
+                    </div>
+                  </div>
 
-          {/* Effect 활용 */}
-          <div className="mb-5">
-            <p className="text-sm font-semibold text-foreground mb-3">Effect 활용</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {[
-                { type: ".run", desc: "비동기 API 호출 (목록 조회, 구독/해제)", color: "#2563eb" },
-                { type: ".send", desc: "액션 연쇄 발행 (API 완료 후 상태 갱신)", color: "#7c3aed" },
-                { type: ".none", desc: "순수 상태 변이 (선택 토글, UI 상태 등)", color: "#22c55e" },
-                { type: ".merge", desc: "병렬 실행 — 홈: 장르·아티스트·공연 동시 조회", color: "#f59e0b" },
-              ].map((item) => (
-                <div
-                  key={item.type}
-                  className="flex items-start gap-3 p-3 rounded-xl bg-card border"
-                  style={{ borderColor: item.color + "30" }}
-                >
-                  <span
-                    className="shrink-0 text-xs font-bold font-mono px-2 py-0.5 rounded"
-                    style={{ color: item.color, backgroundColor: item.color + "12" }}
+                  <Divider className="mb-5" />
+
+                  <Figure
+                    className="mb-6"
+                    src={undefined}
                   >
-                    {item.type}
-                  </span>
-                  <span className="text-xs font-normal text-muted-foreground leading-relaxed">{item.desc}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+                    <ClickableImage
+                      src={showpotPromo}
+                      alt="ShowPot 앱 스크린샷"
+                      className="w-full object-contain"
+                    />
+                  </Figure>
 
-          {/* @PresentState */}
-          <div className="p-3 rounded-xl bg-card border border-border">
-            <p className="text-sm font-semibold text-foreground mb-1.5">@PresentState 활용 — 화면 전환 관리</p>
-            <p className="text-sm font-normal text-muted-foreground leading-loose">
-              ShowDetail → AlarmSelection, Account → Login 등 화면 전환을 상태 기반으로 관리.
-              Optional ViewModel을 @PresentState로 선언하여 nil 여부로 present/dismiss를 제어했습니다.
-            </p>
-          </div>
-        </ContentCard>
-      </FadeInView>
+                  {/* 적용 범위 */}
+                  <div className="flex flex-col gap-1 mb-6">
+                    <Eyebrow>적용 범위</Eyebrow>
+                    <p className="text-sm font-medium text-foreground">
+                      13개 화면 전체에 Composer 패턴 적용
+                    </p>
+                  </div>
 
-    </div>
+                  {/* Effect 활용 — Definition list (monochrome) */}
+                  <div className="flex flex-col gap-3 mb-6">
+                    <Eyebrow>Effect 활용</Eyebrow>
+                    <DefList items={EFFECT_USAGE} />
+                  </div>
+
+                  {/* @PresentState */}
+                  <div className="flex flex-col gap-2 pt-5 border-t border-border">
+                    <Eyebrow>@PresentState 활용 — 화면 전환 관리</Eyebrow>
+                    <p className="text-sm font-normal text-muted-foreground leading-normal">
+                      ShowDetail → AlarmSelection, Account → Login 등 화면
+                      전환을 상태 기반으로 관리. Optional ViewModel을
+                      @PresentState로 선언하여 nil 여부로 present/dismiss를
+                      제어했습니다.
+                    </p>
+                  </div>
+                </ContentCard>
+              </FadeInView>
+            </ProjectSubsection>
+          </ProjectLayout>
+        </SectionInner>
+      </section>
+    </article>
   );
 }

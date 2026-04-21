@@ -1,12 +1,50 @@
 import { FadeInView } from "./ParallaxSection";
-import { ProjectHeader } from "./ProjectHeader";
-import { AppScreenshotPlaceholder, FeatureGrid, LayerDiagram, ProblemSolvingBlock, ScreenshotPlaceholder } from "./Diagrams";
-import { ContentCard, SectionGroup, SubSectionTitle, TwoColumnLayout, VerticalFlow } from "./design-system";
+import { LayerDiagram, ProblemSolvingBlock } from "./Diagrams";
+import {
+  SectionInner,
+  ContentCard,
+  SectionGroup,
+  SubSectionTitle,
+  TwoColumnLayout,
+  VerticalFlow,
+  NumberedFeatureList,
+  Eyebrow,
+  Figure,
+} from "./design-system";
+import { ProjectCover, ProjectLayout, ProjectSidebar, ProjectSubsection } from "./ProjectLayout";
 import { ClickableImage } from "./ClickableImage";
 import pokitPromo from "../../image/포킷표지.png";
 import tuistGraph from "../../image/Tuist Graph — 모듈 의존 관계 시각화.png";
 import linkThumb1 from "../../image/link-thumbnail-1.jpg";
 import linkThumb2 from "../../image/link-thumbnail-2.jpg";
+
+const META = {
+  number: "03",
+  title: "Pokit",
+  kind: "project" as const,
+  subtitle: "간편 링크 아카이빙 앱 (iOS 16+)",
+  description:
+    "간편하게 링크를 저장하고, 분류하고, 잊지 않고 볼 수 있도록 도와주는 서비스입니다.",
+  period: "2024.05.11 ~ 2024.08.27 (유지보수 중)",
+  role: "iOS 개발",
+  team: "PM 1명, 디자이너 2명, 서버 2명, iOS 2명, 안드로이드 2명",
+  techStack: [
+    "SwiftUI",
+    "TCA",
+    "Modular Architecture",
+    "Tuist",
+    "Github Actions",
+    "Fastlane",
+    "Moya",
+    "Nuke",
+    "KakaoSDK",
+    "Firebase",
+    "Share Extension",
+  ],
+  githubUrl: "https://github.com/YAPP-Github/Pokit-iOS",
+  appStoreUrl:
+    "https://apps.apple.com/kr/app/pokit-%ED%8F%AC%ED%82%B7-%EA%B0%84%ED%8E%B8-%EB%A7%81%ED%81%AC-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99-%EC%95%B1/id6514313808",
+};
 
 const FEATURES = [
   { title: "소셜 로그인 기능", desc: "애플과 구글 계정으로 간편하게 로그인할 수 있으며, JWT 기반 인증 구조를 통해 안전한 사용자 인증과 자동 로그인을 지원합니다." },
@@ -29,30 +67,44 @@ const MODULE_LAYERS = [
 
 export function ProjectPokit() {
   return (
-    <div>
-      <ProjectHeader
-        index="03"
-        type="project"
-        title="Pokit"
-        subtitle="간편 링크 아카이빙 앱 (iOS 16+)"
-        period="2024.05.11 ~ 2024.08.27 (유지보수 중)"
-        team="PM 1명, 디자이너 2명, 서버 2명, iOS 2명, 안드로이드 2명"
-        role="iOS 개발"
-        description="간편하게 링크를 저장하고, 분류하고, 잊지 않고 볼 수 있도록 도와주는 서비스입니다."
-        techStack={["SwiftUI", "TCA", "Modular Architecture", "Tuist", "Github Actions", "Fastlane", "Moya", "Nuke", "KakaoSDK", "Firebase", "Share Extension"]}
-        githubUrl="https://github.com/YAPP-Github/Pokit-iOS"
-        appStoreUrl="https://apps.apple.com/kr/app/pokit-%ED%8F%AC%ED%82%B7-%EA%B0%84%ED%8E%B8-%EB%A7%81%ED%81%AC-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99-%EC%95%B1/id6514313808"
-        screenshotLabel="Pokit 앱 스크린샷"
-        screenshotSrc={pokitPromo}
+    <article>
+      <ProjectCover
+        number={META.number}
+        title={META.title}
+        subtitle={META.subtitle}
+        kind={META.kind}
+        meta={`${META.period} · ${META.role}`}
+        imageSrc={pokitPromo}
+        imageAlt="Pokit 앱 커버"
       />
 
-      <FadeInView>
-        <SubSectionTitle size="lg" className="mb-6">핵심 기능</SubSectionTitle>
-        <FeatureGrid features={FEATURES} />
-      </FadeInView>
+      <section className="py-16 md:py-20">
+        <SectionInner>
+          <ProjectLayout
+            sidebar={
+              <ProjectSidebar
+                subtitle={META.subtitle}
+                period={META.period}
+                role={META.role}
+                team={META.team}
+                techStack={META.techStack}
+                githubUrl={META.githubUrl}
+                appStoreUrl={META.appStoreUrl}
+              />
+            }
+          >
+            <ProjectSubsection eyebrow="Overview">
+              <p className="text-base font-normal text-muted-foreground leading-relaxed max-w-3xl">
+                {META.description}
+              </p>
+            </ProjectSubsection>
+
+            <ProjectSubsection eyebrow="Features">
+              <NumberedFeatureList items={FEATURES.map((f) => ({ title: f.title, desc: f.desc }))} />
+            </ProjectSubsection>
 
       {/* ───── 프로젝트 설계 ───── */}
-      <div className="mt-16">
+      <div>
         <SectionGroup title="프로젝트 설계">
 
         {/* Tuist Graph */}
@@ -299,6 +351,9 @@ export function ProjectPokit() {
         </FadeInView>
         </SectionGroup>
       </div>
-    </div>
+          </ProjectLayout>
+        </SectionInner>
+      </section>
+    </article>
   );
 }

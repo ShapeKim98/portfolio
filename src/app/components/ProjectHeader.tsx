@@ -1,7 +1,10 @@
+// NOTE: Legacy ProjectHeader — superseded by <ProjectCover> + <ProjectSidebar>.
+// Kept as a thin wrapper for any stray usage; current project components
+// (ProjectRxCompose, ProjectFiltee, ProjectPokit, ProjectInterest) migrated
+// to the new layout and no longer call this component.
+
 import { FadeInView } from "./ParallaxSection";
-import { TechTags, ScreenshotPlaceholder } from "./Diagrams";
-import { DotSeparator, IconButton } from "./design-system";
-import { ClickableImage } from "./ClickableImage";
+import { Figure, IconButton, Eyebrow, Divider } from "./design-system";
 import { Github, ExternalLink } from "lucide-react";
 
 interface ProjectHeaderProps {
@@ -38,54 +41,81 @@ export function ProjectHeader({
   hideScreenshot,
 }: ProjectHeaderProps) {
   return (
-    <div className="mb-16" data-print-keep>
-      <FadeInView speed={1.3}>
-        <div className="flex items-center gap-3 mb-4">
-          <span className="text-8xl md:text-[64px] font-black text-primary/10 leading-none">
+    <div className="mb-12" data-print-keep>
+      <FadeInView>
+        <div className="flex items-baseline gap-4 mb-3">
+          <span className="text-sm font-medium tracking-widest text-muted-foreground tabular-nums">
             {index}
           </span>
-          <div>
-            <span className="text-xs font-medium text-primary tracking-widest uppercase">
+          <div className="flex flex-col gap-1">
+            <Eyebrow>
               {type === "library" ? "Open Source Library" : "Project"}
-            </span>
-            <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-foreground leading-tight">
+            </Eyebrow>
+            <h3 className="text-2xl font-medium tracking-tight text-foreground leading-tight">
               {title}
             </h3>
           </div>
         </div>
-      </FadeInView>
 
-      <FadeInView delay={0.1} speed={1.4}>
-        <p className="text-xl font-medium text-foreground mb-2">{subtitle}</p>
-        <div className="flex flex-wrap items-center gap-4 text-sm-md font-normal text-muted-foreground mb-6">
-          <span>{period}</span>
-          <DotSeparator />
+        <p className="text-lg font-normal text-foreground mb-2 max-w-2xl">{subtitle}</p>
+
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tracking-widest uppercase text-muted-foreground mb-5">
+          <span className="tabular-nums">{period}</span>
+          <span aria-hidden>·</span>
           <span>{team}</span>
-          <DotSeparator />
-          <span>담당: {role}</span>
+          <span aria-hidden>·</span>
+          <span>{role}</span>
         </div>
 
-        <p className="text-md font-normal text-muted-foreground leading-loose max-w-3xl mb-6">
+        <p className="text-base font-normal text-muted-foreground leading-relaxed max-w-3xl mb-5">
           {description}
         </p>
 
-        <div className="flex flex-wrap items-center gap-3 mb-8">
-          <IconButton href={githubUrl} variant="primary" size="sm" icon={<Github size={14} />} target="_blank" rel="noopener noreferrer">Repository</IconButton>
+        <div className="flex flex-wrap items-center gap-2 mb-5">
+          <IconButton
+            href={githubUrl}
+            variant="secondary"
+            size="sm"
+            icon={<Github size={14} />}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Repository
+          </IconButton>
           {appStoreUrl && (
-            <IconButton href={appStoreUrl} variant="secondary" size="sm" icon={<ExternalLink size={14} />} target="_blank" rel="noopener noreferrer">App Store</IconButton>
+            <IconButton
+              href={appStoreUrl}
+              variant="secondary"
+              size="sm"
+              icon={<ExternalLink size={14} />}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              App Store
+            </IconButton>
           )}
         </div>
 
-        <TechTags tags={techStack} />
+        <div className="flex flex-col gap-2">
+          <Eyebrow>Tech Stack</Eyebrow>
+          <ul className="flex flex-wrap gap-1.5">
+            {techStack.map((tech) => (
+              <li
+                key={tech}
+                className="inline-flex items-center px-2 py-1 rounded-[10px] border border-border text-xs text-foreground bg-card"
+              >
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </div>
       </FadeInView>
 
-      {!hideScreenshot && (
-        <FadeInView delay={0.2} speed={1.5}>
-          <div className="mt-10">
-            {screenshotSrc
-              ? <ClickableImage src={screenshotSrc} alt={screenshotLabel} className="w-full rounded-2xl object-contain" />
-              : <ScreenshotPlaceholder label={screenshotLabel} />
-            }
+      {!hideScreenshot && screenshotSrc && (
+        <FadeInView delay={0.1}>
+          <div className="mt-8">
+            <Divider className="mb-8" />
+            <Figure src={screenshotSrc} alt={screenshotLabel} caption={screenshotLabel} />
           </div>
         </FadeInView>
       )}

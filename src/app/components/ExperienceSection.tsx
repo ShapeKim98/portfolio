@@ -1,9 +1,14 @@
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "motion/react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { FadeInView } from "./ParallaxSection";
-import { TechTags } from "./Diagrams";
-import { ChevronDown, ChevronUp, Building2 } from "lucide-react";
-import { SectionInner, SectionPageHeading, DotSeparator, ParallaxBlobLayer, Divider } from "./design-system";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import {
+  SectionInner,
+  EditorialGrid,
+  GridLabel,
+  GridBody,
+  Eyebrow,
+} from "./design-system";
 
 interface WorkItem {
   title: string;
@@ -138,210 +143,199 @@ const WORK_ITEMS: WorkItem[] = [
 
 const INITIAL_VISIBLE_COUNT = 4;
 
-function WorkItemCard({ item }: { item: WorkItem }) {
+function WorkItemRow({ item, index }: { item: WorkItem; index: number }) {
   return (
-    <div className="py-8" data-print-keep>
-      {/* Title + Period */}
-      <h4 className="text-xl font-bold tracking-tight text-foreground mb-2">
-        {item.title}
-      </h4>
-      <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="text-sm font-medium text-primary">
-          {item.project}
+    <div
+      className="py-8 border-b border-border grid grid-cols-1 md:grid-cols-[80px_1fr] gap-x-6 gap-y-3"
+      data-print-keep
+    >
+      <div className="flex flex-col gap-1">
+        <span className="text-sm font-medium tracking-widest text-muted-foreground">
+          {String(index + 1).padStart(2, "0")}
         </span>
-        {item.period && (
-          <>
-            <DotSeparator />
-            <span className="text-sm font-normal text-muted-foreground">
-              {item.period}
-            </span>
-          </>
-        )}
       </div>
-
-      {/* Tech Tags */}
-      {item.tags.length > 0 && (
-        <div className="mb-4">
-          <TechTags tags={item.tags} />
+      <div className="flex flex-col gap-3">
+        <h4 className="text-lg font-medium tracking-tight text-foreground leading-snug">
+          {item.title}
+        </h4>
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs tracking-widest uppercase text-muted-foreground">
+          <span>{item.project}</span>
+          {item.period && (
+            <>
+              <span aria-hidden>·</span>
+              <span className="tabular-nums">{item.period}</span>
+            </>
+          )}
         </div>
-      )}
 
-      {/* Bullets */}
-      <ul className="space-y-2">
-        {item.bullets.map((bullet, j) => (
-          <li
-            key={j}
-            className="flex gap-2 text-base font-normal text-muted-foreground leading-loose"
-          >
-            <span className="text-primary/50 mt-[2px] shrink-0">•</span>
-            <span>{bullet}</span>
-          </li>
-        ))}
-      </ul>
+        {item.tags.length > 0 && (
+          <ul className="flex flex-wrap gap-1.5">
+            {item.tags.map((t) => (
+              <li
+                key={t}
+                className="inline-flex items-center px-2 py-0.5 rounded-[10px] border border-border bg-card text-[11px] text-foreground"
+              >
+                {t}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <ul className="flex flex-col gap-2 mt-1">
+          {item.bullets.map((bullet, j) => (
+            <li
+              key={j}
+              className="flex gap-3 text-base font-normal text-muted-foreground leading-normal"
+            >
+              <span className="text-muted-foreground mt-[0.55em] shrink-0">·</span>
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
 
 export function ExperienceSection() {
   const [expanded, setExpanded] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
 
-  const rawBgY = useTransform(scrollYProgress, [0, 1], [25, -25]);
-  const bgY = useSpring(rawBgY, { stiffness: 120, damping: 28 });
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
-
-  const alwaysVisibleItems = WORK_ITEMS.slice(0, INITIAL_VISIBLE_COUNT);
-  const hiddenItems = WORK_ITEMS.slice(INITIAL_VISIBLE_COUNT);
+  const alwaysVisible = WORK_ITEMS.slice(0, INITIAL_VISIBLE_COUNT);
+  const hidden = WORK_ITEMS.slice(INITIAL_VISIBLE_COUNT);
 
   const handleCollapse = () => {
     setExpanded(false);
-    // 축소 시 Experience 섹션 상단으로 스크롤
     const el = document.getElementById("experience");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <section
-      ref={sectionRef}
-      id="experience"
-      className="relative py-32 md:py-40 px-6 bg-muted/30 overflow-hidden"
-    >
-      {/* Background decorative layer */}
-      <ParallaxBlobLayer bgY={bgY} bgScale={bgScale}>
-        <div className="absolute top-[5%] -right-[120px] w-[450px] h-[450px] rounded-full bg-primary/4 blur-3xl" />
-        <div className="absolute bottom-[10%] -left-[100px] w-[350px] h-[350px] rounded-full bg-primary/3 blur-3xl" />
-      </ParallaxBlobLayer>
-
+    <section id="experience" className="relative py-24 md:py-32">
       <SectionInner>
-        {/* Section Header */}
-        <SectionPageHeading>Experience</SectionPageHeading>
-
-        {/* Company Header */}
-        <FadeInView speed={1.3}>
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-3">
-              <Building2 size={20} className="text-primary" />
-              <h3 className="text-4xl font-bold tracking-tight text-foreground">
-                미스고(주)
-              </h3>
-            </div>
-            <div className="flex flex-wrap items-center gap-3 text-sm-md font-normal text-muted-foreground mb-4">
-              <span>2025. 08 ~ 2026. 04</span>
-              <DotSeparator />
-              <span>iOS Developer</span>
-            </div>
-            <div className="text-md font-normal text-muted-foreground leading-loose max-w-3xl space-y-2">
-              <p>
-                Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 2개 앱의
-                전체 iOS 개발을 단독으로 담당했습니다.
-              </p>
-              <p>
-                약 8개월간 신규 기능 개발부터 성능 최적화, CI/CD 구축, 아키텍처
-                마이그레이션까지 iOS 앱 운영의 전 과정을 경험했습니다.
-              </p>
-              <p>
-                Claude Code·Codex 등 AI 코딩 도구를 적극 활용해 개발 생산성과
-                코드 품질을 향상시켰습니다.
-              </p>
-              <p>
-                개발 범위를 넘어 QA 업무까지 자발적으로 맡았고, MCP + AI 스킬
-                기반 데이터 검증 방식을 직접 고안·적용하면서 자체 검증을
-                중시하는 개발 습관을 체득했습니다.
-              </p>
-            </div>
-          </div>
+        <FadeInView>
+          <EditorialGrid className="mb-14">
+            <GridLabel>
+              <div className="flex flex-col gap-3">
+                <Eyebrow>03 — Experience</Eyebrow>
+                <h2 className="text-2xl font-medium tracking-tight text-foreground">
+                  미스고(주)
+                </h2>
+                <div className="flex flex-col gap-1 text-xs tracking-widest uppercase text-muted-foreground">
+                  <span className="tabular-nums">2025. 08 ~ 2026. 04</span>
+                  <span>iOS Developer</span>
+                </div>
+              </div>
+            </GridLabel>
+            <GridBody>
+              <div className="flex flex-col gap-4 text-base font-normal text-muted-foreground leading-relaxed max-w-prose">
+                <p>
+                  Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 2개 앱의
+                  전체 iOS 개발을 단독으로 담당했습니다.
+                </p>
+                <p>
+                  약 8개월간 신규 기능 개발부터 성능 최적화, CI/CD 구축, 아키텍처
+                  마이그레이션까지 iOS 앱 운영의 전 과정을 경험했습니다.
+                </p>
+                <p>
+                  Claude Code·Codex 등 AI 코딩 도구를 적극 활용해 개발 생산성과
+                  코드 품질을 향상시켰습니다.
+                </p>
+                <p>
+                  개발 범위를 넘어 QA 업무까지 자발적으로 맡았고, MCP + AI 스킬
+                  기반 데이터 검증 방식을 직접 고안·적용하면서 자체 검증을
+                  중시하는 개발 습관을 체득했습니다.
+                </p>
+              </div>
+            </GridBody>
+          </EditorialGrid>
         </FadeInView>
 
-        {/* Work Items — Always Visible */}
-        <div className="space-y-0">
-          {alwaysVisibleItems.map((item, i) => (
-            <FadeInView key={item.title} delay={i * 0.05}>
-              <WorkItemCard item={item} />
-              <Divider />
-            </FadeInView>
-          ))}
-        </div>
-
-        {/* Work Items — Expandable */}
-        <AnimatePresence initial={false}>
-          {expanded && (
-            <motion.div
-              key="expandable"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{
-                height: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-                opacity: { duration: 0.4, ease: "easeInOut" },
-              }}
-              className="overflow-hidden"
-            >
-              <div className="space-y-0">
-                {hiddenItems.map((item, i) => (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{
-                      duration: 0.4,
-                      delay: expanded ? i * 0.06 : 0,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                  >
-                    <WorkItemCard item={item} />
-                    {i < hiddenItems.length - 1 && (
-                      <Divider />
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Toggle Button */}
-        {WORK_ITEMS.length > INITIAL_VISIBLE_COUNT && (
-          <FadeInView>
-            <div className="flex justify-center mt-8" data-print-hide>
-              <motion.button
-                onClick={() => (expanded ? handleCollapse() : setExpanded(true))}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={expanded ? "collapse" : "expand"}
-                    initial={{ opacity: 0, y: -6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    transition={{ duration: 0.2 }}
-                    className="inline-flex items-center gap-2"
-                  >
-                    {expanded ? (
-                      <>
-                        축소
-                        <ChevronUp size={16} />
-                      </>
-                    ) : (
-                      <>
-                        더보기
-                        <ChevronDown size={16} />
-                      </>
-                    )}
-                  </motion.span>
-                </AnimatePresence>
-              </motion.button>
+        {/* Work items */}
+        <EditorialGrid>
+          <GridLabel>
+            <Eyebrow>Work</Eyebrow>
+          </GridLabel>
+          <GridBody>
+            <div className="border-t border-border">
+              {alwaysVisible.map((item, i) => (
+                <FadeInView key={item.title} delay={i * 0.03}>
+                  <WorkItemRow item={item} index={i} />
+                </FadeInView>
+              ))}
             </div>
-          </FadeInView>
-        )}
+
+            <AnimatePresence initial={false}>
+              {expanded && (
+                <motion.div
+                  key="expandable"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{
+                    height: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+                    opacity: { duration: 0.35 },
+                  }}
+                  className="overflow-hidden"
+                >
+                  <div>
+                    {hidden.map((item, i) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{
+                          duration: 0.35,
+                          delay: expanded ? i * 0.04 : 0,
+                          ease: [0.16, 1, 0.3, 1],
+                        }}
+                      >
+                        <WorkItemRow
+                          item={item}
+                          index={i + INITIAL_VISIBLE_COUNT}
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {WORK_ITEMS.length > INITIAL_VISIBLE_COUNT && (
+              <div data-print-hide className="mt-2">
+                <button
+                  onClick={() =>
+                    expanded ? handleCollapse() : setExpanded(true)
+                  }
+                  className="w-full flex items-center justify-center gap-2 py-4 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors border-b border-border"
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={expanded ? "c" : "e"}
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 4 }}
+                      transition={{ duration: 0.18 }}
+                      className="inline-flex items-center gap-2"
+                    >
+                      {expanded ? (
+                        <>
+                          축소
+                          <ChevronUp size={14} />
+                        </>
+                      ) : (
+                        <>
+                          더보기
+                          <ChevronDown size={14} />
+                        </>
+                      )}
+                    </motion.span>
+                  </AnimatePresence>
+                </button>
+              </div>
+            )}
+          </GridBody>
+        </EditorialGrid>
       </SectionInner>
     </section>
   );

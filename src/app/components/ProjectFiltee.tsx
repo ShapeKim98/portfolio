@@ -1,20 +1,46 @@
 import { FadeInView } from "./ParallaxSection";
-import { ProjectHeader } from "./ProjectHeader";
 import { ClickableImage } from "./ClickableImage";
 import {
-  FeatureGrid,
   LayerDiagram,
-  FlowChart,
   DBSchemaWithERD,
   ProblemSolvingBlock,
   SyncFlowDiagram,
-  AppScreenshotPlaceholder,
 } from "./Diagrams";
-import { ContentCard, SectionGroup, SubSectionTitle, TwoColumnLayout } from "./design-system";
+import {
+  SectionInner,
+  ContentCard,
+  SectionGroup,
+  SubSectionTitle,
+  TwoColumnLayout,
+  NumberedFeatureList,
+} from "./design-system";
+import { ProjectCover, ProjectLayout, ProjectSidebar, ProjectSubsection } from "./ProjectLayout";
 import filteePromo from "../../image/필티표지.png";
 import filterScreenshot from "../../image/필터 제작 스크린샷.jpeg";
 import chatSearchScreenshot from "../../image/채팅 검색 스크린샷.PNG";
 import chatScreenshot from "../../image/실시간 채팅 스크린샷.PNG";
+
+const META = {
+  number: "02",
+  title: "Filtee",
+  kind: "project" as const,
+  subtitle: "나만의 필터를 만들고, 공유하고, 필터 작가와 소통하는 감성 필터 플랫폼 (iOS 16+)",
+  description: "사용자가 직접 필터를 제작하고 공유하며, 필터 작가와 소통할 수 있는 플랫폼입니다.",
+  period: "2025.05.11 ~ 2025.06.12",
+  role: "iOS 개발",
+  team: "서버 1명, 디자이너 1명, iOS 1명",
+  techStack: [
+    "SwiftUI",
+    "Alamofire",
+    "Swift Concurrency",
+    "Nuke",
+    "SocketIO",
+    "KakaoSDK",
+    "Firebase",
+    "Metal",
+  ],
+  githubUrl: "https://github.com/ShapeKim98/Filtee",
+};
 
 const FEATURES = [
   { title: "소셜로그인 기능", desc: "카카오와 애플 계정을 이용해 간편하게 로그인할 수 있으며, JWT 기반 인증 구조를 통한 사용자 인증 및 자동 로그인을 지원합니다." },
@@ -36,30 +62,43 @@ const APP_LAYERS = [
 
 export function ProjectFiltee() {
   return (
-    <div>
-      <ProjectHeader
-        index="02"
-        type="project"
-        title="Filtee"
-        subtitle="나만의 필터를 만들고, 공유하고, 필터 작가와 소통하는 감성 필터 플랫폼 (iOS 16+)"
-        period="2025.05.11 ~ 2025.06.12"
-        team="서버 1명, 디자이너 1명, iOS 1명"
-        role="iOS 개발"
-        description="사용자가 직접 필터를 제작하고 공유하며, 필터 작가와 소통할 수 있는 플랫폼입니다."
-        techStack={["SwiftUI", "Alamofire", "Swift Concurrency", "Nuke", "SocketIO", "KakaoSDK", "Firebase", "Metal"]}
-        githubUrl="https://github.com/ShapeKim98/Filtee"
-        screenshotLabel="Filtee 앱 스크린샷"
-        screenshotSrc={filteePromo}
+    <article>
+      <ProjectCover
+        number={META.number}
+        title={META.title}
+        subtitle={META.subtitle}
+        kind={META.kind}
+        meta={`${META.period} · ${META.role}`}
+        imageSrc={filteePromo}
+        imageAlt="Filtee 앱 커버"
       />
 
-      {/* Features */}
-      <FadeInView>
-        <SubSectionTitle size="lg" className="mb-6">핵심 기능</SubSectionTitle>
-        <FeatureGrid features={FEATURES} />
-      </FadeInView>
+      <section className="py-16 md:py-20">
+        <SectionInner>
+          <ProjectLayout
+            sidebar={
+              <ProjectSidebar
+                subtitle={META.subtitle}
+                period={META.period}
+                role={META.role}
+                team={META.team}
+                techStack={META.techStack}
+                githubUrl={META.githubUrl}
+              />
+            }
+          >
+            <ProjectSubsection eyebrow="Overview">
+              <p className="text-base font-normal text-muted-foreground leading-relaxed max-w-3xl">
+                {META.description}
+              </p>
+            </ProjectSubsection>
+
+            <ProjectSubsection eyebrow="Features">
+              <NumberedFeatureList items={FEATURES.map((f) => ({ title: f.title, desc: f.desc }))} />
+            </ProjectSubsection>
 
       {/* ───── 프로젝트 설계 ───── */}
-      <div className="mt-16">
+      <div>
         <SectionGroup title="프로젝트 설계">
 
         {/* 바닐라 SwiftUI */}
@@ -617,6 +656,9 @@ export function ProjectFiltee() {
         </FadeInView>
         </SectionGroup>
       </div>
-    </div>
+          </ProjectLayout>
+        </SectionInner>
+      </section>
+    </article>
   );
 }
