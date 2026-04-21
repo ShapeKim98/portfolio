@@ -2,7 +2,6 @@ import { FadeInView } from "./ParallaxSection";
 import { LayerDiagram, ProblemSolvingBlock } from "./Diagrams";
 import {
   SectionInner,
-  ContentCard,
   SectionGroup,
   SubSectionTitle,
   TwoColumnLayout,
@@ -123,7 +122,7 @@ export function ProjectPokit() {
           <SubSectionTitle size="lg" className="mb-4">
             Modular Architecture 도입
           </SubSectionTitle>
-          <div className="grid md:grid-cols-3 gap-4 mb-8">
+          <ol className="border-t border-border mb-8">
             {[
               {
                 title: "기능 테스트 과정의 간소화",
@@ -137,39 +136,42 @@ export function ProjectPokit() {
                 title: "확장성과 재사용성 강화",
                 desc: "프로젝트의 규모가 커질수록 유지보수와 확장을 유연하게 이어가기 위해, 기능과 계층을 단순한 코드 단위가 아닌 독립적인 모듈 단위로 구성할 필요가 있다고 판단했습니다. 모듈 단위 구성은 각 기능의 책임을 명확히 하고, 다른 코드와의 의존성을 줄여 관심사 분리(Separation of Concerns)를 실현합니다.",
               },
-            ].map((item) => (
-              <div key={item.title} className="p-5 rounded-xl bg-muted/40 border border-border">
-                <h6 className="text-base font-semibold text-foreground mb-2">{item.title}</h6>
-                <p className="text-sm font-normal text-muted-foreground leading-loose">{item.desc}</p>
-              </div>
+            ].map((item, i) => (
+              <li key={item.title} className="py-5 border-b border-border grid grid-cols-[auto_1fr] gap-5">
+                <span className="text-xs uppercase tracking-widest text-muted-foreground tabular-nums w-8">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h6 className="text-base font-medium text-foreground mb-1">{item.title}</h6>
+                  <p className="text-sm text-muted-foreground leading-normal">{item.desc}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </FadeInView>
 
         {/* Tuist 도입 */}
         <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              Modular Architecture를 위한 Tuist 도입
-            </SubSectionTitle>
-            <div className="space-y-4">
-              <ProblemSolvingBlock
-                problem="코드 레벨 분리만으로는 모든 코드에 접근이 가능해 개발자의 의도치 않은 참조나 책임 혼선이 발생할 수 있음"
-                solution="물리적 의존성 분리를 통한 책임 명확화"
-                detail="타겟 기반으로 모듈을 분리해 접근 범위를 물리적으로 제한하고, 각 개발자가 접근 제어자를 통해 명확한 책임을 직접 관리할 수 있도록 설계했습니다. 이를 통해 협업 시에도 일관된 구조와 책임 분리가 자연스럽게 유지되는 개발 환경을 구축했습니다."
-              />
-              <ProblemSolvingBlock
-                problem="9개 주요 기능의 워크스페이스, 프로젝트, SPM 패키지, 디렉터리 구성에 큰 리소스 필요"
-                solution="Tuist를 활용한 모듈화 자동화"
-                detail="Tuist를 도입하여 Swift 코드 기반으로 프로젝트 생성을 자동화했습니다. 모듈을 열거형(Enum)으로 정의하고, 공통 설정을 Swift 메서드로 추상화하여 반복 작업을 최소화했으며, Tuist Template을 활용해 디렉터리와 필수 파일 구성을 자동화했습니다. 그 결과, 새로운 모듈 추가 시 열거형 케이스 한 줄 추가와 명령어 한 줄이면 모듈 추가가 자동으로 완성되는 구조를 구축했습니다."
-              />
-            </div>
-          </ContentCard>
+          <SubSectionTitle size="md" className="mb-4">
+            Modular Architecture를 위한 Tuist 도입
+          </SubSectionTitle>
+          <div className="space-y-4">
+            <ProblemSolvingBlock
+              problem="코드 레벨 분리만으로는 모든 코드에 접근이 가능해 개발자의 의도치 않은 참조나 책임 혼선이 발생할 수 있음"
+              solution="물리적 의존성 분리를 통한 책임 명확화"
+              detail="타겟 기반으로 모듈을 분리해 접근 범위를 물리적으로 제한하고, 각 개발자가 접근 제어자를 통해 명확한 책임을 직접 관리할 수 있도록 설계했습니다. 이를 통해 협업 시에도 일관된 구조와 책임 분리가 자연스럽게 유지되는 개발 환경을 구축했습니다."
+            />
+            <ProblemSolvingBlock
+              problem="9개 주요 기능의 워크스페이스, 프로젝트, SPM 패키지, 디렉터리 구성에 큰 리소스 필요"
+              solution="Tuist를 활용한 모듈화 자동화"
+              detail="Tuist를 도입하여 Swift 코드 기반으로 프로젝트 생성을 자동화했습니다. 모듈을 열거형(Enum)으로 정의하고, 공통 설정을 Swift 메서드로 추상화하여 반복 작업을 최소화했으며, Tuist Template을 활용해 디렉터리와 필수 파일 구성을 자동화했습니다. 그 결과, 새로운 모듈 추가 시 열거형 케이스 한 줄 추가와 명령어 한 줄이면 모듈 추가가 자동으로 완성되는 구조를 구축했습니다."
+            />
+          </div>
         </FadeInView>
 
         {/* Tuist Graph 장점 */}
         <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-primary/5 border border-primary/10">
+          <div className="border-l-[3px] border-primary pl-4 py-2">
             <SubSectionTitle size="md" className="mb-3">
               프로젝트 구조 시각화 및 유지보수 향상
             </SubSectionTitle>
@@ -223,8 +225,8 @@ export function ProjectPokit() {
               <div className="flex flex-col items-center justify-center gap-4">
               {/* OG 태그 파싱 성공 */}
               <div className="w-full max-w-[335px]">
-                <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 파싱 성공</p>
-                <div className="rounded-xl border border-border bg-card shadow-[2px_2px_6px_rgba(0,0,0,0.06)] overflow-hidden">
+                <Eyebrow className="mb-1.5">OG 태그 파싱 성공</Eyebrow>
+                <div className="border-t border-b border-border overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb1} alt="" className="w-[124px] h-[108px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
@@ -240,8 +242,8 @@ export function ProjectPokit() {
               </div>
               {/* OG 태그 미지원 — 기본 썸네일 대체 */}
               <div className="w-full max-w-[335px]">
-                <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 미지원 — 기본 썸네일 대체</p>
-                <div className="rounded-xl border border-border bg-card shadow-[2px_2px_6px_rgba(0,0,0,0.06)] overflow-hidden">
+                <Eyebrow className="mb-1.5">OG 태그 미지원 — 기본 썸네일 대체</Eyebrow>
+                <div className="border-t border-b border-border overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb2} alt="" className="w-[124px] h-[94px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
@@ -262,10 +264,9 @@ export function ProjectPokit() {
 
         {/* 썸네일 만료 이슈 */}
         <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              썸네일 만료 이슈 분석 및 대응
-            </SubSectionTitle>
+          <SubSectionTitle size="md" className="mb-4">
+            썸네일 만료 이슈 분석 및 대응
+          </SubSectionTitle>
 
             {/* 원인 파악 */}
             <div className="mb-6">
@@ -277,7 +278,7 @@ export function ProjectPokit() {
                 <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-3">
                   이후 동일한 인스타그램 URL을 매일 확인하며 응답 결과를 모니터링한 결과, 3~4일이 경과한 시점부터 썸네일이 표시되지 않는 현상이 나타났습니다. 명확한 만료 주기를 확인하기 위해 인스타그램의 썸네일 만료 정책 관련 문서를 탐색했으나, 공식적인 자료를 발견하지 못했습니다.
                 </p>
-                <div className="p-3 rounded-lg bg-primary/5 border border-primary/10">
+                <div className="border-l-[3px] border-primary pl-4 py-2">
                   <p className="text-sm font-medium text-primary leading-loose">
                     결론: 내부 모니터링 결과를 근거로 썸네일 URL이 약 3~4일 이후 만료되는 것으로 추정
                   </p>
@@ -286,8 +287,8 @@ export function ProjectPokit() {
             </div>
 
             {/* JWT 착안 재파싱 플로우 다이어그램 */}
-            <div className="mb-5 p-4 rounded-xl bg-card border border-border">
-              <h6 className="text-sm font-semibold text-foreground mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
+            <div className="py-4 mb-5">
+              <h6 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
               <div className="grid md:grid-cols-2 gap-6 items-start">
                 {/* 왼쪽: JWT 패턴 대응 설명 */}
                 <div>
@@ -349,7 +350,6 @@ export function ProjectPokit() {
                 detail="사용자가 저장한 링크 데이터의 썸네일 URL을 갱신하지 않는 이상, 해당 URL은 만료된 상태로 유지되어 동일한 만료 URL을 계속 조회하게 됩니다. 이로 인해 썸네일 조회 실패 → 재파싱 → 동일 URL 재조회가 반복되는 구조적 한계가 있었습니다. 그 결과, 썸네일 정보를 안정적으로 유지하면서도 불필요한 재요청과 중복 파싱을 최소화한 구조를 완성했습니다."
               />
             </div>
-          </ContentCard>
         </FadeInView>
         </SectionGroup>
       </div>

@@ -265,25 +265,25 @@ export function ProblemSolvingBlock({
   detail?: string;
 }) {
   return (
-    <div className="p-5 rounded-xl border border-border bg-card">
-      <div className="flex items-start gap-3 mb-3">
-        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-destructive/10 text-destructive text-xs font-semibold">
+    <dl className="flex flex-col gap-5">
+      <div className="grid grid-cols-[88px_1fr] gap-4 border-l-[3px] border-destructive pl-4 py-1">
+        <dt className="text-xs uppercase tracking-widest text-destructive font-medium pt-0.5">
           Problem
-        </span>
-        <p className="text-sm-md font-medium text-foreground leading-loose">{problem}</p>
+        </dt>
+        <dd className="text-sm-md font-medium text-foreground leading-loose">{problem}</dd>
       </div>
-      <div className="flex items-start gap-3">
-        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold">
+      <div className="grid grid-cols-[88px_1fr] gap-4 border-l-[3px] border-green-500 pl-4 py-1">
+        <dt className="text-xs uppercase tracking-widest text-green-600 dark:text-green-400 font-medium pt-0.5">
           Solution
-        </span>
-        <div>
+        </dt>
+        <dd>
           <p className="text-sm-md font-medium text-foreground leading-loose">{solution}</p>
           {detail && (
             <p className="text-sm font-normal text-muted-foreground leading-loose mt-1.5">{detail}</p>
           )}
-        </div>
+        </dd>
       </div>
-    </div>
+    </dl>
   );
 }
 

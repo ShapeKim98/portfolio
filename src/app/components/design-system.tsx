@@ -1,3 +1,4 @@
+import React from "react";
 import type { MotionValue } from "motion/react";
 import { motion } from "motion/react";
 import { cn } from "./ui/utils";
@@ -354,7 +355,7 @@ export function FeatureCard({
   className?: string;
 }) {
   return (
-    <div className={cn("p-5 rounded-[10px] bg-card border border-border", className)}>
+    <div className={cn("py-5 border-b border-border last:border-b-0", className)}>
       <h6 className="text-base font-medium text-foreground mb-2">{title}</h6>
       <div className="text-sm font-normal text-muted-foreground leading-normal">{children}</div>
     </div>
@@ -363,7 +364,7 @@ export function FeatureCard({
 
 export function FeatureItem({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3 p-4 rounded-[10px] bg-card border border-border">
+    <div className="flex items-center gap-3 py-3 border-b border-border last:border-b-0">
       <div className="w-[3px] h-[3px] rounded-full bg-primary shrink-0" />
       <span className="text-base font-medium text-foreground">{children}</span>
     </div>
@@ -454,13 +455,11 @@ export function NumberedStep({
   children: React.ReactNode;
 }) {
   return (
-    <div className="p-5 rounded-[10px] bg-card border border-border">
-      <div className="flex items-start gap-3">
-        <span className="shrink-0 text-xs font-medium tracking-widest text-muted-foreground mt-1 w-6">
-          {String(index).padStart(2, "0")}
-        </span>
-        <p className="text-sm font-normal text-foreground leading-normal">{children}</p>
-      </div>
+    <div className="py-4 border-b border-border last:border-b-0 flex items-start gap-3">
+      <span className="shrink-0 text-xs font-medium tracking-widest text-muted-foreground mt-1 w-8 tabular-nums">
+        {String(index).padStart(2, "0")}
+      </span>
+      <p className="text-sm font-normal text-foreground leading-normal">{children}</p>
     </div>
   );
 }
@@ -583,12 +582,18 @@ export function SectionGroup({
   title: string;
   children: React.ReactNode;
 }) {
+  const items = React.Children.toArray(children).filter(Boolean);
   return (
     <div className="space-y-10" data-print-section-break>
       <FadeInView>
         <SubSectionTitle size="xl">{title}</SubSectionTitle>
       </FadeInView>
-      {children}
+      {items.map((child, i) => (
+        <React.Fragment key={i}>
+          {i > 0 && <Divider />}
+          {child}
+        </React.Fragment>
+      ))}
     </div>
   );
 }
