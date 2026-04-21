@@ -205,7 +205,7 @@ export function ProjectFiltee() {
                 </div>
 
                 {/* Stack 다이어그램 */}
-                <div className="p-4 rounded-[10px] bg-card border border-border mb-5">
+                <div className="p-4 rounded-xl bg-card border border-border mb-5">
                   <h6 className="text-sm font-semibold text-foreground mb-3 text-center">
                     Stack 구조 및 실행 취소 / 다시 실행 흐름
                   </h6>
@@ -213,7 +213,7 @@ export function ProjectFiltee() {
                   {/* 트리거 행 */}
                   <div className="flex items-end justify-center gap-3 mb-1">
                     <div className="flex flex-col items-center gap-1 flex-1 max-w-[150px]">
-                      <div className="w-full px-2 py-1.5 rounded-[10px] bg-blue-500/5 border border-blue-500/30 text-center">
+                      <div className="w-full px-2 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/30 text-center">
                         <span className="text-2xs font-semibold text-blue-600 dark:text-blue-400">슬라이더 조작 완료</span>
                       </div>
                       <div className="flex flex-col items-center gap-0">
@@ -223,7 +223,7 @@ export function ProjectFiltee() {
                     </div>
                     <div className="w-10 shrink-0" />
                     <div className="flex flex-col items-center gap-1 flex-1 max-w-[150px]">
-                      <div className="w-full px-2 py-1.5 rounded-[10px] bg-orange-500/5 border border-orange-500/30 text-center">
+                      <div className="w-full px-2 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/30 text-center">
                         <span className="text-2xs font-semibold text-orange-600 dark:text-orange-400">실행 취소 요청</span>
                       </div>
                       <div className="flex flex-col items-center gap-0">
@@ -244,7 +244,7 @@ export function ProjectFiltee() {
                         </div>
                         <p className="text-3xs text-blue-400/80 mt-0.5 leading-snug">최신 작업이 가장 위에 쌓임</p>
                       </div>
-                      <div className="flex min-h-[140px] flex-col justify-end rounded-[10px] border border-blue-200 dark:border-blue-900 bg-blue-500/5 p-2">
+                      <div className="flex min-h-[140px] flex-col justify-end rounded-lg border border-dashed border-blue-200 dark:border-blue-900 bg-blue-500/5 p-2">
                         <div className="space-y-1.5">
                           {[
                             { label: "밝기 조정", badge: "최신 작업" },
@@ -294,7 +294,7 @@ export function ProjectFiltee() {
                         </div>
                         <p className="text-3xs text-orange-400/80 mt-0.5 leading-snug">실행 취소된 스냅샷 보존</p>
                       </div>
-                      <div className="flex min-h-[140px] flex-col justify-end rounded-[10px] border border-orange-200 dark:border-orange-900 bg-orange-500/5 p-2">
+                      <div className="flex min-h-[140px] flex-col justify-end rounded-lg border border-dashed border-orange-200 dark:border-orange-900 bg-orange-500/5 p-2">
                         <div className="space-y-1.5">
                           {[
                             { label: "밝기 조정", badge: "취소됨" },
@@ -326,8 +326,8 @@ export function ProjectFiltee() {
                   <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-3">
                     슬라이더 값을 조절할 때마다 필터값을 저장하는 방식은 반복적인 상태 기록이 누적되면서 성능 및 사용자 경험 측면에서 부담이 될 수 있다고 판단했습니다.
                   </p>
-                  <div className="p-3 rounded-[10px] bg-card border border-border">
-                    <p className="text-sm font-medium text-foreground leading-loose">
+                  <div className="p-3 rounded-xl bg-primary/5 border border-primary/10">
+                    <p className="text-sm font-medium text-primary leading-loose">
                       스냅샷 시점: DragGesture의 onEnded 시점에 캡처하여 반복적 상태 기록 누적을 방지
                     </p>
                   </div>
@@ -339,7 +339,7 @@ export function ProjectFiltee() {
                   <ClickableImage
                     src={filterScreenshot}
                     alt="필터 제작 스크린샷"
-                    className="w-full max-w-[240px] rounded-[10px]"
+                    className="w-full max-w-[240px] rounded-2xl"
                   />
                 </div>
               }
@@ -472,7 +472,7 @@ export function ProjectFiltee() {
                         {item.step}
                       </div>
                       <div
-                        className="w-full px-2 py-2.5 rounded-[10px] bg-card border text-center"
+                        className="w-full px-2 py-2.5 rounded-lg bg-card border text-center"
                         style={{ borderColor: item.color + "50" }}
                       >
                         <p className="text-xxs font-semibold leading-snug" style={{ color: item.color }}>{item.label}</p>
@@ -552,8 +552,8 @@ export function ProjectFiltee() {
                   <p className="text-sm-md font-normal text-muted-foreground leading-loose">
                     앱은 사용자 디바이스에서 실행되기 때문에 탈옥 등의 방법으로 앱을 임의로 변조해 결제 로직을 수정하고, 사용자가 인위적으로 '결제 완료' 상태를 만들 수 있는 위험이 존재합니다. 반면 서버는 개발자가 통제하는 신뢰 가능한 환경이므로 모든 결제 검증은 서버에서 직접 수행하는 것을 원칙으로 했습니다.
                   </p>
-                  <div className="mt-4 p-3 rounded-[10px] bg-card border border-border">
-                    <p className="text-sm font-medium text-foreground">원칙: 결제 검증의 주체는 항상 서버</p>
+                  <div className="mt-4 p-3 rounded-lg bg-primary/5 border border-primary/10">
+                    <p className="text-sm font-medium text-primary">원칙: 결제 검증의 주체는 항상 서버</p>
                   </div>
                 </div>
               }
@@ -568,7 +568,7 @@ export function ProjectFiltee() {
                   ].map((step, i, arr) => (
                     <div key={i} className="w-full max-w-[240px]">
                       <div
-                        className="px-3 py-2.5 rounded-[10px] bg-card border text-center"
+                        className="px-3 py-2.5 rounded-lg bg-card border text-center"
                         style={{ borderColor: step.color + "50" }}
                       >
                         <span className="text-xs font-semibold" style={{ color: step.color }}>{step.label}</span>

@@ -21,7 +21,7 @@ export function LayerDiagram({
                 <div className="absolute left-6 top-full w-0.5 h-3 bg-border z-0" />
               )}
               <div
-                className="relative z-10 flex items-start gap-4 p-4 rounded-[10px] border border-border bg-card"
+                className="relative z-10 flex items-start gap-4 p-4 rounded-xl border border-border bg-card"
                 style={{ borderLeftColor: layer.color, borderLeftWidth: 3 }}
               >
                 <div className="min-w-[100px]">
@@ -56,7 +56,7 @@ export function FlowChart({
         <div className="flex flex-col items-center gap-2">
           {steps.map((step, i) => (
             <div key={i} className="w-full max-w-md">
-              <div className="p-4 rounded-[10px] bg-card border border-border text-center">
+              <div className="p-4 rounded-xl bg-card border border-border text-center">
                 <span className="text-sm-md font-semibold text-foreground">{step.label}</span>
                 {step.desc && (
                   <p className="text-sm font-normal text-muted-foreground mt-1">{step.desc}</p>
@@ -93,15 +93,15 @@ export function DBSchema({
         <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           {tables.map((table) => (
-            <div key={table.name} className="rounded-[10px] border border-border overflow-hidden bg-card">
-              <div className="px-4 py-2.5 bg-primary/5 border-b border-border">
+            <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
+              <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
                 <span className="text-sm-md font-bold text-primary">{table.name}</span>
               </div>
               <div className="p-3 space-y-1.5">
                 {table.fields.map((f) => (
                   <div key={f.name} className="flex items-center gap-2">
                     {f.key && (
-                      <span className="text-xxs font-semibold text-primary bg-primary/5 px-1.5 py-0.5 rounded">
+                      <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                         PK
                       </span>
                     )}
@@ -139,8 +139,8 @@ export function DBRelationDiagram() {
             {/* Tables row */}
             <div className="flex items-start justify-between gap-4 mb-2">
               {/* Participant */}
-              <div className="flex-1 rounded-[10px] border border-border overflow-hidden bg-card min-w-[130px]">
-                <div className="px-3 py-2 bg-orange-500/5 border-b border-border">
+              <div className="flex-1 rounded-xl border border-border overflow-hidden bg-card min-w-[130px]">
+                <div className="px-3 py-2 bg-orange-500/10 border-b border-border">
                   <span className="text-sm font-bold text-orange-600 dark:text-orange-400">Participant</span>
                 </div>
                 <div className="p-2.5 space-y-1">
@@ -151,8 +151,8 @@ export function DBRelationDiagram() {
                     { name: "chatRoom", type: "→ ChatRoom", fk: true },
                   ].map((f) => (
                     <div key={f.name} className="flex items-center gap-1.5">
-                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/5 px-1 py-0.5 rounded shrink-0">PK</span>}
-                      {f.fk && <span className="text-2xs font-bold text-orange-500 bg-orange-500/5 px-1 py-0.5 rounded shrink-0">FK</span>}
+                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
+                      {f.fk && <span className="text-2xs font-bold text-orange-500 bg-orange-500/10 px-1 py-0.5 rounded shrink-0">FK</span>}
                       <span className="text-xs font-medium text-foreground">{f.name}</span>
                       <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
@@ -161,8 +161,8 @@ export function DBRelationDiagram() {
               </div>
 
               {/* ChatRoom (center) */}
-              <div className="flex-1 rounded-[10px] border border-primary/40 overflow-hidden bg-card min-w-[150px]">
-                <div className="px-3 py-2 bg-primary/5 border-b border-border">
+              <div className="flex-1 rounded-xl border-2 border-primary/40 overflow-hidden bg-card min-w-[150px]">
+                <div className="px-3 py-2 bg-primary/10 border-b border-border">
                   <span className="text-sm font-bold text-primary">ChatRoom</span>
                 </div>
                 <div className="p-2.5 space-y-1">
@@ -173,8 +173,8 @@ export function DBRelationDiagram() {
                     { name: "messages", type: "[ChatMessage]" },
                   ].map((f) => (
                     <div key={f.name} className="flex items-center gap-1.5">
-                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/5 px-1 py-0.5 rounded shrink-0">PK</span>}
-                      {f.fk && <span className="text-2xs font-bold text-primary/70 bg-primary/5 px-1 py-0.5 rounded shrink-0">FK</span>}
+                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
+                      {f.fk && <span className="text-2xs font-bold text-primary/70 bg-primary/10 px-1 py-0.5 rounded shrink-0">FK</span>}
                       <span className="text-xs font-medium text-foreground">{f.name}</span>
                       <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
@@ -183,8 +183,8 @@ export function DBRelationDiagram() {
               </div>
 
               {/* ChatMessage */}
-              <div className="flex-1 rounded-[10px] border border-border overflow-hidden bg-card min-w-[140px]">
-                <div className="px-3 py-2 bg-green-500/5 border-b border-border">
+              <div className="flex-1 rounded-xl border border-border overflow-hidden bg-card min-w-[140px]">
+                <div className="px-3 py-2 bg-green-500/10 border-b border-border">
                   <span className="text-sm font-bold text-green-600 dark:text-green-400">ChatMessage</span>
                 </div>
                 <div className="p-2.5 space-y-1">
@@ -197,8 +197,8 @@ export function DBRelationDiagram() {
                     { name: "chatRoom", type: "→ ChatRoom", fk: true },
                   ].map((f) => (
                     <div key={f.name} className="flex items-center gap-1.5">
-                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/5 px-1 py-0.5 rounded shrink-0">PK</span>}
-                      {f.fk && <span className="text-2xs font-bold text-green-500 bg-green-500/5 px-1 py-0.5 rounded shrink-0">FK</span>}
+                      {f.pk && <span className="text-2xs font-bold text-primary bg-primary/10 px-1 py-0.5 rounded shrink-0">PK</span>}
+                      {f.fk && <span className="text-2xs font-bold text-green-500 bg-green-500/10 px-1 py-0.5 rounded shrink-0">FK</span>}
                       <span className="text-xs font-medium text-foreground">{f.name}</span>
                       <span className="text-xxs font-normal text-muted-foreground ml-auto">{f.type}</span>
                     </div>
@@ -265,25 +265,25 @@ export function ProblemSolvingBlock({
   detail?: string;
 }) {
   return (
-    <dl className="rounded-[10px] border border-border bg-card divide-y divide-border">
-      <div className="grid grid-cols-[88px_1fr] gap-4 p-5">
-        <dt className="text-xs uppercase tracking-widest text-muted-foreground font-normal pt-0.5">
+    <div className="p-5 rounded-xl border border-border bg-card">
+      <div className="flex items-start gap-3 mb-3">
+        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-destructive/10 text-destructive text-xs font-semibold">
           Problem
-        </dt>
-        <dd className="text-sm-md font-medium text-foreground leading-loose">{problem}</dd>
+        </span>
+        <p className="text-sm-md font-medium text-foreground leading-loose">{problem}</p>
       </div>
-      <div className="grid grid-cols-[88px_1fr] gap-4 p-5">
-        <dt className="text-xs uppercase tracking-widest text-muted-foreground font-normal pt-0.5">
+      <div className="flex items-start gap-3">
+        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold">
           Solution
-        </dt>
-        <dd>
+        </span>
+        <div>
           <p className="text-sm-md font-medium text-foreground leading-loose">{solution}</p>
           {detail && (
             <p className="text-sm font-normal text-muted-foreground leading-loose mt-1.5">{detail}</p>
           )}
-        </dd>
+        </div>
       </div>
-    </dl>
+    </div>
   );
 }
 
@@ -305,7 +305,7 @@ export function TechTags({ tags }: { tags: string[] }) {
       {tags.map((t) => (
         <span
           key={t}
-          className="rounded-[10px] border border-border bg-card text-foreground text-xs font-normal px-3 py-1"
+          className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
         >
           {t}
         </span>
@@ -317,9 +317,9 @@ export function TechTags({ tags }: { tags: string[] }) {
 /* ─── Screenshot Placeholder ─── */
 export function ScreenshotPlaceholder({ label }: { label: string }) {
   return (
-    <div className="w-full aspect-[16/9] rounded-[10px] bg-muted/30 border border-border flex items-center justify-center">
+    <div className="w-full aspect-[16/9] rounded-2xl bg-muted/50 border-2 border-dashed border-border flex items-center justify-center">
       <div className="text-center">
-        <div className="w-12 h-12 rounded-[10px] bg-muted mx-auto mb-3 flex items-center justify-center">
+        <div className="w-12 h-12 rounded-xl bg-muted mx-auto mb-3 flex items-center justify-center">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-muted-foreground">
             <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5" />
             <circle cx="9" cy="9" r="2" stroke="currentColor" strokeWidth="1.5" />
@@ -335,9 +335,9 @@ export function ScreenshotPlaceholder({ label }: { label: string }) {
 /* ─── App Screenshot Placeholder (portrait / mobile ratio) ─── */
 export function AppScreenshotPlaceholder({ label }: { label: string }) {
   return (
-    <div className="mx-auto max-w-[160px] w-full aspect-[9/19.5] rounded-[10px] bg-muted/30 border border-border flex items-center justify-center">
+    <div className="mx-auto max-w-[160px] w-full aspect-[9/19.5] rounded-2xl bg-muted/50 border-2 border-dashed border-border flex items-center justify-center">
       <div className="text-center p-2">
-        <div className="w-8 h-8 rounded-[10px] bg-muted mx-auto mb-2 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-xl bg-muted mx-auto mb-2 flex items-center justify-center">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-muted-foreground">
             <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5" />
             <circle cx="9" cy="9" r="2" stroke="currentColor" strokeWidth="1.5" />
@@ -400,7 +400,7 @@ export function SyncFlowDiagram({
             {steps.map((step, i) => (
               <div key={i} className="w-full max-w-[280px]">
                 <div
-                  className="p-2.5 rounded-[10px] bg-card border"
+                  className="p-2.5 rounded-lg bg-card border"
                   style={{ borderColor: step.color + "40" }}
                 >
                   <div className="flex items-start gap-2">
@@ -428,7 +428,7 @@ export function SyncFlowDiagram({
           {/* 오른쪽: 앱 스크린샷 */}
           <div className="flex justify-center">
             {screenshotSrc
-              ? <ClickableImage src={screenshotSrc} alt={screenshotAlt} className="w-full max-w-[240px] rounded-[10px]" />
+              ? <ClickableImage src={screenshotSrc} alt={screenshotAlt} className="w-full max-w-[240px] rounded-2xl" />
               : <AppScreenshotPlaceholder label={screenshotAlt} />}
           </div>
         </div>
@@ -455,15 +455,15 @@ export function DBSchemaWithERD({
         {/* 테이블 스키마 */}
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           {tables.map((table) => (
-            <div key={table.name} className="rounded-[10px] border border-border overflow-hidden bg-card">
-              <div className="px-4 py-2.5 bg-primary/5 border-b border-border">
+            <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
+              <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
                 <span className="text-sm-md font-bold text-primary">{table.name}</span>
               </div>
               <div className="p-3 space-y-1.5">
                 {table.fields.map((f) => (
                   <div key={f.name} className="flex items-center gap-2">
                     {f.key && (
-                      <span className="text-xxs font-semibold text-primary bg-primary/5 px-1.5 py-0.5 rounded">
+                      <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                         PK
                       </span>
                     )}
@@ -487,7 +487,7 @@ export function DBSchemaWithERD({
               <div className="flex items-center justify-center gap-0 mb-4">
                 {/* Participant */}
                 <div className="flex flex-col items-center">
-                  <div className="px-3 py-2 rounded-[10px] border bg-orange-500/5 border-orange-500/30">
+                  <div className="px-3 py-2 rounded-xl border bg-orange-500/10 border-orange-500/30">
                     <span className="text-xs font-bold text-orange-600 dark:text-orange-400">Participant</span>
                   </div>
                   <span className="text-2xs font-bold text-orange-400 mt-1">N</span>
@@ -503,7 +503,7 @@ export function DBSchemaWithERD({
 
                 {/* ChatRoom (중앙, 1:1:) */}
                 <div className="flex flex-col items-center">
-                  <div className="px-3 py-2 rounded-[10px] border border-primary/50 bg-primary/5">
+                  <div className="px-3 py-2 rounded-xl border-2 border-primary/50 bg-primary/10">
                     <span className="text-xs font-bold text-primary">ChatRoom</span>
                   </div>
                   <span className="text-2xs font-bold text-primary mt-1">1</span>
@@ -519,7 +519,7 @@ export function DBSchemaWithERD({
 
                 {/* ChatMessage */}
                 <div className="flex flex-col items-center">
-                  <div className="px-3 py-2 rounded-[10px] border bg-green-500/5 border-green-500/30">
+                  <div className="px-3 py-2 rounded-xl border bg-green-500/10 border-green-500/30">
                     <span className="text-xs font-bold text-green-600 dark:text-green-400">ChatMessage</span>
                   </div>
                   <span className="text-2xs font-bold text-green-500 mt-1">N</span>
@@ -528,7 +528,7 @@ export function DBSchemaWithERD({
 
               {/* lastMessage 1:1 참조 */}
               <div className="flex justify-center mb-3">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-[10px] bg-card border border-primary/20">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card border border-primary/20">
                   <span className="text-xxs font-semibold text-primary">ChatRoom</span>
                   <svg width="44" height="10" viewBox="0 0 44 10">
                     <path d="M0 5h34M30 1l10 4-10 4" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="4 2" strokeLinejoin="round"/>
