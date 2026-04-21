@@ -44,9 +44,9 @@
   /* Hero min-h-screen → auto */
   section[id="hero"] { min-height: 0 !important; padding-top: 24px !important; padding-bottom: 24px !important; }
 
-  /* Project cover 높이 축소 */
-  section[id^="project-"] .aspect-\[16\/9\],
-  section[id^="project-"] .aspect-\[21\/9\] { aspect-ratio: 16 / 9 !important; max-height: 380px !important; }
+  /* Project cover 이미지 크기 제한 — 한 페이지 내 수납 우선 */
+  section[id^="project-"] img,
+  [data-print-keep] img { max-height: 360px !important; width: auto !important; }
 
   /* Project grid — sticky 해제 + 1단 stack */
   aside.lg\:sticky { position: static !important; }
@@ -66,10 +66,16 @@
     page-break-inside: avoid !important;
   }
 
-  /* 명시적 print-keep 플래그 */
+  /* 명시적 print-keep 플래그 — 블럭 단위 페이지 분할 방지 */
   [data-print-keep] {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
+  }
+
+  /* 명시적 page break 플래그 */
+  [data-print-break] {
+    break-before: page !important;
+    page-break-before: always !important;
   }
 
   /* Tailwind 카드 패턴 (rounded + border-border) — 페이지 중간에서 잘리지 않도록 유지 */
@@ -79,6 +85,27 @@
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
+
+  /* EditorialGrid 의 GridLabel(좌측) + GridBody(우측) 전체를 한 덩어리로 유지 시도 */
+  section > div > div > .grid,
+  section .grid.grid-cols-1 {
+    break-inside: auto !important;
+  }
+
+  /* 각 "서브섹션" (eyebrow + content 스택) 가급적 유지 */
+  section[id^="project-"] article > section,
+  section article section {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  /* NumberedFeatureList 각 <li>, DefList 각 row, Timeline 각 row — 항목 단위 쪼개짐 방지 */
+  ol > li,
+  ul > li,
+  dl > div { break-inside: avoid !important; page-break-inside: avoid !important; }
+
+  /* Figure(이미지 + 캡션) 쪼개짐 방지 */
+  figure { break-inside: avoid !important; page-break-inside: avoid !important; }
 }
 
 /* ───────────────────────────────────────────────────────────
@@ -115,3 +142,53 @@ html.print-mode [class*="bg-card"] { background: transparent !important; }
 html.print-mode [class*="blur-3xl"],
 html.print-mode [class*="blur-2xl"],
 html.print-mode [class*="blur-xl"] { display: none !important; }
+
+/* ───────────────────────────────────────────────────────────
+ * print-mode: 프로젝트 메타 사이드바를 본문 상단 가로 메타바로 재구성
+ * — sticky 해제 + grid 2열 → 1열 stack, sidebar가 body 위에 1회 노출되도록 명시
+ * ─────────────────────────────────────────────────────────── */
+html.print-mode article .grid.lg\:grid-cols-12 {
+  display: block !important;
+}
+html.print-mode article aside.lg\:col-span-4 {
+  position: static !important;
+  width: 100% !important;
+  margin-bottom: 24px !important;
+  padding-bottom: 20px !important;
+  border-bottom: 1px solid rgba(17,17,17,0.1) !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+/* 새 프로젝트는 새 페이지에서 시작 (커버 섹션 기준) */
+html.print-mode article > section:first-child {
+  break-before: page !important;
+  page-break-before: always !important;
+}
+/* 최상단 Hero 바로 뒤 About 은 같은 페이지에 흐를 수 있음 — 오직 article(프로젝트)에만 적용 */
+
+/* print-mode 이미지 크기 제한 */
+html.print-mode section[id^="project-"] img,
+html.print-mode [data-print-keep] img { max-height: 360px !important; height: auto !important; }
+
+/* print-mode NumberedFeatureList 각 항목 쪼개짐 방지 */
+html.print-mode ol > li,
+html.print-mode ul > li,
+html.print-mode dl > div { break-inside: avoid !important; page-break-inside: avoid !important; }
+
+/* print-mode Figure 쪼개짐 방지 */
+html.print-mode figure { break-inside: avoid !important; page-break-inside: avoid !important; }
+
+/* print-mode card/ContentCard 쪼개짐 방지 */
+html.print-mode div[class*="rounded-\\[10px\\]"][class*="border-border"],
+html.print-mode div[class*="rounded-xl"][class*="border-border"],
+html.print-mode div[class*="rounded-2xl"][class*="border-border"] {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+/* print-mode 각 프로젝트 body 서브섹션 쪼개짐 최소화 */
+html.print-mode article section {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}

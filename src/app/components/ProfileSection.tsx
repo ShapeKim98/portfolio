@@ -47,6 +47,15 @@ const SKILLS = {
   ],
 };
 
+const CAREERS = [
+  {
+    period: "2025.08 ~ 2026.04",
+    title: "미스고(주)",
+    meta: "iOS Developer",
+    desc: "Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 2개 앱의 전체 iOS 개발을 단독으로 담당했습니다.",
+  },
+];
+
 const ACTIVITIES = [
   {
     period: "2024.12 ~ 2025.06",
@@ -92,13 +101,13 @@ export function ProfileSection() {
               <div className="flex flex-col gap-3">
                 <Eyebrow>02 — Background</Eyebrow>
                 <h2 className="text-2xl font-medium tracking-tight text-foreground">
-                  Skills · Education · Activities
+                  Skills · Career · Education · Activities
                 </h2>
               </div>
             </GridLabel>
             <GridBody>
               <p className="text-base font-normal text-muted-foreground leading-normal max-w-prose">
-                기술 스택과 학력, 수상, 활동 이력을 한 눈에 정리했습니다.
+                기술 스택과 경력, 학력, 수상, 활동 이력을 담은 섹션입니다.
               </p>
             </GridBody>
           </EditorialGrid>
@@ -157,6 +166,18 @@ export function ProfileSection() {
         </FadeInView>
 
         <Divider className="my-16" />
+
+        {/* Career */}
+        <FadeInView>
+          <EditorialGrid className="mb-16">
+            <GridLabel>
+              <Eyebrow>Career</Eyebrow>
+            </GridLabel>
+            <GridBody>
+              <TimelineList items={CAREERS} />
+            </GridBody>
+          </EditorialGrid>
+        </FadeInView>
 
         {/* Education */}
         <FadeInView>

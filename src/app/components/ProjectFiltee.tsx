@@ -507,94 +507,26 @@ export function ProjectFiltee() {
           solution="소켓 연결을 동기화보다 먼저 시작하고, 동기화 완료 전 수신된 메시지는 Queue에 임시 저장"
           detail="Queue의 FIFO 특성을 활용해 수신 순서를 그대로 보존합니다. 동기화 완료 후 Queue의 메시지를 선처리한 뒤 일반 수신 흐름으로 전환하여 실시간성과 데이터 정합성을 모두 확보했습니다."
           screenshotSrc={chatScreenshot}
+          screenshotAlt="실시간 채팅 스크린샷"
         />
 
-        {/* 채팅 검색 기능 설계 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              채팅 검색 시 미로드 영역 스크롤 이동
-            </SubSectionTitle>
-            {/* 설명 + PSB + 플로우 다이어그램 + 앱스크린샷 — 2컬럼 */}
-            <TwoColumnLayout
-              left={
-                <div className="flex flex-col gap-4">
-                <p className="text-sm-md font-normal text-muted-foreground leading-loose">
-                  검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우, 곧바로 해당 위치로 스크롤 이동하는 데 어려움이 생길 수 있다는 점을 고려했습니다.
-                </p>
-                <ProblemSolvingBlock
-                  problem="검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우 스크롤 이동 불가"
-                  solution="현재 페이지네이션 커서의 날짜와 검색 대상 메시지의 날짜 사이 범위만큼을 먼저 조회한 뒤, 해당 메시지가 포함된 영역으로 자연스럽게 이동되도록 설계"
-                  detail="검색된 메시지의 날짜와 현재 페이지네이션 커서의 날짜를 비교하여, 대상이 미로드 영역에 해당하면 해당 범위의 데이터를 먼저 선조회합니다. 조회 완료 후 해당 메시지가 포함된 위치로 ScrollViewProxy를 통해 자연스럽게 스크롤 이동합니다."
-                />
-                <div className="flex flex-col items-center gap-1.5">
-                {[
-                  { label: "키워드 검색", desc: "로컬 DB에서 키워드 기반 메시지 조회", color: "#2563eb" },
-                  { label: "검색 메시지 날짜 확인", desc: "검색된 메시지의 날짜와 현재 cursor 날짜 비교", color: "#7c3aed" },
-                  { label: "날짜 < 커서?", desc: "해당 범위가 아직 로드되지 않은 상태", color: "#f59e0b", diamond: true },
-                  { label: "커서~날짜 범위 선조회", desc: "cursor~메시지 날짜 사이 데이터를 먼저 로드", color: "#f59e0b" },
-                  { label: "해당 위치로 스크롤", desc: "해당 메시지 위치로 자연스럽게 스크롤", color: "#22c55e" },
-                ].map((item, i, arr) => (
-                  <div key={i} className="w-full max-w-[240px]">
-                    {item.diamond ? (
-                      <div className="flex flex-col items-center gap-1">
-                        <div
-                          className="flex items-center justify-center border text-center"
-                          style={{
-                            borderColor: item.color + "60",
-                            backgroundColor: item.color + "10",
-                            clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-                            width: "160px",
-                            height: "44px",
-                          }}
-                        >
-                          <span className="text-xxs font-semibold" style={{ color: item.color }}>{item.label}</span>
-                        </div>
-                        <p className="text-2xs text-muted-foreground leading-snug text-center px-2">{item.desc}</p>
-                      </div>
-                    ) : (
-                      <div
-                        className="px-3 py-2.5 rounded-lg bg-card border"
-                        style={{ borderColor: item.color + "50" }}
-                      >
-                        <div className="flex items-start gap-2">
-                          <div
-                            className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-2xs font-bold text-white mt-0.5"
-                            style={{ backgroundColor: item.color }}
-                          >
-                            {i + 1}
-                          </div>
-                          <div>
-                            <p className="text-xs font-semibold leading-snug" style={{ color: item.color }}>{item.label}</p>
-                            <p className="text-xxs font-normal text-muted-foreground leading-normal mt-0.5">{item.desc}</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {i < arr.length - 1 && (
-                      <div className="flex justify-center py-0.5">
-                        <svg width="10" height="12" viewBox="0 0 10 12" className="text-border">
-                          <path d="M5 0v8M2 6l3 4 3-4" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                ))}
-                </div>
-                </div>
-              }
-              right={
-                <div className="flex items-center justify-center">
-                  <ClickableImage
-                    src={chatSearchScreenshot}
-                    alt="채팅 검색 스크린샷"
-                    className="w-full max-w-[240px] rounded-2xl"
-                  />
-                </div>
-              }
-            />
-          </ContentCard>
-        </FadeInView>
+        {/* 채팅 검색 기능 설계 — 동일 SyncFlowDiagram 레이아웃 */}
+        <SyncFlowDiagram
+          title="채팅 검색 시 미로드 영역 스크롤 이동"
+          description="검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우, 곧바로 해당 위치로 스크롤 이동하는 데 어려움이 생길 수 있다는 점을 고려했습니다."
+          steps={[
+            { label: "키워드 검색", color: "#2563eb", desc: "로컬 DB에서 키워드 기반 메시지 조회" },
+            { label: "검색 메시지 날짜 확인", color: "#7c3aed", desc: "검색된 메시지의 날짜와 현재 cursor 날짜 비교" },
+            { label: "미로드 영역 판단", color: "#f59e0b", desc: "메시지 날짜 < 커서 → 아직 로드되지 않은 상태" },
+            { label: "커서~날짜 범위 선조회", color: "#f59e0b", desc: "cursor~메시지 날짜 사이 데이터를 먼저 로드" },
+            { label: "해당 위치로 스크롤", color: "#22c55e", desc: "ScrollViewProxy로 해당 메시지 위치로 자연스럽게 스크롤" },
+          ]}
+          problem="검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우 스크롤 이동 불가"
+          solution="현재 페이지네이션 커서의 날짜와 검색 대상 메시지의 날짜 사이 범위만큼을 먼저 조회한 뒤, 해당 메시지가 포함된 영역으로 자연스럽게 이동되도록 설계"
+          detail="검색된 메시지의 날짜와 현재 페이지네이션 커서의 날짜를 비교하여, 대상이 미로드 영역에 해당하면 해당 범위의 데이터를 먼저 선조회합니다. 조회 완료 후 해당 메시지가 포함된 위치로 ScrollViewProxy를 통해 자연스럽게 스크롤 이동합니다."
+          screenshotSrc={chatSearchScreenshot}
+          screenshotAlt="채팅 검색 스크린샷"
+        />
 
         {/* ───── 결제 기능 설계 ───── */}
         <FadeInView>

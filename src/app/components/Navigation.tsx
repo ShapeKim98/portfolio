@@ -204,7 +204,7 @@ function SideIndex({
           </button>
         </div>
         <span className="text-[10px] tracking-widest uppercase text-muted-foreground">
-          © 2025
+          © 2026
         </span>
       </div>
     </aside>

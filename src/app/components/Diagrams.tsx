@@ -359,6 +359,7 @@ export function SyncFlowDiagram({
   solution,
   detail,
   screenshotSrc,
+  screenshotAlt = "스크린샷",
 }: {
   title: string;
   description?: string;
@@ -367,6 +368,7 @@ export function SyncFlowDiagram({
   solution: string;
   detail?: string;
   screenshotSrc?: string;
+  screenshotAlt?: string;
 }) {
   return (
     <FadeInView>
@@ -426,8 +428,8 @@ export function SyncFlowDiagram({
           {/* 오른쪽: 앱 스크린샷 */}
           <div className="flex justify-center">
             {screenshotSrc
-              ? <ClickableImage src={screenshotSrc} alt="실시간 채팅 스크린샷" className="w-full max-w-[240px] rounded-2xl" />
-              : <AppScreenshotPlaceholder label="실시간 채팅 스크린샷" />}
+              ? <ClickableImage src={screenshotSrc} alt={screenshotAlt} className="w-full max-w-[240px] rounded-2xl" />
+              : <AppScreenshotPlaceholder label={screenshotAlt} />}
           </div>
         </div>
       </ContentCard>

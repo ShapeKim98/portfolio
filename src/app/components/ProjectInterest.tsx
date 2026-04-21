@@ -6,7 +6,6 @@ import {
   SectionGroup,
   SubSectionTitle,
   NumberedFeatureList,
-  Eyebrow,
 } from "./design-system";
 import {
   ProjectCover,
@@ -108,37 +107,37 @@ export function ProjectInterest() {
                     운동 중 실시간으로 심박수와 칼로리를 아이폰에 전달하고, 아이폰의 운동 제어 명령을 애플워치로 전송하는 양방향 통신 구조가 필요했습니다. WCSession을 통한 1초 주기 동기화로 두 기기 간 일관된 운동 상태를 유지했습니다.
                   </p>
 
-                  {/* 통신 구조 다이어그램 — monochrome editorial */}
+                  {/* 통신 구조 다이어그램 — 원본 컬러 */}
                   <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-6">
-                    <div className="w-40 h-40 rounded-[10px] border border-border bg-card flex flex-col items-center justify-center p-3">
-                      <Eyebrow>Apple Watch</Eyebrow>
-                      <div className="mt-2 space-y-1 text-center">
+                    <div className="w-40 h-40 rounded-2xl border-2 border-blue-500/40 bg-blue-500/5 flex flex-col items-center justify-center p-3">
+                      <span className="text-base font-bold text-blue-500 mb-2">Apple Watch</span>
+                      <div className="space-y-1 text-center">
                         <span className="block text-xs font-normal text-muted-foreground">HealthKit</span>
                         <span className="block text-xs font-normal text-muted-foreground">WatchKit</span>
                         <span className="block text-xs font-normal text-muted-foreground">HKWorkoutSession</span>
                       </div>
                     </div>
                     <div className="flex flex-col items-center gap-1">
-                      <Eyebrow>WCSession</Eyebrow>
+                      <span className="text-[11px] font-medium text-muted-foreground">WCSession</span>
                       <div className="flex items-center gap-1">
-                        <div className="w-16 md:w-24 h-px bg-border" />
-                        <svg width="12" height="8" viewBox="0 0 12 8" className="text-muted-foreground">
+                        <div className="w-16 md:w-24 h-0.5 bg-primary/30" />
+                        <svg width="12" height="8" viewBox="0 0 12 8" className="text-primary">
                           <path d="M0 4h8M6 1l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" />
                         </svg>
                       </div>
                       <span className="text-[10px] font-normal text-muted-foreground">심박수, 칼로리</span>
                       <div className="flex items-center gap-1">
-                        <svg width="12" height="8" viewBox="0 0 12 8" className="text-muted-foreground rotate-180">
+                        <svg width="12" height="8" viewBox="0 0 12 8" className="text-primary rotate-180">
                           <path d="M0 4h8M6 1l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" />
                         </svg>
-                        <div className="w-16 md:w-24 h-px bg-border" />
+                        <div className="w-16 md:w-24 h-0.5 bg-primary/30" />
                       </div>
                       <span className="text-[10px] font-normal text-muted-foreground">운동 상태 제어</span>
-                      <span className="text-[10px] font-medium text-primary mt-1">1초 주기 동기화</span>
+                      <span className="text-[11px] font-medium text-primary mt-1">1초 주기 동기화</span>
                     </div>
-                    <div className="w-40 h-40 rounded-[10px] border border-border bg-card flex flex-col items-center justify-center p-3">
-                      <Eyebrow>iPhone</Eyebrow>
-                      <div className="mt-2 space-y-1 text-center">
+                    <div className="w-40 h-40 rounded-2xl border-2 border-green-500/40 bg-green-500/5 flex flex-col items-center justify-center p-3">
+                      <span className="text-base font-bold text-green-600 dark:text-green-400 mb-2">iPhone</span>
+                      <div className="space-y-1 text-center">
                         <span className="block text-xs font-normal text-muted-foreground">SwiftUI</span>
                         <span className="block text-xs font-normal text-muted-foreground">SwiftData</span>
                         <span className="block text-xs font-normal text-muted-foreground">Combine Timer</span>

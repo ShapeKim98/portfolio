@@ -78,7 +78,7 @@ export function FooterSection() {
         </FadeInView>
 
         <div className="pt-8 border-t border-border flex items-center justify-between text-xs tracking-widest uppercase text-muted-foreground">
-          <span>© 2025 김도형</span>
+          <span>© 2026 김도형</span>
           <span>All rights reserved.</span>
         </div>
       </SectionInner>

@@ -18,7 +18,7 @@ export function HeroSection() {
         >
           {/* Left: identity + heading + sub */}
           <div className="col-span-1 md:col-span-8 lg:col-span-8 flex flex-col gap-8">
-            <Eyebrow>Portfolio — 2025</Eyebrow>
+            <Eyebrow>Portfolio — 2026</Eyebrow>
 
             <h1 className="font-medium tracking-tight leading-[1.05] text-foreground"
                 style={{ fontSize: "var(--text-display)" }}>

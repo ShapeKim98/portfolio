@@ -1,5 +1,6 @@
 import { cn } from "./ui/utils";
 import { Eyebrow, MetaList, IconButton, Divider } from "./design-system";
+import { ClickableImage } from "./ClickableImage";
 import { Github, ExternalLink } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────────
@@ -25,89 +26,80 @@ export function ProjectCover({
   imageAlt?: string;
   ariaLabelId?: string;
 }) {
+  /* Text header (always rendered for both library + project kinds).
+     Shown standalone for library kind (no image) and also for PDF export. */
+  const textHeader = (
+    <div
+      className={cn(
+        "mx-auto w-full",
+        "max-w-[clamp(320px,100%,1280px)]",
+        "px-[clamp(24px,5vw,96px)]"
+      )}
+    >
+      <div className="py-8 md:py-10 flex flex-wrap items-end justify-between gap-6 border-b border-border">
+        <div className="flex items-baseline gap-4">
+          <span className="text-sm font-medium tracking-widest text-muted-foreground tabular-nums">
+            {number}
+          </span>
+          <div className="flex flex-col gap-2">
+            <span className="text-[11px] font-medium tracking-widest uppercase text-muted-foreground">
+              {kind === "library" ? "Open Source Library" : "Project"}
+            </span>
+            <h3 className="text-2xl md:text-3xl font-medium tracking-tight leading-tight text-foreground">
+              {title}
+            </h3>
+            {subtitle && (
+              <p className="text-sm md:text-base text-muted-foreground max-w-prose leading-relaxed">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        </div>
+        {meta && (
+          <div className="text-xs tracking-widest uppercase text-muted-foreground max-w-xs md:text-right tabular-nums">
+            {meta}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  // Library variant — compact text-only header (no image region)
+  if (kind === "library" || !imageSrc) {
+    return (
+      <section
+        id={ariaLabelId}
+        className="relative w-full"
+        data-print-keep
+      >
+        {textHeader}
+      </section>
+    );
+  }
+
+  // Project variant — full-bleed image cover preserving original aspect ratio
   return (
     <section
       id={ariaLabelId}
       className="relative w-full"
       data-print-keep
     >
-      {/* Image layer */}
-      <div className="relative overflow-hidden border-y border-border bg-muted/40">
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[640px]">
-          {imageSrc ? (
-            <img
-              src={imageSrc}
-              alt={imageAlt ?? title}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-muted" />
-          )}
-          {/* Readable overlay */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.55) 100%)",
-            }}
-            data-print-hide
-          />
-        </div>
+      {textHeader}
 
-        {/* Overlay metadata (bottom) */}
+      {/* Full-bleed image (natural aspect ratio) — clickable for detail view */}
+      <div className="relative overflow-hidden border-b border-border bg-muted/30" data-print-keep>
         <div
-          className="absolute inset-x-0 bottom-0 text-white pointer-events-none"
-          data-print-hide
+          className={cn(
+            "mx-auto w-full",
+            "max-w-[clamp(320px,100%,1280px)]",
+            "px-[clamp(24px,5vw,96px)] py-8 md:py-10"
+          )}
         >
-          <div
-            className={cn(
-              "mx-auto w-full",
-              "max-w-[clamp(320px,100%,1280px)]",
-              "px-[clamp(24px,5vw,96px)] py-6 md:py-8"
-            )}
-          >
-            <div className="flex items-end justify-between gap-6 flex-wrap">
-              <div className="flex items-baseline gap-4">
-                <span className="text-sm font-medium tracking-widest">
-                  {number}
-                </span>
-                <div className="flex flex-col gap-1">
-                  <span className="text-[11px] font-medium tracking-widest uppercase opacity-80">
-                    {kind === "library" ? "Open Source Library" : "Project"}
-                  </span>
-                  <h3 className="text-2xl md:text-3xl font-medium tracking-tight leading-tight">
-                    {title}
-                  </h3>
-                </div>
-              </div>
-              {meta && (
-                <div className="text-xs tracking-widest uppercase opacity-80 max-w-xs text-right">
-                  {meta}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Print fallback: text header (only visible on print) */}
-      <div
-        className="hidden print:block"
-        style={{ pageBreakInside: "avoid" }}
-      >
-        <div className="py-4 flex items-baseline gap-4">
-          <span className="text-sm font-medium tracking-widest text-muted-foreground">
-            {number}
-          </span>
-          <div>
-            <div className="text-xs font-medium tracking-widest uppercase text-muted-foreground">
-              {kind === "library" ? "Open Source Library" : "Project"}
-            </div>
-            <h3 className="text-xl font-medium tracking-tight text-foreground">{title}</h3>
-            {subtitle && (
-              <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
-            )}
-          </div>
+          <ClickableImage
+            src={imageSrc}
+            alt={imageAlt ?? title}
+            className="block w-full h-auto max-h-[80vh] object-contain mx-auto rounded-[10px]"
+          />
         </div>
       </div>
     </section>
@@ -119,7 +111,6 @@ export function ProjectCover({
  * ──────────────────────────────────────────────────────────── */
 
 export function ProjectSidebar({
-  subtitle,
   period,
   role,
   team,
@@ -127,6 +118,7 @@ export function ProjectSidebar({
   githubUrl,
   appStoreUrl,
 }: {
+  /** @deprecated — subtitle is shown in ProjectCover text header */
   subtitle?: string;
   period: string;
   role: string;
@@ -137,12 +129,6 @@ export function ProjectSidebar({
 }) {
   return (
     <div className="flex flex-col gap-6">
-      {subtitle && (
-        <p className="text-base font-normal text-foreground leading-normal">
-          {subtitle}
-        </p>
-      )}
-
       <MetaList
         items={[
           { label: "Period", value: period },

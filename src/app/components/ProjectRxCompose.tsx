@@ -5,7 +5,6 @@ import {
   NumberedFeatureList,
   Eyebrow,
   Figure,
-  Badge,
   Divider,
   ContentCard,
   DefList,
@@ -125,31 +124,37 @@ export function ProjectRxCompose() {
             <ProjectSubsection eyebrow="Use Case">
               <FadeInView>
                 <ContentCard>
-                  <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
-                    <div className="flex flex-col gap-1">
-                      <Badge variant="muted" size="xs">
-                        적용 사례
-                      </Badge>
-                      <h5 className="text-lg font-medium text-foreground tracking-tight">
-                        ShowPot
-                      </h5>
-                      <p className="text-sm font-normal text-muted-foreground max-w-prose">
-                        내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit + RxSwift +
-                        Clean Architecture
-                      </p>
+                  {/* Header — editorial row: number / name+kind+desc / meta */}
+                  <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 mb-5">
+                    <div className="flex items-baseline gap-4 min-w-0">
+                      <span className="text-xs font-medium tracking-widest text-muted-foreground tabular-nums shrink-0">
+                        01
+                      </span>
+                      <div className="flex flex-col gap-1.5 min-w-0">
+                        <span className="text-[10px] font-medium tracking-widest uppercase text-muted-foreground">
+                          적용 사례
+                        </span>
+                        <h5 className="text-lg font-medium text-foreground tracking-tight leading-tight">
+                          ShowPot
+                        </h5>
+                        <p className="text-sm font-normal text-muted-foreground max-w-prose leading-relaxed">
+                          내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit +
+                          RxSwift + Clean Architecture
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-right shrink-0 flex flex-col gap-1">
-                      <p className="text-xs tracking-widest uppercase text-muted-foreground tabular-nums">
+                    <div className="flex flex-col gap-1 shrink-0 md:text-right">
+                      <span className="text-xs tracking-widest uppercase text-muted-foreground tabular-nums">
                         2025.03
-                      </p>
-                      <p className="text-xs text-muted-foreground">
+                      </span>
+                      <span className="text-xs text-muted-foreground">
                         PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2
-                      </p>
+                      </span>
                       <a
                         href="https://github.com/AlreadyTakenSeat/ShowPot-iOS"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 mt-1 text-xs font-medium text-foreground hover:opacity-70 transition-opacity self-end"
+                        className="inline-flex items-center gap-1 mt-1 text-xs font-medium text-foreground hover:opacity-70 transition-opacity md:self-end"
                       >
                         <svg
                           width="12"
