@@ -35,11 +35,11 @@ export function LayerDiagram({
               <div className="absolute left-6 top-full w-0.5 h-3 bg-border z-0" />
             )}
             <div
-              className="relative z-10 flex items-start gap-4 p-4 rounded-xl border border-border bg-card"
+              className="relative z-10 flex flex-col md:flex-row md:items-start gap-2 md:gap-4 p-4 rounded-xl border border-border bg-card"
               style={{ borderLeftColor: layer.color, borderLeftWidth: 3 }}
             >
-              <div className="min-w-[100px]">
-                <span className="text-sm-md font-bold" style={{ color: layer.color }}>
+              <div className="w-full md:w-[170px] md:shrink-0">
+                <span className="text-sm-md font-bold break-words" style={{ color: layer.color }}>
                   {layer.name}
                 </span>
               </div>
