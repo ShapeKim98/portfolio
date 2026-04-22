@@ -110,15 +110,10 @@ html.print-mode span.uppercase.tracking-widest {
 /* 명시적 플래그 */
 @media print {
   [data-print-keep] { break-inside: avoid !important; page-break-inside: avoid !important; }
-  [data-print-break] { break-before: page !important; page-break-before: always !important; }
 }
 html.print-mode [data-print-keep] {
   break-inside: avoid !important;
   page-break-inside: avoid !important;
-}
-html.print-mode [data-print-break] {
-  break-before: page !important;
-  page-break-before: always !important;
 }
 
 /* ───────────────────────────────────────────────────────────
@@ -143,29 +138,11 @@ html.print-mode [data-print-break] {
     page-break-inside: avoid !important;
   }
 
-  /* ProjectSubsection / SectionGroup 내부 서브섹션 */
-  article section, section article section {
-    break-inside: avoid-page;
-    page-break-inside: avoid;
-  }
-
-  /* EditorialGrid 각 서브블록(Skills/Career/Education/Awards/Activities) 전체를
-     한 덩어리로 유지 — eyebrow(GridLabel) + body(GridBody) 가 분리되지 않도록 */
-  #background .grid,
-  section .grid.grid-cols-1.md\:grid-cols-8.lg\:grid-cols-12 {
-    break-inside: avoid-page;
-    page-break-inside: avoid;
-  }
-
   /* TwoColumnLayout 내부 열이 쪼개지지 않게 */
   .grid.md\:grid-cols-2 > * {
     break-inside: avoid;
     page-break-inside: avoid;
   }
-
-  /* Footer (Contact) 하단 저작권 라인이 분리되지 않게 */
-  section[id="contact"] { break-inside: avoid-page; page-break-inside: avoid; }
-  section[id="contact"] .border-t { break-before: avoid !important; page-break-before: avoid !important; }
 }
 
 html.print-mode [class*="rounded-[10px]"][class*="border-border"],
@@ -184,22 +161,66 @@ html.print-mode figure {
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
-html.print-mode article section,
-html.print-mode section article section {
-  break-inside: avoid-page;
-  page-break-inside: avoid;
-}
-html.print-mode #background .grid,
-html.print-mode section .grid.grid-cols-1.md\:grid-cols-8.lg\:grid-cols-12 {
-  break-inside: avoid-page;
-  page-break-inside: avoid;
-}
 html.print-mode .grid.md\:grid-cols-2 > * {
   break-inside: avoid;
   page-break-inside: avoid;
 }
-html.print-mode section[id="contact"] { break-inside: avoid-page; page-break-inside: avoid; }
-html.print-mode section[id="contact"] .border-t { break-before: avoid !important; page-break-before: avoid !important; }
+
+/* ───────────────────────────────────────────────────────────
+ * 6단 계층 매트릭스 — L2/L3/L4/L6 (L1=Project article, L5=heading 별도 처리)
+ * ─────────────────────────────────────────────────────────── */
+
+/* L6: 단락 통째 보호 */
+html.print-mode p {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* L4: TwoColumnLayout 부모 보호 */
+html.print-mode [data-print-two-column] {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* L3: 단위 주제 통째 보호 (들어감/미루기/자름) */
+html.print-mode [data-print-design-unit] {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* L2: xl 묶음 대주제는 다음 콘텐츠와 묶기 (DesignGroup 도입 후에도 backwards compat 유지) */
+html.print-mode [data-print-title-size="xl"] {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+html.print-mode [data-print-title-size="xl"] + * {
+  break-before: avoid;
+  page-break-before: avoid;
+}
+
+/* L2: DesignGroup — 들어감/미루기/자름.
+   한 페이지에 들어가면 통째, 초과하면 DesignUnit/Figure/Diagram 단위로 자연 분리. */
+html.print-mode [data-print-design-group] {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+html.print-mode [data-print-design-group] > :first-child {
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+html.print-mode [data-print-design-group] > :first-child + * {
+  break-before: avoid !important;
+  page-break-before: avoid !important;
+}
+/* DesignGroup 헤더 내부 anchor — 헤더+intro 묶음 자체가 쪼개지지 않게 */
+html.print-mode [data-print-design-group-head] {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
 
 /* ───────────────────────────────────────────────────────────
  * 프로젝트 레이아웃 재구성 (web과 유사하지만 사이드바를 위로 스택)
@@ -225,27 +246,32 @@ html.print-mode article {
   page-break-before: always !important;
 }
 
-/* 프로젝트 내부 대제목(SectionGroup title — "프로젝트 설계" 등) 앞에서 새 페이지로.
-   + 직접 사용된 SubSectionTitle size="xl" (h4.text-xl) 앞에서도 새 페이지로.
-   공간이 충분해도 강제 페이지 분리로 섹션 경계를 시각적으로 명확히 한다. */
-html.print-mode article [data-print-section-break],
-html.print-mode article h4.text-xl {
-  break-before: page !important;
-  page-break-before: always !important;
+/* article 본문 wrapper(.py-16 md:py-20)의 80px trailing padding이
+   페이지 끝을 넘기면 빈 페이지가 생긴다. print 모드에서는 제거. */
+html.print-mode article > section:not(:first-child) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
-/* 대제목 자체는 본문과 같이 유지 */
+/* Footer section의 border-top은 페이지 폭 전체로 그어져 본문(SectionInner padding 안)과
+   수평 정렬이 어긋난다. print 모드에서는 제거 — 내부 © 라인은 그대로 유지. */
+html.print-mode section[id="contact"] {
+  border-top: none !important;
+}
+
+/* SectionGroup — 강제 새 페이지에서 시작 (L1).
+   "프로젝트 설계" 챕터마다 새 페이지. 빈 공간 수용. */
 html.print-mode [data-print-section-break] {
-  break-inside: auto;
+  break-before: page !important;
+  page-break-before: always !important;
 }
 html.print-mode [data-print-section-break] > :first-child {
   break-after: avoid !important;
   page-break-after: avoid !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
 }
-
-/* Experience 섹션: intro (EXPERIENCE / 미스고(주) / role) 와 WORK 리스트가
-   가능하면 같은 페이지에 이어지도록 — WORK grid 앞에 break 발생을 피함 */
-html.print-mode section[id="experience"] .grid.grid-cols-1.md\:grid-cols-8.lg\:grid-cols-12:nth-of-type(2) {
+html.print-mode [data-print-section-break] > :first-child + * {
   break-before: avoid !important;
   page-break-before: avoid !important;
 }
@@ -256,11 +282,23 @@ html.print-mode article > section:first-child {
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
-/* 표지 이미지 — 웹 디자인과 유사한 세로폭으로 원본 비율 최대한 유지 */
+/* 표지 이미지 fallback (data-print-cover 가 없는 케이스). 60vh 상한으로 컴팩트 유지 */
 html.print-mode article > section:first-child img {
   width: 100% !important;
   height: auto !important;
-  max-height: 480px !important;
+  max-height: 60vh !important;
+  object-fit: cover !important;
+}
+
+/* ProjectCover: 가로폭 풀 + 60vh 상한 + 통째 보호 */
+html.print-mode [data-print-cover] {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+html.print-mode [data-print-cover] img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 60vh !important;
   object-fit: cover !important;
 }
 /* 사이드바(메타)는 자체가 쪼개지지만 않게 */

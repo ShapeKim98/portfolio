@@ -4,8 +4,6 @@ import {
   SectionInner,
   NumberedFeatureList,
   Eyebrow,
-  Figure,
-  Divider,
   DefList,
 } from "./design-system";
 import {
@@ -13,8 +11,8 @@ import {
   ProjectLayout,
   ProjectSidebar,
   ProjectSubsection,
+  UseCaseCover,
 } from "./ProjectLayout";
-import { ClickableImage } from "./ClickableImage";
 import showpotPromo from "../../image/쇼팟표지.png";
 
 const META = {
@@ -106,9 +104,7 @@ export function ProjectRxCompose() {
 
             {/* Architecture */}
             <ProjectSubsection eyebrow="Architecture">
-              <div data-print-keep>
-                <RxComposeArchitectureDiagram />
-              </div>
+              <RxComposeArchitectureDiagram />
             </ProjectSubsection>
 
             {/* Features (numbered, long-form) */}
@@ -124,63 +120,16 @@ export function ProjectRxCompose() {
             {/* Use Cases — ShowPot */}
             <ProjectSubsection eyebrow="Use Case">
               <FadeInView>
-                {/* Header — editorial row: [number | name+kind+desc] ← → [meta right-aligned] */}
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-start gap-x-6 gap-y-4 mb-5">
-                  <div className="flex items-baseline gap-4 min-w-0">
-                    <span className="text-xs font-medium tracking-widest text-muted-foreground tabular-nums shrink-0">
-                      01
-                    </span>
-                    <div className="flex flex-col gap-1.5 min-w-0">
-                      <span className="text-[10px] font-medium tracking-widest uppercase text-muted-foreground">
-                        적용 사례
-                      </span>
-                      <h5 className="text-lg font-medium text-foreground tracking-tight leading-tight">
-                        ShowPot
-                      </h5>
-                      <p className="text-sm font-normal text-muted-foreground max-w-prose leading-relaxed">
-                        내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit +
-                        RxSwift + Clean Architecture
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-start md:items-end gap-1 text-left md:text-right">
-                    <span className="text-xs tracking-widest uppercase text-muted-foreground tabular-nums">
-                      2025.03
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      PM 1 · 디자이너 2 · 서버 2 · iOS 1 · Android 2
-                    </span>
-                    <a
-                      href="https://github.com/AlreadyTakenSeat/ShowPot-iOS"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 mt-1 text-xs font-medium text-foreground hover:opacity-70 transition-opacity"
-                    >
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-                      </svg>
-                      GitHub
-                    </a>
-                  </div>
-                </div>
-
-                <Divider className="mb-5" />
-
-                <Figure
+                <UseCaseCover
+                  number="01"
+                  name="ShowPot"
+                  subtitle="내한 공연 정보 및 티켓팅 알림 iOS 앱 · UIKit + RxSwift + Clean Architecture"
+                  meta="2025.03"
+                  imageSrc={showpotPromo}
+                  imageAlt="ShowPot 앱 스크린샷"
+                  href="https://github.com/AlreadyTakenSeat/ShowPot-iOS"
                   className="mb-6"
-                  src={undefined}
-                >
-                  <ClickableImage
-                    src={showpotPromo}
-                    alt="ShowPot 앱 스크린샷"
-                    className="w-full object-contain"
-                  />
-                </Figure>
+                />
 
                 {/* 적용 범위 */}
                 <div className="flex flex-col gap-1 mb-6">

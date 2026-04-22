@@ -297,7 +297,10 @@ export function NumberedFeatureList({
   className?: string;
 }) {
   return (
-    <ol className={cn("flex flex-col border-t border-border", className)}>
+    <ol
+      data-print-list-allow-split
+      className={cn("flex flex-col border-t border-border", className)}
+    >
       {items.map((item, i) => (
         <li
           key={i}
@@ -375,21 +378,127 @@ export function FeatureItem({ children }: { children: React.ReactNode }) {
  * SubSectionTitle — scaled down
  * ──────────────────────────────────────────────────────────── */
 
+type SizeKey = "md" | "lg" | "xl" | "2xl";
+
 export function SubSectionTitle({
   children,
   size = "md",
   className,
 }: {
   children: React.ReactNode;
-  size?: "md" | "lg" | "xl";
+  size?: SizeKey;
   className?: string;
 }) {
-  const sizeClass = {
+  const sizeClass: Record<SizeKey, string> = {
     md: "text-base font-medium tracking-snug",
     lg: "text-lg font-medium tracking-tight",
     xl: "text-xl font-medium tracking-tight",
-  }[size];
-  return <h4 className={cn(sizeClass, "text-foreground", className)}>{children}</h4>;
+    "2xl": "text-2xl md:text-3xl font-medium tracking-tight",
+  };
+  const cls = sizeClass[size];
+  return (
+    <h4
+      data-print-title-size={size}
+      className={cn(cls, "text-foreground", className)}
+    >
+      {children}
+    </h4>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * DesignUnit — PDF 페이징 단위 wrapper (제목 + 본문)
+ * ──────────────────────────────────────────────────────────── */
+
+type DesignUnitProps = {
+  title?: string;
+  size?: "md" | "lg";
+  className?: string;
+  children: React.ReactNode;
+};
+
+export function DesignUnit({ title, size = "md", className, children }: DesignUnitProps) {
+  return (
+    <div data-print-design-unit className={className}>
+      {title ? <SubSectionTitle size={size} className="mb-4">{title}</SubSectionTitle> : null}
+      {children}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * DesignGroup — xl 대주제 묶음 wrapper (헤더 + 다수의 DesignUnit)
+ *  - print 시 [data-print-design-group] 으로 식별
+ *  - "들어감/미루기/자름" (Try-Once-Defer-Then-Split) 적용 대상
+ *  - 한 페이지 초과 가능하므로 break-inside: avoid 가 아니라
+ *    "헤더 + 첫 자식" 만 강하게 묶고 (헤더 단독 잔류 방지),
+ *    내부의 각 DesignUnit 자체는 기존 보호 단위(L3)로 유지된다.
+ * ──────────────────────────────────────────────────────────── */
+
+type DesignGroupProps = {
+  title: string;
+  /** 헤더 사이즈. 기본 xl (대주제). */
+  size?: SizeKey;
+  /** 헤더 아래 짧은 인트로 단락(있을 때만 렌더). 헤더와 함께 묶임. */
+  intro?: React.ReactNode;
+  divider?: boolean;
+  className?: string;
+  children: React.ReactNode;
+};
+
+export function DesignGroup({
+  title,
+  size = "xl",
+  intro,
+  divider = false,
+  className,
+  children,
+}: DesignGroupProps) {
+  const items = divider ? React.Children.toArray(children).filter(Boolean) : null;
+  return (
+    <div data-print-design-group className={cn("space-y-10", className)}>
+      <FadeInView>
+        <div
+          data-print-design-group-head
+          className="border-b border-border pb-4"
+        >
+          <SubSectionTitle size={size}>{title}</SubSectionTitle>
+          {intro ? <div className="mt-3">{intro}</div> : null}
+        </div>
+      </FadeInView>
+      {divider
+        ? items!.map((child, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && <Divider />}
+              {child}
+            </React.Fragment>
+          ))
+        : children}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * HighlightBox — left-border accented callout (통일된 인라인 패턴)
+ * ──────────────────────────────────────────────────────────── */
+
+type HighlightBoxProps = {
+  className?: string;
+  children: React.ReactNode;
+};
+
+export function HighlightBox({ className, children }: HighlightBoxProps) {
+  return (
+    <div
+      data-print-keep
+      className={cn(
+        "border-l-[3px] border-primary pl-4 py-2 text-sm leading-relaxed text-foreground",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -405,7 +514,7 @@ export function VerticalFlow({
   maxWidth?: string;
 }) {
   return (
-    <div className="flex flex-col items-center gap-1.5">
+    <div data-print-keep className="flex flex-col items-center gap-1.5">
       {steps.map((step, i, arr) => (
         <div key={i} className={cn("w-full", maxWidth)}>
           <div
@@ -564,7 +673,10 @@ export function TwoColumnLayout({
   className?: string;
 }) {
   return (
-    <div className={cn("grid md:grid-cols-2 gap-8 items-start", className)}>
+    <div
+      data-print-two-column
+      className={cn("grid md:grid-cols-2 gap-8 items-start", className)}
+    >
       {left}
       {right}
     </div>
@@ -584,9 +696,9 @@ export function SectionGroup({
 }) {
   const items = React.Children.toArray(children).filter(Boolean);
   return (
-    <div className="space-y-10" data-print-section-break>
+    <div className="space-y-12 border-t-2 border-foreground/30 pt-10" data-print-section-break>
       <FadeInView>
-        <SubSectionTitle size="xl">{title}</SubSectionTitle>
+        <SubSectionTitle size="2xl">{title}</SubSectionTitle>
       </FadeInView>
       {items.map((child, i) => (
         <React.Fragment key={i}>

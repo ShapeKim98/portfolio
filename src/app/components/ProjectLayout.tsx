@@ -36,6 +36,7 @@ export function ProjectCover({
         id={ariaLabelId}
         className="relative w-full"
         data-print-keep
+        data-print-cover
       >
         <div
           className={cn(
@@ -81,6 +82,7 @@ export function ProjectCover({
       id={ariaLabelId}
       className="relative w-full"
       data-print-keep
+      data-print-cover
     >
       <div className="relative overflow-hidden border-y border-border bg-muted/40 group">
         {/* Image — natural aspect ratio preserved, clickable for detail view */}
@@ -138,6 +140,83 @@ export function ProjectCover({
         </div>
       </div>
 
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * UseCaseCover — use case image with overlay metadata
+ * ──────────────────────────────────────────────────────────── */
+
+export function UseCaseCover({
+  number,
+  name,
+  subtitle,
+  meta,
+  imageSrc,
+  imageAlt,
+  className,
+}: {
+  number: string;
+  name: string;
+  subtitle?: string;
+  meta?: string;
+  imageSrc: string;
+  imageAlt?: string;
+  href?: string;
+  className?: string;
+}) {
+  return (
+    <section className={cn("relative w-full", className)} data-print-keep>
+      <div className="relative overflow-hidden border-y border-border bg-muted/40 group">
+        <ClickableImage
+          src={imageSrc}
+          alt={imageAlt ?? name}
+          className="block w-full h-auto max-h-[85vh] object-contain"
+        />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)",
+          }}
+        />
+        <div className="absolute inset-x-0 bottom-0 text-white pointer-events-none">
+          <div
+            className={cn(
+              "mx-auto w-full",
+              "max-w-[clamp(320px,100%,1280px)]",
+              "px-[clamp(24px,5vw,96px)] py-6 md:py-8"
+            )}
+          >
+            <div className="flex items-end justify-between gap-6 flex-wrap">
+              <div className="flex items-baseline gap-4">
+                <span className="text-sm font-medium tracking-widest tabular-nums">
+                  {number}
+                </span>
+                <div className="flex flex-col gap-1">
+                  <span className="text-[11px] font-medium tracking-widest uppercase opacity-80">
+                    적용 사례
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-medium tracking-tight leading-tight">
+                    {name}
+                  </h3>
+                  {subtitle && (
+                    <p className="text-sm opacity-80 max-w-prose leading-relaxed mt-1">
+                      {subtitle}
+                    </p>
+                  )}
+                </div>
+              </div>
+              {meta && (
+                <div className="text-xs tracking-widest uppercase opacity-80 max-w-xs md:text-right tabular-nums">
+                  {meta}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -293,9 +372,12 @@ export function ProjectSubsection({
   className?: string;
 }) {
   return (
-    <section className={cn("flex flex-col gap-5", className)}>
+    <div
+      data-print-subsection
+      className={cn("flex flex-col gap-5", className)}
+    >
       <Eyebrow>{eyebrow}</Eyebrow>
       {children}
-    </section>
+    </div>
   );
 }

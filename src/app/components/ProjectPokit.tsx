@@ -1,15 +1,17 @@
 import { FadeInView } from "./ParallaxSection";
-import { LayerDiagram, ProblemSolvingBlock } from "./Diagrams";
+import { LayerDiagram, ProblemSolvingBlock, InlineDiagram } from "./Diagrams";
 import {
   SectionInner,
   SectionGroup,
-  SubSectionTitle,
   TwoColumnLayout,
   VerticalFlow,
   NumberedFeatureList,
   Eyebrow,
   Figure,
   ProblemSolvingList,
+  DesignUnit,
+  DesignGroup,
+  HighlightBox,
 } from "./design-system";
 import { ProjectCover, ProjectLayout, ProjectSidebar, ProjectSubsection } from "./ProjectLayout";
 import { ClickableImage } from "./ClickableImage";
@@ -109,80 +111,76 @@ export function ProjectPokit() {
       <div>
         <SectionGroup title="프로젝트 설계">
 
-        {/* Tuist Graph */}
-        <FadeInView>
-          <ClickableImage
-            src={tuistGraph}
-            alt="Tuist Graph — 모듈 의존 관계 시각화"
-            className="w-full rounded-2xl object-contain bg-white p-4"
-          />
-        </FadeInView>
+        <DesignGroup title="Modular Architecture 설계">
 
-        {/* Modular Architecture 도입 */}
         <FadeInView>
-          <SubSectionTitle size="lg" className="mb-4">
-            Modular Architecture 도입
-          </SubSectionTitle>
-          <ol className="border-t border-border mb-8">
-            {[
-              {
-                title: "기능 테스트 과정의 간소화",
-                desc: "프로젝트 개발이 점점 고도화됨에 따라, 특정 기능을 검증하기 위해 여러 단계를 거쳐야 하는 상황을 개선하고자 했습니다. 이에 테스트 흐름을 보다 간결하고 효율적으로 설계해 개발 과정의 집중도를 높였습니다.",
-              },
-              {
-                title: "빌드 효율성 향상",
-                desc: "하나의 기능을 점검할 때 전체 프로젝트보다 해당 기능만 빌드하는 것이 더 효율적이라고 판단했습니다. 이에 필요한 기능만 빠르게 빌드하고 실행할 수 있도록 모듈 단위 빌드 구조를 설계하여, 전체 빌드 시간을 단축하고 개발 효율을 높였습니다.",
-              },
-              {
-                title: "확장성과 재사용성 강화",
-                desc: "프로젝트의 규모가 커질수록 유지보수와 확장을 유연하게 이어가기 위해, 기능과 계층을 단순한 코드 단위가 아닌 독립적인 모듈 단위로 구성할 필요가 있다고 판단했습니다. 모듈 단위 구성은 각 기능의 책임을 명확히 하고, 다른 코드와의 의존성을 줄여 관심사 분리(Separation of Concerns)를 실현합니다.",
-              },
-            ].map((item, i) => (
-              <li key={item.title} className="py-5 border-b border-border grid grid-cols-[auto_1fr] gap-5">
-                <span className="text-xs uppercase tracking-widest text-muted-foreground tabular-nums w-8">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h6 className="text-base font-medium text-foreground mb-1">{item.title}</h6>
-                  <p className="text-sm text-muted-foreground leading-normal">{item.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </FadeInView>
-
-        {/* Tuist 도입 */}
-        <FadeInView>
-          <SubSectionTitle size="md" className="mb-4">
-            Modular Architecture를 위한 Tuist 도입
-          </SubSectionTitle>
-          <ProblemSolvingList>
-            <ProblemSolvingBlock
-              problem="코드 레벨 분리만으로는 모든 코드에 접근이 가능해 개발자의 의도치 않은 참조나 책임 혼선이 발생할 수 있음"
-              solution="물리적 의존성 분리를 통한 책임 명확화"
-              detail="타겟 기반으로 모듈을 분리해 접근 범위를 물리적으로 제한하고, 각 개발자가 접근 제어자를 통해 명확한 책임을 직접 관리할 수 있도록 설계했습니다. 이를 통해 협업 시에도 일관된 구조와 책임 분리가 자연스럽게 유지되는 개발 환경을 구축했습니다."
+          <Figure caption="Tuist Graph — 모듈 의존 관계 시각화">
+            <ClickableImage
+              src={tuistGraph}
+              alt="Tuist Graph — 모듈 의존 관계 시각화"
+              className="w-full rounded-2xl object-contain bg-white p-4"
             />
-            <ProblemSolvingBlock
-              problem="9개 주요 기능의 워크스페이스, 프로젝트, SPM 패키지, 디렉터리 구성에 큰 리소스 필요"
-              solution="Tuist를 활용한 모듈화 자동화"
-              detail="Tuist를 도입하여 Swift 코드 기반으로 프로젝트 생성을 자동화했습니다. 모듈을 열거형(Enum)으로 정의하고, 공통 설정을 Swift 메서드로 추상화하여 반복 작업을 최소화했으며, Tuist Template을 활용해 디렉터리와 필수 파일 구성을 자동화했습니다. 그 결과, 새로운 모듈 추가 시 열거형 케이스 한 줄 추가와 명령어 한 줄이면 모듈 추가가 자동으로 완성되는 구조를 구축했습니다."
-            />
-          </ProblemSolvingList>
+          </Figure>
         </FadeInView>
 
-        {/* Tuist Graph 장점 */}
-        <FadeInView>
-          <div className="border-l-[3px] border-primary pl-4 py-2">
-            <SubSectionTitle size="md" className="mb-3">
-              프로젝트 구조 시각화 및 유지보수 향상
-            </SubSectionTitle>
-            <p className="text-base font-normal text-muted-foreground leading-loose">
-              Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인할 수 있다는 점입니다. Tuist에서 제공하는 <code className="px-1.5 py-0.5 rounded bg-muted text-sm-md font-medium">tuist graph</code> 명령어를 활용해 프로젝트의 전체 모듈 구조와 의존 관계를 명확히 파악했습니다. 이를 통해 프로젝트 구조를 점검하여, 향후 확장 및 리팩토링 방향을 체계적으로 수립할 수 있는 기반을 마련했습니다.
-            </p>
-          </div>
-        </FadeInView>
+        <DesignUnit title="Modular Architecture 도입" size="lg">
+          <FadeInView>
+            <ol className="border-t border-border mb-8 mt-4">
+              {[
+                {
+                  title: "기능 테스트 과정의 간소화",
+                  desc: "프로젝트 개발이 점점 고도화됨에 따라, 특정 기능을 검증하기 위해 여러 단계를 거쳐야 하는 상황을 개선하고자 했습니다. 이에 테스트 흐름을 보다 간결하고 효율적으로 설계해 개발 과정의 집중도를 높였습니다.",
+                },
+                {
+                  title: "빌드 효율성 향상",
+                  desc: "하나의 기능을 점검할 때 전체 프로젝트보다 해당 기능만 빌드하는 것이 더 효율적이라고 판단했습니다. 이에 필요한 기능만 빠르게 빌드하고 실행할 수 있도록 모듈 단위 빌드 구조를 설계하여, 전체 빌드 시간을 단축하고 개발 효율을 높였습니다.",
+                },
+                {
+                  title: "확장성과 재사용성 강화",
+                  desc: "프로젝트의 규모가 커질수록 유지보수와 확장을 유연하게 이어가기 위해, 기능과 계층을 단순한 코드 단위가 아닌 독립적인 모듈 단위로 구성할 필요가 있다고 판단했습니다. 모듈 단위 구성은 각 기능의 책임을 명확히 하고, 다른 코드와의 의존성을 줄여 관심사 분리(Separation of Concerns)를 실현합니다.",
+                },
+              ].map((item, i) => (
+                <li key={item.title} className="py-5 border-b border-border grid grid-cols-[auto_1fr] gap-5">
+                  <span className="text-xs uppercase tracking-widest text-muted-foreground tabular-nums w-8">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h6 className="text-base font-medium text-foreground mb-1">{item.title}</h6>
+                    <p className="text-sm text-muted-foreground leading-normal">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </FadeInView>
+        </DesignUnit>
 
-        {/* 모듈 구성 및 레이어 설계 */}
+        <DesignUnit title="Modular Architecture를 위한 Tuist 도입" size="md">
+          <FadeInView>
+            <ProblemSolvingList>
+              <ProblemSolvingBlock
+                problem="코드 레벨 분리만으로는 모든 코드에 접근이 가능해 개발자의 의도치 않은 참조나 책임 혼선이 발생할 수 있음"
+                solution="물리적 의존성 분리를 통한 책임 명확화"
+                detail="타겟 기반으로 모듈을 분리해 접근 범위를 물리적으로 제한하고, 각 개발자가 접근 제어자를 통해 명확한 책임을 직접 관리할 수 있도록 설계했습니다. 이를 통해 협업 시에도 일관된 구조와 책임 분리가 자연스럽게 유지되는 개발 환경을 구축했습니다."
+              />
+              <ProblemSolvingBlock
+                problem="9개 주요 기능의 워크스페이스, 프로젝트, SPM 패키지, 디렉터리 구성에 큰 리소스 필요"
+                solution="Tuist를 활용한 모듈화 자동화"
+                detail="Tuist를 도입하여 Swift 코드 기반으로 프로젝트 생성을 자동화했습니다. 모듈을 열거형(Enum)으로 정의하고, 공통 설정을 Swift 메서드로 추상화하여 반복 작업을 최소화했으며, Tuist Template을 활용해 디렉터리와 필수 파일 구성을 자동화했습니다. 그 결과, 새로운 모듈 추가 시 열거형 케이스 한 줄 추가와 명령어 한 줄이면 모듈 추가가 자동으로 완성되는 구조를 구축했습니다."
+              />
+            </ProblemSolvingList>
+          </FadeInView>
+        </DesignUnit>
+
+        <DesignUnit title="프로젝트 구조 시각화 및 유지보수 향상" size="md">
+          <FadeInView>
+            <HighlightBox className="mt-3">
+              <p className="text-base font-normal text-muted-foreground leading-loose">
+                Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인할 수 있다는 점입니다. Tuist에서 제공하는 <code className="px-1.5 py-0.5 rounded bg-muted text-sm-md font-medium">tuist graph</code> 명령어를 활용해 프로젝트의 전체 모듈 구조와 의존 관계를 명확히 파악했습니다. 이를 통해 프로젝트 구조를 점검하여, 향후 확장 및 리팩토링 방향을 체계적으로 수립할 수 있는 기반을 마련했습니다.
+              </p>
+            </HighlightBox>
+          </FadeInView>
+        </DesignUnit>
+
         <LayerDiagram
           subtitle="모듈 구성 및 레이어 설계"
           description="계층화된 모듈 구조를 통해 기능 단위 분리, 공통 로직 재사용, 멀티 타겟 대응을 유연하게 수행할 수 있는 구조를 고민했습니다. 특히 모듈 간의 의존성을 단방향으로 유지하고, 재사용성이 높을수록 아래에 배치하는 전략을 통해 구조의 일관성과 유지보수성을 확보했습니다."
@@ -190,15 +188,17 @@ export function ProjectPokit() {
           layers={MODULE_LAYERS}
         />
 
+        </DesignGroup>
+
         {/* ───── URL 제목 및 썸네일 파싱 설계 ───── */}
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            URL 제목 및 썸네일 파싱 설계
-          </SubSectionTitle>
-          <p className="text-base font-normal text-muted-foreground leading-loose mb-6">
-            링크 저장 서비스의 특성상, 사용자가 저장한 웹페이지의 썸네일 이미지와 제목을 안정적으로 파싱하는 것이 핵심 UX 중 하나였습니다. 이를 구현하는 과정에서 다음과 같은 설계적 고민 및 문제 해결이 있었습니다.
-          </p>
-        </FadeInView>
+        <DesignGroup
+          title="URL 제목 및 썸네일 파싱 설계"
+          intro={
+            <p className="text-base font-normal text-muted-foreground leading-loose">
+              링크 저장 서비스의 특성상, 사용자가 저장한 웹페이지의 썸네일 이미지와 제목을 안정적으로 파싱하는 것이 핵심 UX 중 하나였습니다. 이를 구현하는 과정에서 다음과 같은 설계적 고민 및 문제 해결이 있었습니다.
+            </p>
+          }
+        >
 
         <FadeInView>
           <TwoColumnLayout
@@ -258,13 +258,10 @@ export function ProjectPokit() {
         </FadeInView>
 
         {/* 썸네일 만료 이슈 */}
-        <FadeInView>
-          <SubSectionTitle size="md" className="mb-4">
-            썸네일 만료 이슈 분석 및 대응
-          </SubSectionTitle>
-
+        <DesignUnit title="썸네일 만료 이슈 분석 및 대응" size="md">
+          <FadeInView>
             {/* 원인 파악 */}
-            <div className="mb-6">
+            <div className="mb-6 mt-4">
               <div>
                 <h6 className="text-base font-semibold text-foreground mb-3">원인 파악을 위한 모니터링 및 가설 수립</h6>
                 <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-3">
@@ -273,16 +270,16 @@ export function ProjectPokit() {
                 <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-3">
                   이후 동일한 인스타그램 URL을 매일 확인하며 응답 결과를 모니터링한 결과, 3~4일이 경과한 시점부터 썸네일이 표시되지 않는 현상이 나타났습니다. 명확한 만료 주기를 확인하기 위해 인스타그램의 썸네일 만료 정책 관련 문서를 탐색했으나, 공식적인 자료를 발견하지 못했습니다.
                 </p>
-                <div className="border-l-[3px] border-primary pl-4 py-2">
+                <HighlightBox>
                   <p className="text-sm font-medium text-primary leading-loose">
                     결론: 내부 모니터링 결과를 근거로 썸네일 URL이 약 3~4일 이후 만료되는 것으로 추정
                   </p>
-                </div>
+                </HighlightBox>
               </div>
             </div>
 
             {/* JWT 착안 재파싱 플로우 다이어그램 */}
-            <div className="py-4 mb-5">
+            <InlineDiagram className="py-4 mb-5">
               <h6 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
               <div className="grid md:grid-cols-2 gap-6 items-start">
                 {/* 왼쪽: JWT 패턴 대응 설명 */}
@@ -331,7 +328,7 @@ export function ProjectPokit() {
                   ]}
                 />
               </div>
-            </div>
+            </InlineDiagram>
 
             <ProblemSolvingList>
               <ProblemSolvingBlock
@@ -345,7 +342,9 @@ export function ProjectPokit() {
                 detail="사용자가 저장한 링크 데이터의 썸네일 URL을 갱신하지 않는 이상, 해당 URL은 만료된 상태로 유지되어 동일한 만료 URL을 계속 조회하게 됩니다. 이로 인해 썸네일 조회 실패 → 재파싱 → 동일 URL 재조회가 반복되는 구조적 한계가 있었습니다. 그 결과, 썸네일 정보를 안정적으로 유지하면서도 불필요한 재요청과 중복 파싱을 최소화한 구조를 완성했습니다."
               />
             </ProblemSolvingList>
-        </FadeInView>
+          </FadeInView>
+        </DesignUnit>
+        </DesignGroup>
         </SectionGroup>
       </div>
           </ProjectLayout>

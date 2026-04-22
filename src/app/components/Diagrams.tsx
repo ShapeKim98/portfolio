@@ -753,3 +753,17 @@ export function RxComposeArchitectureDiagram() {
     </FadeInView>
   );
 }
+
+/* ─── InlineDiagram — 인라인 작성된 다이어그램 PDF 페이징 보호 wrapper ─── */
+type InlineDiagramProps = {
+  className?: string;
+  children: React.ReactNode;
+};
+
+export function InlineDiagram({ className, children }: InlineDiagramProps) {
+  return (
+    <div data-print-keep className={className}>
+      {children}
+    </div>
+  );
+}
