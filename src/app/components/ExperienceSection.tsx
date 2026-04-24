@@ -251,12 +251,11 @@ export function ExperienceSection() {
         </FadeInView>
 
         {/* Work items */}
-        <div data-print-keep>
-          <EditorialGrid>
-            <GridLabel>
-              <Eyebrow>Work</Eyebrow>
-            </GridLabel>
-            <GridBody>
+        <EditorialGrid>
+          <GridLabel>
+            <Eyebrow>Work</Eyebrow>
+          </GridLabel>
+          <GridBody>
             <div className="border-t border-border">
               {alwaysVisible.map((item, i) => (
                 <FadeInView key={item.title} delay={i * 0.03}>
@@ -335,9 +334,8 @@ export function ExperienceSection() {
                 </button>
               </div>
             )}
-            </GridBody>
-          </EditorialGrid>
-        </div>
+          </GridBody>
+        </EditorialGrid>
       </SectionInner>
     </section>
   );
