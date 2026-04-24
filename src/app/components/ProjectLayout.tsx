@@ -37,6 +37,7 @@ export function ProjectCover({
         className="relative w-full"
         data-print-keep
         data-print-cover
+        data-print-cover-library
       >
         <div
           className={cn(
@@ -84,12 +85,12 @@ export function ProjectCover({
       data-print-keep
       data-print-cover
     >
-      <div className="relative overflow-hidden border-y border-border bg-muted/40 group">
-        {/* Image — natural aspect ratio preserved, clickable for detail view */}
+      <div className="relative overflow-hidden border-y border-border bg-muted/40 group max-h-[85vh]">
+        {/* Image — aspect fill: natural ratio preserved, cropped when exceeding 85vh */}
         <ClickableImage
           src={imageSrc}
           alt={imageAlt ?? title}
-          className="block w-full h-auto max-h-[85vh] object-contain"
+          className="block w-full h-auto object-cover"
         />
         {/* Readable gradient overlay — kept in PDF too to match web design */}
         <div
@@ -168,11 +169,11 @@ export function UseCaseCover({
 }) {
   return (
     <section className={cn("relative w-full", className)} data-print-keep>
-      <div className="relative overflow-hidden border-y border-border bg-muted/40 group">
+      <div className="relative overflow-hidden border-y border-border bg-muted/40 group max-h-[85vh]">
         <ClickableImage
           src={imageSrc}
           alt={imageAlt ?? name}
-          className="block w-full h-auto max-h-[85vh] object-contain"
+          className="block w-full h-auto object-cover"
         />
         <div
           className="absolute inset-0 pointer-events-none"

@@ -301,6 +301,18 @@ html.print-mode [data-print-cover] img {
   max-height: 60vh !important;
   object-fit: cover !important;
 }
+
+/* Library variant cover 는 컴팩트(텍스트 전용) → 다음 본문과 묶기.
+   article 의 break-before:page 로 새 페이지에서 시작한 뒤,
+   cover 만 남고 본문이 다음 페이지로 밀려 빈 페이지 생기는 문제 방지. */
+html.print-mode [data-print-cover-library] {
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+html.print-mode [data-print-cover-library] + * {
+  break-before: avoid !important;
+  page-break-before: avoid !important;
+}
 /* 사이드바(메타)는 자체가 쪼개지지만 않게 */
 html.print-mode article aside.lg\:col-span-3,
 html.print-mode article aside.lg\:col-span-4 {

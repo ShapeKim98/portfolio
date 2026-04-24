@@ -81,19 +81,21 @@ export function ScrollSection({
 /**
  * FadeInView: 간결한 진입 fade-up (장식적 패럴럭스 없음)
  */
+type FadeInViewProps = React.HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode;
+  delay?: number;
+  direction?: "up" | "left" | "right" | "none";
+  speed?: number;
+};
+
 export function FadeInView({
   children,
   className = "",
   delay = 0,
   direction = "up",
   speed = 1,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-  direction?: "up" | "left" | "right" | "none";
-  speed?: number;
-}) {
+  ...rest
+}: FadeInViewProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -130,6 +132,7 @@ export function FadeInView({
         opacity,
       }}
       className={className}
+      {...rest}
     >
       {children}
     </motion.div>

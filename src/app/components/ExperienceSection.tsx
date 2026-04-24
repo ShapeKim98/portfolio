@@ -212,7 +212,7 @@ export function ExperienceSection() {
   return (
     <section id="experience" className="relative py-24 md:py-32">
       <SectionInner>
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid className="mb-14">
             <GridLabel>
               <div className="flex flex-col gap-3">
@@ -251,11 +251,12 @@ export function ExperienceSection() {
         </FadeInView>
 
         {/* Work items */}
-        <EditorialGrid>
-          <GridLabel>
-            <Eyebrow>Work</Eyebrow>
-          </GridLabel>
-          <GridBody>
+        <div data-print-keep>
+          <EditorialGrid>
+            <GridLabel>
+              <Eyebrow>Work</Eyebrow>
+            </GridLabel>
+            <GridBody>
             <div className="border-t border-border">
               {alwaysVisible.map((item, i) => (
                 <FadeInView key={item.title} delay={i * 0.03}>
@@ -334,8 +335,9 @@ export function ExperienceSection() {
                 </button>
               </div>
             )}
-          </GridBody>
-        </EditorialGrid>
+            </GridBody>
+          </EditorialGrid>
+        </div>
       </SectionInner>
     </section>
   );

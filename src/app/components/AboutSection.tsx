@@ -34,7 +34,7 @@ export function AboutSection() {
   return (
     <section id="about" className="relative py-24 md:py-32">
       <SectionInner>
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid>
             <GridLabel>
               <div className="flex flex-col gap-4">
@@ -69,7 +69,7 @@ export function AboutSection() {
 
         {/* Values */}
         <div className="mt-20">
-          <FadeInView>
+          <FadeInView data-print-keep>
             <EditorialGrid>
               <GridLabel>
                 <Eyebrow>Values</Eyebrow>
