@@ -45,7 +45,13 @@
 
   /* 인쇄 시 숨김 플래그 */
   [data-print-hide] { display: none !important; }
+
+  /* 인쇄 시에만 표시 플래그 (웹에서는 숨김) */
+  [data-print-only] { display: inline !important; }
 }
+
+/* 웹 모드 기본값: data-print-only 요소는 숨김 */
+[data-print-only] { display: none; }
 
 /* ───────────────────────────────────────────────────────────
  * 수동 print 모드: ?print=1 로 접근 시 <html> 에 .print-mode 클래스 부여
@@ -66,6 +72,7 @@ html.print-mode [class*="h-screen"] { height: auto !important; }
 html.print-mode main { padding-left: 0 !important; padding-top: 0 !important; }
 html.print-mode section[id="hero"] { min-height: 0 !important; padding-top: 24px !important; padding-bottom: 24px !important; }
 html.print-mode [data-print-hide] { display: none !important; }
+html.print-mode [data-print-only] { display: inline !important; }
 
 /* 테마 배경/장식 레이어 제거 */
 html.print-mode { background: transparent !important; }
