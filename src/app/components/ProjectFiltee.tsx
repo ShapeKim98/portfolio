@@ -1,20 +1,49 @@
 import { FadeInView } from "./ParallaxSection";
-import { ProjectHeader } from "./ProjectHeader";
 import { ClickableImage } from "./ClickableImage";
 import {
-  FeatureGrid,
   LayerDiagram,
-  FlowChart,
   DBSchemaWithERD,
   ProblemSolvingBlock,
   SyncFlowDiagram,
-  AppScreenshotPlaceholder,
+  InlineDiagram,
 } from "./Diagrams";
-import { ContentCard, SectionGroup, SubSectionTitle, TwoColumnLayout } from "./design-system";
+import {
+  SectionInner,
+  SectionGroup,
+  TwoColumnLayout,
+  NumberedFeatureList,
+  ProblemSolvingList,
+  DesignUnit,
+  DesignGroup,
+  HighlightBox,
+} from "./design-system";
+import { ProjectCover, ProjectLayout, ProjectSidebar, ProjectSubsection } from "./ProjectLayout";
 import filteePromo from "../../image/필티표지.png";
 import filterScreenshot from "../../image/필터 제작 스크린샷.jpeg";
 import chatSearchScreenshot from "../../image/채팅 검색 스크린샷.PNG";
 import chatScreenshot from "../../image/실시간 채팅 스크린샷.PNG";
+
+const META = {
+  number: "02",
+  title: "Filtee",
+  kind: "project" as const,
+  subtitle: "나만의 필터를 만들고, 공유하고, 필터 작가와 소통하는 감성 필터 플랫폼 (iOS 16+)",
+  description: "사용자가 직접 필터를 제작하고 공유하며, 필터 작가와 소통할 수 있는 플랫폼입니다.",
+  period: "2025.05.11 ~ 2025.06.12",
+  role: "iOS 개발",
+  team: "서버 1명, 디자이너 1명, iOS 1명",
+  techStack: [
+    "SwiftUI",
+    "Alamofire",
+    "Swift Concurrency",
+    "Nuke",
+    "SocketIO",
+    "KakaoSDK",
+    "Firebase",
+    "Metal",
+  ],
+  githubUrl: "https://github.com/ShapeKim98/Filtee",
+};
 
 const FEATURES = [
   { title: "소셜로그인 기능", desc: "카카오와 애플 계정을 이용해 간편하게 로그인할 수 있으며, JWT 기반 인증 구조를 통한 사용자 인증 및 자동 로그인을 지원합니다." },
@@ -36,74 +65,75 @@ const APP_LAYERS = [
 
 export function ProjectFiltee() {
   return (
-    <div>
-      <ProjectHeader
-        index="02"
-        type="project"
-        title="Filtee"
-        subtitle="나만의 필터를 만들고, 공유하고, 필터 작가와 소통하는 감성 필터 플랫폼 (iOS 16+)"
-        period="2025.05.11 ~ 2025.06.12"
-        team="서버 1명, 디자이너 1명, iOS 1명"
-        role="iOS 개발"
-        description="사용자가 직접 필터를 제작하고 공유하며, 필터 작가와 소통할 수 있는 플랫폼입니다."
-        techStack={["SwiftUI", "Alamofire", "Swift Concurrency", "Nuke", "SocketIO", "KakaoSDK", "Firebase", "Metal"]}
-        githubUrl="https://github.com/ShapeKim98/Filtee"
-        screenshotLabel="Filtee 앱 스크린샷"
-        screenshotSrc={filteePromo}
+    <article>
+      <ProjectCover
+        number={META.number}
+        title={META.title}
+        subtitle={META.subtitle}
+        kind={META.kind}
+        meta={`${META.period} · ${META.role}`}
+        imageSrc={filteePromo}
+        imageAlt="Filtee 앱 커버"
       />
 
-      {/* Features */}
-      <FadeInView>
-        <SubSectionTitle size="lg" className="mb-6">핵심 기능</SubSectionTitle>
-        <FeatureGrid features={FEATURES} />
-      </FadeInView>
+      <section className="py-16 md:py-20">
+        <SectionInner>
+          <ProjectLayout
+            sidebar={
+              <ProjectSidebar
+                number={META.number}
+                title={META.title}
+                kind={META.kind}
+                period={META.period}
+                role={META.role}
+                team={META.team}
+                techStack={META.techStack}
+                githubUrl={META.githubUrl}
+              />
+            }
+          >
+            <ProjectSubsection eyebrow="Overview">
+              <p className="text-base font-normal text-muted-foreground leading-relaxed max-w-3xl">
+                {META.description}
+              </p>
+            </ProjectSubsection>
+
+            <ProjectSubsection eyebrow="Features">
+              <NumberedFeatureList items={FEATURES.map((f) => ({ title: f.title, desc: f.desc }))} />
+            </ProjectSubsection>
 
       {/* ───── 프로젝트 설계 ───── */}
-      <div className="mt-16">
+      <div>
         <SectionGroup title="프로젝트 설계">
 
-        {/* 바닐라 SwiftUI */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              바닐라 SwiftUI 선택
-            </SubSectionTitle>
+        <DesignGroup title="아키텍처 설계">
+        <DesignUnit title="바닐라 SwiftUI 선택" size="md">
+          <FadeInView>
             <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
               SwiftUI에서 MVVM을 적용하던 중 @Query 매크로 등과 같은 SwiftData API를 충분히 활용하기 어려운 상황을 경험하며, 애플이 의도한 설계 방향은 자체 제공 API와 UI 프레임워크 간의 긴밀한 연동에 있다는 점을 체감했습니다.
             </p>
             <p className="text-base font-normal text-muted-foreground leading-loose">
               또한 디자인 패턴은 협업 환경에서 컨벤션을 유지하는 데 유효한 수단이지만 이번 프로젝트는 단독으로 진행되었고, 일관된 구조만 갖춘다면 기능 확장이나 추후 iOS 개발자 합류에도 무리가 없다고 판단하여 설계 복잡도를 높이지 않는 선에서 유연한 구조를 선택했습니다.
             </p>
-          </ContentCard>
-        </FadeInView>
+          </FadeInView>
+        </DesignUnit>
 
         {/* 4계층 구조 */}
-        <FadeInView>
-          <div className="mb-4">
-            <SubSectionTitle size="md" className="mb-3">
-              App - Feature - Model - Core 4계층 구조 설계
-            </SubSectionTitle>
-            <p className="text-base font-normal text-muted-foreground leading-loose">
-              기능 복잡도와 개발 효율성을 고려해 계층 구조는 단순하게 유지하되 각 계층의 책임과 역할은 명확히 나누는 방향으로 설계했습니다. 특히 1인 개발 환경에서 확장성과 유지보수 편의성을 확보하는 실용적인 구조를 목표로 했습니다.
-            </p>
-          </div>
-        </FadeInView>
-
-        <LayerDiagram
-          title="4계층 모듈 구조"
-          layers={APP_LAYERS}
-        />
+        <DesignUnit title="App-Feature-Model-Core 4계층 구조 설계" size="md">
+          <LayerDiagram
+            description="기능 복잡도와 개발 효율성을 고려해 계층 구조는 단순하게 유지하되 각 계층의 책임과 역할은 명확히 나누는 방향으로 설계했습니다. 특히 1인 개발 환경에서 확장성과 유지보수 편의성을 확보하는 실용적인 구조를 목표로 했습니다."
+            title="4계층 모듈 구조"
+            layers={APP_LAYERS}
+          />
+        </DesignUnit>
 
         {/* 테스트 및 외부 변화 대응 전략 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-3">
-              테스트 및 외부 변화 대응 전략
-            </SubSectionTitle>
+        <DesignUnit title="테스트 및 외부 변화 대응 전략" size="md">
+          <FadeInView>
             <p className="text-base font-normal text-muted-foreground leading-loose mb-6">
               구조를 직접 설계해 나가면서 의존성 주입과 외부 변화에 대응할 수 있는 방법에 대해 고민하게 되었고, 이를 고려한 전략들을 설계했습니다.
             </p>
-            <div className="space-y-4">
+            <ProblemSolvingList>
               <ProblemSolvingBlock
                 problem="실제 객체와 테스트 객체를 분기 주입해야 하며, Xcode Preview 환경에서도 외부 데이터 통신 없이 독립적으로 동작해야 함"
                 solution="SwiftUI Environment 기반 의존성 주입 + Preview 전용 테스트 객체 설계"
@@ -114,23 +144,16 @@ export function ProjectFiltee() {
                 solution="API 변경에 따른 클라이언트 영향 최소화 설계"
                 detail="DTO를 도입하여 클라이언트 내부 모델과 분리된 구조로 설계했습니다. 이를 통해 API 변경이 클라이언트 로직 전반에 영향을 주지 않도록 했습니다."
               />
-            </div>
-          </ContentCard>
-        </FadeInView>
+            </ProblemSolvingList>
+          </FadeInView>
+        </DesignUnit>
+        </DesignGroup>
 
-        {/* ───── 사진 필터 제작 기능 설계 ───── */}
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            사진 필터 제작 기능 설계
-          </SubSectionTitle>
-        </FadeInView>
+        <DesignGroup title="사진 필터 제작 기능 설계">
 
         {/* Metal 선택 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-3">
-              고해상도 이미지 보편화에 따른 Metal 선택
-            </SubSectionTitle>
+        <DesignUnit title="고해상도 이미지 보편화에 따른 Metal 선택" size="md">
+          <FadeInView>
             <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
               최근 카메라 기술의 발전으로 고해상도 이미지 사용이 일반화되면서, 슬라이더 조작과 같이 실시간으로 고해상도 이미지를 반복 렌더링해야 하는 기능의 특성상, 렌더링 성능에 대해 고민하게 되었습니다.
             </p>
@@ -139,16 +162,12 @@ export function ProjectFiltee() {
               solution="Metal을 통해 렌더링 파이프라인을 직접 구성하고, GPU 자원을 보다 직접적으로 활용함으로써 실시간 렌더링 성능을 확보"
               detail="MTLTexture와 MTKView를 통해 렌더링 파이프라인을 직접 구성하고, MTLCommandBuffer로 렌더 명령을 GPU에 직접 제출했습니다. 이를 통해 슬라이더 조작마다 고해상도 이미지를 실시간으로 재렌더링하는 과정에서 CIFilter 대비 더 낮은 지연과 안정적인 프레임 유지를 달성했습니다."
             />
-          </ContentCard>
-        </FadeInView>
+          </FadeInView>
+        </DesignUnit>
 
         {/* Undo/Redo Flow */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              필터값 실행 취소 및 다시 실행 기능 설계
-            </SubSectionTitle>
-
+        <DesignUnit title="필터값 실행 취소 및 다시 실행 기능 설계" size="md">
+          <FadeInView>
             {/* 2-col: 왼쪽 내용 + 오른쪽 스크린샷 */}
             <TwoColumnLayout
               left={
@@ -164,8 +183,8 @@ export function ProjectFiltee() {
                 </div>
 
                 {/* Stack 다이어그램 */}
-                <div className="p-4 rounded-xl bg-card border border-border mb-5">
-                  <h6 className="text-sm font-semibold text-foreground mb-3 text-center">
+                <InlineDiagram className="py-4 mb-5">
+                  <h6 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-3 text-center">
                     Stack 구조 및 실행 취소 / 다시 실행 흐름
                   </h6>
 
@@ -277,7 +296,7 @@ export function ProjectFiltee() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </InlineDiagram>
 
                 {/* 스냅샷 시점 전략 */}
                 <div>
@@ -285,11 +304,11 @@ export function ProjectFiltee() {
                   <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-3">
                     슬라이더 값을 조절할 때마다 필터값을 저장하는 방식은 반복적인 상태 기록이 누적되면서 성능 및 사용자 경험 측면에서 부담이 될 수 있다고 판단했습니다.
                   </p>
-                  <div className="p-3 rounded-xl bg-primary/5 border border-primary/10">
+                  <HighlightBox>
                     <p className="text-sm font-medium text-primary leading-loose">
                       스냅샷 시점: DragGesture의 onEnded 시점에 캡처하여 반복적 상태 기록 누적을 방지
                     </p>
-                  </div>
+                  </HighlightBox>
                 </div>
                 </div>
               }
@@ -303,46 +322,38 @@ export function ProjectFiltee() {
                 </div>
               }
             />
-          </ContentCard>
-        </FadeInView>
+          </FadeInView>
+        </DesignUnit>
+
+        </DesignGroup>
 
         {/* ───── 채팅 기능 설계 ───── */}
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            채팅 기능 설계
-          </SubSectionTitle>
-        </FadeInView>
+        <DesignGroup title="채팅 기능 설계">
 
         {/* 로컬 DB 도입 배경 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              로컬 DB 도입 배경
-            </SubSectionTitle>
+        <DesignUnit title="로컬 DB 도입 배경" size="md">
+          <FadeInView>
             <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
               채팅 내역은 한 번 저장되면 이후 변경되지 않는 정적인 데이터에 가까워, 채팅방 진입 시마다 동일한 데이터를 서버로부터 반복 요청하는 방식이 과연 효율적인지에 대한 고민이 들었습니다.
             </p>
             <p className="text-base font-normal text-muted-foreground leading-loose">
               더 나아가 로컬 DB를 도입 시 서버 트래픽 개선 뿐만 아니라 실시간 채팅 메시지 검색 시에도 서버를 거치지 않고 클라이언트에서 빠르게 조회할 수 있다는 가능성이 보였습니다. 이러한 점들을 종합적으로 고려하여 로컬 DB를 적용하는 방향으로 설계를 결정하게 되었습니다.
             </p>
-          </ContentCard>
-        </FadeInView>
+          </FadeInView>
+        </DesignUnit>
 
         {/* CoreData 선택 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-3">
-              CoreData 선택
-            </SubSectionTitle>
+        <DesignUnit title="CoreData 선택" size="md">
+          <FadeInView>
             <p className="text-base font-normal text-muted-foreground leading-loose">
               프로젝트가 iOS 단독 플랫폼이며 iOS 16 이상을 타겟으로 하고 있다는 점을 고려했습니다. CoreData는 비교적 낮은 iOS 버전에서도 사용할 수 있고, Apple에서 직접 제공하는 퍼스트파티 프레임워크라는 점에서 안정성과 호환성이 높다고 판단했습니다. 특히 채팅 기능에는 날짜 기반 커서 페이지네이션이나 검색어 기반 메시지 조회 등 비교적 복잡한 쿼리가 요구되므로 이를 지원하는 CoreData의 장점이 효과적이라고 생각했습니다.
             </p>
-          </ContentCard>
-        </FadeInView>
+          </FadeInView>
+        </DesignUnit>
 
         {/* CoreData Schema + ERD 통합 */}
+        <DesignUnit title="DB 모델링 및 쿼리 구조 설계" size="md">
         <DBSchemaWithERD
-          title="DB 모델링 및 쿼리 구조 설계"
           tables={[
             {
               name: "ChatRoom",
@@ -381,13 +392,11 @@ export function ProjectFiltee() {
             "isHead, isTail: 분 단위 연속 메시지 그루핑 판단 — 저장 시점에 판단 및 기록",
           ]}
         />
+        </DesignUnit>
 
         {/* 클라이언트 모델과 동기화 전략 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              클라이언트 모델과 동기화 전략
-            </SubSectionTitle>
+        <DesignUnit title="클라이언트 모델과 동기화 전략" size="md">
+          <FadeInView>
             <div className="space-y-4">
               <ProblemSolvingBlock
                 problem="로컬 DB 구조와 서버 응답 스키마 간의 차이를 해소해야 함"
@@ -395,15 +404,12 @@ export function ProjectFiltee() {
                 detail="클라이언트 단에서 공통 모델을 정의하고 DTO를 통해 상호 변환하는 구조를 설계했습니다."
               />
             </div>
-          </ContentCard>
-        </FadeInView>
+          </FadeInView>
+        </DesignUnit>
 
         {/* 데이터 조회 효율화 — 페이지네이션 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              데이터 조회 효율화 — 페이지네이션 직접 구현
-            </SubSectionTitle>
+        <DesignUnit title="데이터 조회 효율화 — 페이지네이션 직접 구현" size="md">
+          <FadeInView>
             <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-4">
               채팅은 실시간으로 데이터가 누적되는 특성이 있어 전체를 한 번에 불러오는 방식은 데이터가 많아질수록 초기 로딩 부담이 커집니다. 또한 오프셋 기반 페이지네이션은 새로운 메시지가 삽입될 때 데이터가 밀려 중복이나 누락이 생길 수 있어, 시간 순으로 정렬되는 채팅 데이터에는 날짜 기반 커서 페이지네이션이 적합하다고 판단했습니다.
             </p>
@@ -413,7 +419,7 @@ export function ProjectFiltee() {
               detail="채팅은 실시간으로 쌓이는 데이터 흐름을 갖고 있기 때문에 유연한 커서 기반 페이지네이션이 적합하다고 판단했고, 시간 순으로 정렬되는 데이터 특성을 반영하여 커서를 날짜 기반으로 구성해 의도한 범위만 조회할 수 있도록 했습니다."
             />
             {/* 가로형 플로우 다이어그램 */}
-            <div className="mt-6 overflow-x-auto">
+            <InlineDiagram className="mt-6 overflow-x-auto">
               <div className="flex items-start min-w-[560px]">
                 {[
                   { step: "1", label: "최신 메시지 N개 조회", desc: "최신 메시지부터 N개 조회. 가장 오래된 날짜를 cursor로 저장", color: "#2563eb" },
@@ -448,9 +454,9 @@ export function ProjectFiltee() {
                   </div>
                 ))}
               </div>
-            </div>
-          </ContentCard>
-        </FadeInView>
+            </InlineDiagram>
+          </FadeInView>
+        </DesignUnit>
 
         <SyncFlowDiagram
           title="실시간 수신과 동기화 충돌 고려"
@@ -468,155 +474,88 @@ export function ProjectFiltee() {
           solution="소켓 연결을 동기화보다 먼저 시작하고, 동기화 완료 전 수신된 메시지는 Queue에 임시 저장"
           detail="Queue의 FIFO 특성을 활용해 수신 순서를 그대로 보존합니다. 동기화 완료 후 Queue의 메시지를 선처리한 뒤 일반 수신 흐름으로 전환하여 실시간성과 데이터 정합성을 모두 확보했습니다."
           screenshotSrc={chatScreenshot}
+          screenshotAlt="실시간 채팅 스크린샷"
         />
 
-        {/* 채팅 검색 기능 설계 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              채팅 검색 시 미로드 영역 스크롤 이동
-            </SubSectionTitle>
-            {/* 설명 + PSB + 플로우 다이어그램 + 앱스크린샷 — 2컬럼 */}
-            <TwoColumnLayout
-              left={
-                <div className="flex flex-col gap-4">
-                <p className="text-sm-md font-normal text-muted-foreground leading-loose">
-                  검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우, 곧바로 해당 위치로 스크롤 이동하는 데 어려움이 생길 수 있다는 점을 고려했습니다.
-                </p>
-                <ProblemSolvingBlock
-                  problem="검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우 스크롤 이동 불가"
-                  solution="현재 페이지네이션 커서의 날짜와 검색 대상 메시지의 날짜 사이 범위만큼을 먼저 조회한 뒤, 해당 메시지가 포함된 영역으로 자연스럽게 이동되도록 설계"
-                  detail="검색된 메시지의 날짜와 현재 페이지네이션 커서의 날짜를 비교하여, 대상이 미로드 영역에 해당하면 해당 범위의 데이터를 먼저 선조회합니다. 조회 완료 후 해당 메시지가 포함된 위치로 ScrollViewProxy를 통해 자연스럽게 스크롤 이동합니다."
-                />
-                <div className="flex flex-col items-center gap-1.5">
-                {[
-                  { label: "키워드 검색", desc: "로컬 DB에서 키워드 기반 메시지 조회", color: "#2563eb" },
-                  { label: "검색 메시지 날짜 확인", desc: "검색된 메시지의 날짜와 현재 cursor 날짜 비교", color: "#7c3aed" },
-                  { label: "날짜 < 커서?", desc: "해당 범위가 아직 로드되지 않은 상태", color: "#f59e0b", diamond: true },
-                  { label: "커서~날짜 범위 선조회", desc: "cursor~메시지 날짜 사이 데이터를 먼저 로드", color: "#f59e0b" },
-                  { label: "해당 위치로 스크롤", desc: "해당 메시지 위치로 자연스럽게 스크롤", color: "#22c55e" },
-                ].map((item, i, arr) => (
-                  <div key={i} className="w-full max-w-[240px]">
-                    {item.diamond ? (
-                      <div className="flex flex-col items-center gap-1">
-                        <div
-                          className="flex items-center justify-center border text-center"
-                          style={{
-                            borderColor: item.color + "60",
-                            backgroundColor: item.color + "10",
-                            clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-                            width: "160px",
-                            height: "44px",
-                          }}
-                        >
-                          <span className="text-xxs font-semibold" style={{ color: item.color }}>{item.label}</span>
-                        </div>
-                        <p className="text-2xs text-muted-foreground leading-snug text-center px-2">{item.desc}</p>
-                      </div>
-                    ) : (
-                      <div
-                        className="px-3 py-2.5 rounded-lg bg-card border"
-                        style={{ borderColor: item.color + "50" }}
-                      >
-                        <div className="flex items-start gap-2">
-                          <div
-                            className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-2xs font-bold text-white mt-0.5"
-                            style={{ backgroundColor: item.color }}
-                          >
-                            {i + 1}
-                          </div>
-                          <div>
-                            <p className="text-xs font-semibold leading-snug" style={{ color: item.color }}>{item.label}</p>
-                            <p className="text-xxs font-normal text-muted-foreground leading-normal mt-0.5">{item.desc}</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {i < arr.length - 1 && (
-                      <div className="flex justify-center py-0.5">
-                        <svg width="10" height="12" viewBox="0 0 10 12" className="text-border">
-                          <path d="M5 0v8M2 6l3 4 3-4" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                ))}
-                </div>
-                </div>
-              }
-              right={
-                <div className="flex items-center justify-center">
-                  <ClickableImage
-                    src={chatSearchScreenshot}
-                    alt="채팅 검색 스크린샷"
-                    className="w-full max-w-[240px] rounded-2xl"
-                  />
-                </div>
-              }
-            />
-          </ContentCard>
-        </FadeInView>
+        {/* 채팅 검색 기능 설계 — 동일 SyncFlowDiagram 레이아웃 */}
+        <SyncFlowDiagram
+          title="채팅 검색 시 미로드 영역 스크롤 이동"
+          description="검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우, 곧바로 해당 위치로 스크롤 이동하는 데 어려움이 생길 수 있다는 점을 고려했습니다."
+          steps={[
+            { label: "키워드 검색", color: "#2563eb", desc: "로컬 DB에서 키워드 기반 메시지 조회" },
+            { label: "검색 메시지 날짜 확인", color: "#7c3aed", desc: "검색된 메시지의 날짜와 현재 cursor 날짜 비교" },
+            { label: "미로드 영역 판단", color: "#f59e0b", desc: "메시지 날짜 < 커서 → 아직 로드되지 않은 상태" },
+            { label: "커서~날짜 범위 선조회", color: "#f59e0b", desc: "cursor~메시지 날짜 사이 데이터를 먼저 로드" },
+            { label: "해당 위치로 스크롤", color: "#22c55e", desc: "ScrollViewProxy로 해당 메시지 위치로 자연스럽게 스크롤" },
+          ]}
+          problem="검색 결과가 아직 불러오지 않은 메시지 범위에 포함된 경우 스크롤 이동 불가"
+          solution="현재 페이지네이션 커서의 날짜와 검색 대상 메시지의 날짜 사이 범위만큼을 먼저 조회한 뒤, 해당 메시지가 포함된 영역으로 자연스럽게 이동되도록 설계"
+          detail="검색된 메시지의 날짜와 현재 페이지네이션 커서의 날짜를 비교하여, 대상이 미로드 영역에 해당하면 해당 범위의 데이터를 먼저 선조회합니다. 조회 완료 후 해당 메시지가 포함된 위치로 ScrollViewProxy를 통해 자연스럽게 스크롤 이동합니다."
+          screenshotSrc={chatSearchScreenshot}
+          screenshotAlt="채팅 검색 스크린샷"
+        />
+
+        </DesignGroup>
 
         {/* ───── 결제 기능 설계 ───── */}
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            결제 기능 설계
-          </SubSectionTitle>
-        </FadeInView>
+        <DesignGroup title="결제 기능 설계">
 
-        <FadeInView>
-          <ContentCard className="mb-8">
-            <SubSectionTitle size="md" className="mb-4">
-              결제 처리 흐름 설계
-            </SubSectionTitle>
-            <TwoColumnLayout
-              left={
-                <div>
-                  <h6 className="text-sm-md font-semibold text-foreground mb-3">결제 검증의 주체에 대한 고려</h6>
-                  <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-4">
-                    결제 기능은 실제 청구가 발생하는 민감한 기능이기 때문에 기능 구현에 앞서 검증 방식에 대한 고민을 했습니다.
-                  </p>
-                  <p className="text-sm-md font-normal text-muted-foreground leading-loose">
-                    앱은 사용자 디바이스에서 실행되기 때문에 탈옥 등의 방법으로 앱을 임의로 변조해 결제 로직을 수정하고, 사용자가 인위적으로 '결제 완료' 상태를 만들 수 있는 위험이 존재합니다. 반면 서버는 개발자가 통제하는 신뢰 가능한 환경이므로 모든 결제 검증은 서버에서 직접 수행하는 것을 원칙으로 했습니다.
-                  </p>
-                  <div className="mt-4 p-3 rounded-lg bg-primary/5 border border-primary/10">
-                    <p className="text-sm font-medium text-primary">원칙: 결제 검증의 주체는 항상 서버</p>
+        <DesignUnit title="결제 처리 흐름 설계" size="md">
+          <FadeInView>
+            <div className="mb-8">
+              <TwoColumnLayout
+                left={
+                  <div>
+                    <h6 className="text-sm-md font-semibold text-foreground mb-3">결제 검증의 주체에 대한 고려</h6>
+                    <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-4">
+                      결제 기능은 실제 청구가 발생하는 민감한 기능이기 때문에 기능 구현에 앞서 검증 방식에 대한 고민을 했습니다.
+                    </p>
+                    <p className="text-sm-md font-normal text-muted-foreground leading-loose">
+                      앱은 사용자 디바이스에서 실행되기 때문에 탈옥 등의 방법으로 앱을 임의로 변조해 결제 로직을 수정하고, 사용자가 인위적으로 '결제 완료' 상태를 만들 수 있는 위험이 존재합니다. 반면 서버는 개발자가 통제하는 신뢰 가능한 환경이므로 모든 결제 검증은 서버에서 직접 수행하는 것을 원칙으로 했습니다.
+                    </p>
+                    <HighlightBox className="mt-4">
+                      <p className="text-sm font-medium text-primary">원칙: 결제 검증의 주체는 항상 서버</p>
+                    </HighlightBox>
                   </div>
-                </div>
-              }
-              right={
-                <div className="flex flex-col items-center gap-1.5">
-                  {[
-                    { label: "사용자 필터 구매 시도", desc: "주문 번호 발급 요청", color: "#2563eb" },
-                    { label: "PG 결제 진행", desc: "Payment Gateway", color: "#7c3aed" },
-                    { label: "결제 완료 → 승인 정보 전달", desc: "앱 → 서버", color: "#f59e0b" },
-                    { label: "서버 검증", desc: "금액·상태·주문번호 유효성 확인", color: "#ef4444" },
-                    { label: "검증 완료 → 상품 지급", desc: "클라이언트 UI 업데이트", color: "#22c55e" },
-                  ].map((step, i, arr) => (
-                    <div key={i} className="w-full max-w-[240px]">
-                      <div
-                        className="px-3 py-2.5 rounded-lg bg-card border text-center"
-                        style={{ borderColor: step.color + "50" }}
-                      >
-                        <span className="text-xs font-semibold" style={{ color: step.color }}>{step.label}</span>
-                        {step.desc && <p className="text-2xs text-muted-foreground mt-0.5">{step.desc}</p>}
-                      </div>
-                      {i < arr.length - 1 && (
-                        <div className="flex justify-center py-0.5">
-                          <svg width="10" height="12" viewBox="0 0 10 12" className="text-border">
-                            <path d="M5 0v8M2 6l3 4 3-4" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                          </svg>
+                }
+                right={
+                  <InlineDiagram className="flex flex-col items-center gap-1.5">
+                    {[
+                      { label: "사용자 필터 구매 시도", desc: "주문 번호 발급 요청", color: "#2563eb" },
+                      { label: "PG 결제 진행", desc: "Payment Gateway", color: "#7c3aed" },
+                      { label: "결제 완료 → 승인 정보 전달", desc: "앱 → 서버", color: "#f59e0b" },
+                      { label: "서버 검증", desc: "금액·상태·주문번호 유효성 확인", color: "#ef4444" },
+                      { label: "검증 완료 → 상품 지급", desc: "클라이언트 UI 업데이트", color: "#22c55e" },
+                    ].map((step, i, arr) => (
+                      <div key={i} className="w-full max-w-[240px]">
+                        <div
+                          className="px-3 py-2.5 rounded-lg bg-card border text-center"
+                          style={{ borderColor: step.color + "50" }}
+                        >
+                          <span className="text-xs font-semibold" style={{ color: step.color }}>{step.label}</span>
+                          {step.desc && <p className="text-2xs text-muted-foreground mt-0.5">{step.desc}</p>}
                         </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              }
-            />
-          </ContentCard>
-        </FadeInView>
+                        {i < arr.length - 1 && (
+                          <div className="flex justify-center py-0.5">
+                            <svg width="10" height="12" viewBox="0 0 10 12" className="text-border">
+                              <path d="M5 0v8M2 6l3 4 3-4" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </InlineDiagram>
+                }
+              />
+            </div>
+          </FadeInView>
+        </DesignUnit>
+        </DesignGroup>
         </SectionGroup>
       </div>
-    </div>
+          </ProjectLayout>
+        </SectionInner>
+      </section>
+    </article>
   );
 }

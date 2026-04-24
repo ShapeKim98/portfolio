@@ -1,42 +1,56 @@
 import { FadeInView } from "./ParallaxSection";
-import { ContentCard, SubSectionTitle, FeatureCard } from "./design-system";
+import { SubSectionTitle, FeatureCard } from "./design-system";
 import { ClickableImage } from "./ClickableImage";
 
 /* ─── Architecture Layer Diagram ─── */
 export function LayerDiagram({
   layers,
   title,
+  subtitle,
+  description,
 }: {
   layers: { name: string; desc: string; color: string }[];
   title: string;
+  subtitle?: string;
+  description?: string;
 }) {
   return (
     <FadeInView>
-      <ContentCard>
-        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
-        <div className="space-y-3">
-          {layers.map((layer, i) => (
-            <div key={layer.name} className="relative">
-              {i < layers.length - 1 && (
-                <div className="absolute left-6 top-full w-0.5 h-3 bg-border z-0" />
-              )}
-              <div
-                className="relative z-10 flex items-start gap-4 p-4 rounded-xl border border-border bg-card"
-                style={{ borderLeftColor: layer.color, borderLeftWidth: 3 }}
-              >
-                <div className="min-w-[100px]">
-                  <span className="text-sm-md font-bold" style={{ color: layer.color }}>
-                    {layer.name}
-                  </span>
-                </div>
-                <p className="text-sm-md font-normal text-muted-foreground leading-loose">
-                  {layer.desc}
-                </p>
+      <div data-print-keep>
+      {subtitle && (
+        <SubSectionTitle size="md" className="mb-3">
+          {subtitle}
+        </SubSectionTitle>
+      )}
+      {description && (
+        <p className="text-base font-normal text-muted-foreground leading-loose mb-5">
+          {description}
+        </p>
+      )}
+      <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-6">{title}</h4>
+      <div className="space-y-3">
+        {layers.map((layer, i) => (
+          <div key={layer.name} className="relative">
+            {i < layers.length - 1 && (
+              <div className="absolute left-6 top-full w-0.5 h-3 bg-border z-0" />
+            )}
+            <div
+              className="relative z-10 flex flex-col md:flex-row md:items-start gap-2 md:gap-4 p-4 rounded-xl border border-border bg-card"
+              style={{ borderLeftColor: layer.color, borderLeftWidth: 3 }}
+            >
+              <div className="w-full md:w-[170px] md:shrink-0">
+                <span className="text-sm-md font-bold break-words" style={{ color: layer.color }}>
+                  {layer.name}
+                </span>
               </div>
+              <p className="text-sm-md font-normal text-muted-foreground leading-loose">
+                {layer.desc}
+              </p>
             </div>
-          ))}
-        </div>
-      </ContentCard>
+          </div>
+        ))}
+      </div>
+      </div>
     </FadeInView>
   );
 }
@@ -51,28 +65,26 @@ export function FlowChart({
 }) {
   return (
     <FadeInView>
-      <ContentCard>
-        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
-        <div className="flex flex-col items-center gap-2">
-          {steps.map((step, i) => (
-            <div key={i} className="w-full max-w-md">
-              <div className="p-4 rounded-xl bg-card border border-border text-center">
-                <span className="text-sm-md font-semibold text-foreground">{step.label}</span>
-                {step.desc && (
-                  <p className="text-sm font-normal text-muted-foreground mt-1">{step.desc}</p>
-                )}
-              </div>
-              {i < steps.length - 1 && (
-                <div className="flex justify-center py-1">
-                  <svg width="12" height="16" viewBox="0 0 12 16" className="text-primary">
-                    <path d="M6 0v12M2 9l4 5 4-5" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                  </svg>
-                </div>
+      <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-6">{title}</h4>
+      <div className="flex flex-col items-center gap-2">
+        {steps.map((step, i) => (
+          <div key={i} className="w-full max-w-md">
+            <div className="p-4 rounded-xl bg-card border border-border text-center">
+              <span className="text-sm-md font-semibold text-foreground">{step.label}</span>
+              {step.desc && (
+                <p className="text-sm font-normal text-muted-foreground mt-1">{step.desc}</p>
               )}
             </div>
-          ))}
-        </div>
-      </ContentCard>
+            {i < steps.length - 1 && (
+              <div className="flex justify-center py-1">
+                <svg width="12" height="16" viewBox="0 0 12 16" className="text-primary">
+                  <path d="M6 0v12M2 9l4 5 4-5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </FadeInView>
   );
 }
@@ -89,39 +101,37 @@ export function DBSchema({
 }) {
   return (
     <FadeInView>
-      <ContentCard>
-        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
-        <div className="grid md:grid-cols-3 gap-4 mb-6">
-          {tables.map((table) => (
-            <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
-              <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
-                <span className="text-sm-md font-bold text-primary">{table.name}</span>
-              </div>
-              <div className="p-3 space-y-1.5">
-                {table.fields.map((f) => (
-                  <div key={f.name} className="flex items-center gap-2">
-                    {f.key && (
-                      <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
-                        PK
-                      </span>
-                    )}
-                    <span className="text-sm font-medium text-foreground">{f.name}</span>
-                    <span className="text-xs font-normal text-muted-foreground ml-auto">{f.type}</span>
-                  </div>
-                ))}
-              </div>
+      <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-6">{title}</h4>
+      <div className="grid md:grid-cols-3 gap-4 mb-6">
+        {tables.map((table) => (
+          <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
+            <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
+              <span className="text-sm-md font-bold text-primary">{table.name}</span>
             </div>
-          ))}
-        </div>
-        <div className="space-y-1.5">
-          {relations.map((rel) => (
-            <p key={rel} className="text-sm font-normal text-muted-foreground flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-              {rel}
-            </p>
-          ))}
-        </div>
-      </ContentCard>
+            <div className="p-3 space-y-1.5">
+              {table.fields.map((f) => (
+                <div key={f.name} className="flex items-center gap-2">
+                  {f.key && (
+                    <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                      PK
+                    </span>
+                  )}
+                  <span className="text-sm font-medium text-foreground">{f.name}</span>
+                  <span className="text-xs font-normal text-muted-foreground ml-auto">{f.type}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="space-y-1.5">
+        {relations.map((rel) => (
+          <p key={rel} className="text-sm font-normal text-muted-foreground flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+            {rel}
+          </p>
+        ))}
+      </div>
     </FadeInView>
   );
 }
@@ -130,11 +140,10 @@ export function DBSchema({
 export function DBRelationDiagram() {
   return (
     <FadeInView>
-      <ContentCard>
-        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">
-          테이블 관계도 (ERD)
-        </h4>
-        <div className="overflow-x-auto">
+      <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-6">
+        테이블 관계도 (ERD)
+      </h4>
+      <div className="overflow-x-auto">
           <div className="min-w-[480px]">
             {/* Tables row */}
             <div className="flex items-start justify-between gap-4 mb-2">
@@ -249,7 +258,6 @@ export function DBRelationDiagram() {
             </div>
           </div>
         </div>
-      </ContentCard>
     </FadeInView>
   );
 }
@@ -265,25 +273,25 @@ export function ProblemSolvingBlock({
   detail?: string;
 }) {
   return (
-    <div className="p-5 rounded-xl border border-border bg-card">
-      <div className="flex items-start gap-3 mb-3">
-        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-destructive/10 text-destructive text-xs font-semibold">
+    <dl className="flex flex-col gap-5" data-print-keep>
+      <div className="grid grid-cols-[88px_1fr] gap-4 border-l-[3px] border-destructive pl-4 py-1">
+        <dt className="text-xs uppercase tracking-widest text-destructive font-medium pt-0.5">
           Problem
-        </span>
-        <p className="text-sm-md font-medium text-foreground leading-loose">{problem}</p>
+        </dt>
+        <dd className="text-sm-md font-medium text-foreground leading-loose">{problem}</dd>
       </div>
-      <div className="flex items-start gap-3">
-        <span className="shrink-0 mt-0.5 px-2 py-0.5 rounded bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold">
+      <div className="grid grid-cols-[88px_1fr] gap-4 border-l-[3px] border-green-500 pl-4 py-1">
+        <dt className="text-xs uppercase tracking-widest text-green-600 dark:text-green-400 font-medium pt-0.5">
           Solution
-        </span>
-        <div>
+        </dt>
+        <dd>
           <p className="text-sm-md font-medium text-foreground leading-loose">{solution}</p>
           {detail && (
             <p className="text-sm font-normal text-muted-foreground leading-loose mt-1.5">{detail}</p>
           )}
-        </div>
+        </dd>
       </div>
-    </div>
+    </dl>
   );
 }
 
@@ -359,6 +367,7 @@ export function SyncFlowDiagram({
   solution,
   detail,
   screenshotSrc,
+  screenshotAlt = "스크린샷",
 }: {
   title: string;
   description?: string;
@@ -367,70 +376,71 @@ export function SyncFlowDiagram({
   solution: string;
   detail?: string;
   screenshotSrc?: string;
+  screenshotAlt?: string;
 }) {
   return (
     <FadeInView>
-      <ContentCard>
-        <SubSectionTitle size="md" className="mb-4">
-          {title}
-        </SubSectionTitle>
+      <div data-print-keep>
+      <SubSectionTitle size="md" className="mb-4">
+        {title}
+      </SubSectionTitle>
 
-        {/* 설명 텍스트 */}
-        {description && (
-          <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
-            {description}
-          </p>
-        )}
+      {/* 설명 텍스트 */}
+      {description && (
+        <p className="text-base font-normal text-muted-foreground leading-loose mb-4">
+          {description}
+        </p>
+      )}
 
-        {/* Problem / Solution */}
-        <div className="mb-6">
-          <ProblemSolvingBlock
-            problem={problem}
-            solution={solution}
-            detail={detail}
-          />
-        </div>
+      {/* Problem / Solution */}
+      <div className="mb-6">
+        <ProblemSolvingBlock
+          problem={problem}
+          solution={solution}
+          detail={detail}
+        />
+      </div>
 
-        {/* 흐름 다이어그램 (좌) + 앱 스크린샷 (우) */}
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* 왼쪽: 흐름 다이어그램 */}
-          <div className="flex flex-col items-center gap-1.5">
-            {steps.map((step, i) => (
-              <div key={i} className="w-full max-w-[280px]">
-                <div
-                  className="p-2.5 rounded-lg bg-card border"
-                  style={{ borderColor: step.color + "40" }}
-                >
-                  <div className="flex items-start gap-2">
-                    <div
-                      className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-2xs font-bold text-white mt-0.5"
-                      style={{ backgroundColor: step.color }}
-                    >
-                      {i + 1}
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold leading-snug" style={{ color: step.color }}>{step.label}</p>
-                      <p className="text-xxs font-normal text-muted-foreground leading-normal mt-0.5">{step.desc}</p>
-                    </div>
+      {/* 흐름 다이어그램 (좌) + 앱 스크린샷 (우) */}
+      <div className="grid md:grid-cols-2 gap-8 items-start">
+        {/* 왼쪽: 흐름 다이어그램 */}
+        <div className="flex flex-col items-center gap-1.5">
+          {steps.map((step, i) => (
+            <div key={i} className="w-full max-w-[280px]">
+              <div
+                className="p-2.5 rounded-lg bg-card border"
+                style={{ borderColor: step.color + "40" }}
+              >
+                <div className="flex items-start gap-2">
+                  <div
+                    className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-2xs font-bold text-white mt-0.5"
+                    style={{ backgroundColor: step.color }}
+                  >
+                    {i + 1}
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold leading-snug" style={{ color: step.color }}>{step.label}</p>
+                    <p className="text-xxs font-normal text-muted-foreground leading-normal mt-0.5">{step.desc}</p>
                   </div>
                 </div>
-                {i < steps.length - 1 && (
-                  <div className="flex justify-center py-0.5">
-                    <div className="w-0.5 h-3 bg-border" />
-                  </div>
-                )}
               </div>
-            ))}
-          </div>
-
-          {/* 오른쪽: 앱 스크린샷 */}
-          <div className="flex justify-center">
-            {screenshotSrc
-              ? <ClickableImage src={screenshotSrc} alt="실시간 채팅 스크린샷" className="w-full max-w-[240px] rounded-2xl" />
-              : <AppScreenshotPlaceholder label="실시간 채팅 스크린샷" />}
-          </div>
+              {i < steps.length - 1 && (
+                <div className="flex justify-center py-0.5">
+                  <div className="w-0.5 h-3 bg-border" />
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      </ContentCard>
+
+        {/* 오른쪽: 앱 스크린샷 */}
+        <div className="flex justify-center">
+          {screenshotSrc
+            ? <ClickableImage src={screenshotSrc} alt={screenshotAlt} className="w-full max-w-[240px] rounded-2xl" />
+            : <AppScreenshotPlaceholder label={screenshotAlt} />}
+        </div>
+      </div>
+      </div>
     </FadeInView>
   );
 }
@@ -447,114 +457,114 @@ export function DBSchemaWithERD({
 }) {
   return (
     <FadeInView>
-      <ContentCard>
-        <h4 className="text-md font-bold text-foreground mb-6 tracking-snug">{title}</h4>
+      <div data-print-keep>
+      <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-6">{title}</h4>
 
-        {/* 테이블 스키마 */}
-        <div className="grid md:grid-cols-3 gap-4 mb-6">
-          {tables.map((table) => (
-            <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
-              <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
-                <span className="text-sm-md font-bold text-primary">{table.name}</span>
+      {/* 테이블 스키마 */}
+      <div className="grid md:grid-cols-3 gap-4 mb-6">
+        {tables.map((table) => (
+          <div key={table.name} className="rounded-xl border border-border overflow-hidden bg-card">
+            <div className="px-4 py-2.5 bg-primary/10 border-b border-border">
+              <span className="text-sm-md font-bold text-primary">{table.name}</span>
+            </div>
+            <div className="p-3 space-y-1.5">
+              {table.fields.map((f) => (
+                <div key={f.name} className="flex items-center gap-2">
+                  {f.key && (
+                    <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                      PK
+                    </span>
+                  )}
+                  <span className="text-sm font-medium text-foreground">{f.name}</span>
+                  <span className="text-xs font-normal text-muted-foreground ml-auto">{f.type}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ERD 관계도 — 수평 화살표 */}
+      <div className="mt-2 pt-5 border-t border-border">
+        <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-5">
+          테이블 관계도 (ERD)
+        </h4>
+        <div className="overflow-x-auto">
+          <div className="min-w-[380px]">
+            {/* 메인 관계 행 */}
+            <div className="flex items-center justify-center gap-0 mb-4">
+              {/* Participant */}
+              <div className="flex flex-col items-center">
+                <div className="px-3 py-2 rounded-xl border bg-orange-500/10 border-orange-500/30">
+                  <span className="text-xs font-bold text-orange-600 dark:text-orange-400">Participant</span>
+                </div>
+                <span className="text-2xs font-bold text-orange-400 mt-1">N</span>
               </div>
-              <div className="p-3 space-y-1.5">
-                {table.fields.map((f) => (
-                  <div key={f.name} className="flex items-center gap-2">
-                    {f.key && (
-                      <span className="text-xxs font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
-                        PK
-                      </span>
-                    )}
-                    <span className="text-sm font-medium text-foreground">{f.name}</span>
-                    <span className="text-xs font-normal text-muted-foreground ml-auto">{f.type}</span>
-                  </div>
-                ))}
+
+              {/* 화살표: Participant ← ChatRoom (ChatRoom이 1, Participant가 N) */}
+              <div className="flex flex-col items-center px-1 shrink-0">
+                <svg width="64" height="16" viewBox="0 0 64 16">
+                  <path d="M60 8H12M16 4L4 8l12 4" fill="none" stroke="#f97316" strokeWidth="1.5" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-3xs text-orange-400 font-medium whitespace-nowrap">participants</span>
+              </div>
+
+              {/* ChatRoom (중앙, 1:1:) */}
+              <div className="flex flex-col items-center">
+                <div className="px-3 py-2 rounded-xl border-2 border-primary/50 bg-primary/10">
+                  <span className="text-xs font-bold text-primary">ChatRoom</span>
+                </div>
+                <span className="text-2xs font-bold text-primary mt-1">1</span>
+              </div>
+
+              {/* 화살표: ChatRoom → ChatMessage (ChatRoom이 1, ChatMessage가 N) */}
+              <div className="flex flex-col items-center px-1 shrink-0">
+                <svg width="64" height="16" viewBox="0 0 64 16">
+                  <path d="M4 8h48M48 4l12 4-12 4" fill="none" stroke="#22c55e" strokeWidth="1.5" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-3xs text-green-500 font-medium whitespace-nowrap">messages</span>
+              </div>
+
+              {/* ChatMessage */}
+              <div className="flex flex-col items-center">
+                <div className="px-3 py-2 rounded-xl border bg-green-500/10 border-green-500/30">
+                  <span className="text-xs font-bold text-green-600 dark:text-green-400">ChatMessage</span>
+                </div>
+                <span className="text-2xs font-bold text-green-500 mt-1">N</span>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* ERD 관계도 — 수평 화살표 */}
-        <div className="mt-2 pt-5 border-t border-border">
-          <h4 className="text-sm-md font-bold text-foreground mb-5 tracking-snug">
-            테이블 관계도 (ERD)
-          </h4>
-          <div className="overflow-x-auto">
-            <div className="min-w-[380px]">
-              {/* 메인 관계 행 */}
-              <div className="flex items-center justify-center gap-0 mb-4">
-                {/* Participant */}
-                <div className="flex flex-col items-center">
-                  <div className="px-3 py-2 rounded-xl border bg-orange-500/10 border-orange-500/30">
-                    <span className="text-xs font-bold text-orange-600 dark:text-orange-400">Participant</span>
-                  </div>
-                  <span className="text-2xs font-bold text-orange-400 mt-1">N</span>
-                </div>
-
-                {/* 화살표: Participant ← ChatRoom (ChatRoom이 1, Participant가 N) */}
-                <div className="flex flex-col items-center px-1 shrink-0">
-                  <svg width="64" height="16" viewBox="0 0 64 16">
-                    <path d="M60 8H12M16 4L4 8l12 4" fill="none" stroke="#f97316" strokeWidth="1.5" strokeLinejoin="round"/>
-                  </svg>
-                  <span className="text-3xs text-orange-400 font-medium whitespace-nowrap">participants</span>
-                </div>
-
-                {/* ChatRoom (중앙, 1:1:) */}
-                <div className="flex flex-col items-center">
-                  <div className="px-3 py-2 rounded-xl border-2 border-primary/50 bg-primary/10">
-                    <span className="text-xs font-bold text-primary">ChatRoom</span>
-                  </div>
-                  <span className="text-2xs font-bold text-primary mt-1">1</span>
-                </div>
-
-                {/* 화살표: ChatRoom → ChatMessage (ChatRoom이 1, ChatMessage가 N) */}
-                <div className="flex flex-col items-center px-1 shrink-0">
-                  <svg width="64" height="16" viewBox="0 0 64 16">
-                    <path d="M4 8h48M48 4l12 4-12 4" fill="none" stroke="#22c55e" strokeWidth="1.5" strokeLinejoin="round"/>
-                  </svg>
-                  <span className="text-3xs text-green-500 font-medium whitespace-nowrap">messages</span>
-                </div>
-
-                {/* ChatMessage */}
-                <div className="flex flex-col items-center">
-                  <div className="px-3 py-2 rounded-xl border bg-green-500/10 border-green-500/30">
-                    <span className="text-xs font-bold text-green-600 dark:text-green-400">ChatMessage</span>
-                  </div>
-                  <span className="text-2xs font-bold text-green-500 mt-1">N</span>
-                </div>
+            {/* lastMessage 1:1 참조 */}
+            <div className="flex justify-center mb-3">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card border border-primary/20">
+                <span className="text-xxs font-semibold text-primary">ChatRoom</span>
+                <svg width="44" height="10" viewBox="0 0 44 10">
+                  <path d="M0 5h34M30 1l10 4-10 4" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="4 2" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-xxs font-medium text-primary/70">lastMessage</span>
+                <span className="text-2xs text-muted-foreground">(1:1)</span>
               </div>
+            </div>
 
-              {/* lastMessage 1:1 참조 */}
-              <div className="flex justify-center mb-3">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card border border-primary/20">
-                  <span className="text-xxs font-semibold text-primary">ChatRoom</span>
-                  <svg width="44" height="10" viewBox="0 0 44 10">
-                    <path d="M0 5h34M30 1l10 4-10 4" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="4 2" strokeLinejoin="round"/>
-                  </svg>
-                  <span className="text-xxs font-medium text-primary/70">lastMessage</span>
-                  <span className="text-2xs text-muted-foreground">(1:1)</span>
-                </div>
+            {/* Legend */}
+            <div className="flex flex-wrap gap-x-4 gap-y-1.5 pt-3 border-t border-border">
+              <div className="flex items-center gap-1.5">
+                <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#f97316" strokeWidth="1.5"/></svg>
+                <span className="text-xxs text-muted-foreground">ChatRoom ↔ Participant (1:N)</span>
               </div>
-
-              {/* Legend */}
-              <div className="flex flex-wrap gap-x-4 gap-y-1.5 pt-3 border-t border-border">
-                <div className="flex items-center gap-1.5">
-                  <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#f97316" strokeWidth="1.5"/></svg>
-                  <span className="text-xxs text-muted-foreground">ChatRoom ↔ Participant (1:N)</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#22c55e" strokeWidth="1.5"/></svg>
-                  <span className="text-xxs text-muted-foreground">ChatRoom ↔ ChatMessage (1:N)</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="3 2"/></svg>
-                  <span className="text-xxs text-muted-foreground">lastMessage 참조 (1:1)</span>
-                </div>
+              <div className="flex items-center gap-1.5">
+                <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#22c55e" strokeWidth="1.5"/></svg>
+                <span className="text-xxs text-muted-foreground">ChatRoom ↔ ChatMessage (1:N)</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <svg width="18" height="8" viewBox="0 0 18 8"><path d="M0 4h10M7 1l7 3-7 3" fill="none" stroke="#6366f1" strokeWidth="1.3" strokeDasharray="3 2"/></svg>
+                <span className="text-xxs text-muted-foreground">lastMessage 참조 (1:1)</span>
               </div>
             </div>
           </div>
         </div>
-      </ContentCard>
+      </div>
+      </div>
     </FadeInView>
   );
 }
@@ -563,12 +573,12 @@ export function DBSchemaWithERD({
 export function RxComposeArchitectureDiagram() {
   return (
     <FadeInView>
-      <ContentCard className="mb-10">
-        <h4 className="text-md font-bold text-foreground mb-5 tracking-snug">
-          RxCompose 단방향 데이터 흐름 구조도
-        </h4>
+      <div data-print-keep>
+      <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-5">
+        RxCompose 단방향 데이터 흐름 구조도
+      </h4>
 
-        <div className="overflow-x-auto">
+      <div className="overflow-x-auto">
           {/*
             레이아웃:
             [수평 메인 흐름] View → Action → Reducer → Effect<Action> → .none → State → View 바인딩
@@ -738,8 +748,22 @@ export function RxComposeArchitectureDiagram() {
             <text x="530" y="96" textAnchor="middle" fontSize="6" fill="#94a3b8">present()로 화면 전환에 활용</text>
 
           </svg>
-        </div>
-      </ContentCard>
+      </div>
+      </div>
     </FadeInView>
+  );
+}
+
+/* ─── InlineDiagram — 인라인 작성된 다이어그램 PDF 페이징 보호 wrapper ─── */
+type InlineDiagramProps = {
+  className?: string;
+  children: React.ReactNode;
+};
+
+export function InlineDiagram({ className, children }: InlineDiagramProps) {
+  return (
+    <div data-print-keep className={className}>
+      {children}
+    </div>
   );
 }

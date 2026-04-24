@@ -1,68 +1,86 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { FadeInView } from "./ParallaxSection";
 import { Github, Mail, Phone } from "lucide-react";
-import { SectionInner, IconButton, ParallaxBlobLayer, ParallaxAccentLayer } from "./design-system";
+import {
+  SectionInner,
+  EditorialGrid,
+  GridLabel,
+  GridBody,
+  Eyebrow,
+  MetaList,
+} from "./design-system";
+
+const CONTACTS = [
+  {
+    label: "Email",
+    value: (
+      <a
+        href="mailto:shapekim98@gmail.com"
+        className="inline-flex items-center gap-2 hover:opacity-70 transition-opacity"
+      >
+        <Mail size={14} />
+        shapekim98@gmail.com
+      </a>
+    ),
+  },
+  {
+    label: "GitHub",
+    value: (
+      <a
+        href="https://github.com/ShapeKim98"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 hover:opacity-70 transition-opacity"
+      >
+        <Github size={14} />
+        ShapeKim98
+      </a>
+    ),
+  },
+  {
+    label: "Phone",
+    value: (
+      <span className="inline-flex items-center gap-2 tabular-nums">
+        <Phone size={14} />
+        010-9027-8292
+      </span>
+    ),
+  },
+  { label: "Birth", value: <span className="tabular-nums">1998.02.05</span> },
+];
 
 export function FooterSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const rawBgY = useTransform(scrollYProgress, [0, 1], [20, -20]);
-  const bgY = useSpring(rawBgY, { stiffness: 120, damping: 28 });
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
-  const rawAccentY = useTransform(scrollYProgress, [0, 1], [70, -70]);
-  const accentY = useSpring(rawAccentY, { stiffness: 80, damping: 20 });
-  const accentRotate = useTransform(scrollYProgress, [0, 1], [0, 35]);
-
   return (
-    <section ref={sectionRef} id="contact" className="relative py-32 md:py-40 px-6 overflow-hidden">
-      {/* Background */}
-      <ParallaxBlobLayer bgY={bgY} bgScale={bgScale}>
-        <div className="absolute top-[20%] left-[10%] w-[350px] h-[350px] rounded-full bg-primary/4 blur-3xl" />
-        <div className="absolute bottom-[10%] right-[5%] w-[300px] h-[300px] rounded-full bg-primary/3 blur-3xl" />
-      </ParallaxBlobLayer>
-
-      {/* Accent */}
-      <ParallaxAccentLayer accentY={accentY}>
-        <motion.div
-          style={{ rotate: accentRotate }}
-          className="absolute top-[15%] right-[15%] w-3 h-3 rounded-full border-2 border-primary/15"
-        />
-        <div className="absolute bottom-[30%] left-[8%] w-20 h-px bg-primary/10" />
-      </ParallaxAccentLayer>
-
-      <SectionInner className="max-w-3xl text-center">
-        <FadeInView speed={1.3}>
-          <span className="text-sm-md font-medium text-primary tracking-widest uppercase mb-4 block">
-            Contact
-          </span>
-          <h2 className="text-6xl md:text-8xl font-extrabold tracking-tighter leading-tight text-foreground mb-6">
-            Let's Connect
-          </h2>
-          <p className="text-lg font-normal text-muted-foreground leading-loose mb-12">
-            함께 성장하고, 더 나은 서비스를 만들어 나갈 수 있는 기회를 기다리고 있습니다.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <IconButton href="mailto:shapekim98@gmail.com" variant="primary" size="lg" icon={<Mail size={18} />}>shapekim98@gmail.com</IconButton>
-            <IconButton href="https://github.com/ShapeKim98" variant="secondary" size="lg" icon={<Github size={18} />} target="_blank" rel="noopener noreferrer">GitHub</IconButton>
-          </div>
-
-          <div className="flex items-center justify-center gap-2 text-muted-foreground">
-            <Phone size={14} />
-            <span className="text-sm-md font-normal">010-9027-8292</span>
-          </div>
+    <section id="contact" className="relative py-24 md:py-32 border-t border-border" data-print-keep>
+      <SectionInner>
+        <FadeInView>
+          <EditorialGrid className="mb-16">
+            <GridLabel>
+              <div className="flex flex-col gap-3">
+                <Eyebrow>05 — Contact</Eyebrow>
+                <h2
+                  className="font-medium tracking-tight text-foreground leading-[1.05]"
+                  style={{ fontSize: "var(--text-display)" }}
+                >
+                  Let's Connect
+                </h2>
+              </div>
+            </GridLabel>
+            <GridBody>
+              <div className="flex flex-col gap-8 max-w-prose">
+                <p className="text-base font-normal text-muted-foreground leading-relaxed">
+                  함께 성장하고, 더 나은 서비스를 만들어 나갈 수 있는 기회를
+                  기다리고 있습니다.
+                </p>
+                <MetaList items={CONTACTS} />
+              </div>
+            </GridBody>
+          </EditorialGrid>
         </FadeInView>
-      </SectionInner>
 
-      <SectionInner className="mt-20 pt-8 border-t border-border text-center">
-        <p className="text-sm font-normal text-muted-foreground">
-          © 2025 김도형. All rights reserved.
-        </p>
+        <div className="pt-8 border-t border-border flex items-center justify-between text-xs tracking-widest uppercase text-muted-foreground">
+          <span>© 2026 김도형</span>
+          <span>All rights reserved.</span>
+        </div>
       </SectionInner>
     </section>
   );

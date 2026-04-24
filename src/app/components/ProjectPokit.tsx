@@ -1,12 +1,52 @@
 import { FadeInView } from "./ParallaxSection";
-import { ProjectHeader } from "./ProjectHeader";
-import { AppScreenshotPlaceholder, FeatureGrid, LayerDiagram, ProblemSolvingBlock, ScreenshotPlaceholder } from "./Diagrams";
-import { ContentCard, SectionGroup, SubSectionTitle, TwoColumnLayout, VerticalFlow } from "./design-system";
+import { LayerDiagram, ProblemSolvingBlock, InlineDiagram } from "./Diagrams";
+import {
+  SectionInner,
+  SectionGroup,
+  TwoColumnLayout,
+  VerticalFlow,
+  NumberedFeatureList,
+  Eyebrow,
+  Figure,
+  ProblemSolvingList,
+  DesignUnit,
+  DesignGroup,
+  HighlightBox,
+} from "./design-system";
+import { ProjectCover, ProjectLayout, ProjectSidebar, ProjectSubsection } from "./ProjectLayout";
 import { ClickableImage } from "./ClickableImage";
 import pokitPromo from "../../image/포킷표지.png";
 import tuistGraph from "../../image/Tuist Graph — 모듈 의존 관계 시각화.png";
 import linkThumb1 from "../../image/link-thumbnail-1.jpg";
 import linkThumb2 from "../../image/link-thumbnail-2.jpg";
+
+const META = {
+  number: "03",
+  title: "Pokit",
+  kind: "project" as const,
+  subtitle: "간편 링크 아카이빙 앱 (iOS 16+)",
+  description:
+    "간편하게 링크를 저장하고, 분류하고, 잊지 않고 볼 수 있도록 도와주는 서비스입니다.",
+  period: "2024.05.11 ~ 2024.08.27 (유지보수 중)",
+  role: "iOS 개발",
+  team: "PM 1명, 디자이너 2명, 서버 2명, iOS 2명, 안드로이드 2명",
+  techStack: [
+    "SwiftUI",
+    "TCA",
+    "Modular Architecture",
+    "Tuist",
+    "Github Actions",
+    "Fastlane",
+    "Moya",
+    "Nuke",
+    "KakaoSDK",
+    "Firebase",
+    "Share Extension",
+  ],
+  githubUrl: "https://github.com/YAPP-Github/Pokit-iOS",
+  appStoreUrl:
+    "https://apps.apple.com/kr/app/pokit-%ED%8F%AC%ED%82%B7-%EA%B0%84%ED%8E%B8-%EB%A7%81%ED%81%AC-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99-%EC%95%B1/id6514313808",
+};
 
 const FEATURES = [
   { title: "소셜 로그인 기능", desc: "애플과 구글 계정으로 간편하게 로그인할 수 있으며, JWT 기반 인증 구조를 통해 안전한 사용자 인증과 자동 로그인을 지원합니다." },
@@ -29,76 +69,94 @@ const MODULE_LAYERS = [
 
 export function ProjectPokit() {
   return (
-    <div>
-      <ProjectHeader
-        index="03"
-        type="project"
-        title="Pokit"
-        subtitle="간편 링크 아카이빙 앱 (iOS 16+)"
-        period="2024.05.11 ~ 2024.08.27 (유지보수 중)"
-        team="PM 1명, 디자이너 2명, 서버 2명, iOS 2명, 안드로이드 2명"
-        role="iOS 개발"
-        description="간편하게 링크를 저장하고, 분류하고, 잊지 않고 볼 수 있도록 도와주는 서비스입니다."
-        techStack={["SwiftUI", "TCA", "Modular Architecture", "Tuist", "Github Actions", "Fastlane", "Moya", "Nuke", "KakaoSDK", "Firebase", "Share Extension"]}
-        githubUrl="https://github.com/YAPP-Github/Pokit-iOS"
-        appStoreUrl="https://apps.apple.com/kr/app/pokit-%ED%8F%AC%ED%82%B7-%EA%B0%84%ED%8E%B8-%EB%A7%81%ED%81%AC-%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99-%EC%95%B1/id6514313808"
-        screenshotLabel="Pokit 앱 스크린샷"
-        screenshotSrc={pokitPromo}
+    <article>
+      <ProjectCover
+        number={META.number}
+        title={META.title}
+        subtitle={META.subtitle}
+        kind={META.kind}
+        meta={`${META.period} · ${META.role}`}
+        imageSrc={pokitPromo}
+        imageAlt="Pokit 앱 커버"
       />
 
-      <FadeInView>
-        <SubSectionTitle size="lg" className="mb-6">핵심 기능</SubSectionTitle>
-        <FeatureGrid features={FEATURES} />
-      </FadeInView>
+      <section className="py-16 md:py-20">
+        <SectionInner>
+          <ProjectLayout
+            sidebar={
+              <ProjectSidebar
+                number={META.number}
+                title={META.title}
+                kind={META.kind}
+                period={META.period}
+                role={META.role}
+                team={META.team}
+                techStack={META.techStack}
+                githubUrl={META.githubUrl}
+                appStoreUrl={META.appStoreUrl}
+              />
+            }
+          >
+            <ProjectSubsection eyebrow="Overview">
+              <p className="text-base font-normal text-muted-foreground leading-relaxed max-w-3xl">
+                {META.description}
+              </p>
+            </ProjectSubsection>
+
+            <ProjectSubsection eyebrow="Features">
+              <NumberedFeatureList items={FEATURES.map((f) => ({ title: f.title, desc: f.desc }))} />
+            </ProjectSubsection>
 
       {/* ───── 프로젝트 설계 ───── */}
-      <div className="mt-16">
+      <div>
         <SectionGroup title="프로젝트 설계">
 
-        {/* Tuist Graph */}
+        <DesignGroup title="Modular Architecture 설계">
+
         <FadeInView>
-          <ClickableImage
-            src={tuistGraph}
-            alt="Tuist Graph — 모듈 의존 관계 시각화"
-            className="w-full rounded-2xl object-contain bg-white p-4"
-          />
+          <Figure caption="Tuist Graph — 모듈 의존 관계 시각화">
+            <ClickableImage
+              src={tuistGraph}
+              alt="Tuist Graph — 모듈 의존 관계 시각화"
+              className="w-full rounded-2xl object-contain bg-white p-4"
+            />
+          </Figure>
         </FadeInView>
 
-        {/* Modular Architecture 도입 */}
-        <FadeInView>
-          <SubSectionTitle size="lg" className="mb-4">
-            Modular Architecture 도입
-          </SubSectionTitle>
-          <div className="grid md:grid-cols-3 gap-4 mb-8">
-            {[
-              {
-                title: "기능 테스트 과정의 간소화",
-                desc: "프로젝트 개발이 점점 고도화됨에 따라, 특정 기능을 검증하기 위해 여러 단계를 거쳐야 하는 상황을 개선하고자 했습니다. 이에 테스트 흐름을 보다 간결하고 효율적으로 설계해 개발 과정의 집중도를 높였습니다.",
-              },
-              {
-                title: "빌드 효율성 향상",
-                desc: "하나의 기능을 점검할 때 전체 프로젝트보다 해당 기능만 빌드하는 것이 더 효율적이라고 판단했습니다. 이에 필요한 기능만 빠르게 빌드하고 실행할 수 있도록 모듈 단위 빌드 구조를 설계하여, 전체 빌드 시간을 단축하고 개발 효율을 높였습니다.",
-              },
-              {
-                title: "확장성과 재사용성 강화",
-                desc: "프로젝트의 규모가 커질수록 유지보수와 확장을 유연하게 이어가기 위해, 기능과 계층을 단순한 코드 단위가 아닌 독립적인 모듈 단위로 구성할 필요가 있다고 판단했습니다. 모듈 단위 구성은 각 기능의 책임을 명확히 하고, 다른 코드와의 의존성을 줄여 관심사 분리(Separation of Concerns)를 실현합니다.",
-              },
-            ].map((item) => (
-              <div key={item.title} className="p-5 rounded-xl bg-muted/40 border border-border">
-                <h6 className="text-base font-semibold text-foreground mb-2">{item.title}</h6>
-                <p className="text-sm font-normal text-muted-foreground leading-loose">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </FadeInView>
+        <DesignUnit title="Modular Architecture 도입" size="lg">
+          <FadeInView>
+            <ol className="border-t border-border mb-8 mt-4">
+              {[
+                {
+                  title: "기능 테스트 과정의 간소화",
+                  desc: "프로젝트 개발이 점점 고도화됨에 따라, 특정 기능을 검증하기 위해 여러 단계를 거쳐야 하는 상황을 개선하고자 했습니다. 이에 테스트 흐름을 보다 간결하고 효율적으로 설계해 개발 과정의 집중도를 높였습니다.",
+                },
+                {
+                  title: "빌드 효율성 향상",
+                  desc: "하나의 기능을 점검할 때 전체 프로젝트보다 해당 기능만 빌드하는 것이 더 효율적이라고 판단했습니다. 이에 필요한 기능만 빠르게 빌드하고 실행할 수 있도록 모듈 단위 빌드 구조를 설계하여, 전체 빌드 시간을 단축하고 개발 효율을 높였습니다.",
+                },
+                {
+                  title: "확장성과 재사용성 강화",
+                  desc: "프로젝트의 규모가 커질수록 유지보수와 확장을 유연하게 이어가기 위해, 기능과 계층을 단순한 코드 단위가 아닌 독립적인 모듈 단위로 구성할 필요가 있다고 판단했습니다. 모듈 단위 구성은 각 기능의 책임을 명확히 하고, 다른 코드와의 의존성을 줄여 관심사 분리(Separation of Concerns)를 실현합니다.",
+                },
+              ].map((item, i) => (
+                <li key={item.title} className="py-5 border-b border-border grid grid-cols-[auto_1fr] gap-5">
+                  <span className="text-xs uppercase tracking-widest text-muted-foreground tabular-nums w-8">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h6 className="text-base font-medium text-foreground mb-1">{item.title}</h6>
+                    <p className="text-sm text-muted-foreground leading-normal">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </FadeInView>
+        </DesignUnit>
 
-        {/* Tuist 도입 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              Modular Architecture를 위한 Tuist 도입
-            </SubSectionTitle>
-            <div className="space-y-4">
+        <DesignUnit title="Modular Architecture를 위한 Tuist 도입" size="md">
+          <FadeInView>
+            <ProblemSolvingList>
               <ProblemSolvingBlock
                 problem="코드 레벨 분리만으로는 모든 코드에 접근이 가능해 개발자의 의도치 않은 참조나 책임 혼선이 발생할 수 있음"
                 solution="물리적 의존성 분리를 통한 책임 명확화"
@@ -109,50 +167,43 @@ export function ProjectPokit() {
                 solution="Tuist를 활용한 모듈화 자동화"
                 detail="Tuist를 도입하여 Swift 코드 기반으로 프로젝트 생성을 자동화했습니다. 모듈을 열거형(Enum)으로 정의하고, 공통 설정을 Swift 메서드로 추상화하여 반복 작업을 최소화했으며, Tuist Template을 활용해 디렉터리와 필수 파일 구성을 자동화했습니다. 그 결과, 새로운 모듈 추가 시 열거형 케이스 한 줄 추가와 명령어 한 줄이면 모듈 추가가 자동으로 완성되는 구조를 구축했습니다."
               />
-            </div>
-          </ContentCard>
-        </FadeInView>
+            </ProblemSolvingList>
+          </FadeInView>
+        </DesignUnit>
 
-        {/* Tuist Graph 장점 */}
-        <FadeInView>
-          <div className="p-6 md:p-8 rounded-2xl bg-primary/5 border border-primary/10">
-            <SubSectionTitle size="md" className="mb-3">
-              프로젝트 구조 시각화 및 유지보수 향상
-            </SubSectionTitle>
-            <p className="text-base font-normal text-muted-foreground leading-loose">
-              Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인할 수 있다는 점입니다. Tuist에서 제공하는 <code className="px-1.5 py-0.5 rounded bg-muted text-sm-md font-medium">tuist graph</code> 명령어를 활용해 프로젝트의 전체 모듈 구조와 의존 관계를 명확히 파악했습니다. 이를 통해 프로젝트 구조를 점검하여, 향후 확장 및 리팩토링 방향을 체계적으로 수립할 수 있는 기반을 마련했습니다.
-            </p>
-          </div>
-        </FadeInView>
+        <DesignUnit title="프로젝트 구조 시각화 및 유지보수 향상" size="md">
+          <FadeInView>
+            <HighlightBox className="mt-3">
+              <p className="text-base font-normal text-muted-foreground leading-loose">
+                Tuist의 가장 큰 장점 중 하나가 모듈 관계를 시각적으로 확인할 수 있다는 점입니다. Tuist에서 제공하는 <code className="px-1.5 py-0.5 rounded bg-muted text-sm-md font-medium">tuist graph</code> 명령어를 활용해 프로젝트의 전체 모듈 구조와 의존 관계를 명확히 파악했습니다. 이를 통해 프로젝트 구조를 점검하여, 향후 확장 및 리팩토링 방향을 체계적으로 수립할 수 있는 기반을 마련했습니다.
+              </p>
+            </HighlightBox>
+          </FadeInView>
+        </DesignUnit>
 
-        {/* 모듈 구성 및 레이어 설계 */}
-        <FadeInView>
-          <div className="mb-4">
-            <SubSectionTitle size="lg" className="mb-3">
-              모듈 구성 및 레이어 설계
-            </SubSectionTitle>
-            <p className="text-base font-normal text-muted-foreground leading-loose">
-              계층화된 모듈 구조를 통해 기능 단위 분리, 공통 로직 재사용, 멀티 타겟 대응을 유연하게 수행할 수 있는 구조를 고민했습니다. 특히 모듈 간의 의존성을 단방향으로 유지하고, 재사용성이 높을수록 아래에 배치하는 전략을 통해 구조의 일관성과 유지보수성을 확보했습니다.
-            </p>
-          </div>
-        </FadeInView>
+        <LayerDiagram
+          subtitle="모듈 구성 및 레이어 설계"
+          description="계층화된 모듈 구조를 통해 기능 단위 분리, 공통 로직 재사용, 멀티 타겟 대응을 유연하게 수행할 수 있는 구조를 고민했습니다. 특히 모듈 간의 의존성을 단방향으로 유지하고, 재사용성이 높을수록 아래에 배치하는 전략을 통해 구조의 일관성과 유지보수성을 확보했습니다."
+          title="모듈 계층 구조"
+          layers={MODULE_LAYERS}
+        />
 
-        <LayerDiagram title="모듈 계층 구조" layers={MODULE_LAYERS} />
+        </DesignGroup>
 
         {/* ───── URL 제목 및 썸네일 파싱 설계 ───── */}
-        <FadeInView>
-          <SubSectionTitle size="xl" className="mb-3">
-            URL 제목 및 썸네일 파싱 설계
-          </SubSectionTitle>
-          <p className="text-base font-normal text-muted-foreground leading-loose mb-6">
-            링크 저장 서비스의 특성상, 사용자가 저장한 웹페이지의 썸네일 이미지와 제목을 안정적으로 파싱하는 것이 핵심 UX 중 하나였습니다. 이를 구현하는 과정에서 다음과 같은 설계적 고민 및 문제 해결이 있었습니다.
-          </p>
-        </FadeInView>
+        <DesignGroup
+          title="URL 제목 및 썸네일 파싱 설계"
+          intro={
+            <p className="text-base font-normal text-muted-foreground leading-loose">
+              링크 저장 서비스의 특성상, 사용자가 저장한 웹페이지의 썸네일 이미지와 제목을 안정적으로 파싱하는 것이 핵심 UX 중 하나였습니다. 이를 구현하는 과정에서 다음과 같은 설계적 고민 및 문제 해결이 있었습니다.
+            </p>
+          }
+        >
 
         <FadeInView>
           <TwoColumnLayout
             left={
-              <div className="space-y-4">
+              <ProblemSolvingList>
                 <ProblemSolvingBlock
                   problem="일부 사이트에서 사용자 에이전트를 명시하지 않으면 OG 태그 데이터를 반환하지 않음"
                   solution="사용자 에이전트를 명시적으로 지정하는 방식으로 해결"
@@ -163,14 +214,14 @@ export function ProjectPokit() {
                   solution="사용자가 직접 제목을 입력하고 기본 썸네일 이미지를 자동 삽입하는 UX 개선안을 PM에게 제안"
                   detail="이를 단순히 오류로 처리하기보다, 사용자 경험 저하를 최소화하는 방향으로 해결했습니다."
                 />
-              </div>
+              </ProblemSolvingList>
             }
             right={
               <div className="flex flex-col items-center justify-center gap-4">
               {/* OG 태그 파싱 성공 */}
               <div className="w-full max-w-[335px]">
-                <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 파싱 성공</p>
-                <div className="rounded-xl border border-border bg-card shadow-[2px_2px_6px_rgba(0,0,0,0.06)] overflow-hidden">
+                <Eyebrow className="mb-1.5">OG 태그 파싱 성공</Eyebrow>
+                <div className="rounded-[10px] border border-border bg-card overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb1} alt="" className="w-[124px] h-[108px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
@@ -186,8 +237,8 @@ export function ProjectPokit() {
               </div>
               {/* OG 태그 미지원 — 기본 썸네일 대체 */}
               <div className="w-full max-w-[335px]">
-                <p className="text-xs font-semibold text-primary mb-1.5 tracking-snug">OG 태그 미지원 — 기본 썸네일 대체</p>
-                <div className="rounded-xl border border-border bg-card shadow-[2px_2px_6px_rgba(0,0,0,0.06)] overflow-hidden">
+                <Eyebrow className="mb-1.5">OG 태그 미지원 — 기본 썸네일 대체</Eyebrow>
+                <div className="rounded-[10px] border border-border bg-card overflow-hidden">
                   <div className="flex items-center gap-4 pr-5">
                     <img src={linkThumb2} alt="" className="w-[124px] h-[94px] object-cover shrink-0" />
                     <div className="flex flex-col gap-2 min-w-0 py-3">
@@ -207,14 +258,10 @@ export function ProjectPokit() {
         </FadeInView>
 
         {/* 썸네일 만료 이슈 */}
-        <FadeInView>
-          <ContentCard>
-            <SubSectionTitle size="md" className="mb-4">
-              썸네일 만료 이슈 분석 및 대응
-            </SubSectionTitle>
-
+        <DesignUnit title="썸네일 만료 이슈 분석 및 대응" size="md">
+          <FadeInView>
             {/* 원인 파악 */}
-            <div className="mb-6">
+            <div className="mb-6 mt-4">
               <div>
                 <h6 className="text-base font-semibold text-foreground mb-3">원인 파악을 위한 모니터링 및 가설 수립</h6>
                 <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-3">
@@ -223,17 +270,17 @@ export function ProjectPokit() {
                 <p className="text-sm-md font-normal text-muted-foreground leading-loose mb-3">
                   이후 동일한 인스타그램 URL을 매일 확인하며 응답 결과를 모니터링한 결과, 3~4일이 경과한 시점부터 썸네일이 표시되지 않는 현상이 나타났습니다. 명확한 만료 주기를 확인하기 위해 인스타그램의 썸네일 만료 정책 관련 문서를 탐색했으나, 공식적인 자료를 발견하지 못했습니다.
                 </p>
-                <div className="p-3 rounded-lg bg-primary/5 border border-primary/10">
+                <HighlightBox>
                   <p className="text-sm font-medium text-primary leading-loose">
                     결론: 내부 모니터링 결과를 근거로 썸네일 URL이 약 3~4일 이후 만료되는 것으로 추정
                   </p>
-                </div>
+                </HighlightBox>
               </div>
             </div>
 
             {/* JWT 착안 재파싱 플로우 다이어그램 */}
-            <div className="mb-5 p-4 rounded-xl bg-card border border-border">
-              <h6 className="text-sm font-semibold text-foreground mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
+            <InlineDiagram className="py-4 mb-5">
+              <h6 className="text-xs uppercase tracking-widest text-muted-foreground font-normal mb-4 text-center">JWT 리프레시 구조에 착안한 재파싱 로직 흐름</h6>
               <div className="grid md:grid-cols-2 gap-6 items-start">
                 {/* 왼쪽: JWT 패턴 대응 설명 */}
                 <div>
@@ -281,9 +328,9 @@ export function ProjectPokit() {
                   ]}
                 />
               </div>
-            </div>
+            </InlineDiagram>
 
-            <div className="space-y-4">
+            <ProblemSolvingList>
               <ProblemSolvingBlock
                 problem="인스타그램 URL에서 3~4일 경과 후 썸네일이 표시되지 않는 문제"
                 solution="JWT 토큰 리프레시 구조에 착안한 재파싱 로직 설계"
@@ -294,11 +341,15 @@ export function ProjectPokit() {
                 solution="새로 파싱된 썸네일 URL을 사용자 링크 데이터에 갱신하는 API를 서버 개발자에게 제안하여 협업 진행"
                 detail="사용자가 저장한 링크 데이터의 썸네일 URL을 갱신하지 않는 이상, 해당 URL은 만료된 상태로 유지되어 동일한 만료 URL을 계속 조회하게 됩니다. 이로 인해 썸네일 조회 실패 → 재파싱 → 동일 URL 재조회가 반복되는 구조적 한계가 있었습니다. 그 결과, 썸네일 정보를 안정적으로 유지하면서도 불필요한 재요청과 중복 파싱을 최소화한 구조를 완성했습니다."
               />
-            </div>
-          </ContentCard>
-        </FadeInView>
+            </ProblemSolvingList>
+          </FadeInView>
+        </DesignUnit>
+        </DesignGroup>
         </SectionGroup>
       </div>
-    </div>
+          </ProjectLayout>
+        </SectionInner>
+      </section>
+    </article>
   );
 }
