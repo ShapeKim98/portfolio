@@ -31,6 +31,33 @@ export function HeroSection() {
               iOS 개발자입니다.
             </p>
 
+            {/* AI 활용 역량 선언 — 웹 전용 (PDF에서는 숨김) */}
+            <p
+              data-print-hide
+              className="text-sm md:text-base font-normal text-muted-foreground/80 leading-relaxed max-w-2xl"
+            >
+              이 포트폴리오 사이트는{" "}
+              <a
+                href="https://claude.com/product/claude-code"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-dotted underline-offset-4 hover:opacity-70 transition-opacity"
+              >
+                Claude Code
+              </a>
+              를 활용한{" "}
+              <strong className="font-medium text-foreground">바이브 코딩</strong>
+              으로 직접 만들었습니다. 기획·디자인 시스템·편집 레이아웃·PDF 자동 출력까지 AI를 도구로 활용해 빠르게 구현했습니다.{" "}
+              <a
+                href="https://github.com/ShapeKim98/portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-dotted underline-offset-4 hover:opacity-70 transition-opacity"
+              >
+                소스 보기 →
+              </a>
+            </p>
+
             {/* Actions */}
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
               <a
@@ -41,6 +68,16 @@ export function HeroSection() {
               >
                 <Github size={14} />
                 <span>GitHub</span>
+                <ArrowUpRight size={12} className="opacity-60" />
+              </a>
+              <a
+                href="https://github.com/ShapeKim98/portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-foreground hover:opacity-70 transition-opacity"
+              >
+                <Github size={14} />
+                <span>Repository</span>
                 <ArrowUpRight size={12} className="opacity-60" />
               </a>
               <a
@@ -59,6 +96,13 @@ export function HeroSection() {
                 <Download size={14} />
                 <span>PDF</span>
               </a>
+              {/* 프린트 전용: PDF 독자가 웹 버전 위치를 알 수 있게 */}
+              <span
+                data-print-only
+                className="items-center gap-1.5 text-muted-foreground tabular-nums"
+              >
+                Web · shapekim98.github.io/portfolio
+              </span>
             </div>
           </div>
 
@@ -89,6 +133,19 @@ export function HeroSection() {
                       className="hover:opacity-70 transition-opacity"
                     >
                       ShapeKim98
+                    </a>
+                  ),
+                },
+                {
+                  label: "Repository",
+                  value: (
+                    <a
+                      href="https://github.com/ShapeKim98/portfolio"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:opacity-70 transition-opacity break-all"
+                    >
+                      ShapeKim98/portfolio
                     </a>
                   ),
                 },
