@@ -222,14 +222,14 @@ export function ExperienceSection() {
                 </h2>
                 <div className="flex flex-col gap-1 text-xs tracking-widest uppercase text-muted-foreground">
                   <span className="tabular-nums">2025. 08 ~ 2026. 04</span>
-                  <span>iOS Developer</span>
+                  <span>Client Developer</span>
                 </div>
               </div>
             </GridLabel>
             <GridBody>
               <div className="flex flex-col gap-4 text-base font-normal text-muted-foreground leading-relaxed">
                 <p>
-                  Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 2개 앱의
+                  Swift/SwiftUI/UIKit 기반 개발자로 1인 개발 체제에서 2개 앱의
                   전체 iOS 개발을 단독으로 담당했습니다.
                 </p>
                 <p>

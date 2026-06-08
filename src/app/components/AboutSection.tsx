@@ -40,7 +40,7 @@ export function AboutSection() {
               <div className="flex flex-col gap-4">
                 <Eyebrow>01 — About</Eyebrow>
                 <h2 className="text-2xl font-medium tracking-tight text-foreground">
-                  iOS Developer
+                  Client Developer
                 </h2>
                 <p className="text-sm font-normal text-muted-foreground leading-normal">
                   Kim Dohyeong
