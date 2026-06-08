@@ -95,7 +95,7 @@ export function ProfileSection() {
   return (
     <section id="background" className="relative py-24 md:py-32 bg-muted/40">
       <SectionInner>
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid className="mb-16">
             <GridLabel>
               <div className="flex flex-col gap-3">
@@ -114,7 +114,7 @@ export function ProfileSection() {
         </FadeInView>
 
         {/* Skills */}
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid className="mb-16">
             <GridLabel>
               <Eyebrow>Skills</Eyebrow>
@@ -168,7 +168,7 @@ export function ProfileSection() {
         <Divider className="my-16" />
 
         {/* Career */}
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid className="mb-16">
             <GridLabel>
               <Eyebrow>Career</Eyebrow>
@@ -180,7 +180,7 @@ export function ProfileSection() {
         </FadeInView>
 
         {/* Education */}
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid className="mb-16">
             <GridLabel>
               <Eyebrow>Education</Eyebrow>
@@ -192,7 +192,7 @@ export function ProfileSection() {
         </FadeInView>
 
         {/* Awards */}
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid className="mb-16">
             <GridLabel>
               <Eyebrow>Awards</Eyebrow>
@@ -211,7 +211,7 @@ export function ProfileSection() {
         </FadeInView>
 
         {/* Activities */}
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid>
             <GridLabel>
               <Eyebrow>Activities</Eyebrow>

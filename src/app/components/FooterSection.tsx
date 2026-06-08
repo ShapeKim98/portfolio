@@ -50,7 +50,7 @@ const CONTACTS = [
 
 export function FooterSection() {
   return (
-    <section id="contact" className="relative py-24 md:py-32 border-t border-border">
+    <section id="contact" className="relative py-24 md:py-32 border-t border-border" data-print-keep>
       <SectionInner>
         <FadeInView>
           <EditorialGrid className="mb-16">

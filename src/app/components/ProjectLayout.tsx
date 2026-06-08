@@ -37,6 +37,7 @@ export function ProjectCover({
         className="relative w-full"
         data-print-keep
         data-print-cover
+        data-print-cover-library
       >
         <div
           className={cn(
@@ -85,7 +86,7 @@ export function ProjectCover({
       data-print-cover
     >
       <div className="relative overflow-hidden border-y border-border bg-muted/40 group max-h-[85vh]">
-        {/* Image — aspect fill: 자연 비율 유지, 85vh 초과분은 하단에서 잘림 */}
+        {/* Image — aspect fill: natural ratio preserved, cropped when exceeding 85vh */}
         <ClickableImage
           src={imageSrc}
           alt={imageAlt ?? title}

@@ -212,7 +212,7 @@ export function ExperienceSection() {
   return (
     <section id="experience" className="relative py-24 md:py-32">
       <SectionInner>
-        <FadeInView>
+        <FadeInView data-print-keep>
           <EditorialGrid className="mb-14">
             <GridLabel>
               <div className="flex flex-col gap-3">
