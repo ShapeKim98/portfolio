@@ -64,8 +64,8 @@ export function HeroSection() {
               className="text-sm font-normal text-muted-foreground/80 leading-relaxed max-w-2xl"
             >
               이 포트폴리오는 Claude Code를 활용한 바이브 코딩으로 만든
-              PDF이며, 기획·디자인 시스템·편집 레이아웃·PDF 자동 출력까지 AI를
-              도구로 활용했습니다. 실제 웹사이트는{" "}
+              웹페이지에서 변환한 PDF이며, 기획·디자인 시스템·편집 레이아웃·PDF
+              자동 출력까지 AI를 도구로 활용했습니다. 실제 웹사이트는{" "}
               <a
                 href="https://shapekim98.github.io/portfolio"
                 className="underline decoration-dotted underline-offset-4"

@@ -51,8 +51,8 @@ const CAREERS = [
   {
     period: "2025.08 ~ 2026.04",
     title: "미스고(주)",
-    meta: "Client Developer",
-    desc: "Swift/SwiftUI/UIKit 기반 개발자로 1인 개발 체제에서 2개 앱의 전체 iOS 개발을 단독으로 담당했습니다.",
+    meta: "iOS Developer",
+    desc: "Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 2개 앱의 전체 iOS 개발을 단독으로 담당했습니다.",
   },
 ];
 
