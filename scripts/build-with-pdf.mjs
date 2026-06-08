@@ -103,7 +103,7 @@ async function main() {
     const pdfUrl = `${baseUrl}?print=1&w=1280`;
     console.log(`[build-with-pdf] step 4: export-pdf -> ${pdfUrl}`);
     execSync(
-      `node scripts/export-pdf.mjs "${pdfUrl}" 1280 dist/portfolio.pdf`,
+      `node scripts/export-pdf.mjs "${pdfUrl}" 1280 dist/김도형_이력서.pdf`,
       { stdio: 'inherit' },
     );
   } finally {

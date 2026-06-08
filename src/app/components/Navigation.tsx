@@ -134,7 +134,7 @@ function SideIndex({
           김도형
         </button>
         <span className="text-xs font-medium tracking-widest uppercase text-muted-foreground">
-          iOS Developer
+          Client Developer
         </span>
       </div>
 
@@ -188,8 +188,8 @@ function SideIndex({
             <Mail size={16} />
           </a>
           <a
-            href={`${import.meta.env.BASE_URL}portfolio.pdf`}
-            download="김도형_iOS_포트폴리오.pdf"
+            href={`${import.meta.env.BASE_URL}김도형_이력서.pdf`}
+            download="김도형_이력서.pdf"
             aria-label="Download portfolio PDF"
             className="p-2 rounded-[10px] text-muted-foreground hover:text-foreground transition-colors"
           >
@@ -243,8 +243,8 @@ function TopBar({
 
         <div className="flex items-center gap-1">
           <a
-            href={`${import.meta.env.BASE_URL}portfolio.pdf`}
-            download="김도형_iOS_포트폴리오.pdf"
+            href={`${import.meta.env.BASE_URL}김도형_이력서.pdf`}
+            download="김도형_이력서.pdf"
             aria-label="Download portfolio PDF"
             className="p-2 rounded-[10px] text-muted-foreground hover:text-foreground transition-colors"
           >

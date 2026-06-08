@@ -229,8 +229,8 @@ export function ExperienceSection() {
             <GridBody>
               <div className="flex flex-col gap-4 text-base font-normal text-muted-foreground leading-relaxed">
                 <p>
-                  Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 2개 앱의
-                  전체 iOS 개발을 단독으로 담당했습니다.
+                  Swift/SwiftUI/UIKit 기반 iOS 개발자로 1인 개발 체제에서 2개
+                  앱의 전체 iOS 개발을 단독으로 담당했습니다.
                 </p>
                 <p>
                   약 8개월간 신규 기능 개발부터 성능 최적화, CI/CD 구축, 아키텍처

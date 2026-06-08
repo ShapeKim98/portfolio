@@ -13,7 +13,7 @@ import path from 'node:path';
 
 const DEFAULT_URL = 'http://localhost:4173/?print=1&w=1280';
 const DEFAULT_WIDTH = 1280;
-const DEFAULT_OUT = 'dist/portfolio.pdf';
+const DEFAULT_OUT = 'dist/김도형_이력서.pdf';
 
 const url = process.argv[2] || DEFAULT_URL;
 const width = Number(process.argv[3]) || DEFAULT_WIDTH;
